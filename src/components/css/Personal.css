@@ -1,0 +1,123 @@
+#mainsign {
+  border-radius: 10px;
+  margin: 20px auto 70px auto;
+  border: 1px solid #0a1034;
+  width: fit-content;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#mainsign h2 {
+  text-align: center;
+}
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+}
+label {
+  font-size: small;
+}
+#second {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#second label {
+  margin: 0px 10px 5px 0px;
+}
+.field {
+  max-width: 730px;
+  padding: 10px 10px 10px 0px;
+}
+.form-field {
+  width: 500px;
+  max-width: auto;
+  height: 45px;
+}
+.secondField {
+  width: 340px;
+  height: 45px;
+}
+#asterik {
+  color: red;
+}
+.requiredText {
+  color: #0a1034;
+  text-shadow: 0px 2px 40px #ffffff;
+  opacity: 0.6;
+  font-weight: 600;
+  font-size: small;
+}
+input {
+  height: 35px;
+  opacity: 0.6;
+  border: 2.5px solid rgba(10, 16, 52, 0.7);
+  border-radius: 5px;
+}
+form section {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+#vector-sec {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+#vector {
+  padding-right: 10px;
+}
+#vector input {
+  display: none;
+}
+/* #check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+} */
+.check {
+  padding: 10px;
+  font-size: medium;
+}
+#maleCheck {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  /* background-color: rgba(217, 217, 217, 0.5); */
+}
+#uploadText {
+  font-size: small;
+  font-weight: 400;
+  opacity: 0.8;
+  text-align: left;
+  margin-left: 15px;
+  color: #4a4a4a;
+}
+::placeholder {
+  padding-left: 10px;
+  display: flex;
+  align-items: flex-start;
+  text-align: start;
+}
+.edit-field {
+  width: 700px;
+}
+li {
+  list-style-type: none;
+}
+#center-button {
+  margin: 0px auto;
+}

@@ -1,0 +1,60 @@
+.delivery-details-wrapper {
+  background-color: #e8f4e3;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.delivery-details-wrapper-2 {
+  background-color: hsl(0, 0%, 100%);
+  margin: 0 auto 20px auto;
+  padding: 1em;
+  width: 1300px;
+  /* overflow-y: scroll;
+    overflow-x: hidden; */
+  overflow: hidden;
+}
+.delivery-details-spans {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.delivery-details-images {
+  margin-top: 30px;
+}
+.delivery-details-pictures {
+  display: flex;
+  margin-bottom: 20px;
+}
+.delivery-details-images h3 {
+  margin-bottom: 20px;
+}
+.delivery-details-amount {
+  padding: 10px 0;
+  border-top: 1.5px solid rgba(10, 16, 52, 0.6);
+  border-bottom: 1.5px solid rgba(10, 16, 52, 0.6);
+}
+.amount {
+  color: var(--maincolor);
+}
+.delivery-details-btns {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delivery-details-btns button {
+  outline: none;
+  border: none;
+  padding: 0.8em 2.9em;
+  background-color: rgba(242, 10, 10, 0.8);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.accept {
+  margin-left: 20px;
+  background-color: var(--maincolor) !important;
+}

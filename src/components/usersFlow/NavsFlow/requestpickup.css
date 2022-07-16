@@ -1,0 +1,89 @@
+.user-right-side-1 {
+  margin-top: 0.2em;
+  width: 100%;
+  height: 89vh;
+}
+.map-container {
+  width: 100%;
+  height: 89vh;
+}
+.map-container img {
+  width: 100%;
+  height: 100%;
+}
+.set-location-pickup-1 {
+  width: 70%;
+  height: fit-content;
+  background: rgba(250, 250, 250, 0.3);
+  backdrop-filter: blur(25px);
+  border-radius: 10px;
+  position: absolute;
+  top: 60vh;
+  left: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0px;
+}
+.set-location-btn-1 {
+  padding: 0.5em 4em;
+  border-radius: 8px;
+  color: white;
+  background-color: var(--maincolor);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: medium;
+  margin-top: 10px;
+}
+.location-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.location-form-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: flex-start;
+  justify-content: flex-start;
+}
+#location-form-input-1 {
+  margin-right: 100px;
+}
+#location-form-input-2 {
+  margin-left: 100px;
+}
+.location-form-input input {
+  width: 300px;
+}
+.location-form-input label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#price-div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: white;
+  border-radius: 9.70414px 9.70414px 0px 0px;
+  width: fit-content;
+  padding: 10px 20px;
+  box-shadow: 0px 15px 10px -15px #111;
+  font-size: small;
+}
+#price-p {
+  color: #1aa803;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: medium;
+}
+#type-div-w {
+  width: 40px;
+  height: 40px;
+}
+#type-div-w img {
+  width: 100%;
+  height: 100%;
+}

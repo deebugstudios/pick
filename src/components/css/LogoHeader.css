@@ -1,0 +1,12 @@
+#logodiv {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+  border-bottom: 1px solid #0a1034;
+}
+#logo {
+  width: 60px;
+  height: 54.5px;
+}

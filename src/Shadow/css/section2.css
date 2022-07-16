@@ -1,0 +1,133 @@
+.expectation {
+  margin-top: 7em;
+  width: 100%;
+  background: #e8f4e3;
+  height: 550px;
+  overflow: hidden;
+}
+.decor {
+  width: 18em;
+}
+.text {
+  display: grid;
+  place-items: center;
+}
+.expect {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.decor img,
+img {
+  width: 100%;
+}
+.ellispes {
+  width: 9rem;
+  padding-right: 0.75em;
+}
+.small-ellipse {
+  position: absolute;
+  top: 0;
+  right: -0.99%;
+  width: 15rem;
+  transform: rotateZ(12deg);
+}
+.big-ellipse {
+  position: absolute;
+  top: -6px;
+  right: -0.99%;
+  width: 9rem;
+  transform: rotateZ(-5deg);
+}
+.section2-subsec1-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.icons {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 3em;
+  overflow: hidden;
+}
+.icon2 {
+  width: 80px;
+}
+.section2-subsec1-wrapper > div {
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.section2-subsec1-wrapper > div > p {
+  padding: 0 5em;
+  margin-top: 1em;
+  text-align: center;
+}
+@media screen and (max-width: 861px) {
+  .expectation {
+    margin-top: 5em;
+    height: 400px;
+  }
+  .decor {
+    width: 10em;
+  }
+
+  .decor img,
+  img {
+    width: 90%;
+  }
+
+  .small-ellipse {
+    display: none;
+  }
+  .big-ellipse {
+    position: absolute;
+    top: -6px;
+    right: -0.99%;
+    width: 9rem;
+    transform: rotateZ(-5deg);
+  }
+  .icons {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 2em;
+    overflow: hidden;
+  }
+  .icon2 {
+    width: 60px;
+  }
+  .section2-subsec1-wrapper > div {
+    padding: 0.6em;
+  }
+  .section2-subsec1-wrapper > div > p {
+    padding: 0 2.5em;
+    margin-top: 0.5em;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .expectation {
+    margin-top: 3em;
+    height: 570px;
+  }
+  .big-ellipse {
+    width: 5rem;
+  }
+  .section2-subsec1-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .decor {
+    width: 6em;
+  }
+  .icons {
+    margin-bottom: 0.5em;
+  }
+  .ellispes {
+    width: 4rem;
+    padding-right: 0;
+  }
+}

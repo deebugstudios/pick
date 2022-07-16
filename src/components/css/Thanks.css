@@ -1,0 +1,19 @@
+#thanks-div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+#thanks-div p {
+  color: rgba(10, 16, 52, 0.8);
+}
+#thanks-div button {
+  width: max-content;
+  padding: 15px 70px;
+  background-color: #1aa803;
+  color: white;
+  border-radius: 20px;
+  border: #1aa803;
+}

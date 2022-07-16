@@ -1,0 +1,204 @@
+.chat-admin {
+    padding: 1em .1em !important;
+    background-color: #E8F4E3;
+}
+.chat-wrapper {
+    display: flex;
+    background: #FFFFFF;
+    width: 90%;
+    margin: 0 auto;
+    overflow-y: scroll;
+    overflow: visible;
+    padding: 1em 0;
+}
+.chat-left-side {
+    width: 40%;
+    height: 90vh;
+    overflow: hidden;
+}
+.Chat-profile {
+    margin-bottom: 12px;
+    padding: 5px 8px;
+    margin-left: 13px;
+    cursor: pointer;
+    position: relative;
+}
+.chat-margin {
+    margin-left: 13px;
+}
+.active-chat {
+    background: rgba(26, 168, 3, 0.15);
+    border-radius: 8px;
+}
+.Chat-profile p {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 15px;
+    padding-right: 2.5px;
+}
+/* .chat-report {
+    
+} */
+.chat-report img {
+    width: 20px;
+    position: absolute;
+    right: 5px;
+    top: 24%;
+}
+.time-of-msg {
+    position: absolute;
+    right: 0;
+    top: 10% ;
+    font-size: 10px !important;
+    line-height: 12px !important;
+    font-weight: 200 !important;
+}
+.no-of-messages {
+    font-weight: 400;
+    font-size: 7px;
+    line-height: 10px;
+    background: #F5EC16;
+    border-radius: 4px;
+    width: 15px;
+    text-align: center;
+    position: absolute;
+    right: 6px;
+    top: 58%;
+}
+.Chat-profile:hover {
+    background-color: rgba(26, 168, 3, 0.15);
+    border-radius: 8px;
+}
+.chat-left-side-top {
+    margin-bottom: 20px;
+}
+.chat-left-side h5 {
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.resovled-chat {
+    position: relative;
+    padding: 3px 5px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.resovled-chat:hover {
+    background-color: rgba(26, 168, 3, 0.15);
+    border-radius: 8px;
+}
+.resovled-chat p {
+    font-size: 10px !important;
+    line-height: 12px !important;
+    font-weight: 200 !important;
+    color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 20%;
+    right: 0;
+}
+/* code for the right side of the chat page  */
+.chat-right-side {
+    width: 100%;
+    padding: 1em;
+}
+.your-profile h3 {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+}
+.your-profile h6, .message-header h6 {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+}
+.message-header {
+    width: 100%;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+}
+.message-header h6 {
+    font-weight: 900 !important;
+    position: relative;
+    text-align: center;
+    color: var(--maincolor);
+    text-decoration: underline;
+    padding-bottom: 5px;
+    cursor: pointer;
+    width: 30%;
+    margin: 0 auto;
+}
+.message-header img {
+    width: 20px;
+    position: absolute;
+    top: -20%;
+}
+.messages-wrapper {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    height: 60vh;
+}
+.date-of-msg {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 15px;
+    text-align: center;
+    padding-top: 10px;
+    color: rgba(0, 0, 0, 0.6);
+}
+.incoming-msgs p, .outgoing-msgs p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    padding: .9em .7em;
+    max-width: 70%;
+    background: rgba(218, 218, 218, 0.3);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.incoming-msgs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.outgoing-msgs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+/* styling for the sending of a  message */
+.chat-section {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 10%;
+    background-color: white;
+    width: 40%;
+    right: 12%;
+}
+.typing-bar input {
+    padding: 0;
+    margin: 0 !important;
+    height: 40px;
+    border-radius: 10px;
+    outline: none;
+    /* border: none; */
+}
+.attachment, .send-message {
+ width: 25px;
+}
+.attachment {
+    margin-right: 5px;
+}
+.attachment img, .send-message img {
+    width: 100%;
+    cursor: pointer;
+}
+.chat-icons {
+    display: flex;
+    align-items: center;
+}
+.typing-bar {
+    flex: 1;
+}

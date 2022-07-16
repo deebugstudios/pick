@@ -1,0 +1,109 @@
+.agent-wrapper {
+    display: flex;
+    overflow: hidden;
+}
+@media screen and (max-width:591px) {
+    .agent-wrapper {
+        flex-direction: column;
+        height: 100vh;
+    }
+    .agent-left-side {
+        padding: .5em 1em !important;
+        width: 100% !important;
+        text-align: center;
+    }
+    .agent-right-side {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .agent li {
+        list-style: none !important;
+    }
+    .agent-left-side button {
+        margin-left: 0 !important;
+    }
+    .agent-image {
+         height: 100% !important;
+     }
+}
+@media screen and (max-width:558px) {
+    .agent-left-side h3 {
+        padding: .3em !important;
+        font-size: 20px !important;
+        line-height: 25px !important;
+    }
+    .agent-left-side {
+        padding: 0 !important;
+    }
+    .agent-left-side p {
+        font-size: 12px !important;
+        line-height: 25px !important;
+        padding: 0 !important;
+    }
+}
+.agent-left-side {
+    padding: 1em 2em;
+    width: 50%;
+}
+@media screen and (max-width:922px) {
+    .agent-left-side {
+        padding: .3em .5em;
+    }
+    .agent-left-side h3 {
+        padding: .4em .5em !important;
+        font-size: 25px !important;
+        /* line-height: 40px; */
+    }
+    .agent-left-side p {
+        font-size: 15px !important;
+        /* line-height: 30px; */
+        padding: .4em .5em !important;
+    }
+}
+.agent-left-side h3 {
+    padding: .8em 1em;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 40px;
+}
+.agent-left-side p {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px;
+    padding: 1em 1.5em;
+}
+.agent {
+    padding: 1em 1.5em;
+}
+.agent li {
+    list-style: circle;
+}
+.agent-left-side button {
+    padding: 1em 2em;
+    margin-left: 35px;
+    border: none;
+    background: #21AB0A;
+    box-shadow: 0px 100px 80px rgba(56, 56, 56, 0.1), 0px 64.8148px 46.8519px rgba(56, 56, 56, 0.0759259), 0px 38.5185px 25.4815px rgba(56, 56, 56, 0.0607407), 0px 20px 13px rgba(56, 56, 56, 0.05), 0px 8.14815px 6.51852px rgba(56, 56, 56, 0.0392593), 0px 1.85185px 3.14815px rgba(56, 56, 56, 0.0240741);
+    border-radius: 6px;
+}
+.green {
+    color: var(--maincolor);
+}
+.agent-right-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+/* .agent-right-side  {
+   width: 80%;
+   height: 60%;
+} */
+.agent-image {
+    width: 70%;
+    height: 80%;
+}
+.agent-image img {
+    width: 100%;
+    height: 100%;
+}

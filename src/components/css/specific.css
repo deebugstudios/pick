@@ -1,0 +1,17 @@
+#profile-ratings-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ratings-info {
+  margin: 10px auto;
+}
+#specific-table {
+  display: flex;
+  flex-direction: column;
+}
+#specific-table div {
+  align-self: center;
+  text-align: center;
+}

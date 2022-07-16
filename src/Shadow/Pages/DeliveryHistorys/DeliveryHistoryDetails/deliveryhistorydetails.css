@@ -1,0 +1,34 @@
+.pending-delivery {
+    width: 100%;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.history-wrapper {
+    overflow: scroll;
+}
+.estimatedtime {
+    font-size: .8rem;
+}
+.delivered-time {
+    margin-left: 20%;
+}
+.delivery-profile {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+.driver-profile-image {
+    margin-right: 10px;
+}
+.image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--maincolor);
+    margin-bottom: 5px;
+}
+.delivery-history-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #E0E0E0;
+}

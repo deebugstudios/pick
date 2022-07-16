@@ -1,0 +1,16 @@
+#otp-div-del {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px auto 50px auto;
+  border: 1px solid #0a1034;
+  width: fit-content;
+  padding: 0px 80px 80px 80px;
+}
+#otp-div-del h2 {
+  font-size: x-large;
+  margin: 30px 0px 60px 0px;
+}

@@ -1,0 +1,90 @@
+.mainBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: -10.0909px -7.56816px 31.534px rgba(84, 84, 84, 0.25),
+    10.0909px 7.56816px 31.534px rgba(84, 84, 84, 0.36);
+  margin: 5% auto 5% auto;
+  width: fit-content;
+  /* max-width: 70vw; */
+  padding: 3px;
+}
+#DeliveryImage {
+  text-align: left;
+  color: white;
+  padding: 50px 50px 30px 30px;
+  background-color: #1faa08;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-right: -20px;
+  height: 100%;
+}
+#yellow {
+  color: yellow;
+}
+.joinBox {
+  background-color: white;
+  text-align: center;
+  padding: 0px 0px 30px 20px;
+  border-radius: 20px;
+  height: 510px;
+}
+#join {
+  text-align: left;
+}
+#select input[type="radio"]:checked::after {
+  background-color: #1faa08;
+}
+#signFlex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.sign {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #0a1034;
+  font-weight: 500px;
+  font-size: large;
+  width: 270px;
+  height: 280px;
+  margin: 30px 20px 30px 0px;
+  position: relative;
+  /* background-color: rgba(31, 170, 8, 0.15); */
+}
+#signUser {
+  background-color: rgba(31, 170, 8, 0.15);
+}
+.sign:active {
+  background-color: rgba(31, 170, 8, 0.15);
+  border: none;
+}
+#loginSpan {
+  color: #0ac05e;
+}
+#accountAlready {
+  font-size: small;
+  text-align: center;
+  opacity: 0.8;
+}
+#join {
+  margin-top: 30px;
+}
+.choose {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}

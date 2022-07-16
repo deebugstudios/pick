@@ -1,0 +1,26 @@
+/* body {
+  text-align: center;
+  align-items: center;
+  box-sizing: border-box;
+} */
+#i2 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 40px;
+}
+.side {
+  text-align: left;
+}
+#Form-flex-forgot {
+  border-radius: 20px;
+  padding: 50px 40px 30px 50px;
+  height: 510px;
+  background-color: white;
+  text-align: center;
+}
+#side-p {
+  font-weight: 400;
+  opacity: 0.7;
+}

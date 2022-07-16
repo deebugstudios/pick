@@ -1,0 +1,11 @@
+#otp-flex {
+  border-radius: 20px;
+  padding: 0px 40px 30px 50px;
+  height: 510px;
+  background-color: white;
+}
+.otp-p {
+  margin-bottom: 50px;
+  text-align: left;
+  font-size: larger;
+}

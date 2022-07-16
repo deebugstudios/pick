@@ -1,0 +1,46 @@
+.white-div {
+  border: none;
+  border-radius: 0;
+  margin: 0px 20px 0px 20px;
+  display: flex;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+.form-fields {
+  width: 800px;
+  max-width: auto;
+  height: 45px;
+}
+.form-field-Instructions {
+  width: 800px;
+  max-width: auto;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+  text-align: start;
+}
+.form-field-Instructions[type="text"] {
+  padding-bottom: 60px;
+  word-wrap: break-word;
+  word-break: break-all;
+  -ms-word-wrap: break-word;
+}
+#image-upload {
+  color: #f20a0a99;
+  font-size: smaller;
+}
+
+#time-factor p {
+  color: #0a1034;
+  opacity: 0.6;
+  text-shadow: 0px 2px 80px #ffffff;
+  font-size: small;
+}
+#time-factor input {
+  margin-left: 20px;
+  opacity: 1 !important;
+}

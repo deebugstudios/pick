@@ -1,0 +1,361 @@
+.section2subsec4 {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.background-green {
+    background-image: url(../images/backgroundsubsec4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    /* flex-basis: 70%; */
+    justify-content: space-around;
+    align-items: center;
+}
+.left-green-background {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+}
+.background-green h3 {
+    line-height: 35px;
+    font-weight: 400;
+    font-size: 28px;
+}
+.background-green h3 span {
+    color: #FEFEFE;
+}
+.social-btn-container {
+    margin-top: 30px;
+}
+.social-btn-container > button {
+    margin-right: 30px;
+}
+.social-btn {
+    /* margin: 30px 20px 0 0 !important; */
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+.mobile {
+    width: 270px;
+    margin-top: -130px;
+    /* position: absolute;
+    right: 20%;
+    top:-50%  */
+}
+@media screen and (max-width:850px) {
+    .background-green h3 {
+        line-height: 30px;
+        font-size: 23px;
+    }
+    .mobile {
+        width: 240px;
+        margin-top: -150px;
+    }
+}
+@media screen and (max-width:850px) {
+    .background-green h3 {
+        line-height: 27px;
+        font-size: 18px;
+    }
+    .mobile {
+        width: 200px;
+        margin-top: -120px;
+    }
+}
+@media screen and (max-width:600px) {
+    .background-green h3 {
+        line-height: 22px;
+        font-size: 14px;
+    }
+    .mobile {
+        width: 150px;
+        margin-top: -90px;
+    }
+    .social-btn {
+        width: 80px !important;
+    }
+}
+@media screen and (max-width:480px) {
+    .background-green h3 {
+        line-height: 20px;
+        font-size: 12px;
+    }
+    .mobile {
+        width: 130px;
+        margin-top: -80px;
+    }
+    .social-btn {
+        width: 50px !important;
+    }
+    .social-btn-container > button {
+        margin-right: 10px !important;
+    }
+    .left-green-background {
+        padding: 1em;
+    }
+}
+@media screen and (max-width:340px) {
+    .background-green h3 {
+        line-height: 19px;
+        font-size: 12px;
+    }
+    .mobile {
+        width: 100px;
+        margin-top: -70px;
+    }
+    .social-btn-container > button {
+        margin-right: 8px !important;
+    }
+}
+/* code bellow the phone */
+.first-bg-green {
+    display: flex;
+    /* height: 150px;
+    position: absolute;
+    top: 300px; */
+    padding: 3em;
+    background-image: url(../images/backgroundsubsec4ii.png);
+    background-image: url(../images/backgroundsubsec4.png);
+    background: linear-gradient(90.04deg, #5CB30B 0.04%, #2D9209 65.51%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 63%;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+.first-bg-green h3{
+    padding: 1em;
+    font-weight: 300 !important;
+    font-size: 20px;
+    line-height: 22px;
+}
+.first-bg-green div  {
+    display: flex;
+}
+.second-btn-style {
+    margin-right: 5px;
+}
+.social-btn {
+    width: 100px;
+    cursor: pointer;
+}
+@media screen and (max-width:980px) {
+    .first-bg-green h3, .second-bg-text h3{
+        padding: .5em;
+        font-size: 18px !important;
+        line-height: 20px !important;
+    }
+    .second-btn-style {
+        width: 80px !important;
+    }
+    .second-btn-style {
+        margin-right: 3px;
+    }
+}
+@media screen and (max-width:700px) {
+    .first-bg-green h3, .second-bg-text h3{
+        padding: 0 !important;
+        font-size: 15px !important;
+        line-height: 18px !important;
+    }
+    .second-btn-style {
+        width: 60px !important;
+    }
+    .second-btn-style {
+        margin-right: 2px;
+    }
+}
+@media screen and (max-width:640px) {
+   .first-bg-green {
+       flex-direction: column;
+       padding: 2em;
+   }
+   .first-bg-green div  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    }
+    .first-bg-green h3{
+        text-align: center;
+    }
+}
+/* the code for the third background color  */
+.second-bg {
+    width: 50%;
+    background: #F1F1F1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 1em;
+}
+.second-bg-text h3 {
+    padding: 1em;
+    font-weight: 400 !important;
+    font-size: 22px;
+    line-height: 24px;
+}
+.second-bg span {
+    color: var(--maincolor);
+}
+.second-bg-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 5px;
+}
+.pickload-video-container {
+    width: 55%;
+    margin: 0 auto;
+    margin-top: 30px;
+    cursor: pointer;
+}
+/*
+@media screen and (max-width:700px) {
+    .background-green h3 {
+        font-size: 12px;
+        line-height: 20px;
+        padding-top: 60px;
+    }
+    .background-green {
+        justify-content: flex-start;
+        top: 150px;
+        height: 280px;
+        
+    }
+    .left-green-background {
+        margin-left: 30px;
+    }
+}
+
+*/
+
+/*
+.wrapper-second-green{
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.first-bg-green h3 {
+    padding-top: 65px;
+}
+
+@media screen and (max-width:1362px) {
+    .first-bg-green {
+        padding: 0 30px 0 30px;
+    }
+    .first-bg-green h3 {
+        padding-top: 55px;
+    }
+    .second-btn-style {
+        padding-top: 35px;
+        margin-right: 9px !important;
+    }
+}
+@media screen and (max-width:1101px) {
+    .first-bg-green {
+        padding: 0 0px 0 0px;
+    }
+    .first-bg-green h3 {
+        padding: 50px;
+    }
+    .second-green {
+        width: 65% !important;
+    }
+}
+
+@media screen and (max-width:1027px) {
+    .first-bg-green {
+        display: flex;
+        flex-direction: column;
+    }
+    .first-bg-green div {
+        position: absolute;
+        top: 30px;
+        left: 230px;
+    }
+    .first-bg-green h3 {
+        position: absolute;
+        left: 120px;
+    }
+}
+
+@media screen and (max-width:961px) {
+    .first-bg-green div {
+        position: absolute;
+        top: 30px;
+        left: 190px;
+    }
+    .first-bg-green h3 {
+        position: absolute;
+        text-align: center;
+        left: 28px;
+        width: 100%;
+    }
+    .second-bg {
+        height: 130px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-around !important;
+     }
+}
+@media screen and (max-width:709px) {
+    .first-bg-green div {
+        position: absolute;
+        top: 35px;
+        left: 100px;
+    }
+}
+@media screen and (max-width:664px) {
+    .first-bg-green div {
+        left: 90px;
+    }
+    .first-bg-green h3 {
+        padding-top: 35px;
+    }
+   
+}
+@media screen and (max-width:697px) {
+    .second-bg h3 {
+        font-size: small;
+     }
+     .second-bg {
+        padding: 0 20px !important;
+     }
+}
+@media screen and (max-width:913px) {
+    .mobile {
+        width: 250px;
+        right: 8%;
+        top:-48%
+        
+    }
+}
+@media screen and (max-width:769px) {
+    .mobile {
+        width: 200px;
+        right: 7%;
+        top:-40%
+        
+    }
+}
+
+.second-btn-style {
+    padding-top: 35px;
+}
+
+
+.second-bg {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 50px;
+}
+ */

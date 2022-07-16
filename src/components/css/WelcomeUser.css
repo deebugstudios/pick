@@ -1,0 +1,32 @@
+#Form-flex-ULogin {
+  border-radius: 20px;
+  padding: 50px 40px 30px 50px;
+  height: 510px;
+  background-color: white;
+}
+#User-form-ULogin {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+#forgot {
+  text-align: right;
+  align-self: flex-end;
+  font-size: small;
+  color: #197909;
+  /* margin-top: 3px; */
+  cursor: pointer;
+}
+#agree-p {
+  text-align: center;
+  font-size: small;
+  margin-bottom: 70px;
+}
+#welcome-main {
+  margin-bottom: 25px;
+}
+.policy {
+  color: #1aa803;
+  cursor: pointer;
+}

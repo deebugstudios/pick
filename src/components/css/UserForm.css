@@ -1,0 +1,47 @@
+#Form-flex {
+  border-radius: 20px;
+  padding: 0px 40px 30px 50px;
+  height: 510px;
+  background-color: white;
+}
+#User-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+  margin: 30px 20px 0px 20px;
+}
+/* input[type="text"] {
+  padding-left: 100px;
+} */
+.input-field {
+  width: 400px;
+  height: 45px;
+  /* max-width: auto; */
+}
+#asterik {
+  color: red;
+}
+.user-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 30%;
+  left: 10px;
+}
+.mail-icon {
+  width: 25px;
+  height: 20px;
+  position: absolute;
+  top: 30%;
+  left: 10px;
+}
+.locate-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 20%;
+  left: 10px;
+}

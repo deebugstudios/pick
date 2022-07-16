@@ -1,0 +1,52 @@
+#note {
+  font-size: 10.5px;
+}
+.uploadFlex {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  align-items: flex-start;
+}
+.uploadPad {
+  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#flexUpload {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+.date-field {
+  height: 45px;
+  background-color: #f5ec16;
+  border: none;
+}
+.date-field::placeholder {
+  text-align: center;
+  opacity: 1 !important;
+  color: black;
+}
+#uploadText-2 {
+  font-size: small;
+  font-weight: 400;
+  opacity: 1;
+  text-align: left;
+}
+.RadioV {
+  width: 20px;
+  height: 20px;
+}
+.vehicle-text {
+  font-size: large;
+  opacity: 0.6;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+#truck-rad {
+  margin-left: 3px;
+}
+#pad-vec {
+  margin-bottom: 40px;
+}

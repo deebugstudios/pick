@@ -1,0 +1,18 @@
+#head {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 0px 15px 20px;
+  margin: 10px 0px 0px 0px;
+  border-bottom: 1px solid #0a1034;
+}
+#head2 {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 0px 15px 20px;
+  margin: 10px 0px 0px 0px;
+  border: none;
+}
