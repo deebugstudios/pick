@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "../css/signup.css";
-import Select from "../Images/Select.png";
-import Selected from "../Images/SelectedTab.png";
+// import Select from "../Images/Select.png";
+// import Selected from "../Images/SelectedTab.png";
 import Button from "./Button";
 import DeliveryImage from "../Images/DeliveryImage.png";
 import Head from "./Head";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
-import UserForm from "../Pages/UserForm";
-import SignupDelivery from "../Pages/SignupDelivery";
+// import { Link } from "react-router-dom";
+// import UserForm from "../Pages/UserForm";
+// import SignupDelivery from "../Pages/SignupDelivery";
 import { useNavigate } from "react-router-dom";
 
 export default function Sign(props) {
@@ -87,7 +87,6 @@ export default function Sign(props) {
                     // name="choose"
                     value={props.val2}
                     checked={member === props.val2}
-                    onC
                     onChange={handleChange}
                   />
                   <div>

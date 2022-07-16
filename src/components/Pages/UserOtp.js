@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/signup.css";
 import DeliveryImage from "../Images/DeliveryImage.png";
-import Button from "../javascript/Button";
+// import Button from "../javascript/Button";
 import Head from "../javascript/Head";
 import OTP from "../javascript/OTP";
 import "../css/userotp.css";

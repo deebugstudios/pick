@@ -2,7 +2,7 @@ import React from "react";
 import Sign from "../javascript/sign";
 import Rider from "../Images/rider_image.png";
 import User from "../Images/user_image.png";
-import Footer from "../javascript/Footer";
+// import Footer from "../javascript/Footer";
 
 export default function Signup() {
   return (

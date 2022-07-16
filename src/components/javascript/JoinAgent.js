@@ -6,7 +6,7 @@ import ProgressM from "../Images/ProgressI.png";
 import "../css/Personal.css";
 import Vector from "../Images/Vector.png";
 import Footer from "./Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
 import Locate from "../Images/locate.png";

@@ -2,7 +2,7 @@ import React from "react";
 import Animal from "../Images/animal.png";
 import Button from "../javascript/Button";
 import "../css/Success.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Success() {
   const navigate = useNavigate();

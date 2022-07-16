@@ -5,7 +5,7 @@ import Button from "../javascript/Button";
 import Head from "../javascript/Head";
 import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function WelcomeUser() {
   const asterik = <span id="asterik">*</span>;

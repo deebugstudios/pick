@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "../css/otp.css";
 import Button from "./Button";
-import Head from "./Head";
+// import Head from "./Head";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function OTP() {

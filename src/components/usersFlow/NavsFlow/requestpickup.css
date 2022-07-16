@@ -7,10 +7,10 @@
   width: 100%;
   height: 89vh;
 }
-.map-container img {
+/* .map-container img {
   width: 100%;
   height: 100%;
-}
+} */
 .set-location-pickup-1 {
   width: 70%;
   height: fit-content;
@@ -19,12 +19,13 @@
   border-radius: 10px;
   position: absolute;
   top: 60vh;
-  left: 20%;
+  left: 23%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   padding: 20px 0px;
+  flex-wrap: wrap;
 }
 .set-location-btn-1 {
   padding: 0.5em 4em;
