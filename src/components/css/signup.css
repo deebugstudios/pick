@@ -63,13 +63,13 @@
   position: relative;
   /* background-color: rgba(31, 170, 8, 0.15); */
 }
-#signUser {
+/* #signUser {
   background-color: rgba(31, 170, 8, 0.15);
-}
-.sign:active {
+} */
+/* .sign:active {
   background-color: rgba(31, 170, 8, 0.15);
   border: none;
-}
+} */
 #loginSpan {
   color: #0ac05e;
 }

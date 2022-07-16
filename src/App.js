@@ -19,6 +19,9 @@ import LoggedinMainPage from "./Shadow/LoggedinMainPage";
 import Main from "./Shadow/javascripts/Main";
 import { FleetOtp } from "./components/Pages/DeliveryOtp";
 import ResquestPickup from "./Shadow/Pages/DeliveryRequest/Request_pickup/ResquestPickup";
+import DeliveryType from "./components/usersFlow/DeliveryType";
+import FormUserDelivery from "./components/usersFlow/NavsFlow/FormUserDelivery";
+import SelectAgent from "./components/usersFlow/NavsFlow/SelectAgent";
 
 export default function App() {
   return (
@@ -51,6 +54,9 @@ export default function App() {
             element={<LoggedinMainPage name={<ResquestPickup />} />}
           />
           <Route path="userflow" element={<UserRequestPickup />} />
+          <Route path="type" element={<DeliveryType />} />
+          <Route path="formuser" element={<FormUserDelivery />} />
+          <Route path="select-a" element={<SelectAgent />} />
         </Routes>
       </BrowserRouter>
     </>

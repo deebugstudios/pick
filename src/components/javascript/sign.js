@@ -13,11 +13,25 @@ import { useNavigate } from "react-router-dom";
 
 export default function Sign(props) {
   const [member, setMember] = useState(props.val);
+  const [bgColor, setBgColor] = useState("rgba(31, 170, 8, 0.15)");
+  const [secBg, setSecBg] = useState("");
+  // const [check, setCheck] = useState(true);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setMember(e.target.value);
+    if (member === props.val) {
+      setBgColor("white");
+      setSecBg("rgba(31, 170, 8, 0.15)");
+
+      // setCheck(true);
+    } else if (member === props.val2) {
+      setBgColor("rgba(31, 170, 8, 0.15)");
+      setSecBg("white");
+
+      // setCheck(false)
+    }
   };
 
   const handleSubmit = (e) => {
@@ -52,13 +66,18 @@ export default function Sign(props) {
           <form onSubmit={handleSubmit} className="sign-form">
             <div id="signFlex">
               <label htmlFor="select">
-                <div className="sign" id="signUser">
+                <div
+                  className="sign"
+                  id="signUser"
+                  style={{ backgroundColor: bgColor }}
+                >
                   {/* <img
                 id="selected"
                 className="choose"
                 src={Selected}
                 alt="choose"
               /> */}
+
                   <input
                     id="select"
                     className="choose"
@@ -78,7 +97,11 @@ export default function Sign(props) {
               </label>
 
               <label htmlFor="sel">
-                <div className="sign" id="signRider">
+                <div
+                  className="sign"
+                  id="signRider"
+                  style={{ backgroundColor: secBg }}
+                >
                   {/* <img id="select" className="choose" src={Select} alt="choose" /> */}
                   <input
                     id="sel"

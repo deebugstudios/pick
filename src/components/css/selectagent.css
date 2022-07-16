@@ -63,3 +63,7 @@
 .ratings-star p {
   font-size: x-small;
 }
+.ratings-star p img {
+  height: 10px;
+  width: 10px;
+}
