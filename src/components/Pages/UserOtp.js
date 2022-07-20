@@ -12,13 +12,13 @@ export default function UserOtp() {
     <>
       <Head />
       <div className="mainBox">
-        <div id="DeliveryImage">
+        <div className="delivery-img-otp" id="DeliveryImage">
           <p>
             Door to Door <span id="yellow">delivery</span>
             <br /> services for individuals
             <br /> and businesses.
           </p>
-          <br />
+          <br id="otp-hide" />
           <br />
           <img src={DeliveryImage} alt="Deliver" />
         </div>

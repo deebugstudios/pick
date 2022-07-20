@@ -22,13 +22,13 @@ export default function IndividualVehicle() {
         <br />
         <br />
 
-        <form className="sign-form">
+        <form className="sign-form" id="vehicle-i">
           <p className="requiredText">
             {asterik} Please select the delivery medium you want to register
             <br />
           </p>
 
-          <section className="Radio" id="Radio-1">
+          <section className="Radio vehicle-rad" id="Radio-1">
             <input
               type="radio"
               value="Bike"
@@ -48,7 +48,7 @@ export default function IndividualVehicle() {
           </section>
           <br />
 
-          <section className="Radio" id="Radio-2">
+          <section className="Radio vehicle-rad" id="Radio-2">
             <input type="radio" value="Car" name="Vehicle" className="RadioV" />
             <label htmlFor="Car">
               <span className="vehicle-text">Car</span>

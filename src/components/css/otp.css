@@ -13,7 +13,7 @@
   border-bottom: 2px solid #0a1034;
   border-radius: 0%;
   margin: 9px;
-  width: 70px;
+  width: 30px;
   text-align: center !important;
   font-size: 18px;
   padding: 0%;
@@ -40,7 +40,7 @@
   border-bottom: 2px solid #0a1034;
   border-radius: 0%;
   margin: 9px;
-  width: 80px;
+  width: 30px;
   text-align: center !important;
   font-size: 18px;
   padding: 0%;
@@ -52,4 +52,18 @@
   opacity: 0.7;
   margin-bottom: 70px;
   font-size: medium !important;
+}
+
+@media screen and (max-width: 633px) {
+  #another-code,
+  #another-code-2 {
+    opacity: 0.7;
+    font-size: small !important;
+  }
+  #otp-paragraph {
+    font-size: small !important;
+  }
+  #another-code-2 {
+    margin-bottom: 20px;
+  }
 }

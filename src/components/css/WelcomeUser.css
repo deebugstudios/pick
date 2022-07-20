@@ -30,3 +30,67 @@
   color: #1aa803;
   cursor: pointer;
 }
+
+@media screen and (max-width: 910px) {
+  .delivery-img-welcome {
+    padding: 10px 0px 0px 20px !important;
+  }
+  .delivery-img-welcome img {
+    max-width: 80%;
+    margin-top: 0% !important;
+    margin-bottom: 10px !important;
+  }
+  #Form-flex-ULogin {
+    padding: 20px 20px 100px 30px;
+    height: max-content;
+  }
+}
+@media screen and (max-width: 785px) {
+  #Form-flex-ULogin {
+    padding: 10px 10px 80px 20px;
+  }
+  #User-form-ULogin {
+    margin: 30px 10px 0px 10px;
+  }
+}
+@media screen and (max-width: 785px) {
+  #User-form-ULogin input {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .delivery-img-welcome {
+    font-size: small;
+    word-wrap: break-word;
+  }
+  #Form-flex-ULogin {
+    padding: 0px 0px 60px 10px;
+  }
+}
+@media screen and (max-width: 549px) {
+  #forgot {
+    font-size: x-small;
+  }
+  #Form-flex-ULogin {
+    padding: 0px 0px 40px 10px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  #agree-p {
+    font-size: x-small;
+    margin-bottom: 40px;
+  }
+  #Form-flex-ULogin {
+    padding-bottom: 10px;
+  }
+  /* #Form-flex-ULogin h2 {
+  } */
+}
+
+@media screen and (max-width: 330px) {
+  #User-form-ULogin input {
+    width: 250px;
+  }
+}

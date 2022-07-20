@@ -63,7 +63,11 @@ export default function Sign(props) {
         <div className="joinBox">
           <h2 id="join">{props.title}</h2>
 
-          <form onSubmit={handleSubmit} className="sign-form">
+          <form
+            onSubmit={handleSubmit}
+            className="sign-form"
+            id="select-as-form"
+          >
             <div id="signFlex">
               <label htmlFor="select">
                 <div
@@ -71,13 +75,6 @@ export default function Sign(props) {
                   id="signUser"
                   style={{ backgroundColor: bgColor }}
                 >
-                  {/* <img
-                id="selected"
-                className="choose"
-                src={Selected}
-                alt="choose"
-              /> */}
-
                   <input
                     id="select"
                     className="choose"

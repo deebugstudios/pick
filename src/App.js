@@ -22,6 +22,7 @@ import ResquestPickup from "./Shadow/Pages/DeliveryRequest/Request_pickup/Resque
 import DeliveryType from "./components/usersFlow/DeliveryType";
 import FormUserDelivery from "./components/usersFlow/NavsFlow/FormUserDelivery";
 import SelectAgent from "./components/usersFlow/NavsFlow/SelectAgent";
+import InstantDeliverySummary from "./components/usersFlow/NavsFlow/InstantDeliverySummary";
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="type" element={<DeliveryType />} />
           <Route path="formuser" element={<FormUserDelivery />} />
           <Route path="select-a" element={<SelectAgent />} />
+          <Route path="summary-i" element={<InstantDeliverySummary />} />
         </Routes>
       </BrowserRouter>
     </>

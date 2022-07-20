@@ -15,6 +15,8 @@ export default function OTP() {
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
+          <input type="text" maxLength="1" />
+          <input type="text" maxLength="1" />
 
           <br />
           <br />
@@ -53,6 +55,8 @@ export function OTP2() {
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
+          <input type="text" maxLength="1" />
+          <input type="text" maxLength="1" />
 
           <br />
           <br />
@@ -84,6 +88,8 @@ export function OTP3() {
       <div id="otp-div-2">
         <p id="otp-paragraph">Enter the OTP sent by SMS to 08067654532</p>
         <div id="otpField">
+          <input type="text" maxLength="1" />
+          <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />
           <input type="text" maxLength="1" />

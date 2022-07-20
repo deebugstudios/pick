@@ -1,0 +1,55 @@
+.estimatedtime {
+  font-size: 0.8rem;
+}
+.delivered-time {
+  margin-left: 20%;
+}
+.delivery-profile {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
+.driver-profile-image {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--maincolor);
+  margin-bottom: 5px;
+}
+.delivery-history-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #e0e0e0;
+}
+.delivery-details-pictures {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+.report-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.report-user p {
+  color: rgba(242, 10, 10, 0.8);
+  cursor: pointer;
+  /* font-size: small; */
+}
+.report-user button {
+  margin-left: 40px;
+  background: white;
+  border: 2.5px solid #1aa803;
+  border-radius: 7px;
+  color: #1aa803;
+  width: fit-content;
+  padding: 5px 20px;
+  cursor: pointer;
+}

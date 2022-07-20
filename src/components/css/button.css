@@ -54,3 +54,64 @@
   margin: 5px 20px 10px 20px;
   cursor: pointer;
 }
+@media screen and (max-width: 950px) {
+  #compButton {
+    background: #1aa803;
+    border: 2.5px solid #1aa803;
+    border-radius: 5px;
+    color: white;
+    width: max-content;
+    font-size: large;
+    text-align: center;
+    justify-self: center !important;
+    align-self: center !important;
+    margin: 5px 20px 10px 20px;
+    cursor: pointer;
+    padding: 3px 60px 3px 60px;
+  }
+
+  #compButton2 {
+    background: #666666;
+    border: 2.5px solid #666666;
+    border-radius: 5px;
+    color: white;
+    width: max-content;
+    font-size: large;
+    text-align: center;
+    justify-self: center !important;
+    align-self: center !important;
+    margin: 5px 20px 10px 20px;
+    cursor: pointer;
+    padding: 3px 60px 3px 60px;
+  }
+
+  #compButton3 {
+    background: white;
+    border: 2.5px solid #1aa803;
+    border-radius: 5px;
+    color: #1aa803;
+    width: max-content;
+    font-size: large;
+    text-align: center;
+    justify-self: center !important;
+    align-self: center !important;
+    margin: 5px 20px 10px 20px;
+    cursor: pointer;
+    padding: 3px 60px 3px 60px;
+  }
+
+  #compButton4 {
+    background: #666666;
+    border: 2.5px solid #666666;
+    border-radius: 5px;
+    color: white;
+    width: max-content;
+    font-size: large;
+    text-align: center;
+    justify-self: center !important;
+    align-self: center !important;
+    margin: 5px 20px 10px 20px;
+    cursor: pointer;
+    padding: 3px 60px 3px 60px;
+  }
+}

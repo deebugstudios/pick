@@ -1,0 +1,25 @@
+.history-wrapper {
+    background: #FEFEFE;
+    width: 90%;
+    margin: 0 auto;
+    overflow-y: scroll;
+    overflow: visible;
+    padding: 2em;
+}
+.calender-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.search-box {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 6.62391px 8.27988px rgba(0, 0, 0, 0.12);
+    border: none;
+    border-radius: 8px;
+}
+.search-box:focus {
+    border: none;
+    outline: none;
+}

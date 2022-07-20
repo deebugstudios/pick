@@ -50,3 +50,12 @@
 #pad-vec {
   margin-bottom: 40px;
 }
+
+@media screen and (max-width: 510px) {
+  #vehicle-i {
+    padding-left: 20px !important;
+  }
+  .vehicle-rad span {
+    font-size: small !important;
+  }
+}

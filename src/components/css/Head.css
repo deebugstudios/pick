@@ -16,3 +16,13 @@
   margin: 10px 0px 0px 0px;
   border: none;
 }
+@media screen and (max-width: 510px) {
+  #head,
+  #head2 {
+    margin-top: 5px;
+    padding-bottom: 5px;
+  }
+  #pick-div img {
+    width: 70%;
+  }
+}

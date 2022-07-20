@@ -1,15 +1,15 @@
 #mainsign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  text-align: center;
   border-radius: 10px;
   margin: 20px auto 70px auto;
   border: 1px solid #0a1034;
   width: fit-content;
+  max-width: fit-content;
   padding: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#mainsign h2 {
-  text-align: center;
 }
 .container {
   display: flex;
@@ -36,12 +36,11 @@ label {
   margin: 0px 10px 5px 0px;
 }
 .field {
-  max-width: 730px;
+  /* max-width: 730px; */
   padding: 10px 10px 10px 0px;
 }
 .form-field {
   width: 500px;
-  max-width: auto;
   height: 45px;
 }
 .secondField {
@@ -81,13 +80,6 @@ form section {
 #vector input {
   display: none;
 }
-/* #check {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-} */
 .check {
   padding: 10px;
   font-size: medium;
@@ -96,7 +88,6 @@ form section {
   margin-right: 10px;
   width: 20px;
   height: 20px;
-  /* background-color: rgba(217, 217, 217, 0.5); */
 }
 #uploadText {
   font-size: small;
@@ -120,4 +111,67 @@ li {
 }
 #center-button {
   margin: 0px auto;
+}
+.upload-hide {
+  display: none;
+}
+
+@media screen and (max-width: 839px) {
+  #mainsign h2 {
+    font-size: large;
+  }
+  .mainsign-prog {
+    align-self: center;
+  }
+  .mainsign-prog img {
+    width: 80%;
+  }
+  .edit-field {
+    width: 500px;
+  }
+  .secondField {
+    width: 245px;
+  }
+}
+
+@media screen and (max-width: 649px) {
+  #mainsign h2 {
+    font-size: medium;
+  }
+  .mainsign-prog img {
+    width: 70%;
+  }
+  #mainsign {
+    padding: 10px;
+  }
+  .edit-field {
+    width: 350px;
+  }
+  .secondField {
+    width: 170px;
+  }
+  .upload-hide {
+    display: block;
+  }
+  .secondField {
+    font-size: x-small !important;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  #mainsign h2 {
+    font-size: small;
+  }
+  #mainsign {
+    border: none !important;
+    padding: 0px !important;
+  }
+  .edit-field {
+    width: 310px !important;
+    max-width: 310px !important;
+  }
+  .secondField {
+    width: 145px !important;
+    /* max-width: 160px !important; */
+  }
 }

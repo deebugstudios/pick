@@ -25,7 +25,7 @@ export default function WelcomeUser() {
     <>
       <Head />
       <div className="mainBox" id="welcome-main">
-        <div id="DeliveryImage">
+        <div className="delivery-img-welcome" id="DeliveryImage">
           <p>
             Door to Door <span id="yellow">delivery</span>
             <br /> services for individuals

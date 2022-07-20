@@ -29,7 +29,7 @@ export default function JoinAgent(props) {
       <div id="mainsign">
         <h2>{props.delivery}</h2>
         <br />
-        <div>
+        <div className="mainsign-prog">
           <img src={ProgressM} alt="Progress" />
         </div>
         <br />
@@ -129,6 +129,7 @@ export default function JoinAgent(props) {
               Upload your passport or selfie{asterik}{" "}
               <span className="Upload" id="uploadText">
                 {" "}
+                <br className="upload-hide" />
                 N/B: Image must clearly show your face.
               </span>
             </legend>

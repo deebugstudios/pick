@@ -61,15 +61,7 @@
   height: 280px;
   margin: 30px 20px 30px 0px;
   position: relative;
-  /* background-color: rgba(31, 170, 8, 0.15); */
 }
-/* #signUser {
-  background-color: rgba(31, 170, 8, 0.15);
-} */
-/* .sign:active {
-  background-color: rgba(31, 170, 8, 0.15);
-  border: none;
-} */
 #loginSpan {
   color: #0ac05e;
 }
@@ -87,4 +79,88 @@
   position: absolute;
   top: 7px;
   right: 7px;
+}
+
+@media screen and (max-width: 910px) {
+  #signFlex {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .sign {
+    width: 200px;
+    height: 200px;
+    margin: 10px auto;
+    font-weight: 400px;
+    font-size: medium;
+  }
+  .joinBox h2 {
+    font-size: large;
+  }
+  #select-as-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .joinBox {
+    padding: 0px 12px 30px 16px;
+    height: max-content;
+  }
+  #DeliveryImage {
+    padding: 50px 50px 50px 30px;
+    background-color: #1faa08;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-right: -20px;
+    height: max-content;
+    margin-top: 0%;
+  }
+  #DeliveryImage img {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+  #accountAlready {
+    font-size: x-small;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  #DeliveryImage {
+    padding: 50px 30px 50px 30px;
+  }
+  #DeliveryImage img {
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .mainBox {
+    box-shadow: none;
+    border: none;
+    padding: 0px;
+  }
+  #DeliveryImage {
+    display: none;
+  }
+  .joinBox {
+    padding: 0%;
+  }
+  .sign {
+    width: 280px;
+    height: 300px;
+    margin: 10px auto;
+    font-weight: 400px;
+    font-size: medium;
+  }
+  .joinBox h2 {
+    font-size: large;
+  }
 }

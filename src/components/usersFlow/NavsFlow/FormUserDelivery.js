@@ -7,13 +7,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "../../css/userflowform.css";
 import LoggedinMainPage from "./LoggedinMainPage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function FormUserDelivery() {
   return <LoggedinMainPage file={<FormUserDelivery1 />} />;
 }
 
 export function FormUserDelivery1() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/summary-i");
+  };
+
   const asterik = <span id="asterik">*</span>;
   const eelement = (
     <span>
@@ -32,14 +39,13 @@ export function FormUserDelivery1() {
       <br />
       <br />
 
-      <form className="sign-form">
+      <form className="sign-form" onSubmit={handleSubmit}>
         <label className="requiredText">Sender's Full name{asterik}</label>
         <input
           type="text"
           className="form-fields"
           placeholder="Enter your full name"
           name="Fullname"
-          required={true}
         />
         <br />
 
@@ -58,7 +64,6 @@ export function FormUserDelivery1() {
           className="form-fields"
           placeholder="Enter Receiver's full name"
           name="ReceiverFullname"
-          required={true}
         />
         <br />
 
@@ -77,7 +82,6 @@ export function FormUserDelivery1() {
           className="form-fields"
           placeholder="Enter A Name For Your Item"
           name="Parcelname"
-          required={true}
         />
         <br />
 
@@ -86,7 +90,6 @@ export function FormUserDelivery1() {
           defaultValue="Fragile"
           className="form-fields"
           name="ParcelType"
-          required={true}
         >
           <option value="Fragile">Fragile</option>
           <option value="Non-Fragile">Non-Fragile</option>
@@ -99,7 +102,6 @@ export function FormUserDelivery1() {
           className="form-fields"
           placeholder="Describe your Item"
           name="ParcelDescription"
-          required={true}
         />
         <br />
 
@@ -109,7 +111,6 @@ export function FormUserDelivery1() {
           className="form-field-Instructions"
           placeholder="Enter any specific Instruction for the delivery agent to note"
           name="ParcelDescription"
-          required={true}
         />
         <br />
 
@@ -132,9 +133,9 @@ export function FormUserDelivery1() {
             </div>
           </section>
         </div>
-        <Link to="/summary-i">
+        <div id="center-button">
           <Button name="Next" type="submit" />
-        </Link>
+        </div>
       </form>
     </div>
   );

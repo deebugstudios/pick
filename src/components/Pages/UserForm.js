@@ -6,13 +6,14 @@ import Head from "../javascript/Head";
 import "../css/UserForm.css";
 import "../css/Personal.css";
 import Footer from "../javascript/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserForm() {
+  const navigate = useNavigate();
   // const eelement = <FontAwesomeIcon icon={faUser} />;
   const asterik = <span id="asterik">*</span>;
   const [formData, setFormData] = useState({
@@ -35,6 +36,7 @@ export default function UserForm() {
     e.preventDefault();
     setFormErrors(validate(formData));
     setIsSubmit(true);
+    navigate("/confirm");
   };
 
   const validate = (data) => {
@@ -65,7 +67,7 @@ export default function UserForm() {
       <Head />
       {/* <pre>{JSON.stringify(formData, undefined, 2)}</pre> */}
       <div className="mainBox">
-        <div id="DeliveryImage">
+        <div className="delivery-img-form" id="DeliveryImage">
           <p>
             Door to Door <span id="yellow">delivery</span>
             <br /> services for individuals
@@ -130,9 +132,7 @@ export default function UserForm() {
             <br />
 
             <div id="center-button">
-              <Link to="/confirm">
-                <Button name="Next" />
-              </Link>
+              <Button name="Next" />
             </div>
           </form>
 

@@ -5,7 +5,7 @@ import "../css/Head.css";
 export default function Head() {
   return (
     <div id="head">
-      <div>
+      <div id="pick-div">
         <img src={Pickload} />
       </div>
     </div>
@@ -15,7 +15,7 @@ export default function Head() {
 export function Head2() {
   return (
     <div id="head2">
-      <div>
+      <div id="pick-div">
         <img src={Pickload} />
       </div>
     </div>

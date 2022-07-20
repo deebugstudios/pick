@@ -1,0 +1,13 @@
+th {
+  text-align: left;
+}
+td {
+  opacity: 0.7;
+}
+.delivery-details-spans {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}

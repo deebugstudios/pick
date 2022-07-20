@@ -1,0 +1,12 @@
+.delivery-imgs {
+    width: 150px;
+    width: 150px;
+    margin-right: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+.delivery-imgs img {
+    width: 100%;
+    cursor: pointer;
+}

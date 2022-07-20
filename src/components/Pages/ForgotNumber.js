@@ -12,7 +12,7 @@ export default function ForgotNumber() {
     <>
       <Head />
       <div className="mainBox">
-        <div id="DeliveryImage">
+        <div className="delivery-img-forgot" id="DeliveryImage">
           <p>
             Door to Door <span id="yellow">delivery</span>
             <br /> services for individuals
@@ -27,15 +27,16 @@ export default function ForgotNumber() {
           <h2 className="side">Forgot Phone Number</h2>
           <br />
           <p className="side" id="side-p">
-            Please enter the email address you used when creating an
-            <br />
-            account on this platform. We will send you Phone number
-            <br />
+            Please enter the email address you used when
+            <br className="break-ii" /> creating an
+            <br className="break-i" /> account on this platform. We will
+            <br className="break-ii" /> send you Phone number{" "}
+            <br className="break-i" />
             recovery instructions.
           </p>
           <br />
 
-          <form id="i2">
+          <form id="i2" className="sign-form">
             <label className="requiredText">Email{asterik}</label>
             <input
               type="email"
@@ -46,9 +47,9 @@ export default function ForgotNumber() {
             <br />
           </form>
 
-          <Link to="/sign">
-            <Button name="Submit" />
-          </Link>
+          {/* <Link to="/sign"> */}
+          <Button name="Submit" />
+          {/* </Link> */}
           <p id="accountAlready">
             Back to <span id="loginSpan">Log in</span>
           </p>
