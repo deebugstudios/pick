@@ -28,14 +28,14 @@
   width: 20px;
   height: 20px;
   position: absolute;
-  top: 30%;
+  top: 25%;
   left: 10px;
 }
 .mail-icon {
   width: 25px;
   height: 20px;
   position: absolute;
-  top: 30%;
+  top: 25%;
   left: 10px;
 }
 .locate-icon {
@@ -44,6 +44,39 @@
   position: absolute;
   top: 20%;
   left: 10px;
+}
+.phone-input {
+  opacity: 1 !important;
+  padding-left: 80px !important;
+  border: 2px solid rgba(10, 16, 52, 0.3);
+}
+.phone-input::placeholder,
+.phone-input2::placeholder {
+  opacity: 0.5 !important;
+  padding-left: 0% !important;
+}
+.flag-icon {
+  width: 25px;
+  height: 20px;
+  position: absolute;
+  top: 25%;
+  left: 10px;
+}
+.text-icon {
+  position: absolute;
+  /* top: 25%; */
+  left: 40px;
+  font-size: small;
+  border-right: 1px solid rgba(10, 16, 52, 0.7);
+  padding: 12px 5px 13px 0px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.phone-input2 {
+  opacity: 1 !important;
+  padding-left: 40px !important;
+  border: 2px solid rgba(10, 16, 52, 0.3);
 }
 
 @media screen and (max-width: 910px) {
@@ -76,6 +109,19 @@
 @media screen and (max-width: 785px) {
   #User-form input {
     width: 300px;
+  }
+}
+
+@media screen and (max-width: 626px) {
+  .text-icon {
+    padding-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .text-icon {
+    padding-top: 10px;
+    padding-bottom: 7px;
   }
 }
 

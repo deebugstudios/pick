@@ -1,7 +1,11 @@
 import React from "react";
 import logo from "../images/pickloadlogo.png";
 import "../css/navigationBar.css";
-const navigationBar = () => {
+import { Link, useNavigate } from "react-router-dom";
+
+const NavigationBar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="agent-nav">
       <div className="nav-wrapper">
@@ -22,12 +26,16 @@ const navigationBar = () => {
           </ul>
         </div>
         <div className="btns">
-          <button className="login-btn">Log in</button>
-          <button className="signup-btn">Sign up</button>
+          <Link to="/welcome">
+            <button className="login-btn">Log in</button>
+          </Link>
+          <Link to="/join">
+            <button className="signup-btn">Sign up</button>
+          </Link>
         </div>
       </div>
     </nav>
   );
 };
 
-export default navigationBar;
+export default NavigationBar;

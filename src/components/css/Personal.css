@@ -26,6 +26,7 @@
 }
 label {
   font-size: small;
+  cursor: pointer;
 }
 #second {
   display: flex;

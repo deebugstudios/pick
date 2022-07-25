@@ -9,20 +9,21 @@ import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
+import Flag from "../Images/Nigerian_flag.png";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserForm() {
   const navigate = useNavigate();
-  // const eelement = <FontAwesomeIcon icon={faUser} />;
   const asterik = <span id="asterik">*</span>;
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
-    phoneNumber: "",
+    phone_no: "",
   });
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  // const [formErrors, setFormErrors] = useState({});
+  // const [isSubmit, setIsSubmit] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const target = e.target;
@@ -30,38 +31,70 @@ export default function UserForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    // console.log(formData);
-    // setFormData({ fullName: "", email: "", phoneNumber: "" });
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormErrors(validate(formData));
-    setIsSubmit(true);
     navigate("/confirm");
+    //   try {
+    //     const res = await fetch(
+    //       "https://guarded-falls-60982.herokuapp.com/user_auth/signup",
+    //       {
+    //         method: "POST",
+
+    //         body: JSON.stringify({
+    //           fullname: formData.fullname,
+    //           phone_no: formData.phone_no,
+    //           email: formData.email,
+    //         }),
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Accept: "application/json, text/plain, */*",
+    //         },
+    //       }
+    //     );
+    //     const data = await res.json();
+    //     console.log(data);
+
+    //     if (res.status === 200) {
+    //       // setName("");
+    //       // setEmail("");
+    //       setMessage("User created successfully");
+    //       navigate("/confirm");
+    //     } else {
+    //       setMessage("Error occured");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   console.log(formData);
+    // };
   };
 
-  const validate = (data) => {
-    const errors = {};
-    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!data.fullname) {
-      errors.fullname = "Full Name must be filled!";
-    }
-    if (!data.email) {
-      errors.email = "Email must be filled!";
-    } else if (!regex.test(data.email)) {
-      errors.email = "Please enter a valid email";
-    }
-    if (!data.phoneNumber) {
-      errors.phoneNumber = "Phone Number must be filled!";
-    }
-    return errors;
-  };
+  // setFormErrors(validate(formData));
+  // setIsSubmit(true);
+  // navigate("/confirm");
+  // };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formData);
-    }
-  }, [formErrors]);
+  // const validate = (data) => {
+  //   const errors = {};
+  //   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  //   if (!data.fullname) {
+  //     errors.fullname = "Full Name must be filled!";
+  //   }
+  //   if (!regex.test(data.email)) {
+  //     errors.email = "Please enter a valid email";
+  //   }
+  //   if (!data.phoneNumber) {
+  //     errors.phoneNumber = "Phone Number must be filled!";
+  //   }
+  //   return errors;
+  // };
+
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     console.log(formData);
+  //   }
+  // }, [formErrors]);
   return (
     <>
       <Head />
@@ -88,20 +121,21 @@ export default function UserForm() {
             <div className="delivery-location-input">
               <img src={User} alt="" className="user-icon" />
               <input
+                minLength={3}
                 value={formData.fullname}
                 onChange={handleChange}
                 type="text"
                 placeholder="Enter your full name"
                 name="fullname"
-                className="input-field"
+                className="input-field phone-input2"
                 // required={true}
               />
             </div>
-            <p>{formErrors.fullname}</p>
+            {/* <p className="error-style">{formErrors.fullname}</p> */}
             <br />
 
             <label className="requiredText" htmlFor="email">
-              Email{asterik}
+              Email
             </label>
             <div className="delivery-location-input">
               <img src={Mail} alt="" className="mail-icon" />
@@ -109,35 +143,45 @@ export default function UserForm() {
                 value={formData.email}
                 onChange={handleChange}
                 type="text"
-                className="input-field"
+                className="input-field phone-input2"
                 placeholder="Enter your Email"
                 name="email"
-                // required={true}
+                // required={false}
               />
             </div>
-            <p>{formErrors.email}</p>
+            {/* <p className="error-style">{formErrors.email}</p> */}
             <br />
 
             <label className="requiredText">Phone Number{asterik}</label>
-            <input
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              type="text"
-              className="input-field"
-              placeholder="Enter your Phone Number"
-              name="phoneNumber"
-              // required={true}
-            />
-            <p>{formErrors.phoneNumber}</p>
+            <div className="delivery-location-input">
+              <img src={Flag} alt="" className="flag-icon" />
+              <span className="text-icon">+234</span>
+              <input
+                value={formData.phone_no}
+                onChange={handleChange}
+                maxLength={10}
+                type="text"
+                className="input-field phone-input"
+                placeholder="Enter your Phone Number"
+                name="phone_no"
+                // required={true}
+              />
+            </div>
+            {/* <p className="error-style">{formErrors.phoneNumber}</p> */}
             <br />
 
             <div id="center-button">
               <Button name="Next" />
             </div>
+
+            <div className="message">{message ? <p>{message}</p> : null}</div>
           </form>
 
           <p id="accountAlready">
-            Already Have an account? <span id="loginSpan">Log in</span>
+            Already Have an account?{" "}
+            <Link to="/welcome">
+              <span id="loginSpan">Log in</span>
+            </Link>
           </p>
         </div>
       </div>
@@ -145,4 +189,3 @@ export default function UserForm() {
     </>
   );
 }
-// &#xf0e0

@@ -5,7 +5,7 @@ import Button from "../javascript/Button";
 import Head from "../javascript/Head";
 import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function WelcomeUser() {
   const asterik = <span id="asterik">*</span>;
@@ -66,7 +66,10 @@ export default function WelcomeUser() {
           </form>
 
           <p id="accountAlready">
-            Don't Have an account? <span id="loginSpan">Sign up</span>
+            Don't Have an account?{" "}
+            <Link to="/join">
+              <span id="loginSpan">Sign up</span>
+            </Link>
           </p>
         </div>
       </div>

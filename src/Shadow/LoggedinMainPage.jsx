@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navsignedin from "./javascripts/Navsignedin";
 import SideBar from "./javascripts/SideBar";
+import NavigationBar from "./javascripts/NavigationBar";
 // import map from './images/maps.png'
 import "./css/loggedinmainpage.css";
 const LoggedinMainPage = (props) => {
+  const [loggedin, setLoggedin] = useState(false);
   return (
     <section className="user-dashboard-main">
       {/* <BrowserRouter> */}
       <div className="user-left-side-main">
-        <Navsignedin />
+        {loggedin ? <Navsignedin /> : <NavigationBar />}
       </div>
       <div className="user-right-side-main">
-        <div className="sider-group">
-          <SideBar />
-        </div>
+        {loggedin ? (
+          <div className="sider-group">
+            <SideBar />{" "}
+          </div>
+        ) : null}
 
         <div className="map-container">{props.name}</div>
       </div>
