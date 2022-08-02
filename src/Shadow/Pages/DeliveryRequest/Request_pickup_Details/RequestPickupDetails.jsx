@@ -3,7 +3,10 @@ import { Link, Outlet } from "react-router-dom";
 import { DeliverInfo } from "../../Details info/DeliverInfo";
 import { DeliveryImages } from "../../Details info/DeliveryImages";
 import "./requestpickupdetails.css";
+import { useNavigate } from "react-router-dom";
+
 const RequestPickupDetails = () => {
+  const navigate = useNavigate();
   return (
     <section className="user-dashboard delivery-details-wrapper">
       <div className="delivery-details-wrapper-2">
@@ -50,10 +53,14 @@ const RequestPickupDetails = () => {
         </div>
         <div className="delivery-details-btns">
           <button className="ignore">Ignore</button>
-          <Link to="accept">
-            {" "}
-            <button className="accept">Accept</button>{" "}
-          </Link>
+          <button
+            className="accept"
+            onClick={() => {
+              navigate("/pendingdeliveries");
+            }}
+          >
+            Accept
+          </button>{" "}
         </div>
       </div>
     </section>

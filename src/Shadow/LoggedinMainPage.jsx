@@ -5,7 +5,7 @@ import NavigationBar from "./javascripts/NavigationBar";
 // import map from './images/maps.png'
 import "./css/loggedinmainpage.css";
 const LoggedinMainPage = (props) => {
-  const [loggedin, setLoggedin] = useState(false);
+  const [loggedin, setLoggedin] = useState(props.logged);
   return (
     <section className="user-dashboard-main">
       {/* <BrowserRouter> */}

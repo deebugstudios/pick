@@ -41,45 +41,46 @@ export default function JoinAgent(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_one",
-        {
-          method: "POST",
+    navigate(props.link);
+    //   try {
+    //     const res = await fetch(
+    //       "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_one",
+    //       {
+    //         method: "POST",
 
-          body: JSON.stringify({
-            fullname: formData.fullname,
-            phone_no: formData.phone_no,
-            email: formData.email,
-            delivery_agent_type: "Individual",
-            address: formData.address,
-            state: formData.resident_state,
-            city: formData.city,
-            gender: "Male",
-            profile_img: selectedFile,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
+    //         body: JSON.stringify({
+    //           fullname: formData.fullname,
+    //           phone_no: formData.phone_no,
+    //           email: formData.email,
+    //           delivery_agent_type: "Individual",
+    //           address: formData.address,
+    //           state: formData.resident_state,
+    //           city: formData.city,
+    //           gender: "Male",
+    //           profile_img: selectedFile,
+    //         }),
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Accept: "application/json, text/plain, */*",
+    //         },
+    //       }
+    //     );
 
-      const data = await res.json();
-      console.log(data);
+    //     const data = await res.json();
+    //     console.log(data);
 
-      if (res.status === 200) {
-        // setName("");
-        // setEmail("");
-        setMessage("User created successfully");
-        navigate(props.link);
-      } else {
-        setMessage("Error occured");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(formData);
+    //     if (res.status === 200) {
+    //       // setName("");
+    //       // setEmail("");
+    //       setMessage("User created successfully");
+    //       navigate(props.link);
+    //     } else {
+    //       setMessage("Error occured");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   console.log(formData);
   };
 
   return (
@@ -241,13 +242,7 @@ export default function JoinAgent(props) {
                 </label>
               </div>
             </section>
-            <div className="message">
-              {isSelected === true ? (
-                <img src={selectedFile[0]} alt={selectedFile.name} />
-              ) : (
-                ""
-              )}{" "}
-            </div>
+            <div className="message"></div>
           </div>
 
           <div id="center-button">

@@ -2,23 +2,26 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import logo from "../Images/pickload.png";
+import Pickload from "../Images/pickload.png";
 import "../css/usernavsignedin.css";
+import { Link } from "react-router-dom";
 
 const Navsignedin = () => {
   return (
     <nav className="user-nav">
       <div className="nav-wrapper-1">
-        <div className="logo">
+        <div id="pick-div">
           <div>
-            <img src={logo} alt="" />
+            <Link to="/">
+              <img src={Pickload} alt="" />
+            </Link>
           </div>
         </div>
         <div className="nav-links">
           <ul>
-            <li>
-              <a href="">Home</a>
-            </li>
+            <Link to="/">
+              <li>Home</li>
+            </Link>
             <li>
               <a href="">About Us</a>
             </li>
@@ -31,8 +34,12 @@ const Navsignedin = () => {
               </a>
               <div className="sub-menu">
                 <ul>
-                  <li>Pending deliveries</li>
-                  <li>Delivery History</li>
+                  <Link to="/pending-del">
+                    <li>Pending deliveries</li>
+                  </Link>
+                  <Link to="/completed-del">
+                    <li>Delivery History</li>
+                  </Link>
                 </ul>
               </div>
             </li>

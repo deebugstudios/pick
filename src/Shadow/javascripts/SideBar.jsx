@@ -7,6 +7,8 @@ import {
   faTimesCircle,
   faNoteSticky,
   faSignOut,
+  faCreditCard,
+  faCreditCardAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
@@ -16,20 +18,20 @@ const SideBar = () => {
     <section className="side-bar">
       <div className="side-bar-links">
         <ul>
-          <Link to="Deliveryrequest">
+          <Link to="/Deliveryrequest">
             <li>
               <FontAwesomeIcon icon={faHome} className="space-icons" />
               Delivery Request
             </li>{" "}
           </Link>
-          <Link to="/Pendingdeliveries">
-            <li className="active">
+          <Link to="/pendingdeliveries">
+            <li>
               <FontAwesomeIcon icon={faBiking} className="space-icons" />
               Pending Deliveries
             </li>
           </Link>
 
-          <Link to="/Deliveryhistory">
+          <Link to="/deliveryhistory">
             <li>
               <FontAwesomeIcon icon={faTimesCircle} className="space-icons" />
               Delivery History
@@ -54,6 +56,15 @@ const SideBar = () => {
           </div>
         </div>
         <ul>
+          <Link to="">
+            {" "}
+            <li>
+              {" "}
+              <FontAwesomeIcon icon={faCreditCard} className="space-icons" />
+              Payment details
+            </li>
+          </Link>
+
           <Link to="">
             {" "}
             <li>

@@ -2,6 +2,8 @@ import React from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
 import "./deliveryhistorydetails.css";
+import "./deliveryhistory.css";
+import "./pendingdeliveryspecifics.css";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
 import FormProgress2 from "../../Images/FormProgress2.png";

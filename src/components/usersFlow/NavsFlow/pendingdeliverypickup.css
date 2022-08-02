@@ -5,12 +5,12 @@
 .pending-delivery-pickup-wrapper {
   background: #fefefe;
   padding: 1em;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 .pending-delivery-pickup-slides {
   margin: 0 auto;
-  width: max-content;
+  width: 100%;
   display: grid;
   place-items: center;
   margin-bottom: 50px;
@@ -25,12 +25,12 @@
   cursor: pointer;
 }
 .dropoff-btn {
-  margin-left: -10px;
+  margin-left: 0px;
   background-color: white;
   color: var(--maincolor);
 }
-.pickup-btn {
-  /* margin-right: 0px; */
+.pickup-btn2 {
+  margin-right: -10px;
   color: white;
 }
 .pending-delivery-pickup-details-Container {

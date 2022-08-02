@@ -2,16 +2,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import logo from "../images/pickloadlogo.png";
 import profileimage from "../images/profileimage.png";
 import "../css/navsignedin.css";
 import { Link } from "react-router-dom";
+import Pickload from "../../components/Images/pickload.png";
+
 const Navsignedin = () => {
   return (
     <nav className="agent-nav">
       <div className="nav-wrapper">
-        <div className="logo">
-          <img src={logo} alt="" />
+        <div id="pick-div">
+          <Link to="/">
+            <img src={Pickload} alt="" />
+          </Link>
         </div>
         <div className="nav-links">
           <ul>

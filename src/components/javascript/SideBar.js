@@ -15,6 +15,7 @@ const SideBar = () => {
   const show = () => {
     setSideBar(!sideBar);
   };
+
   return (
     <section className={sideBar ? "side-bar-1" : "not-side-bar"}>
       <div className="side-bar-links-1">
@@ -22,49 +23,60 @@ const SideBar = () => {
           <li className="toggle-sidebar" onClick={show}>
             X
           </li>
-          <li className="active">
-            <Link to="/userflow">
+          <Link to="/userflow">
+            <li>
               <FontAwesomeIcon icon={faHome} className="space-icons-1" />
               {sideBar ? "Request Pickup" : ""}
-            </Link>
-          </li>
+            </li>
+          </Link>
 
-          <li>
-            <Link to="/pending">
+          <Link to="/pending-del">
+            <li>
               <FontAwesomeIcon icon={faBiking} className="space-icons-1" />
               {sideBar ? "Pending Deliveries" : ""}
-            </Link>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faTimesCircle} className="space-icons-1" />
-            {sideBar ? "Delivery History" : ""}
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
-            {sideBar ? "Report" : ""}
-          </li>
+            </li>
+          </Link>
+
+          <Link to="/completed-del">
+            <li>
+              <FontAwesomeIcon icon={faTimesCircle} className="space-icons-1" />
+              {sideBar ? "Delivery History" : ""}
+            </li>
+          </Link>
+
+          <Link to="/Chatwithadmin">
+            <li>
+              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
+              {sideBar ? "Chat With Admin" : ""}
+            </li>
+          </Link>
         </ul>
 
-        {sideBar ? (
-          <div className="side-bar-profile-detail-1">
-            <div className="side-bar-profile-img-1">
-              {/* <img src={} alt="" /> */}
-            </div>
-            <div className="side-bar-profile-name">
-              <h5>Angie</h5>
-              <p>View Profile</p>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        <ul>
+        <Link to="/user-profile">
+          <li>
+            {sideBar ? (
+              <div className="side-bar-profile-detail-1">
+                <div className="side-bar-profile-img-1">
+                  {/* <img src={} alt="" /> */}
+                </div>
+                <div className="side-bar-profile-name">
+                  <h5>Angie</h5>
+                  <p>View Profile</p>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </li>
+        </Link>
+
+        <Link to="/user-logout">
           <li>
             {" "}
             <FontAwesomeIcon icon={faSignOut} className="space-icons-1" />
             {sideBar ? "Log out" : ""}
           </li>
-        </ul>
+        </Link>
       </div>
     </section>
   );

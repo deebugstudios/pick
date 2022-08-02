@@ -53,3 +53,7 @@
   padding: 5px 20px;
   cursor: pointer;
 }
+#arrow-div {
+  width: 40px;
+  cursor: pointer;
+}

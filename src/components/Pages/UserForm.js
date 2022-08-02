@@ -5,11 +5,12 @@ import Button from "../javascript/Button";
 import Head from "../javascript/Head";
 import "../css/UserForm.css";
 import "../css/Personal.css";
-import Footer from "../javascript/Footer";
+// import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
 import Flag from "../Images/Nigerian_flag.png";
+import Footer from "../../Shadow/javascripts/Footer";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUser } from "@fortawesome/free-solid-svg-icons";
 

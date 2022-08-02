@@ -1,6 +1,6 @@
 .pending-delivery-specifics-wrapper {
   background: #fefefe;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   /* overflow-y: scroll; */
   overflow: visible;
@@ -21,10 +21,11 @@
   height: 100%;
 }
 .specific-details-section {
-  margin-left: 50px;
+  margin-left: 50px !important;
+  /* overflow-y: scroll !important; */
 }
 .specific-details-section h3 {
-  font-size: 15px;
+  font-size: 15px !important;
 }
 .specifics-images {
   margin-top: 20px;
@@ -102,4 +103,12 @@
 .images-border {
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 20px;
+}
+#arrow-div-instant {
+  align-self: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
+  justify-self: flex-start;
+  margin-left: 30px;
+  cursor: pointer;
 }

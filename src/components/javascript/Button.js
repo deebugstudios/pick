@@ -20,7 +20,7 @@ export function Button2(props) {
 
 export function Button3(props) {
   return (
-    <button id="compButton3" type={props.type}>
+    <button id="compButton3" type={props.type} onClick={props.click}>
       <span>{props.name}</span>
     </button>
   );

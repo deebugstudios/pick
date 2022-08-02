@@ -7,7 +7,9 @@ export default function Request(props) {
         <div id="success">
           <h2>{props.pickup}</h2>
           <br />
-          <img src={props.jpg} alt="Animal" />
+          <div>
+            <img src={props.jpg} alt="Animal" />
+          </div>
           <br />
           <p id="successText">
             {props.First}

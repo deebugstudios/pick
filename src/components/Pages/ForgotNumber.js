@@ -45,14 +45,17 @@ export default function ForgotNumber() {
               name="email"
             />
             <br />
-          </form>
 
-          {/* <Link to="/sign"> */}
-          <Button name="Submit" />
-          {/* </Link> */}
-          <p id="accountAlready">
-            Back to <span id="loginSpan">Log in</span>
-          </p>
+            <Button name="Submit" />
+            <div id="center-button">
+              <p id="accountAlready">
+                Back to{" "}
+                <Link to="/welcome">
+                  <span id="loginSpan">Log in</span>
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
       <Footer />

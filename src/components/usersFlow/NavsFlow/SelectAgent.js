@@ -22,7 +22,7 @@ export function SelectAgent1() {
           </div>
 
           <div id="agent-profiles-div">
-            <Link to="/schedule-f">
+            <Link to="/schedule-form">
               <div className="agent-profiles" id="agent-profiles">
                 <div className="agent-profiles-image">
                   <img src={Splash} />

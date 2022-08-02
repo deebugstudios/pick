@@ -1,7 +1,7 @@
 .delivery-details-wrapper {
   background-color: #e8f4e3;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  /* overflow-x: hidden; */
 }
 .delivery-details-wrapper-2 {
   background-color: hsl(0, 0%, 100%);
@@ -10,7 +10,7 @@
   width: 1300px;
   /* overflow-y: scroll;
     overflow-x: hidden; */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .delivery-details-spans {
   font-family: "Poppins";

@@ -27,7 +27,6 @@ export default function AgentCompleted() {
             <input
               type="text"
               className="form-field edit-field"
-              //   placeholder="Eg Toyota Corolla"
               name="Bankname"
             />
           </label>
@@ -39,7 +38,6 @@ export default function AgentCompleted() {
             <input
               type="text"
               className="form-field edit-field"
-              //   placeholder="Eg Toyota Corolla"
               name="Holdername"
             />
           </label>
@@ -51,7 +49,6 @@ export default function AgentCompleted() {
             <input
               type="text"
               className="form-field edit-field"
-              //   placeholder="Eg Toyota Corolla"
               name="AccountNumber"
             />
           </label>
@@ -63,9 +60,15 @@ export default function AgentCompleted() {
             <input
               type="text"
               className="form-field edit-field"
-              //   placeholder="Eg Toyota Corolla"
               name="ConfirmNumber"
             />
+          </label>
+          <br />
+
+          <label htmlFor="bvn">
+            <span className="requiredText">BVN</span>
+            <br />
+            <input type="text" className="form-field edit-field" name="bvn" />
           </label>
           <br />
 

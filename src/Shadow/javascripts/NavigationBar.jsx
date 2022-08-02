@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../images/pickloadlogo.png";
 import "../css/navigationBar.css";
 import { Link, useNavigate } from "react-router-dom";
+import Pickload from "../../components/Images/pickload.png";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
@@ -9,14 +9,18 @@ const NavigationBar = () => {
   return (
     <nav className="agent-nav">
       <div className="nav-wrapper">
-        <div className="logo">
-          <img src={logo} alt="" />
+        <div id="pick-div">
+          <Link to="/">
+            <img src={Pickload} alt="" />
+          </Link>
         </div>
         <div className="nav-links">
           <ul>
-            <li>
-              <a href="">Home</a>
-            </li>
+            <Link to="/">
+              <li>
+                <a href="">Home</a>
+              </li>
+            </Link>
             <li>
               <a href="">About Us</a>
             </li>

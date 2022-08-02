@@ -9,7 +9,7 @@ import Footer from "./Footer";
 // import { Link } from "react-router-dom";
 // import UserForm from "../Pages/UserForm";
 // import SignupDelivery from "../Pages/SignupDelivery";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Sign(props) {
   const [member, setMember] = useState(props.val);
@@ -121,7 +121,10 @@ export default function Sign(props) {
               <Button name={props.name} type="submit" />
 
               <p id="accountAlready">
-                Already Have an account? <span id="loginSpan">Log in</span>
+                Already Have an account?{" "}
+                <Link to="/welcome">
+                  <span id="loginSpan">Log in</span>
+                </Link>
               </p>
             </div>
           </form>

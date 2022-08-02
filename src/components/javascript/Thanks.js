@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Thanks.css";
 
 export default function Thanks(props) {
+  const navigate = useNavigate();
   return (
     <>
       <div id="thanks-div">
@@ -10,7 +12,13 @@ export default function Thanks(props) {
         </p>
         <br />
 
-        <button>Okay</button>
+        <button
+          onClick={() => {
+            navigate("/pending-del");
+          }}
+        >
+          Okay
+        </button>
       </div>
     </>
   );

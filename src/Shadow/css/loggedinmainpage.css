@@ -1,11 +1,11 @@
 .user-right-side-main {
-    display: flex;
-    overflow: hidden !important;
-    width: 100% !important;
+  display: flex;
+  overflow: hidden !important;
+  width: 100% !important;
 }
 .sider-group {
-    width: 15% !important;
-    z-index: 10000;
+  width: 15% !important;
+  z-index: 10000;
 }
 /* .map-container-main {
     width: 80%;

@@ -3,6 +3,7 @@ import React from "react";
 import Navsignedin from "../../javascript/UserNavsignedin";
 import SideBar from "../../javascript/SideBar";
 import "./loggedinmainpage.css";
+import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
 
 const LoggedinMainPage = (props) => {
   return (
@@ -12,9 +13,12 @@ const LoggedinMainPage = (props) => {
         <Navsignedin />
       </div>
       <div className="user-right-side-main">
-        <SideBar />
+        <div className="sider-group">
+          <SideBar />
+        </div>
         <div className="content-wrap">
           <div id="content-pad">
+            {/* <InstantDeliverySummary1 /> */}
             {props.file}
             {/* <Routes> */}
             {/* <Route path="/" element={<UsersProfile />} /> */}

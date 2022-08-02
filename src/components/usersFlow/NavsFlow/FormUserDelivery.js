@@ -22,12 +22,6 @@ export function FormUserDelivery1() {
   };
 
   const asterik = <span id="asterik">*</span>;
-  const eelement = (
-    <span>
-      {" "}
-      <FontAwesomeIcon icon={faUser} /> Enter your full name{" "}
-    </span>
-  );
 
   return (
     <div className="white-div">
