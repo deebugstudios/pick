@@ -13,7 +13,7 @@
   box-shadow: 0px 2.77045px 2.77045px rgba(0, 0, 0, 0.25);
   border-radius: 33px;
   width: fit-content;
-  margin: 30px auto 50px auto;
+  margin: 60px auto 50px auto;
   /* position: absolute;
   top: 50%;
   left: 50%;
@@ -39,4 +39,26 @@
 }
 #logout-text h2 {
   font-weight: 400;
+}
+#logout-wrapper-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 55px;
+  background-color: white;
+  margin: 0px 30px;
+  /* background-color: antiquewhite; */
+  /* width: 90%; */
+}
+#logout-div-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0px 2.77045px 2.77045px rgba(0, 0, 0, 0.25);
+  border-radius: 33px;
+  /* width: 90%; */
+  margin: 30px auto 50px auto;
 }

@@ -57,7 +57,6 @@ export function PendingDeliveryPickup1(props) {
           <br />
           <br />
           <div>
-            {/* <Toggle /> */}
             <div className="toggle-div">
               <div
                 className="first-toggle"

@@ -32,7 +32,46 @@ export function Logout1() {
             <Button3
               name="No"
               click={() => {
-                navigate("/userflow");
+                navigate(-1);
+              }}
+            />{" "}
+            <Button
+              name="Yes"
+              click={() => {
+                navigate("/");
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function Logout2() {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <div id="logout-wrapper-2">
+        <div id="logout-div-2">
+          <div id="logout-text">
+            <h2>Log out?</h2>
+            <br />
+            <div>
+              <img src={Amico3} alt="Animal" />
+            </div>
+            <br />
+            <p id="successText">
+              Are you sure you want to logout of your account?
+            </p>
+          </div>
+          <br />
+          <div id="div-button">
+            <Button3
+              name="No"
+              click={() => {
+                navigate(-1);
               }}
             />{" "}
             <Button

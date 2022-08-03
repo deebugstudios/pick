@@ -34,41 +34,41 @@ export default function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/confirm");
-    //   try {
-    //     const res = await fetch(
-    //       "https://guarded-falls-60982.herokuapp.com/user_auth/signup",
-    //       {
-    //         method: "POST",
+    // navigate("/confirm");
+      try {
+        const res = await fetch(
+          "https://guarded-falls-60982.herokuapp.com/user_auth/signup",
+          {
+            method: "POST",
 
-    //         body: JSON.stringify({
-    //           fullname: formData.fullname,
-    //           phone_no: formData.phone_no,
-    //           email: formData.email,
-    //         }),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Accept: "application/json, text/plain, */*",
-    //         },
-    //       }
-    //     );
-    //     const data = await res.json();
-    //     console.log(data);
+            body: JSON.stringify({
+              fullname: formData.fullname,
+              phone_no: formData.phone_no,
+              email: formData.email,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
 
-    //     if (res.status === 200) {
-    //       // setName("");
-    //       // setEmail("");
-    //       setMessage("User created successfully");
-    //       navigate("/confirm");
-    //     } else {
-    //       setMessage("Error occured");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   console.log(formData);
-    // };
-  };
+        if (res.status === 200) {
+          // setName("");
+          // setEmail("");
+          setMessage("User created successfully");
+          navigate("/confirm");
+        } else {
+          setMessage("Error occured");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(formData);
+    };
+  // };
 
   // setFormErrors(validate(formData));
   // setIsSubmit(true);

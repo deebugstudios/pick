@@ -14,7 +14,7 @@ import FleetVehicle from "./components/Pages/FleetVehicle";
 import IndividualVehicle from "./components/Pages/IndividualVehicle";
 import AgentCompleted from "./components/Pages/AgentCompleted";
 import UserRequestPickup from "./components/usersFlow/NavsFlow/UserRequestPickup";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import LoggedinMainPage from "./Shadow/LoggedinMainPage";
 import Main from "./Shadow/javascripts/Main";
 import { FleetOtp } from "./components/Pages/DeliveryOtp";
@@ -40,7 +40,10 @@ import ReportThanks from "./components/usersFlow/ReportThanks";
 import LeaveReview from "./components/usersFlow/LeaveReview";
 import ReviewThanks from "./components/usersFlow/ReviewThanks";
 import UsersProfile from "./components/usersFlow/NavsFlow/UsersProfile";
-import Logout from "./components/usersFlow/NavsFlow/Logout";
+import Logout, {
+  Logout1,
+  Logout2,
+} from "./components/usersFlow/NavsFlow/Logout";
 import ScheduleForm from "./components/usersFlow/NavsFlow/ScheduleForm";
 import ScheduledDeliverySummary from "./components/usersFlow/NavsFlow/ScheduledDeliverySummary";
 import RequestSuccess from "./components/usersFlow/RequestSuccess";
@@ -53,6 +56,11 @@ import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
 import ChatAdmin from "./Shadow/Pages/Chatpage/ChatAdmin";
+import Navsignedin from "./Shadow/javascripts/Navsignedin";
+import SideBar from "./Shadow/javascripts/SideBar";
+import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
+import ProfilePage from "./Shadow/Pages/report_stats/ProfilePage";
+import Payment_record from "./Shadow/Pages/Payment Record/Payment_record";
 
 export default function App() {
   return (
@@ -178,6 +186,40 @@ export default function App() {
           <Route
             path="Chatwithadmin"
             element={<LoggedinMainPage name={<ChatAdmin />} logged={true} />}
+          />
+          {/* <Route
+            path="Chatwithadmin"
+            element={
+              <section className="user-dashboard-main">
+                <div className="user-left-side-main">
+                  <Navsignedin />
+                </div>
+                <div className="user-right-side-main">
+                  <div className="sider-group">
+                    <SideBar />{" "}
+                  </div>
+
+                  <div className="map-container"> */}
+          {/* <ChatAdmin /> */}
+          {/* <Route path="well" element={<ChatAdmin />} />
+                  </div>
+                </div>
+              </section>
+            }
+          ></Route> */}
+          <Route
+            path="payment-details"
+            element={
+              <LoggedinMainPage name={<PaymentDetails />} logged={true} />
+            }
+          />
+          <Route
+            path="agent-logout"
+            element={<LoggedinMainPage name={<Logout2 />} logged={true} />}
+          />
+          <Route
+            path="agent-profile"
+            element={<LoggedinMainPage name={<ProfilePage />} logged={true} />}
           />
         </Routes>
       </BrowserRouter>

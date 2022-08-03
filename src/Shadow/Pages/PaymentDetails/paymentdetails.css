@@ -1,0 +1,55 @@
+.payment-details-section {
+  background-color: #e8f4e3;
+  padding: 1.2em;
+  overflow: hidden !important;
+  height: 89vh;
+  width: 100%;
+  margin-top: 15px;
+}
+.payment-details-wrapper {
+  background-color: white;
+  height: 100%;
+  padding: 28px 20px;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  position: relative;
+}
+.payment-details-form {
+  margin: auto 0;
+}
+.payment-details-form input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 6px 10px;
+  font-weight: 400;
+}
+.payment-btn {
+  /* background-color: var(--maincolor); */
+  background-color: #1aa803;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .payment-btn {
+    border-radius: 5px;
+    padding: 8px 13px;
+    margin-top: 19px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 420px) {
+  .payment-btn {
+    border-radius: 3px;
+    width: 60%;
+    margin-top: 16px;
+    font-size: 10px;
+  }
+}

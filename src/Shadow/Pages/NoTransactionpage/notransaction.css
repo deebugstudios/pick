@@ -1,0 +1,35 @@
+.no-transaction-wrapper {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+}
+.no-transaction-container {
+  width: 80%;
+}
+.payment-weeks-wrapper {
+  margin-top: 30px;
+}
+.no-transaction-container2 {
+  margin: 0 auto;
+  margin-top: 60px;
+}
+.no-transaction-container2 p {
+  text-align: center;
+}
+.no-transaction-image-wrapper {
+  width: 200px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.no-transaction-image-wrapper img {
+  width: 100%;
+  height: 100%;
+}
+.no-transaction-container input {
+  height: 35px;
+  opacity: 0.6;
+  border: 2.5px solid rgba(10, 16, 52, 0.7);
+  border-radius: 5px;
+  width: auto;
+}

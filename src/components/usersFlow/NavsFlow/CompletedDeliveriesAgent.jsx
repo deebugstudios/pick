@@ -10,20 +10,6 @@ export default function CompletedDeliveriesAgent() {
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    {
-      toggle ? navigate("/user-schedule") : navigate("/cancelled-details");
-    }
-  };
-
-  const handleClick2 = (e) => {
-    e.preventDefault();
-    {
-      toggle ? navigate("/user-instant") : navigate("/cancelled-details");
-    }
-  };
-
   let listItem = (
     <HistoryList
       click={() => {

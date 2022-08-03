@@ -1,0 +1,233 @@
+.payment-record-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .DA-payment-history{
+    width: 80%; */
+/* margin-left: 18.6%;
+    margin-right: 16%;
+    margin-top: -40%; */
+/* display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    overflow-x: hidden; */
+/* } */
+
+/* .da-payment-props{
+    margin-left: 20px;
+    margin-top: 20px;
+} */
+
+.payment-to {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 17px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.individual-delivery-agents {
+  background-color: #1aa803;
+  color: white;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  cursor: pointer;
+}
+
+.fleet-man {
+  background-color: white;
+  border: 1px solid #1aa803;
+  color: #1aa803;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 3px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.payment-vehicle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.bikes {
+  color: white;
+  background-color: #1aa803;
+}
+.bikes,
+.cars,
+.buses,
+.truck {
+  border: 1px solid #1aa803;
+  padding: 0px 30px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+/* styling for the non selected button */
+.not-active-record {
+  background-color: white;
+  color: #1aa803;
+}
+.cars,
+.buses,
+.truck {
+  background-color: white;
+  color: #1aa803;
+}
+
+.payment-week {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.week1 {
+  background-color: #1aa803;
+  color: white;
+}
+.week1,
+.week2,
+.week3,
+.week4,
+.week5 {
+  border: 1px solid #1aa803;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 5px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.week2,
+.week3,
+.week4,
+.week5 {
+  background-color: white;
+  color: #1aa803;
+}
+
+/* .week3{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.week4{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.week5{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+} */
+.record-date {
+  /* margin: o auto; */
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  visibility: hidden;
+}
+.table-data {
+  margin: 0 !important;
+  width: 100%;
+}
+.table-data tr td button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.table-data thead th {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 20px 0;
+}
+.table-data tr td {
+  font-size: 11px !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  padding: 5px 0;
+  border-bottom: 0.5px solid #cccaca;
+}
+
+.table-data tr td,
+.table-data thead th {
+  text-align: center;
+}
+.paid,
+.not-paid {
+  color: rgba(0, 0, 0, 0.6);
+  /* padding: 2px 0px; */
+  width: 50%;
+  font-size: 10px;
+  font-weight: 600;
+}
+.paid {
+  background: #f5ec16;
+  border-radius: 4px;
+}
+.not-paid {
+  background: rgba(196, 196, 196, 0.7);
+  border-radius: 4px;
+}
+.last-para {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.last-para p,
+.last-para h5 {
+  margin-left: 30px;
+  font-weight: 600;
+  font-size: 12px;
+}

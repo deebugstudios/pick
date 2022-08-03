@@ -11,6 +11,7 @@ import "../css/main.css";
 // import NavigationBar from './NavigationBar';
 import Section2 from "./Section2";
 import { Link } from "react-router-dom";
+import { Autocomplete } from "@react-google-maps/api";
 
 const Main = () => {
   return (
@@ -30,20 +31,24 @@ const Main = () => {
               <form className="main-form">
                 <div className="pickup-location-input">
                   <img src={pickupicon} alt="" className="left-icon" />
+                  {/* <Autocomplete> */}
                   <input
                     type="text"
                     placeholder="Enter Pickup Location"
                     className="input-main"
                   />
+                  {/* </Autocomplete> */}
                   <img src={locator} alt="" className="right-icon" />
                 </div>
                 <div className="delivery-location-input">
                   <img src={dropofficon} alt="" className="left-icon" />
+                  {/* <Autocomplete> */}
                   <input
                     type="text"
                     placeholder="Enter Delivery Location"
                     className="input-main"
                   />
+                  {/* </Autocomplete> */}
                 </div>
                 <div className="pickup-btn">
                   <Link to="/join">

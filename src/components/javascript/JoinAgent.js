@@ -81,6 +81,7 @@ export default function JoinAgent(props) {
     //     console.log(error);
     //   }
     //   console.log(formData);
+    // };
   };
 
   return (

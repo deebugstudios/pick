@@ -2,6 +2,7 @@
   width: 100vw;
   height: 80vh;
   overflow-y: scroll;
+  /* background-color: #e8f4e3; */
 }
 .controls-container {
   display: grid;

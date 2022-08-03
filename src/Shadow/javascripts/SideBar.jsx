@@ -46,17 +46,24 @@ const SideBar = () => {
           </Link>
         </ul>
 
-        <div className="side-bar-profile-details">
-          <div className="side-bar-profile-img">
-            <img src={profileimage} alt="profile image" />
-          </div>
-          <div className="side-bar-profile-name">
-            <h5>Angie</h5>
-            <p>View Profile</p>
-          </div>
-        </div>
         <ul>
-          <Link to="">
+          <div className="side-bar-profile-details">
+            <div className="side-bar-profile-img">
+              <Link to="/agent-profile">
+                <img src={profileimage} alt="profile image" />
+              </Link>
+            </div>
+            <Link to="/agent-profile">
+              <li>
+                <div className="side-bar-profile-name">
+                  <h5>Angie</h5>
+                  <p>View Profile</p>
+                </div>
+              </li>
+            </Link>
+          </div>
+
+          <Link to="/payment-details">
             {" "}
             <li>
               {" "}
@@ -65,7 +72,7 @@ const SideBar = () => {
             </li>
           </Link>
 
-          <Link to="">
+          <Link to="/agent-logout">
             {" "}
             <li>
               {" "}
@@ -74,6 +81,7 @@ const SideBar = () => {
             </li>
           </Link>
         </ul>
+        {/* <Outlet /> */}
       </div>
     </section>
   );
