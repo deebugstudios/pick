@@ -44,12 +44,12 @@ const SideBar = () => {
             </li>
           </Link>
 
-          <Link to="/Chatwithadmin">
-            <li>
-              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
-              {sideBar ? "Chat With Admin" : ""}
-            </li>
-          </Link>
+          {/* <Link to="/Chatwithadminuser"> */}
+          <li>
+            <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
+            {sideBar ? "Chat With Admin" : ""}
+          </li>
+          {/* </Link> */}
         </ul>
 
         <ul>

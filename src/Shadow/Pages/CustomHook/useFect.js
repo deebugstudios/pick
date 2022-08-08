@@ -14,15 +14,14 @@ export const useFetch = (url) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            delivery_agent_id:"62de6928e9d7da95308f28fd",
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNjkyOGU5ZDdkYTk1MzA4ZjI4ZmQiLCJwaG9uZV9ubyI6IisyMzQ4MTQ5NTE5MTY2IiwiaWF0IjoxNjU4NzQzMDgwfQ.5owkE0ocEQBhcjCN7dsk2gK46itrDMsnJ2CAq_bOYz8"
+            delivery_agent_id:"62de5fcae9d7da95308f28a8",
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU"
           })
   
         });
         const data = await res.json();
         const finalData = await data.delivery_agent
         setLoading(false)
-        console.log(finalData)
         setRiderData(finalData);
     }
     useEffect(()=> {

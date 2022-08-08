@@ -18,7 +18,9 @@
 .subsec3-right  > h3 {
     width: 70%;
     padding: 1em;
-    line-height: 1.5em;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 500;
 }
 .info-wrapper {
 margin-left: 3.8em;
@@ -26,6 +28,15 @@ margin-left: 3.8em;
 .home-office {
     margin-bottom: 2em;
 }
+.home-office h4, .contact-details h4 {
+    font-weight: 500;
+    font-size: 16px;
+}
+.contact-details p, .home-office p {
+    font-size: 13px;
+    font-weight: 400;
+}
+
 .home-office h4, .contact-details h4, .contact-details p {
     margin-bottom: .8em;
 }

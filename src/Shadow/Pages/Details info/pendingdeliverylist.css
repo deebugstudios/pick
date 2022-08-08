@@ -2,11 +2,12 @@
     background-color: var(--maincolor);
     border-radius: 5px;
     border:none;
-    padding: 10px 20px;
+    padding: 10px 18px;
 }
 .pending-delivery-pickup-img {
     overflow: hidden !important;
-    width: 100px;
+    width: 90px;
+    background-color: none !important;
 }
 .pending-delivery-pickup-img img {
     width: 100%;
@@ -14,7 +15,10 @@
     overflow: hidden;
 }
 .icon-img {
-    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
     cursor: pointer;
 }
 .icon-img img {

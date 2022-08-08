@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import "../css/sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,37 +10,47 @@ import {
   faCreditCard,
   faCreditCardAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import bikeicon from '../images/bikeicon.png'
+import cashicon from '../images/cashicon.png'
+import historyicon from '../images/historyicon.png'
+import reporticon from '../images/reporticon.png'
 import { Link, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
+import { RiderContext } from "../Pages/Contexts/RiderContext";
 
 const SideBar = () => {
+  const value = useContext(RiderContext);
+  const { riderdata, loading } = value;
   return (
     <section className="side-bar">
       <div className="side-bar-links">
         <ul>
           <Link to="/Deliveryrequest">
             <li>
-              <FontAwesomeIcon icon={faHome} className="space-icons" />
+              <FontAwesomeIcon icon={faHome} className="space-icons " />
               Delivery Request
             </li>{" "}
           </Link>
           <Link to="/pendingdeliveries">
             <li>
-              <FontAwesomeIcon icon={faBiking} className="space-icons" />
+              <img src={bikeicon} className="sidebar-icons space-icons " />
+              {/* <FontAwesomeIcon icon={faBiking} className="space-icons" /> */}
               Pending Deliveries
             </li>
           </Link>
 
           <Link to="/deliveryhistory">
             <li>
-              <FontAwesomeIcon icon={faTimesCircle} className="space-icons" />
+              <img src={historyicon} className="sidebar-icons space-icons" />
+              {/* <FontAwesomeIcon icon={faTimesCircle} className="space-icons" /> */}
               Delivery History
             </li>
           </Link>
 
           <Link to="/Chatwithadmin">
             <li>
-              <FontAwesomeIcon icon={faNoteSticky} className="space-icons" />
+              <img src={reporticon} className="sidebar-icons space-icons" />
+              {/* <FontAwesomeIcon icon={faNoteSticky} className="space-icons" /> */}
               Chat with Admin
             </li>
           </Link>
@@ -48,15 +58,15 @@ const SideBar = () => {
 
         <ul>
           <div className="side-bar-profile-details">
-            <div className="side-bar-profile-img">
+            <div className="side-bar-profile-img skeleton">
               <Link to="/agent-profile">
-                <img src={profileimage} alt="profile image" />
+                <img src={riderdata?.img_url} alt="profile image" />
               </Link>
             </div>
             <Link to="/agent-profile">
               <li>
                 <div className="side-bar-profile-name">
-                  <h5>Angie</h5>
+                  <h5>{riderdata?.fullname}</h5>
                   <p>View Profile</p>
                 </div>
               </li>
@@ -67,7 +77,8 @@ const SideBar = () => {
             {" "}
             <li>
               {" "}
-              <FontAwesomeIcon icon={faCreditCard} className="space-icons" />
+              <img src={cashicon} className="sidebar-icons space-icons" />
+              {/* <FontAwesomeIcon icon={faCreditCard} className="space-icons" /> */}
               Payment details
             </li>
           </Link>

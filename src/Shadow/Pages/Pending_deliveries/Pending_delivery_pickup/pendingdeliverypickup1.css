@@ -1,14 +1,16 @@
 .pending-delivery {
   background-color: #e8f4e3;
   /* overflow-y: scroll; */
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  overflow: hidden;
 }
 .pending-delivery-pickup-wrapper {
   background: #fefefe;
-  padding: 1em;
-  width: 90%;
+  padding: 10px 15px;
+  width: 100%;
   margin: 0 auto;
-  /* overflow-y: scroll !important; */
+  height: 86vh;
+  overflow-y: scroll !important;
   /* overflow: visible !important; */
   position: relative;
 }

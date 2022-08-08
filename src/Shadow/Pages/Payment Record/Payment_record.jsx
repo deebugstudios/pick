@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaymentWeeks } from "./ReauableComponents/PaymentWeeks/PaymentWeeks";
 import "./payment_record.css";
 import "../../../components/css/toggle.css";
 import { useNavigate } from "react-router-dom";
+import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
+import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_record() {
+  const value = useContext(RiderContext);
+  const { riderdata} = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
 
@@ -20,6 +24,9 @@ export default function Payment_record() {
     // navigate("/Pending-del");
   };
   return (
+    <div className="profile-page-container">
+    {/* <MainTop/> */}
+    <div className="profile-page-bottom">
     <div className="payment-record-container">
       <div className="DA-payment-history">
         <div className="da-payment-props">
@@ -142,6 +149,8 @@ export default function Payment_record() {
           </div>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 }

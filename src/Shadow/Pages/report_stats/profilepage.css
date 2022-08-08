@@ -1,67 +1,9 @@
 .profile-page-container {
-    padding: 20px;
+    padding: 10px 15px;
     background: #E8F4E3;
     width: 100% !important;
 }
-.pages {
-    background: #FFFFFF;
-    height: 150px;
-    padding: 10px 20px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-}
-.pages h3 {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 38px;
 
-color: rgba(0, 0, 0, 0.6);
-}
-.profile-page-top {
-    display: grid;
-    grid-template-columns:  repeat(3, 1fr);
-    grid-gap: 20px;
-}
-.span-two {
-    grid-column: span 2;
-}
-.profile-icons {
-    width: 20px;
-    position: absolute;
-    top: 5%;
-    right: 2%;
-}
-.half-circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    position: absolute;
-    top: -100%;
-    right: -130%;
-    z-index: 1 !important;
-}
-.half-circle img {
-    z-index: 6 !important;
-}
-.yellow-color {
-    background: #F5EC16;
-}
-.green-color {
-    background: rgba(26, 168, 3, 0.7);
-}
-.gray-color {
-    background: #E0E0E0;
-}
-.transportations {
-    display: flex;
-    gap: 30px;
-    padding-left: 30px;
-}
-.transportations ul li {
-    list-style: circle !important;
-}
 /* profile section page  */
 
 .profile-page-bottom {

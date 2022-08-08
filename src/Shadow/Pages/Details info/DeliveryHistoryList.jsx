@@ -5,7 +5,7 @@ import icons2 from "../../images/scheduledicon.png";
 import { Link, Outlet } from "react-router-dom";
 import "./pendingdeliverylist.css";
 import p5 from "../../images/p5.png";
-export const PendingDeliveryList = (props) => {
+export const DeliveryHistoryList = (props) => {
 console.log(props);
   return (
     <div className="pending-delivery-pickup-details-Container">

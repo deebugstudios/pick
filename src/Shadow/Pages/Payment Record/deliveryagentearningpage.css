@@ -1,0 +1,24 @@
+.padding {
+    padding: 10px 30px;
+}
+.total-earnings {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #CCCACA;
+    padding: 10px 10px;
+}
+.is-payment {
+    background: rgba(196, 196, 196, 0.64);
+    border-radius: 6px;
+    padding: 9px 15px;
+    width: 25%;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 10px;
+    text-align: center;
+}
+.place-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

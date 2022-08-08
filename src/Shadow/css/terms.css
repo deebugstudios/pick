@@ -1,0 +1,19 @@
+.terms-wrapper {
+    padding: 10px 40px;
+}
+.terms-wrapper h2 {
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+} 
+.terms-wrapper p {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 0;
+    line-height: 1.9;
+} 
+@media screen and (max-width:500px) {
+    .terms-wrapper {
+        padding: 10px 20px;
+    }
+}

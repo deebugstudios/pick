@@ -5,7 +5,10 @@
   overflow: hidden !important;
   background-color: white;
   z-index: 10000;
-  margin-top: 20px;
+  border-right: 2px solid black;
+}
+.sidebar-icons {
+  width: 20px;
 }
 .space-icons {
   margin-right: 5px;
@@ -26,10 +29,13 @@
   font-size: 1rem;
 }
 .side-bar-links ul li {
+  font-size: 12px;
   padding: 0.8em 0;
   cursor: pointer;
   padding-left: 10px;
   color: #666666;
+  display: flex;
+  align-items: center;
 }
 .side-bar-links ul li:hover {
   background-color: #e8f4e3;
@@ -39,7 +45,9 @@
   height: 40px;
   border-radius: 50%;
   /* background-color: black; */
-  margin-right: 0.5em;
+  margin-right: 5px;
+  overflow: hidden;
+  margin-left: 5px;
 }
 .side-bar-profile-name h5 {
   font-size: 13px !important;
@@ -47,7 +55,7 @@
 }
 .side-bar-profile-name p {
   font-size: 11px !important;
-  font-weight: 300;
+  font-weight: 400;
 }
 @media screen and (max-width: 700px) {
   .side-bar-profile-img {

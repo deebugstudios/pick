@@ -20,10 +20,10 @@ const Navsignedin = () => {
           <ul>
             <Link to="/">Home</Link>
             <li>
-              <a href="">About Us</a>
+              <Link to="/aboutUS"> About Us </Link>
             </li>
             <li>
-              <a href="">Contact Us</a>
+              <Link to="/contactUS"> Contact Us </Link>
             </li>
             <li className="hover-me">
               <a href="">

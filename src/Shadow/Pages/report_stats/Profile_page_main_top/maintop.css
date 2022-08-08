@@ -1,0 +1,79 @@
+.pages {
+    background: #FFFFFF;
+    height: 130px;
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.shared-layout {
+    background-color: #E8F4E3;
+    padding: 15px 20px;
+}
+.pages h3 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 38px;
+
+color: rgba(0, 0, 0, 0.6);
+}
+.profile-page-top {
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.span-two {
+    grid-column: span 2;
+}
+.profile-icons {
+    width: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.half-circle {
+    width: 80px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+.half-circle img {
+   width: 30px;
+   position: absolute;
+   right: 30%;
+   top: 20%;
+}
+.profile-small-icon {
+    width: 25px !important;
+}
+.profile-big-icon {
+    width: 40px !important;
+    right: 25% !important;
+    top: 25% !important;
+}
+.yellow-color {
+    background-image: url(../../../images/designyellow.png);
+    background-position: center;
+    background-size: cover;
+}
+.green-color {
+    background-image: url(../../../images/designgreen.png);
+    background-position: center;
+    background-size: cover;
+}
+.gray-color {
+    background-image: url(../../../images/designgray.png);
+    background-position: center;
+    background-size: cover;
+}
+.transportations {
+    display: flex;
+    gap: 30px;
+    padding-left: 30px;
+}
+.transportations ul li {
+    list-style: circle !important;
+}

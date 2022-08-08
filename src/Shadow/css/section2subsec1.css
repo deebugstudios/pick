@@ -44,16 +44,16 @@
     padding-bottom: 1em;
 }
 .subsec1-description div h4 {
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 16px;
     color: var(--maincolor);
 }
 .subsec1-description div h3 {
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 15px;
 }
 .subsec1-description div p {
-    font-weight: 300;
-    font-size: .9rem;
+    font-weight: 400;
+    font-size: 12px;
     padding: 1em 1.5em;
 }

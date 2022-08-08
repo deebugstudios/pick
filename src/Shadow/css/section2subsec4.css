@@ -18,9 +18,9 @@
     padding: 2em;
 }
 .background-green h3 {
-    line-height: 35px;
+    line-height: 1.8;
     font-weight: 400;
-    font-size: 28px;
+    font-size: 16px;
 }
 .background-green h3 span {
     color: #FEFEFE;
@@ -128,9 +128,9 @@
 }
 .first-bg-green h3{
     padding: 1em;
-    font-weight: 300 !important;
-    font-size: 20px;
-    line-height: 22px;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 1.9;
 }
 .first-bg-green div  {
     display: flex;
@@ -139,7 +139,7 @@
     margin-right: 5px;
 }
 .social-btn {
-    width: 100px;
+    width: 130px;
     cursor: pointer;
 }
 @media screen and (max-width:980px) {
@@ -195,8 +195,8 @@
 .second-bg-text h3 {
     padding: 1em;
     font-weight: 400 !important;
-    font-size: 22px;
-    line-height: 24px;
+    font-size: 15px;
+    line-height: 1.8;
 }
 .second-bg span {
     color: var(--maincolor);

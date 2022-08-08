@@ -1,0 +1,34 @@
+.week-payment {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+.back-arrow {
+    padding: 10px 20px;
+}
+.paid2 {
+    background: #F5EC16;
+    border-radius: 6px; 
+    padding: 2px 15px;
+}
+.earnings-h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+.earning-tbody {
+    width: 100% !important;
+}
+.earning-first-table {
+    font-size: 14px;
+}
+.earning-first-table td {
+    text-align: left !important;
+    font-size: 13px;
+}
+.earning-first-table th {
+    text-align: center !important;
+    font-weight: 500;
+}
+.delivery-profile {
+    margin-left: 15px !important;
+}

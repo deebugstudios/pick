@@ -6,6 +6,10 @@
     justify-content: center;
     background: rgba(26, 168, 3, 0.08);
 }
+.ourservice-p {
+    font-weight: 400 !important;
+    font-size: 13px !important;
+}
 .ourservices > p {
     font-weight: 400;
     font-size: 15px;

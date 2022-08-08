@@ -85,6 +85,8 @@
 }
 .subsecs2-left P {
     margin-bottom: 3em;
+    font-size: 16px;
+    font-weight: 500;
 }
  .learn-more, .watch-video {
      padding: 0.9em 1.9em;
@@ -92,6 +94,9 @@
      border-radius: 8px;
      color: #21AB0A;
      border: 1px solid #1FAA08;
+ }
+ .watch-video a {
+    color: #21AB0A;
  }
  .learn-more {
     background: #21AB0A;
@@ -111,6 +116,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2em;
+}
+.stats p {
+    font-size: 16px;
+    font-weight: 500;
 }
 .stats > div {
     display: flex;

@@ -1,0 +1,68 @@
+.contact-us {
+    width: 100%;
+}
+
+.contact-us-wrapper {
+    display: flex;
+    /* height: 89vh; */
+}
+/* sorry this css is about us style too lazy to create its own css */
+.aboutus-image {
+    height: 300px;
+    width: 90% !important;
+}
+.contact-us-left-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120%;
+}
+
+.text-container {
+    /* width: 80%; */
+    padding: 20px 0;
+    padding-left: 35px !important;
+}
+.text-container h3 {
+    line-height: 1.3;
+    font-size: 2.7vw;
+    font-weight: 400;
+}
+
+.contact-us-right-side {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.image-contaniner {
+    width: 40%;
+    /* height: 50vh; */
+    overflow: hidden;
+}
+.image-contaniner img {
+    width: 100%;
+}
+@media screen and (max-width:613px) {
+    .text-container {
+        /* width: 80%; */
+        padding: 27px 19px !important;
+    }
+}
+
+@media screen and (max-width:598px) {
+    .text-container {
+        /* width: 80%; */
+        padding: 15px 9px !important;
+    }
+    .text-container h3 {
+        font-weight: 300 !important;
+    }
+}
+@media screen and (max-width:400px) {
+    .text-container {
+        /* width: 80%; */
+        padding: 5px 2px !important;
+    }
+    
+}
