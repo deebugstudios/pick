@@ -23,16 +23,16 @@ export const PendingDeliveryList = (props) => {
         <div className="pending-delivery-pickup-detail">
           <div className="pending-delivery-pickup-left">
             <div className="pending-delivery-pickup-img">
-              {/* <img src={} alt="" /> */}
+              <img src={props?.deliveryimage} alt="" />
             </div>
             <table>
               <tr>
                 <th>Parcel Name:</th>
-                <td>Grocceries</td>
+                <td>{props?.parcelname}</td>
               </tr>
               <tr>
                 <th>Delivery ID:</th>
-                <td>7805097</td>
+                <td>{props?.parcelcode}</td>
               </tr>
             </table>
           </div>
@@ -58,16 +58,16 @@ export const PendingDeliveryScheduled = (props) => {
         <div className="pending-delivery-pickup-detail">
           <div className="pending-delivery-pickup-left">
             <div className="pending-delivery-pickup-img">
-              {/* <img src={} alt="" /> */}
+              <img src={props?.deliveryimage} alt="" />
             </div>
             <table>
               <tr>
                 <th>Parcel Name:</th>
-                <td>Grocceries</td>
+                <td>{props?.parcelname}</td>
               </tr>
               <tr>
                 <th>Delivery ID:</th>
-                <td>7805097</td>
+                <td>{props?.parcelcode}</td>
               </tr>
             </table>
           </div>

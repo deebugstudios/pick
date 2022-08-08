@@ -3,12 +3,19 @@ import "./requestpickup.css";
 import LoggedinMainPage from "./LoggedinMainPage";
 import { Link } from "react-router-dom";
 import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
+import { useLocation } from "react-router-dom";
 
 export default function UserRequestPickup() {
   return <LoggedinMainPage file={<UserRequestPickup1 />} />;
 }
 
 export function UserRequestPickup1() {
+  const location = useLocation();
+  // const Deliver = location.state.token;
+  // const id = location.state.id;
+
+  // console.log(id);
+
   return (
     <section className="user-dashboard">
       <div className="user-right-side-1">

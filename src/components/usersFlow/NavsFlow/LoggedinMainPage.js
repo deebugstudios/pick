@@ -4,8 +4,12 @@ import Navsignedin from "../../javascript/UserNavsignedin";
 import SideBar from "../../javascript/SideBar";
 import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
+import { useLocation } from "react-router-dom";
 
 const LoggedinMainPage = (props) => {
+  // const location = useLocation();
+  // const Token = location.state.token;
+  // console.log(Token);
   return (
     // <BrowserRouter basename={process.env.PUBLIC_URL}>
     <section className="user-dashboard-main">

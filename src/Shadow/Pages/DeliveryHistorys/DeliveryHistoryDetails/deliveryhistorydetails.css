@@ -24,7 +24,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: var(--maincolor);
+  /* background-color: var(--maincolor); */
   margin-bottom: 5px;
 }
 .delivery-history-info {

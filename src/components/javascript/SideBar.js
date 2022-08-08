@@ -52,31 +52,33 @@ const SideBar = () => {
           </Link>
         </ul>
 
-        <Link to="/user-profile">
-          <li>
-            {sideBar ? (
-              <div className="side-bar-profile-detail-1">
-                <div className="side-bar-profile-img-1">
-                  {/* <img src={} alt="" /> */}
+        <ul>
+          <Link to="/user-profile">
+            <li>
+              {sideBar ? (
+                <div className="side-bar-profile-detail-1">
+                  <div className="side-bar-profile-img-1">
+                    {/* <img src={} alt="" /> */}
+                  </div>
+                  <div className="side-bar-profile-name">
+                    <h5>Angie</h5>
+                    <p>View Profile</p>
+                  </div>
                 </div>
-                <div className="side-bar-profile-name">
-                  <h5>Angie</h5>
-                  <p>View Profile</p>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-          </li>
-        </Link>
+              ) : (
+                ""
+              )}
+            </li>
+          </Link>
 
-        <Link to="/user-logout">
-          <li>
-            {" "}
-            <FontAwesomeIcon icon={faSignOut} className="space-icons-1" />
-            {sideBar ? "Log out" : ""}
-          </li>
-        </Link>
+          <Link to="/user-logout">
+            <li>
+              {" "}
+              <FontAwesomeIcon icon={faSignOut} className="space-icons-1" />
+              {sideBar ? "Log out" : ""}
+            </li>
+          </Link>
+        </ul>
       </div>
     </section>
   );

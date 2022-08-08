@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./pendingdeliveryspecifics.css";
 import map from "../../Images/map.png";
 import { DeliveryImages } from "../Details info/DeliveryImages";
@@ -8,7 +8,7 @@ import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 import LoggedinMainPage from "./LoggedinMainPage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function PendingInstantDetails() {
   return <LoggedinMainPage file={<PendingInstantDetails1 />} />;
@@ -16,11 +16,53 @@ export default function PendingInstantDetails() {
 
 export function PendingInstantDetails1() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [loading, setLoading] = useState(true);
+  const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [pickDate, setPickDate] = useState(Number);
+  // const [time, setTime] = useState({});
+
+  const Delivery_id = location.state.id;
+
+  const fetchDeliveryDetails = async () => {
+    const res = await fetch(
+      "https://guarded-falls-60982.herokuapp.com/user_delivery/single_delivery",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+          delivery_id: Delivery_id,
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setDeliveryDetails(results?.delivery);
+    setPickDate(deliveryDetails?.pickup_time);
+    console.log(pickDate);
+  };
+  // const dateField = new Date(deliveryDetails?.pickup_time);
+  const dateField = new Date(pickDate);
+  const dateString = dateField.toDateString();
+  const time = dateField.toTimeString();
+  const timeString = time.slice(0, -40);
+
+  // console.log(dateString);
+
+  useEffect(() => {
+    fetchDeliveryDetails();
+  }, []);
 
   return (
     <section className="user-dashboard pending-delivery specifics">
       <div className="pending-delivery-specifics-wrapper">
-        <div className="pending-delivery-pickup-slides">
+        <div className="pending-delivery-pickup-slide">
           <div
             id="arrow-div-instant"
             onClick={() => {
@@ -35,28 +77,27 @@ export function PendingInstantDetails1() {
           <GoogleMap />
         </div>
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <div className="specific-details-section">
-          <h3>Instant Delivery ID: 7805097 </h3>
+          <h3>Instant Delivery ID: {deliveryDetails?.parcel_code}</h3>
           <div className="delivery-details-pictures specifics-images">
-            <DeliveryImages />
-            <DeliveryImages />
-            <DeliveryImages />
+            {deliveryDetails.imgs?.map((item, index) => (
+              <li key={index}>
+                <DeliveryImages rectangle={item} />
+              </li>
+            ))}
           </div>
-          <br />
-          <h3>Delivery status</h3>
+
+          <h3>Delivery status </h3>
           <div className="delivery-details-location">
             <div className="delivery-deatails-location-pickup">
               <div className="location-img">
                 <img src={locationimg} alt="" />
               </div>
               <h3>Parcel Received by Delivery Agent </h3>
-              <p>Thursday March 25th at 9:30pm</p>
+              <p>
+                {dateString} at {timeString}
+              </p>
               <h3>Parcel in Transit </h3>
             </div>
             {/* <table>
@@ -83,40 +124,51 @@ export function PendingInstantDetails1() {
 
           <div className="delivery-profile">
             <div className="driver-profile-image">
-              <div className="image"></div>
+              <div className="image">
+                <img src={deliveryDetails.delivery_agent_img} />{" "}
+              </div>
             </div>
             <div className="delivery-profile-details">
               <table>
                 <tr>
                   <th>Delivery Agent :</th>
-                  <td>Peter Robinson</td>
+                  <td>{deliveryDetails?.delivery_agent_name}</td>
                 </tr>
                 <tr>
                   <th>Vehicle Type :</th>
-                  <td>Tesla Cyber Truck</td>
+                  <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                 </tr>
                 <tr>
                   <th>Vehicle Color :</th>
-                  <td>Army Green</td>
+                  <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
                 </tr>
                 <tr>
                   <th>Agent ID :</th>
-                  <td>6788</td>
+                  <td>{deliveryDetails.delivery_agent_id}</td>
                 </tr>
                 <tr>
                   <th>Plate Number :</th>
-                  <td>LSR4KMJ</td>
+                  <td>{deliveryDetails.delivery_agent_plate_no}</td>
                 </tr>
                 <tr>
                   <th>Phone Number :</th>
-                  <td>09087614543</td>
+                  <td>{deliveryDetails.delivery_agent_phone_no}</td>
                 </tr>
               </table>
             </div>
           </div>
 
           <div className="specific-info delivery-history-info">
-            <DeliverInfo2 />
+            <DeliverInfo2
+              sender={deliveryDetails.sender_fullname}
+              sender_no={deliveryDetails.sender_phone_no}
+              receiver={deliveryDetails.reciever_name}
+              receiver_no={deliveryDetails.reciever_phone_no}
+              parcel_name={deliveryDetails.parcel_name}
+              parcel_type={deliveryDetails.parcel_type}
+              description={deliveryDetails.parcel_description}
+              instruction={deliveryDetails.delivery_instructions}
+            />
           </div>
           <br />
 

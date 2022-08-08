@@ -17,6 +17,8 @@ export default function SignupDelivery() {
       link="/individual"
       link2="/fleet"
       name="Next"
+      in="Login"
+      inLink="/login-as"
     />
   );
 }

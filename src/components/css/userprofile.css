@@ -41,11 +41,21 @@
   max-height: 40px;
 }
 .user-image {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background-color: var(--maincolor);
+  /* background-color: lightblue; */
+  border: 2px solid #1ca905;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-image img {
+  border-radius: 50%;
+  padding: 5px;
+  width: max-content;
+  height: 100%;
 }
 #user-info-form {
   display: flex;
@@ -74,4 +84,7 @@
   font-size: small;
   margin-left: 5px;
   color: #959398;
+}
+.change-prof {
+  cursor: pointer;
 }

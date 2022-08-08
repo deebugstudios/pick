@@ -30,7 +30,7 @@ const NavigationBar = () => {
           </ul>
         </div>
         <div className="btns">
-          <Link to="/welcome">
+          <Link to="/login-as">
             <button className="login-btn">Log in</button>
           </Link>
           <Link to="/join">

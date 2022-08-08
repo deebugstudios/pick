@@ -18,6 +18,16 @@
   top: 5%;
   z-index: 2;
 }
+.pending-delivery-pickup-slide {
+  width: 100%;
+  margin-left: 30px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 50px;
+  position: sticky;
+  top: 5%;
+  z-index: 2;
+}
 .pending-delivery-pickup-slides span {
   padding: 0.8em 4em;
   border-radius: 8px;
@@ -55,7 +65,6 @@
 .pending-delivery-pickup-img {
   width: 100px;
   height: 100px;
-  background-color: var(--maincolor);
 }
 .activated {
   background-color: var(--maincolor);
@@ -95,7 +104,7 @@
   cursor: pointer;
 }
 .pending-delivery-pickup-entries h6 {
-  font-weight: 300;
+  font-weight: 500;
   color: #666666;
 }
 .icon-space {

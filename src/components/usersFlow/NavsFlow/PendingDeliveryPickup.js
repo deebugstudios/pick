@@ -4,7 +4,7 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PendingDeliveryList } from "../Details info/PendingDeliveryList";
 import "./pendingdeliverypickup.css";
 import LoggedinMainPage from "./LoggedinMainPage";
@@ -19,25 +19,42 @@ export default function PendingDeliveryPickup() {
 
 export function PendingDeliveryPickup1(props) {
   const [toggle, setToggle] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [pendingDeliveries, setPendingDeliveries] = useState([]);
   const navigate = useNavigate();
 
-  let listItem;
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    navigate("/pending-instant");
+  const fetchPendingDeliveries = async () => {
+    const res = await fetch(
+      "https://guarded-falls-60982.herokuapp.com/user_delivery/pending_delivery",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+          user_id: "62d6fed8e58a29217b404b22",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setPendingDeliveries(results?.deliveries);
+    console.log(results);
   };
 
-  const handleClick2 = (e) => {
-    e.preventDefault();
-    navigate("/pending-scheduled");
-  };
+  useEffect(() => {
+    fetchPendingDeliveries();
+  }, []);
 
-  if (toggle === true) {
-    listItem = <PendingDeliveryList click={handleClick} />;
-  } else {
-    listItem = <PendingDeliveryScheduled click2={handleClick2} />;
-  }
+  // if (toggle === true) {
+  //   listItem = <PendingDeliveryList click={handleClick} />;
+  // } else {
+  //   listItem = <PendingDeliveryScheduled click2={handleClick2} />;
+  // }
 
   const firstClick = () => {
     setToggle(true);
@@ -77,13 +94,28 @@ export function PendingDeliveryPickup1(props) {
         </div>
         <br />
 
-        {/* <PendingDeliveryList click={navigate("/pending-instant")} />
-        <PendingDeliveryList /> */}
-
-        {listItem}
-        {listItem}
-        {listItem}
-
+        {pendingDeliveries.map((item) =>
+          toggle === true && item.delivery_type === "instant" ? (
+            <PendingDeliveryList
+              click={() => {
+                navigate("/pending-instant", { state: { id: item._id } });
+              }}
+              parcelname={item.parcel_name}
+              parcelcode={item.parcel_code}
+              deliveryimage={item.imgs[0]}
+            />
+          ) : toggle === false && item.delivery_type === "scheduled" ? (
+            <PendingDeliveryScheduled
+              click2={() => {
+                navigate("/pending-scheduled", { state: { id: item._id } });
+              }}
+              parcelname={item.parcel_name}
+              parcelcode={item.parcel_code}
+              deliveryimage={item.imgs[0]}
+            />
+          ) : null
+        )}
+        <br />
         <div className="pending-delivery-pickup-entries">
           <h6>
             Showing <span>1</span> to <span>10</span> of <span>30</span> entries

@@ -9,7 +9,7 @@ export default function Success() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/Deliveryrequest");
+    navigate("/welcome-agent");
   };
   return (
     <>

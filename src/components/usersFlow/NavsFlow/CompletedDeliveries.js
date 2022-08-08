@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PendingDeliveryList } from "../Details info/PendingDeliveryList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -13,24 +13,75 @@ export default function CompletedDeliveries() {
 
 export const CompletedDeliveries2 = () => {
   const [toggle, setToggle] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [completedDeliveries, setCompletedDeliveries] = useState([]);
+  const [cancelledDeliveries, setCancelledDeliveries] = useState([]);
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    {
-      toggle ? navigate("/user-schedule") : navigate("/cancelled-details");
-    }
+  const fetchCompletedDeliveries = async () => {
+    const res = await fetch(
+      "https://guarded-falls-60982.herokuapp.com/user_delivery/completed_history",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+          user_id: "62d6fed8e58a29217b404b22",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setCompletedDeliveries(results?.deliveries);
+    // pendingDeliveries.map((item) => console.log(item));
   };
 
-  const handleClick2 = (e) => {
-    e.preventDefault();
-    {
-      toggle ? navigate("/user-instant") : navigate("/cancelled-details");
-    }
+  const fetchCancelledDeliveries = async () => {
+    const res = await fetch(
+      "https://guarded-falls-60982.herokuapp.com/user_delivery/cancel_history",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+          user_id: "62d6fed8e58a29217b404b22",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setCancelledDeliveries(results?.deliveries);
+    // pendingDeliveries.map((item) => console.log(item));
   };
 
-  let listItem = <HistoryList click={handleClick} />;
-  let listItem2 = <InstantHistoryList click={handleClick2} />;
+  useEffect(() => {
+    fetchCompletedDeliveries();
+    fetchCancelledDeliveries();
+  }, []);
+
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   {
+  //     toggle ? navigate("/user-schedule") : navigate("/cancelled-details");
+  //   }
+  // };
+
+  // const handleClick2 = (e) => {
+  //   e.preventDefault();
+  //   {
+  //     toggle ? navigate("/user-instant") : navigate("/cancelled-details");
+  //   }
+  // };
 
   const firstClick = () => {
     setToggle(true);
@@ -76,10 +127,40 @@ export const CompletedDeliveries2 = () => {
             className="search-box-1"
           />
         </div>
-        {listItem}
-        {listItem2}
-        {listItem}
-        {listItem2}
+
+        {toggle === true
+          ? completedDeliveries.map((pObj) => (
+              <InstantHistoryList
+                // click={handleClick}
+                click={
+                  pObj.delivery_type === "instant"
+                    ? () => {
+                        navigate("/user-instant", { state: { id: pObj._id } });
+                      }
+                    : pObj.delivery_type === "scheduled"
+                    ? () => {
+                        navigate("/user-schedule", { state: { id: pObj._id } });
+                      }
+                    : null
+                }
+                parcelname={pObj.parcel_name}
+                parcelcode={pObj.parcel_code}
+                deliverytype={pObj.delivery_type}
+                deliveryimage={pObj.imgs[0]}
+              />
+            ))
+          : cancelledDeliveries.map((item) => (
+              <InstantHistoryList
+                click={() => {
+                  navigate("/cancelled-details", { state: { id: item._id } });
+                }}
+                parcelname={item.parcel_name}
+                parcelcode={item.parcel_code}
+                deliverytype={item.delivery_type}
+                deliveryimage={item.imgs[0]}
+              />
+            ))}
+
         <div className="pending-delivery-pickup-entries">
           <h6>
             Showing <span>1</span> to <span>10</span> of <span>30</span> entries

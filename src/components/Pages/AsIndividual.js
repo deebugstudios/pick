@@ -6,6 +6,7 @@ export default function AsIndividual() {
     <JoinAgent
       delivery="Join Pickload as an Individual Delivery agent"
       link="/otp2"
+      agent="delivery agent"
     />
   );
 }

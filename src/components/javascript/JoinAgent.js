@@ -10,6 +10,8 @@ import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
 import Locate from "../Images/locate.png";
 import Flag from "../Images/Nigerian_flag.png";
+import axios from "axios";
+import AsIndividual from "../Pages/AsIndividual";
 
 export default function JoinAgent(props) {
   const asterik = <span id="asterik">*</span>;
@@ -22,9 +24,13 @@ export default function JoinAgent(props) {
     address: "",
     resident_state: "",
   });
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
   const [message, setMessage] = useState("");
+  const [gender, setGender] = useState("");
+  const [token, setToken] = useState("");
+  const [id, setId] = useState("");
 
   const handleChange = (e) => {
     const target = e.target;
@@ -32,57 +38,69 @@ export default function JoinAgent(props) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleCheck = (e) => {
+    setGender(e.target.value);
+  };
+
+  // const handleCheck2 = (e) => {
+  //   setIsFemale(!isFemale);
+  //   if (isFemale) {
+  //     setIsMale(false);
+  //   }
+  // };
+
   const onFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
     setIsSelected(true);
+    console.log(selectedFile);
   };
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  let agent = props.agent;
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(props.link);
-    //   try {
-    //     const res = await fetch(
-    //       "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_one",
-    //       {
-    //         method: "POST",
+    // navigate(props.link);
+    const bodyFormData = new FormData();
+    bodyFormData.append("fullname", formData.fullname);
+    bodyFormData.append("phone_no", formData.phone_no);
+    bodyFormData.append("email", formData.email);
+    bodyFormData.append("delivery_agent_type", agent);
+    bodyFormData.append("address", formData.address);
+    bodyFormData.append("state", formData.resident_state);
+    bodyFormData.append("city", formData.city);
+    bodyFormData.append("gender", gender);
+    bodyFormData.append("profile_img", selectedFile);
 
-    //         body: JSON.stringify({
-    //           fullname: formData.fullname,
-    //           phone_no: formData.phone_no,
-    //           email: formData.email,
-    //           delivery_agent_type: "Individual",
-    //           address: formData.address,
-    //           state: formData.resident_state,
-    //           city: formData.city,
-    //           gender: "Male",
-    //           profile_img: selectedFile,
-    //         }),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Accept: "application/json, text/plain, */*",
-    //         },
-    //       }
-    //     );
-
-    //     const data = await res.json();
-    //     console.log(data);
-
-    //     if (res.status === 200) {
-    //       // setName("");
-    //       // setEmail("");
-    //       setMessage("User created successfully");
-    //       navigate(props.link);
-    //     } else {
-    //       setMessage("Error occured");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   console.log(formData);
-    // };
+    axios
+      .post(
+        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_one",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        // if (response.status === 200) {
+        //   navigate(props.link);
+        // } else {
+        //   setMessage("Error occured");
+        // }
+        navigate(props.link);
+        console.log(bodyFormData);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  const _id = "62ed9fa9ef8d4752b2e1b9e2";
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ";
 
   return (
     <>
@@ -96,7 +114,11 @@ export default function JoinAgent(props) {
         <br />
         <br />
 
-        <form onSubmit={handleSubmit} className="sign-form">
+        <form
+          onSubmit={handleSubmit}
+          className="sign-form"
+          encType="multipart/form-data"
+        >
           <label className="requiredText">Full name{asterik}</label>
           <div className="delivery-location-input">
             <img src={User} alt="" className="user-icon" />
@@ -204,6 +226,8 @@ export default function JoinAgent(props) {
                 type="checkbox"
                 value="male"
                 name="gender"
+                checked={gender === "male"}
+                onChange={handleCheck}
               />
 
               <label className="check" htmlFor="gender">
@@ -214,6 +238,8 @@ export default function JoinAgent(props) {
                 type="checkbox"
                 value="female"
                 name="gender"
+                checked={gender === "female"}
+                onChange={handleCheck}
               />
             </section>
           </div>
@@ -234,14 +260,16 @@ export default function JoinAgent(props) {
                 <label>
                   <img src={Vector} alt="Vector" />
                   <input
-                    maxLength={1}
                     onChange={onFileChange}
                     type="file"
-                    accept="image/*"
+                    accept=".png, .jpg, .jpeg, .gif"
                     name="selectedFile"
+                    // disabled=
                   />
                 </label>
               </div>
+
+              {isSelected ? <p>{selectedFile.name}</p> : null}
             </section>
             <div className="message"></div>
           </div>

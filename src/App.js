@@ -4,7 +4,7 @@ import PhoneConfirm from "./components/Pages/PhoneConfirm";
 import Signup from "./components/Pages/Signup";
 import SignupDelivery from "./components/Pages/SignupDelivery";
 import UserForm from "./components/Pages/UserForm";
-import WelcomeUser from "./components/Pages/WelcomeUser";
+import WelcomeUser, { WelcomeAgent } from "./components/Pages/WelcomeUser";
 import ForgotNumber from "./components/Pages/ForgotNumber";
 import AsIndividual from "./components/Pages/AsIndividual";
 import AsFleet from "./components/Pages/AsFleet";
@@ -61,6 +61,8 @@ import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
 import ProfilePage from "./Shadow/Pages/report_stats/ProfilePage";
 import Payment_record from "./Shadow/Pages/Payment Record/Payment_record";
+import LoginAs from "./components/Pages/LoginAs";
+import { AgentContext } from "./components/javascript/AgentContext";
 
 export default function App() {
   return (
@@ -75,6 +77,8 @@ export default function App() {
           <Route path="join" element={<Signup />} />
           <Route path="/userform" element={<UserForm />} />
           <Route path="fleet" element={<AsFleet />} />
+          <Route path="login-as" element={<LoginAs />} />
+          <Route path="welcome-agent" element={<WelcomeAgent />} />
           <Route path="confirm" element={<PhoneConfirm />} />
           <Route path="otp" element={<UserOtp />} />
           <Route path="welcome" element={<WelcomeUser />} />

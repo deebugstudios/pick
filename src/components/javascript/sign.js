@@ -122,8 +122,8 @@ export default function Sign(props) {
 
               <p id="accountAlready">
                 Already Have an account?{" "}
-                <Link to="/welcome">
-                  <span id="loginSpan">Log in</span>
+                <Link to={props.inLink}>
+                  <span id="loginSpan">{props.in}</span>
                 </Link>
               </p>
             </div>

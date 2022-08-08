@@ -47,22 +47,26 @@ export function InstantHistoryList(props) {
         <div className="pending-delivery-pickup-detail">
           <div className="pending-delivery-pickup-left">
             <div className="pending-delivery-pickup-img">
-              {/* <img src={} alt="" /> */}
+              <img src={props?.deliveryimage} alt="" />
             </div>
             <table>
               <tr>
                 <th>Parcel Name:</th>
-                <td>Grocceries</td>
+                <td>{props?.parcelname}</td>
               </tr>
               <tr>
                 <th>Delivery ID:</th>
-                <td>7805097</td>
+                <td>{props?.parcelcode}</td>
               </tr>
             </table>
           </div>
           <div className="pending-delivery-pickup-actions">
             <div id="type-div-w">
-              <img src={Instant} alt="" />
+              {props?.deliverytype == "instant" ? (
+                <img src={Instant} alt="instant delivery" />
+              ) : (
+                <img src={Schedule} alt="scheduled delivery" />
+              )}
             </div>
             {/* <FontAwesomeIcon icon={faTimesCircle} /> */}
             <button onClick={props.click}>View Details</button>

@@ -15,6 +15,7 @@
   z-index: 1;
   margin-bottom: 10px;
   margin-top: -70px;
+  overflow-y: hidden !important;
 }
 .specifics-map-container img {
   width: 100%;
@@ -63,8 +64,8 @@
   margin-bottom: 28px;
 }
 .location-img {
-  width: 25px;
-  height: 100px;
+  width: 27px !important;
+  height: 100px !important;
   position: absolute;
   left: -30px;
   top: 0;
@@ -109,6 +110,6 @@
   align-content: flex-start;
   justify-content: flex-start;
   justify-self: flex-start;
-  margin-left: 30px;
+  margin-left: 0px;
   cursor: pointer;
 }

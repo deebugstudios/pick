@@ -1,5 +1,6 @@
 .user-right-side-main {
   display: flex;
+  overflow: hidden !important;
   /* overflow: scroll !important; */
 }
 .content-wrap {
@@ -7,7 +8,7 @@
   width: 100%;
   background-color: #e8f4e3;
   padding: 0px 30px;
-  /* overflow-y: hidden; */
+  overflow-y: scroll;
 }
 #content-pad {
   background-color: white;

@@ -1,15 +1,158 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../javascript/Button";
 import Head from "../javascript/Head";
 import ProgressMMM from "../Images/ProgressIII.png";
 import "../css/vehicle.css";
 import Vector from "../Images/Vector.png";
 import Footer from "../javascript/Footer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import axios from "axios";
 
 export default function IndividualVehicle() {
   const asterik = <span id="asterik">*</span>;
 
+  const [formData, setFormData] = useState({
+    fleet_id: "",
+    color: "",
+    vehicle_name: "",
+    plate_no: "",
+  });
+  const [type, setType] = useState("bike");
+  const [expiry, setExpiry] = useState("");
+  const [fullPicture, setFullPicture] = useState([]);
+  const [license, setLicense] = useState([]);
+  const [fileLimit, setFileLimit] = useState(false);
+  const [fileLimit2, setFileLimit2] = useState(false);
+  const [fileLimit3, setFileLimit3] = useState(false);
+  const [vehicleImage, setVehicleImage] = useState([]);
+
+  const handleFullPicture = (files) => {
+    const picUploaded = [...fullPicture];
+    let limitExceeded = false;
+    files.some((file) => {
+      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
+        picUploaded.push(file);
+        if (picUploaded.length === 1) setFileLimit(true);
+        if (picUploaded.length > 1) {
+          setFileLimit(false);
+          limitExceeded = true;
+          return true;
+        }
+      }
+    });
+    if (!limitExceeded) setFullPicture(picUploaded);
+  };
+
+  const handleFullPictureE = (e) => {
+    const chosenFiles = Array.prototype.slice.call(e.target.files);
+    handleFullPicture(chosenFiles);
+  };
+
+  const handleLicense = (files) => {
+    const picUploaded = [...license];
+    let limitExceeded = false;
+    files.some((file) => {
+      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
+        picUploaded.push(file);
+        if (picUploaded.length === 2) setFileLimit2(true);
+        if (picUploaded.length > 2) {
+          setFileLimit2(false);
+          limitExceeded = true;
+          return true;
+        }
+      }
+    });
+    if (!limitExceeded) setLicense(picUploaded);
+  };
+
+  const handleLicenseE = (e) => {
+    const chosenFiles = Array.prototype.slice.call(e.target.files);
+    handleLicense(chosenFiles);
+  };
+
+  const handleVehicleImage = (files) => {
+    const picUploaded = [...vehicleImage];
+    let limitExceeded = false;
+    files.some((file) => {
+      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
+        picUploaded.push(file);
+        if (picUploaded.length === 5) setFileLimit3(true);
+        if (picUploaded.length > 5) {
+          setFileLimit3(false);
+          limitExceeded = true;
+          return true;
+        }
+      }
+    });
+    if (!limitExceeded) setVehicleImage(picUploaded);
+  };
+
+  const handleVehicleImageE = (e) => {
+    const chosenFiles = Array.prototype.slice.call(e.target.files);
+    handleVehicleImage(chosenFiles);
+  };
+
+  const handleDate = (e) => {
+    const newDate = dayjs(e.target.value).format("YYYY-MM-DD");
+    setExpiry(newDate);
+  };
+  let expiry_date = dayjs(expiry).format("DD-MM-YYYY").toString();
+
+  const handleRadio = (e) => {
+    setType(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    const target = e.target;
+    const { name, value } = target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const formImages = [fullPicture, license, vehicleImage];
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // navigate("/account");
+    const bodyFormData = new FormData();
+    bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
+    bodyFormData.append(
+      "token",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
+    );
+    bodyFormData.append("fleet_manager_code", formData.fleet_id);
+    bodyFormData.append("color", formData.color);
+    bodyFormData.append("vehicle_name", formData.vehicle_name);
+    bodyFormData.append("vehicle_type", type);
+    bodyFormData.append("plate_no", formData.plate_no);
+    bodyFormData.append("driver_license_expiry_date", expiry_date);
+    bodyFormData.append("vehicle_details_imgs", formImages);
+
+    axios
+      .post(
+        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_three",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        // if (response.status === 200) {
+        //   navigate(props.link);
+        // } else {
+        //   setMessage("Error occured");
+        // }
+        navigate("/account");
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <Head />
@@ -22,53 +165,90 @@ export default function IndividualVehicle() {
         <br />
         <br />
 
-        <form className="sign-form" id="vehicle-i">
+        <form onSubmit={handleSubmit} className="sign-form">
+          <label className="requiredText">
+            Fleet D{" "}
+            <span className="Upload" id="uploadText-2">
+              (Fill this only if you are under a Fleet Manager and a code has
+              been given
+              <br />
+              to you)
+            </span>{" "}
+          </label>
+          <input
+            value={formData.fleet_id}
+            type="text"
+            className="form-field edit-field phone-input2"
+            placeholder="Enter Your Fleet ID"
+            name="fleet_id"
+            onChange={handleChange}
+          />
+          <br />
+
           <p className="requiredText">
             {asterik} Please select the delivery medium you want to register
             <br />
           </p>
 
-          <section className="Radio vehicle-rad" id="Radio-1">
+          <section className="Radio" id="Radio-1">
             <input
               type="radio"
-              value="Bike"
+              value="bike"
               name="Vehicle"
               className="RadioV"
+              checked={type === "bike"}
+              onChange={handleRadio}
             />
-            <label htmlFor="Bike">
+            <label htmlFor="bike">
               {" "}
               <span className="vehicle-text">Bike</span>
             </label>
 
-            <input type="radio" value="Bus" name="Vehicle" className="RadioV" />
-            <label htmlFor="Bus">
+            <input
+              type="radio"
+              value="bus"
+              checked={type === "bus"}
+              name="Vehicle"
+              className="RadioV"
+              onChange={handleRadio}
+            />
+            <label htmlFor="bus">
               {" "}
               <span className="vehicle-text">Bus</span>
             </label>
           </section>
           <br />
 
-          <section className="Radio vehicle-rad" id="Radio-2">
-            <input type="radio" value="Car" name="Vehicle" className="RadioV" />
-            <label htmlFor="Car">
+          <section className="Radio" id="Radio-2">
+            <input
+              type="radio"
+              value="car"
+              checked={type === "car"}
+              name="Vehicle"
+              className="RadioV"
+              onChange={handleRadio}
+            />
+            <label htmlFor="car">
               <span className="vehicle-text">Car</span>
             </label>
 
             <input
               type="radio"
-              value="Truck"
+              value="truck"
               name="Vehicle"
+              checked={type === "truck"}
               className="RadioV"
               id="truck-rad"
+              onChange={handleRadio}
             />
-            <label htmlFor="Truck">
+            <label htmlFor="truck">
               {" "}
               <span className="vehicle-text">Truck</span>
             </label>
           </section>
           <br />
 
-          <p className="requiredText">Bike</p>
+          <p>{type.toLocaleUpperCase()}</p>
           <br />
 
           <label htmlFor="Manufacturer">
@@ -77,10 +257,12 @@ export default function IndividualVehicle() {
             </span>
             <br />
             <input
+              value={formData.vehicle_name}
               type="text"
-              className="form-field edit-field"
+              className="form-field edit-field phone-input2"
               placeholder="Eg Toyota Corolla"
-              name="Manufacturer"
+              name="vehicle_name"
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -89,10 +271,12 @@ export default function IndividualVehicle() {
             <span className="requiredText">Vehicle color</span>
             <br />
             <input
+              value={formData.color}
               type="text"
-              className="form-field edit-field"
+              className="form-field edit-field phone-input2"
               placeholder="Eg Red"
-              name="Color"
+              name="color"
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -101,10 +285,12 @@ export default function IndividualVehicle() {
             <span className="requiredText">Vehicle Plate Number</span>
             <br />
             <input
+              value={formData.plate_no}
               type="text"
-              className="form-field edit-field"
+              className="form-field edit-field phone-input2"
               placeholder="Eg LST 678KJ"
-              name="Vehicle Plate Number"
+              name="plate_no"
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -113,10 +299,12 @@ export default function IndividualVehicle() {
             <span className="requiredText">Drivers license expiry date</span>
             <br />
             <input
+              value={expiry}
               type="date"
               className="date-field"
               placeholder="Pick Date"
               name="license-expiry"
+              onChange={handleDate}
             />
           </label>
           <br />
@@ -136,7 +324,22 @@ export default function IndividualVehicle() {
 
               <section>
                 <div className="Upload" id="vector">
-                  <img src={Vector} alt="Vector" />
+                  <label>
+                    <img src={Vector} alt="Vector" />
+                    <input
+                      multiple
+                      accept=".png, .jpg, .jpeg, .gif"
+                      type="file"
+                      name="fullPicture"
+                      onChange={handleFullPictureE}
+                      disabled={fileLimit}
+                    />
+                  </label>
+                </div>
+                <div>
+                  {fullPicture.map((file) => (
+                    <div className="img_name">{file.name}</div>
+                  ))}
                 </div>
               </section>
             </div>
@@ -153,7 +356,22 @@ export default function IndividualVehicle() {
 
               <section>
                 <div className="Upload" id="vector">
-                  <img src={Vector} alt="Vector" />
+                  <label>
+                    <img src={Vector} alt="Vector" />
+                    <input
+                      onChange={handleLicenseE}
+                      type="file"
+                      multiple
+                      accept=".png, .jpg, .jpeg, .gif"
+                      name="license"
+                      disabled={fileLimit2}
+                    />
+                  </label>
+                </div>
+                <div>
+                  {license.map((file) => (
+                    <div className="img_name">{file.name}</div>
+                  ))}
                 </div>
               </section>
               <br />
@@ -172,16 +390,29 @@ export default function IndividualVehicle() {
 
               <section>
                 <div className="Upload" id="vector">
-                  <img src={Vector} alt="Vector" />
+                  <label>
+                    <img src={Vector} alt="Vector" />
+                    <input
+                      onChange={handleVehicleImageE}
+                      type="file"
+                      multiple
+                      accept=".png, .jpg, .jpeg, .gif"
+                      name="vehicleImage"
+                      disabled={fileLimit3}
+                    />
+                  </label>
+                </div>
+                <div>
+                  {vehicleImage.map((file) => (
+                    <div className="img_name">{file.name}</div>
+                  ))}
                 </div>
               </section>
             </div>
           </div>
 
           <div id="center-button">
-            <Link to="/account">
-              <Button name="Submit" />
-            </Link>
+            <Button name="Submit" />
           </div>
         </form>
       </div>

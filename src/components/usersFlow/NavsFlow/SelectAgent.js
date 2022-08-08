@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FormProgress from "../../Images/FormProgress.png";
 import "../../css/selectagent.css";
 import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
 import LoggedinMainPage from "./LoggedinMainPage";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SelectAgent() {
   return <LoggedinMainPage file={<SelectAgent1 />} />;
 }
 
 export function SelectAgent1() {
+  const location = useLocation();
+  const vehicle = location.state.vehicle;
+  console.log(vehicle);
+
+  const [agent, setAgent] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const fetchAgent = async () => {
+    const res = await fetch(
+      "https://guarded-falls-60982.herokuapp.com/user_delivery/delivery_agents",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+          delivery_medium: vehicle,
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    // setAgent(results?.deliveries);
+    console.log(results);
+  };
+
+  useEffect(() => {
+    fetchAgent();
+  }, []);
+
   const Stars = <img src={Star} alt="" />;
   return (
     <>

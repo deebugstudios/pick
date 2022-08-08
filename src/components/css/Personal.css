@@ -117,6 +117,13 @@ li {
   display: none;
 }
 
+#img-up {
+  height: 50px;
+  width: 50px;
+}
+.img_name {
+  font-size: small;
+}
 @media screen and (max-width: 839px) {
   #mainsign h2 {
     font-size: large;

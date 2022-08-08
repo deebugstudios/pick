@@ -11,18 +11,12 @@ export default function DeliveryType() {
   const [member, setMember] = useState("instant");
   const [bgColor, setBgColor] = useState("rgba(31, 170, 8, 0.15)");
   const [secBg, setSecBg] = useState("");
+  const [vehicle, setVehicle] = useState("bike");
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setMember(e.target.value);
-    if (member === "instant") {
-      setBgColor("white");
-      setSecBg("rgba(31, 170, 8, 0.15)");
-    } else if (member === "schedule") {
-      setBgColor("rgba(31, 170, 8, 0.15)");
-      setSecBg("white");
-    }
+  const handleCheck = (e) => {
+    setVehicle(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -32,7 +26,18 @@ export default function DeliveryType() {
     if (member === "instant") {
       navigate("/formuser");
     } else if (member === "schedule") {
-      navigate("/select-a");
+      navigate("/select-a", { state: { vehicle: vehicle } });
+    }
+  };
+
+  const handleChange = (e) => {
+    setMember(e.target.value);
+    if (member === "instant") {
+      setBgColor("white");
+      setSecBg("rgba(31, 170, 8, 0.15)");
+    } else if (member === "schedule") {
+      setBgColor("rgba(31, 170, 8, 0.15)");
+      setSecBg("white");
     }
   };
 
@@ -92,25 +97,53 @@ export default function DeliveryType() {
         <h2>Select a Delivery Medium</h2>
         <br />
         <div id="Radio-div">
-          <input type="radio" value="Bike" name="Vehicle" className="RadioV" />
+          <input
+            type="radio"
+            value="bike"
+            name="Vehicle"
+            className="RadioV"
+            checked={vehicle === "bike"}
+            onChange={handleCheck}
+          />
           <label htmlFor="Bike">
             {" "}
             <span className="vehicle-text">Bike</span>
           </label>
 
-          <input type="radio" value="Bus" name="Vehicle" className="RadioV" />
+          <input
+            type="radio"
+            value="bus"
+            name="Vehicle"
+            className="RadioV"
+            checked={vehicle === "bus"}
+            onChange={handleCheck}
+          />
           <label htmlFor="Bus">
             {" "}
             <span className="vehicle-text">Bus</span>
           </label>
 
-          <input type="radio" value="Truck" name="Vehicle" className="RadioV" />
+          <input
+            type="radio"
+            value="truck"
+            name="Vehicle"
+            className="RadioV"
+            checked={vehicle === "truck"}
+            onChange={handleCheck}
+          />
           <label htmlFor="Truck">
             {" "}
             <span className="vehicle-text">Truck</span>
           </label>
 
-          <input type="radio" value="Car" name="Vehicle" className="RadioV" />
+          <input
+            type="radio"
+            value="car"
+            name="Vehicle"
+            className="RadioV"
+            checked={vehicle === "car"}
+            onChange={handleCheck}
+          />
           <label htmlFor="Car">
             <span className="vehicle-text">Car</span>
           </label>

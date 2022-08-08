@@ -2,25 +2,23 @@ import React from "react";
 import Sign from "../javascript/sign";
 import Rider from "../Images/rider_image.png";
 import User from "../Images/user_image.png";
-// import Footer from "../javascript/Footer";
 
-export default function Signup() {
+export default function LoginAs() {
   return (
     <>
       <Sign
-        title="Join PickLoad as a:"
+        title="Login as a?"
         joinAs="User"
         secondAs=" Delivery Agent"
         imageJoin={User}
         imageJoin2={Rider}
         name="Next"
-        // link="/member"
         val="user"
         val2="agent"
-        link="/userform"
-        link2="/sign"
-        in="Login"
-        inLink="/login-as"
+        link="/welcome"
+        link2="/welcome-agent"
+        in="Sign Up"
+        inLink="/join"
       />
     </>
   );
