@@ -40,10 +40,10 @@ export default function FleetVehicle() {
               <span className="vehicle-text">Bike</span>
             </label>
 
-            <input type="radio" value="Bus" name="Vehicle" className="RadioV" />
-            <label htmlFor="Bus">
+            <input type="radio" value="van" name="Vehicle" className="RadioV" />
+            <label htmlFor="van">
               {" "}
-              <span className="vehicle-text">Bus</span>
+              <span className="vehicle-text">Van</span>
             </label>
           </section>
           <br />

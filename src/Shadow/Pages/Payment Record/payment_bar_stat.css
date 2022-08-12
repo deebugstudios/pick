@@ -1,7 +1,7 @@
 .fleet-manager-stats {
     display: flex;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 10px 30px;
     height: 50%;
     font-size: 13px;
 }
@@ -14,9 +14,14 @@
 .width-small {
     width: 20%;
 }
-h5.width-small {
-    margin: 0 auto;
+.input-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+/* h5.width-small {
+    margin: 0 auto;
+} */
 .delivery-name {
     display: flex;
     align-items: center;

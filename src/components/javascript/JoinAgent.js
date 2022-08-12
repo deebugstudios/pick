@@ -90,8 +90,8 @@ export default function JoinAgent(props) {
         //   setMessage("Error occured");
         // }
         navigate(props.link);
-        console.log(bodyFormData);
         console.log(response);
+        console.log(selectedFile);
       })
       .catch((error) => {
         console.log(error);

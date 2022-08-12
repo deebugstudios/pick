@@ -16,7 +16,6 @@ const Testimonials = () => {
             <h5 className='testimonial-name'>GLORIA BASSEY</h5>
             <div className='flex'>
                 <div className='circles'></div>
-                <div className='circles'></div>
             </div>
         </div>
     </div>

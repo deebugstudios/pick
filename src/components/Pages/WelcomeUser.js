@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useId } from "react";
 import "../css/signup.css";
 import DeliveryImage from "../Images/DeliveryImage.png";
 import Button from "../javascript/Button";
@@ -6,23 +6,16 @@ import Head from "../javascript/Head";
 import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
-export default function WelcomeUser() {
+export default function WelcomeUser(props) {
   const asterik = <span id="asterik">*</span>;
 
-  const navigate = useNavigate();
   const [phone_no, setPhone_no] = useState("");
-  const [token, setToken] = useState("");
-  const [id, setId] = useState("");
   const [message, setMessage] = useState("");
 
-  const onChange = (e) => {
-    setPhone_no(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    // navigate("/userflow");
     try {
       const res = await fetch(
         "https://guarded-falls-60982.herokuapp.com/user_auth/login",
@@ -39,20 +32,17 @@ export default function WelcomeUser() {
         }
       );
       const data = await res.json();
-      console.log(data);
+      // setId();
+      // setToken(data.token);
+      // idU = data.token;
+
+      // console.log(data);
 
       if (res.status === 200) {
         setMessage("User created successfully");
-        const Usertoken = data?.token;
-        // const Usertoken = token;
-        // console.log(Usertoken);
-        // setId(data.user._id);
-
-        const UserId = data?.user._id;
-
-        navigate("/userflow", {
-          state: { id: UserId, token: Usertoken },
-        });
+        localStorage.setItem("id", data.user._id);
+        navigate("/type");
+        // console.log(idU);
       } else {
         setMessage("Error occured");
       }
@@ -61,7 +51,23 @@ export default function WelcomeUser() {
     }
   };
 
-  const handleClick = (e) => {
+  const navigate = useNavigate();
+
+  // const value = useContext(userContext);
+  // const {
+  //   handleLoginSubmit,
+  //   message,
+  //   phone_no,
+  //   setPhone_no,
+  //   setMessage,
+  //   token,
+  // } = value;
+
+  const onChange = (e) => {
+    setPhone_no(e.target.value);
+  };
+
+  const handleClick = () => {
     navigate("/forgot");
   };
 
@@ -86,7 +92,7 @@ export default function WelcomeUser() {
 
           <form
             id="User-form-ULogin"
-            onSubmit={handleSubmit}
+            onSubmit={handleLoginSubmit}
             className="sign-form"
           >
             <label className="requiredText">Phone Number{asterik}</label>

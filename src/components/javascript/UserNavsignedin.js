@@ -12,26 +12,24 @@ const Navsignedin = () => {
       <div className="nav-wrapper-1">
         <div id="pick-div">
           <div>
-            <Link to="/">
+            <Link to="/main">
               <img src={Pickload} alt="" />
             </Link>
           </div>
         </div>
         <div className="nav-links">
           <ul>
-            <Link to="/">
+            <Link to="/main">
               <li>Home</li>
             </Link>
             <li>
-              <Link to="/aboutUS"> About Us </Link>
+              <Link to="/aboutUS1"> About Us </Link>
             </li>
             <li>
-              <Link to="/contactUS"> Contact Us </Link>
+              <Link to="/contactUS1"> Contact Us </Link>
             </li>
             <li className="hover-me">
-              <a href="">
-                My Account <FontAwesomeIcon icon={faAngleDown} />
-              </a>
+              My Account <FontAwesomeIcon icon={faAngleDown} />
               <div className="sub-menu">
                 <ul>
                   <Link to="/pending-del">

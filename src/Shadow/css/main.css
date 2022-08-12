@@ -22,12 +22,20 @@
   height: 90vh;
   /* overflow-y: scroll; */
 }
+.main-container2 {
+  height: 80vh;
+  width: var(--width);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: white !important;
+}
 .main-container {
   height: 80vh;
   width: var(--width);
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 .main-left-side {
   display: flex;
   flex-direction: column;
@@ -224,6 +232,7 @@ input {
 }
 .input-main {
   margin-bottom: 0.7em;
+  padding-left: 40px;
 }
 input::placeholder {
   padding-left: 10px;

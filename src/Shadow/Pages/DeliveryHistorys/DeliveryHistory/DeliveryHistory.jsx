@@ -35,11 +35,12 @@ const DeliveryHistory = () => {
     useEffect(()=> {
       fetchDeliveryHistory()
     },[])
-
-    const historyItems = deliveryHistory?.map(dobj=> (
-      <DeliveryHistoryList parcelname={dobj.parcel_name} parcelcode={dobj.parcel_code} deliverytype={dobj.delivery_type} deliveryimage={dobj.imgs[0]} />
+// console.log(deliveryHistory);
+    const historyItems = deliveryHistory?.map((dobj,index)=> (
+      <DeliveryHistoryList index={index} parcelname={dobj?.parcel_name} parcelcode={dobj?.parcel_code} deliverytype={dobj?.delivery_type} deliveryimage={dobj?.imgs?.[0]} />
       ))
-    
+      // console.log(dobj.parcel_name);
+      console.log(historyItems);
   return (
     <section className="user-dashboard pending-delivery specifics">
       <div className="history-wrapper">
@@ -53,7 +54,7 @@ const DeliveryHistory = () => {
         <DeliveryHistoryList parcelname={dobj.parcel_name} parcelcode={dobj.parcel_code} deliverytype={dobj.delivery_type} deliveryimage={dobj.imgs[0]} />
         ))} */}
         {historyItems}
-        <DeliveryHistoryList/>
+        {/* <DeliveryHistoryList/> */}
         <div className="pending-delivery-pickup-entries">
           <h6>
             Showing <span>1</span> to <span>10</span> of <span>30</span> entries

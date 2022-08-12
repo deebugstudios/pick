@@ -206,15 +206,15 @@ export default function IndividualVehicle() {
 
             <input
               type="radio"
-              value="bus"
-              checked={type === "bus"}
+              value="van"
+              checked={type === "van"}
               name="Vehicle"
               className="RadioV"
               onChange={handleRadio}
             />
-            <label htmlFor="bus">
+            <label htmlFor="van">
               {" "}
-              <span className="vehicle-text">Bus</span>
+              <span className="vehicle-text">Van</span>
             </label>
           </section>
           <br />

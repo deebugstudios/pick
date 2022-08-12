@@ -8,7 +8,7 @@ import p5 from "../../images/p5.png";
 export const DeliveryHistoryList = (props) => {
 console.log(props);
   return (
-    <div className="pending-delivery-pickup-details-Container">
+    <div className="pending-delivery-pickup-details-Container" key={props.index}>
       <div className="pending-delivery-pickup-details-wrapper">
         <div className="pending-delivery-pickup-detail">
           <div className="pending-delivery-pickup-left">

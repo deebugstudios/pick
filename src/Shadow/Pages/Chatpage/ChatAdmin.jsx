@@ -132,7 +132,7 @@ const ChatAdmin = () => {
 export default ChatAdmin;
 
 export const UserChatAdmin = () => {
-  <LoggedinMainPage file={<UserChatAdmin1 />} />;
+  return <LoggedinMainPage file={<UserChatAdmin1 />} />;
 };
 
 export const UserChatAdmin1 = () => {

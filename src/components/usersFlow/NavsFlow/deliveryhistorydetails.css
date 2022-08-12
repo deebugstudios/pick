@@ -23,6 +23,13 @@
   /* background-color: var(--maincolor); */
   margin-bottom: 5px;
 }
+.image2 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--maincolor);
+  margin-bottom: 5px;
+}
 .image img {
   border-radius: 50%;
   width: 100%;

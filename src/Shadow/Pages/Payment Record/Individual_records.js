@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
-
+import profileimage from '../../images/profileimage.png'
 export default function Individual_records() {
     const value = useContext(RiderContext);
     const { riderdata} = value;
@@ -23,12 +23,15 @@ export default function Individual_records() {
     setToggle(false);
     // navigate("/Pending-del");
   };
+  const goBack = () => {
+    navigate(-1)
+  }
   return (
     <div className="profile-page-container">
     {/* <MainTop/> */}
     <div className="profile-page-bottom">
         <div className="back-arrow">
-                go back
+               <p onClick={goBack}>go back</p> 
         </div>
         <div className="week-payment">
             <h4 className="week">week1</h4>
@@ -36,7 +39,9 @@ export default function Individual_records() {
         </div>
         <div className="delivery-profile">
             <div className="driver-profile-image">
-              <div className="image"></div>
+              <div className="image">
+                <img src={profileimage} alt="profile image" />
+              </div>
             </div>
             <div className="delivery-profile-details">
                   <h3 className="earnings-h3">Monday Goodness</h3>

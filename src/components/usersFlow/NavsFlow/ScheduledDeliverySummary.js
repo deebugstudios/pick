@@ -1,5 +1,8 @@
 import React from "react";
-import { DeliveryImages } from "../Details info/DeliveryImages";
+import {
+  DeliveryImages,
+  DeliveryImages2,
+} from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
 import "./deliveryhistorydetails.css";
 import { DeliverInfo } from "../Details info/DeliverInfo";
@@ -33,7 +36,7 @@ export function ScheduledDeliverySummary1() {
 
           <div className="delivery-profile">
             <div className="driver-profile-image">
-              <div className="image"></div>
+              <div className="image2"></div>
             </div>
             <div className="delivery-profile-details">
               <table>
@@ -73,9 +76,9 @@ export function ScheduledDeliverySummary1() {
 
           <h3>Image: </h3>
           <div className="delivery-details-pictures specifics-images images-border">
-            <DeliveryImages />
-            <DeliveryImages />
-            <DeliveryImages />
+            <DeliveryImages2 />
+            <DeliveryImages2 />
+            <DeliveryImages2 />
           </div>
           <br />
 

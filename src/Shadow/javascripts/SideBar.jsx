@@ -57,21 +57,21 @@ const SideBar = () => {
         </ul>
 
         <ul>
+              <li>
+              <Link to="/agent-profile">
           <div className="side-bar-profile-details">
             <div className="side-bar-profile-img skeleton">
-              <Link to="/agent-profile">
                 <img src={riderdata?.img_url} alt="profile image" />
-              </Link>
+              {/* </Link> */}
             </div>
-            <Link to="/agent-profile">
-              <li>
+            {/* <Link to="/agent-profile"> */}
                 <div className="side-bar-profile-name">
                   <h5>{riderdata?.fullname}</h5>
                   <p>View Profile</p>
                 </div>
-              </li>
-            </Link>
           </div>
+            </Link>
+              </li>
 
           <Link to="/payment-details">
             {" "}

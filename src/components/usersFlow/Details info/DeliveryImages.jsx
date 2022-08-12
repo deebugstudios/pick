@@ -9,3 +9,11 @@ export const DeliveryImages = (props) => {
     </div>
   );
 };
+
+export const DeliveryImages2 = () => {
+  return (
+    <div className="delivery-imgs">
+      <img src={Rectangle} />
+    </div>
+  );
+};

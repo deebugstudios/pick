@@ -4,6 +4,7 @@ import SideBar from "./javascripts/SideBar";
 import NavigationBar from "./javascripts/NavigationBar";
 // import map from './images/maps.png'
 import "./css/loggedinmainpage.css";
+import Main from "./javascripts/Main";
 const LoggedinMainPage = (props) => {
   const [loggedin, setLoggedin] = useState(props.logged);
   return (
@@ -25,3 +26,16 @@ const LoggedinMainPage = (props) => {
 };
 
 export default LoggedinMainPage;
+
+export const LoggedinMainPage1 = () => {
+  return (
+    <section className="user-dashboard-main">
+      <div className="user-left-side-main">
+        <NavigationBar />
+      </div>
+      <div className="user-right-side-main">
+        <div className="map-container">{<Main />}</div>
+      </div>
+    </section>
+  );
+};

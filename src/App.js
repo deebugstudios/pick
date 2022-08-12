@@ -15,7 +15,7 @@ import IndividualVehicle from "./components/Pages/IndividualVehicle";
 import AgentCompleted from "./components/Pages/AgentCompleted";
 import UserRequestPickup from "./components/usersFlow/NavsFlow/UserRequestPickup";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import LoggedinMainPage from "./Shadow/LoggedinMainPage";
+import LoggedinMainPage, { LoggedinMainPage1 } from "./Shadow/LoggedinMainPage";
 import Main from "./Shadow/javascripts/Main";
 import { FleetOtp } from "./components/Pages/DeliveryOtp";
 import ResquestPickup from "./Shadow/Pages/DeliveryRequest/Request_pickup/ResquestPickup";
@@ -55,7 +55,10 @@ import CompletedDeliveriesAgent from "./components/usersFlow/NavsFlow/CompletedD
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
-import ChatAdmin, { UserChatAdmin } from "./Shadow/Pages/Chatpage/ChatAdmin";
+import ChatAdmin, {
+  UserChatAdmin,
+  UserChatAdmin1,
+} from "./Shadow/Pages/Chatpage/ChatAdmin";
 import Navsignedin from "./Shadow/javascripts/Navsignedin";
 import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
@@ -72,234 +75,266 @@ import Payment_Stat from "./Shadow/Pages/Payment Record/Payment_Stat";
 import Payment_Bar_stat from "./Shadow/Pages/Payment Record/Payment_Bar_stat";
 import DeliveryAgentEarningPage from "./Shadow/Pages/Payment Record/DeliveryAgentEarningPage";
 import DeliveryAgentStatPage from "./Shadow/Pages/Payment Record/DeliveryAgentStatPage";
-import { ContactUs } from "./Shadow/javascripts/ContactUs";
-import { AboutUs } from "./Shadow/javascripts/AboutUs";
-import { Terms } from "./Shadow/javascripts/Terms";
+import {
+  ContactUs,
+  ContactUs1,
+  ContactUs2,
+} from "./Shadow/javascripts/ContactUs";
+import { AboutUs, AboutUs1, AboutUs2 } from "./Shadow/javascripts/AboutUs";
+import { Terms, Terms2 } from "./Shadow/javascripts/Terms";
+import { UseTokenProviderUser } from "./Shadow/Pages/Contexts/RiderContext";
+import { Main1 } from "./Shadow/javascripts/Main";
 
 export default function App() {
   return (
     <>
       <UseRiderProvider>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Routes>
-            <Route
-              path="contactUS"
-              element={<LoggedinMainPage name={<ContactUs />} logged={false} />}
-            />
-            <Route
-              path="aboutUS"
-              element={<LoggedinMainPage name={<AboutUs />} logged={false} />}
-            />
-            <Route
-              path="Termsandconditions"
-              element={<LoggedinMainPage name={<Terms />} logged={false} />}
-            />
-            <Route
-              exact
-              path="/"
-              element={<LoggedinMainPage name={<Main />} logged={false} />}
-            />
-            <Route path="join" element={<Signup />} />
-            <Route path="/userform" element={<UserForm />} />
-            <Route path="fleet" element={<AsFleet />} />
-            <Route path="login-as" element={<LoginAs />} />
-            <Route path="welcome-agent" element={<WelcomeAgent />} />
-            <Route path="confirm" element={<PhoneConfirm />} />
-            <Route path="otp" element={<UserOtp />} />
-            <Route path="welcome" element={<WelcomeUser />} />
-            <Route path="forgot" element={<ForgotNumber />} />
-            <Route path="sign" element={<SignupDelivery />} />
-            <Route path="individual" element={<AsIndividual />} />
-            <Route path="otp3" element={<FleetOtp />} />
-            <Route path="otp2" element={<DeliveryOtp />} />
-            <Route path="individual-v" element={<IndividualVehicle />} />
-            <Route path="fleet-v" element={<FleetVehicle />} />
-            <Route path="account" element={<AgentCompleted />} />
-            <Route path="success" element={<Success />} />
-            <Route
-              path="Deliveryrequest"
-              element={
-                <LoggedinMainPage name={<ResquestPickup />} logged={true} />
-              }
-            />
-            <Route path="userflow" element={<UserRequestPickup />} />
-            <Route path="type" element={<DeliveryType />} />
-            <Route path="formuser" element={<FormUserDelivery />} />
-            <Route path="select-a" element={<SelectAgent />} />
-            <Route path="summary-i" element={<InstantDeliverySummary />} />
-            <Route path="paysuccess" element={<PaymentSuccess />} />
-            <Route path="pending-del" element={<PendingDeliveryPickup />} />
-            <Route path="pending-instant" element={<PendingInstantDetails />} />
-            <Route
-              path="pending-scheduled"
-              element={<PendingScheduledDetails />}
-            />
-            <Route path="cancel-booking" element={<CancelBooking />} />
-            <Route path="cancel-reason" element={<CancelReason />} />
-            <Route path="completed-del" element={<CompletedDeliveries />} />
-            <Route path="user-instant" element={<DeliveryHistoryDetails />} />
-            <Route
-              path="user-schedule"
-              element={<UserScheduledDeliveryHistory />}
-            />
-            <Route path="cancelled-details" element={<CancelledScheduled />} />
-            <Route path="report" element={<ReportReason />} />
-            <Route path="report-thanks" element={<ReportThanks />} />
-            <Route path="review" element={<LeaveReview />} />
-            <Route path="review-thanks" element={<ReviewThanks />} />
-            <Route path="user-profile" element={<UsersProfile />} />
-            <Route path="user-logout" element={<Logout />} />
-            <Route path="schedule-form" element={<ScheduleForm />} />
-            <Route
-              path="scheduled-summary"
-              element={<ScheduledDeliverySummary />}
-            />
-            <Route path="request-success" element={<RequestSuccess />} />
-            <Route
-              path="request-location"
-              element={
-                <LoggedinMainPage name={<RequestLocation />} logged={true} />
-              }
-            />
-            <Route
-              path="request-details"
-              element={
-                <LoggedinMainPage
-                  name={<RequestPickupDetails />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="pendingdeliveries"
-              element={
-                <LoggedinMainPage
-                  name={<PendingDeliveryPickupAgent />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="Specificpickupdetails"
-              element={
-                <LoggedinMainPage
-                  name={<PendingDeliveryspecificsAgent />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="deliveryhistory"
-              element={
-                <LoggedinMainPage
-                  name={<CompletedDeliveriesAgent />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="deliveryhistorydetails"
-              element={
-                <LoggedinMainPage
-                  name={<DeliveryHistoryDetailsAgent />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="scheduledhistorydetails"
-              element={
-                <LoggedinMainPage
-                  name={<ScheduledHistoryDetailsAgent />}
-                  logged={true}
-                />
-              }
-            />
-            <Route
-              path="Chatwithadmin"
-              element={<LoggedinMainPage name={<ChatAdmin />} logged={true} />}
-            />
-            <Route
-              path="Chatwithadminuser"
-              element={<LoggedinMainPage name={<UserChatAdmin />} />}
-            />
-            <Route
-              path="payment-details"
-              element={
-                <LoggedinMainPage name={<PaymentDetails />} logged={true} />
-              }
-            />
-            <Route
-              path="agent-logout"
-              element={<LoggedinMainPage name={<Logout2 />} logged={true} />}
-            />
-            <Route
-              path="agent-profile"
-              element={
-                <LoggedinMainPage name={<ProfilePage />} logged={true} />
-              }
-            />
-            <Route
-              path="earnings"
-              element={
-                <LoggedinMainPage name={<Payment_record />} logged={true} />
-              }
-            />
+        <UseTokenProviderUser>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Routes>
+              <Route
+                path="contactUS"
+                element={
+                  <LoggedinMainPage name={<ContactUs />} logged={false} />
+                }
+              />
+              <Route
+                path="contactUS2"
+                element={
+                  <LoggedinMainPage name={<ContactUs2 />} logged={true} />
+                }
+              />
+              <Route path="contactUS1" element={<ContactUs1 />} />
+              <Route
+                path="aboutUS"
+                element={<LoggedinMainPage name={<AboutUs />} logged={false} />}
+              />
+              <Route
+                path="aboutUS2"
+                element={<LoggedinMainPage name={<AboutUs2 />} logged={true} />}
+              />
+              <Route path="aboutUS1" element={<AboutUs1 />} />
+              <Route path="Termsandconditions" element={<Terms />} />
+              <Route
+                path="Termsandconditions2"
+                element={<LoggedinMainPage name={<Terms2 />} logged={true} />}
+              />
+              <Route
+                exact
+                path="/"
+                element={<LoggedinMainPage name={<Main />} logged={false} />}
+              />
+              <Route exact path="main" element={<Main1 />} />
+              <Route exact path="main1" element={<LoggedinMainPage1 />} />
+              <Route path="join" element={<Signup />} />
+              <Route path="userform" element={<UserForm />} />
+              <Route path="fleet" element={<AsFleet />} />
+              <Route path="login-as" element={<LoginAs />} />
+              <Route path="welcome-agent" element={<WelcomeAgent />} />
+              <Route path="confirm" element={<PhoneConfirm />} />
+              <Route path="otp" element={<UserOtp />} />
+              <Route path="welcome" element={<WelcomeUser />} />
+              <Route path="forgot" element={<ForgotNumber />} />
+              <Route path="sign" element={<SignupDelivery />} />
+              <Route path="individual" element={<AsIndividual />} />
+              <Route path="otp3" element={<FleetOtp />} />
+              <Route path="otp2" element={<DeliveryOtp />} />
+              <Route path="individual-v" element={<IndividualVehicle />} />
+              <Route path="fleet-v" element={<FleetVehicle />} />
+              <Route path="account" element={<AgentCompleted />} />
+              <Route path="success" element={<Success />} />
+              <Route
+                path="Deliveryrequest"
+                element={
+                  <LoggedinMainPage name={<ResquestPickup />} logged={true} />
+                }
+              />
+              <Route path="userflow" element={<UserRequestPickup />} />
+              <Route path="type" element={<DeliveryType />} />
+              <Route path="formuser" element={<FormUserDelivery />} />
+              <Route path="select-a" element={<SelectAgent />} />
+              <Route path="summary-i" element={<InstantDeliverySummary />} />
+              <Route path="paysuccess" element={<PaymentSuccess />} />
+              <Route path="pending-del" element={<PendingDeliveryPickup />} />
+              <Route
+                path="pending-instant"
+                element={<PendingInstantDetails />}
+              />
+              <Route
+                path="pending-scheduled"
+                element={<PendingScheduledDetails />}
+              />
+              <Route path="cancel-booking" element={<CancelBooking />} />
+              <Route path="cancel-reason" element={<CancelReason />} />
+              <Route path="completed-del" element={<CompletedDeliveries />} />
+              <Route path="user-instant" element={<DeliveryHistoryDetails />} />
+              <Route
+                path="user-schedule"
+                element={<UserScheduledDeliveryHistory />}
+              />
+              <Route
+                path="cancelled-details"
+                element={<CancelledScheduled />}
+              />
+              <Route path="report" element={<ReportReason />} />
+              <Route path="report-thanks" element={<ReportThanks />} />
+              <Route path="review" element={<LeaveReview />} />
+              <Route path="review-thanks" element={<ReviewThanks />} />
+              <Route path="user-profile" element={<UsersProfile />} />
+              <Route path="user-logout" element={<Logout />} />
+              <Route path="schedule-form" element={<ScheduleForm />} />
+              <Route
+                path="scheduled-summary"
+                element={<ScheduledDeliverySummary />}
+              />
+              <Route path="request-success" element={<RequestSuccess />} />
+              <Route
+                path="request-location"
+                element={
+                  <LoggedinMainPage name={<RequestLocation />} logged={true} />
+                }
+              />
+              <Route
+                path="request-details"
+                element={
+                  <LoggedinMainPage
+                    name={<RequestPickupDetails />}
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="pendingdeliveries"
+                element={
+                  <LoggedinMainPage
+                    name={<PendingDeliveryPickupAgent />}
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="Specificpickupdetails"
+                element={
+                  <LoggedinMainPage
+                    name={<PendingDeliveryspecificsAgent />}
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="deliveryhistory"
+                element={
+                  <LoggedinMainPage name={<DeliveryHistory />} logged={true} />
+                }
+              />
+              <Route
+                path="deliveryhistorydetails"
+                element={
+                  <LoggedinMainPage
+                    name={<DeliveryHistoryDetailsAgent />}
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="scheduledhistorydetails"
+                element={
+                  <LoggedinMainPage
+                    name={<ScheduledHistoryDetailsAgent />}
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="Chatwithadmin"
+                element={
+                  <LoggedinMainPage name={<ChatAdmin />} logged={true} />
+                }
+              />
+              <Route path="chatwithadminuser" element={<UserChatAdmin />} />
+              <Route
+                path="payment-details"
+                element={
+                  <LoggedinMainPage name={<PaymentDetails />} logged={true} />
+                }
+              />
+              <Route
+                path="agent-logout"
+                element={<LoggedinMainPage name={<Logout2 />} logged={true} />}
+              />
+              <Route
+                path="agent-profile"
+                element={
+                  <LoggedinMainPage name={<ProfilePage />} logged={true} />
+                }
+              />
+              <Route
+                path="earnings"
+                element={
+                  <LoggedinMainPage name={<Payment_record />} logged={true} />
+                }
+              />
 
-            <Route
-              path="my-earning"
-              element={
-                <LoggedinMainPage
-                  name={<DeliveryAgentEarningPage />}
-                  logged={true}
-                />
-              }
-            />
+              <Route
+                path="my-earning"
+                element={
+                  <LoggedinMainPage
+                    name={<DeliveryAgentEarningPage />}
+                    logged={true}
+                  />
+                }
+              />
 
-            <Route
-              path="my-statistics"
-              element={
-                <LoggedinMainPage
-                  name={<DeliveryAgentStatPage />}
-                  logged={true}
-                />
-              }
-            />
+              <Route
+                path="my-statistics"
+                element={
+                  <LoggedinMainPage
+                    name={<DeliveryAgentStatPage />}
+                    logged={true}
+                  />
+                }
+              />
 
-            <Route
-              path="individual-payment"
-              element={
-                <LoggedinMainPage name={<Individual_records />} logged={true} />
-              }
-            />
+              <Route
+                path="individual-payment"
+                element={
+                  <LoggedinMainPage
+                    name={<Individual_records />}
+                    logged={true}
+                  />
+                }
+              />
 
-            <Route
-              path="payment-stat"
-              element={
-                <LoggedinMainPage name={<Payment_Stat />} logged={true} />
-              }
-            />
+              <Route
+                path="payment-stat"
+                element={
+                  <LoggedinMainPage name={<Payment_Stat />} logged={true} />
+                }
+              />
 
-            <Route
-              index
-              path="fleet-stat"
-              element={
-                <LoggedinMainPage name={<Payment_Bar_stat />} logged={true} />
-              }
-            />
+              <Route
+                index
+                path="fleet-stat"
+                element={
+                  <LoggedinMainPage name={<Payment_Bar_stat />} logged={true} />
+                }
+              />
 
-            <Route
-              path="transactions"
-              element={<LoggedinMainPage name={<MyEarnings />} logged={true} />}
-            />
-            <Route
-              path="paymentrecord"
-              element={
-                <LoggedinMainPage name={<Payment_record />} logged={true} />
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+              <Route
+                path="transactions"
+                element={
+                  <LoggedinMainPage name={<MyEarnings />} logged={true} />
+                }
+              />
+              <Route
+                path="paymentrecord"
+                element={
+                  <LoggedinMainPage name={<Payment_record />} logged={true} />
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </UseTokenProviderUser>
       </UseRiderProvider>
     </>
   );

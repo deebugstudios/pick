@@ -8,6 +8,7 @@ import vechile3 from "../../images/hpcrizinger.jpg";
 import passportphoto from "../../images/profilepic3.jpg";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
+import { Outlet } from "react-router-dom";
 const ProfilePage = () => {
   const value = useContext(RiderContext);
   const { riderdata} = value;
@@ -59,7 +60,8 @@ const ProfilePage = () => {
       }
     })
   }
-  const handleChangeDisable = () => {
+  const handleChangeDisable = (e) => {
+    e.preventDefault()
     setDisabled(false)
   }
   const handleCancel = (e) => {
@@ -70,11 +72,11 @@ const ProfilePage = () => {
   // const ridervechile = riderdata?.vehicle_details.map((details) =>
   //   details
   // )
- const vehcileImages = riderdata?.vehicle_details[0].img_urls.map((image, index)=> {
+ const vehcileImages = riderdata?.vehicle_details?.[0]?.img_urls.map((image, index)=> {
   return (
 
-              <div className="front-side skeleton">
-                <img key={index} src={image} alt="" />
+              <div className="front-side skeleton" key={index}>
+                <img  src={image} alt="" />
               </div>
  )
  })
@@ -92,7 +94,7 @@ const ProfilePage = () => {
               type="text"
               name="fullname"
               id="fullname"
-              value={formData.fullname}
+              value={formData?.fullname}
               disabled={disabled}
               required
               className="shorter-form"
@@ -107,7 +109,7 @@ const ProfilePage = () => {
               name="email"
               id="email"
               disabled
-              value={formData.email}
+              value={formData?.email}
             />
             <br />
             <label htmlFor="number">Phone Number</label>
@@ -116,7 +118,7 @@ const ProfilePage = () => {
               type="number"
               name="number"
               id="number"
-              value={formData.number}
+              value={formData?.number}
               disabled={disabled}
               onChange={handleChange}
               required
@@ -130,7 +132,7 @@ const ProfilePage = () => {
               type="text"
               name="address"
               id="address"
-              value={formData.address}
+              value={formData?.address}
               onChange={handleChange}
               disabled={disabled}
               required
@@ -140,7 +142,7 @@ const ProfilePage = () => {
             <br />
             <label htmlFor="states">States</label>
             <br />
-            <select name="state" id="states" value={formData.state} onChange={handleChange}>
+            <select name="state" id="states" value={formData?.state} onChange={handleChange}>
               <option value="Edo">Edo</option>
               <option value="Lagos">Lagos</option>
               <option value="Edo">Edo</option>
@@ -171,22 +173,22 @@ const ProfilePage = () => {
                 type="text"
                 name="vehicleType"
                 id=""
-                value={riderdata?.vehicle_details[0].type}
+                value={riderdata?.vehicle_details?.[0]?.type}
                 disabled
               />{" "}
               <br />
               <label htmlFor="">Plate number</label> <br />
-              <input type="text" name="plateNumber" id="" value={riderdata?.vehicle_details[0].plate_no} disabled />
+              <input type="text" name="plateNumber" id="" value={riderdata?.vehicle_details?.[0]?.plate_no} disabled />
             </form>
             <form className="vechile-details-form2">
               <label htmlFor="">Agent ID</label> <br />
               <input type="text" name="agentId" id="" value={"56747"} disabled />{" "}
               <br />
               <label htmlFor="">Vehicle color</label> <br />
-              <input type="text" name="vehicleColor" id="" value={riderdata?.vehicle_details[0].color} disabled />
+              <input type="text" name="vehicleColor" id="" value={riderdata?.vehicle_details?.[0]?.color} disabled />
               <br />
               <label htmlFor="">Drivers license expiry date</label> <br />
-              <input type="text" name="driverLicense" id="" value={riderdata?.vehicle_details[0].driver_license_expiry_date} disabled />
+              <input type="text" name="driverLicense" id="" value={riderdata?.vehicle_details?.[0]?.driver_license_expiry_date} disabled />
             </form>
           </div>
           <div className="driver-passport-pictures">
@@ -197,15 +199,15 @@ const ProfilePage = () => {
             <h6>Drivers license</h6>
             <div className="driver-driver-license">
               <div className="front-side skeleton">
-                <img src={driverlicense1} alt="" />
+              <img src={riderdata?.vehicle_details?.[0]?.img_urls?.[1]} alt="" />
               </div>
               <div className="back-side skeleton">
-                <img src={driverlicense2} alt="" />
+              <img src={riderdata?.vehicle_details?.[0]?.img_urls?.[2]} alt="" />
               </div>
             </div>
             <h6>Vehicle image</h6>
             <div className="driver-driver-license">
-              {"vehcileImages"}
+              {vehcileImages}
               {/* <div className="back-side skeleton">
                 <img src={riderdata?.vehicle_details[0].img_urls[1]} alt="" />
               </div>
@@ -216,6 +218,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 };

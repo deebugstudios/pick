@@ -41,11 +41,12 @@ export function PendingInstantDetails1() {
       }
     );
     const data = await res.json();
-    const results = await data;
+    const results = data;
     setLoading(false);
     setDeliveryDetails(results?.delivery);
+    console.log(data);
     setPickDate(deliveryDetails?.pickup_time);
-    console.log(pickDate);
+    // console.log(pickDate);
   };
   // const dateField = new Date(deliveryDetails?.pickup_time);
   const dateField = new Date(pickDate);
@@ -178,7 +179,25 @@ export function PendingInstantDetails1() {
             </div>
             <p
               onClick={() => {
-                navigate("/report");
+                navigate("/report", {
+                  state: {
+                    delivery_id: Delivery_id,
+                    delivery_code: deliveryDetails?.parcel_code,
+                    delivery_img_ids: deliveryDetails?.img_ids,
+                    delivery_img_urls: deliveryDetails?.imgs,
+                    user_id: deliveryDetails?._id,
+                    user_name: deliveryDetails?.sender_fullname,
+                    user_img_id: deliveryDetails?.user_img_id,
+                    user_img_url: deliveryDetails?.user_img_url,
+                    delivery_agent_name: deliveryDetails?.delivery_agent_name,
+                    delivery_agent_code: deliveryDetails?.delivery_agent_code,
+                    delivery_agent_id: deliveryDetails?.delivery_agent_id,
+                    delivery_agent_img_url:
+                      deliveryDetails?.delivery_agent_img_url,
+                    delivery_agent_img_id:
+                      deliveryDetails?.delivery_agent_img_id,
+                  },
+                });
               }}
             >
               Report this Delivery

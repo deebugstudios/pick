@@ -4,16 +4,30 @@ import "../../../components/css/toggle.css";
 import './payment_bar_stat.css'
 import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import { RiderContext } from "../Contexts/RiderContext";
+import { useNavigate } from "react-router-dom";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_Bar_stat() {
     const value = useContext(RiderContext);
     const { riderdata} = value;
+
+    const navigate = useNavigate()
+
+
+    const goBack = () => {
+        navigate(-1)
+      }
+
   return (
-    <div className="profile-page-container">
-    {/* <MainTop/> */}
+    // <div className="profile-page-container">
+    // <MainTop/>
     <div className="profile-page-bottom height">
-    <h3><input type="date" name="" id="" className="width-small"/></h3>
+        <div className="back-arrow">
+               <p onClick={goBack}>go back</p> 
+        </div>
+        <div className="input-div">
+            <input type="date" name="" id="" className="width-small"/>
+        </div>
         <div className="fleet-manager-stats">
             <div className="deliveries">
                 <div className="delivery-stats payment-stat-details">
@@ -64,7 +78,7 @@ export default function Payment_Bar_stat() {
                     </div>
                 </div>
                 <div className="payment-stat-details margin-bottom">
-                <div className="vechicle-name">
+                    <div className="vechicle-name">
                         <p className="gray"></p>
                         <h5>Buses</h5>
                     </div>
@@ -73,7 +87,7 @@ export default function Payment_Bar_stat() {
                     </div>
                 </div>
                 <div className="payment-stat-details margin-bottom">
-                <div className="vechicle-name">
+                    <div className="vechicle-name">
                         <p className="green"></p>
                         <h5>Cars</h5>
                     </div>
@@ -82,7 +96,7 @@ export default function Payment_Bar_stat() {
                     </div>
                 </div>
                 <div className="payment-stat-details margin-bottom">
-                <div className="vechicle-name">
+                    <div className="vechicle-name">
                         <p className="red"></p>
                         <h5>Trucks</h5>
                     </div>
@@ -91,7 +105,7 @@ export default function Payment_Bar_stat() {
                     </div>
                 </div>
                 <div className="payment-stat-details">
-                <div className="vechicle-name">
+                    <div className="vechicle-name">
                         <h5>TOTAL</h5>
                     </div>
                     <div className="amount-made">
@@ -101,6 +115,6 @@ export default function Payment_Bar_stat() {
             </div>
         </div>
     </div>
-    </div>
+    // </div>
   );
 }

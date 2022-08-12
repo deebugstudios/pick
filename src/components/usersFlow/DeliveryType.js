@@ -5,29 +5,19 @@ import Instant from "../Images/instant.png";
 import Scheduled from "../Images/scheduled.png";
 import "../css/deliverytype.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DeliveryType() {
   const [member, setMember] = useState("instant");
   const [bgColor, setBgColor] = useState("rgba(31, 170, 8, 0.15)");
   const [secBg, setSecBg] = useState("");
   const [vehicle, setVehicle] = useState("bike");
+  const [user, setUser] = useState();
 
   const navigate = useNavigate();
 
   const handleCheck = (e) => {
     setVehicle(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // navigate("/sign");
-    // <Navigate to="/" />;
-    if (member === "instant") {
-      navigate("/formuser");
-    } else if (member === "schedule") {
-      navigate("/select-a", { state: { vehicle: vehicle } });
-    }
   };
 
   const handleChange = (e) => {
@@ -39,6 +29,27 @@ export default function DeliveryType() {
       setBgColor("rgba(31, 170, 8, 0.15)");
       setSecBg("white");
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/userflow", { state: { vehicle: vehicle, member: member } });
+
+    // useEffect(() => {
+    //   const loggedInUser = localStorage.getItem("id");
+    //   if (loggedInUser) {
+    //     const foundUser = loggedInUser;
+    //     setUser(foundUser);
+    //   }
+    // }, []);
+
+    console.log(user);
+    // <Navigate to="/" />;
+    // if (member === "instant") {
+    //   navigate("/formuser");
+    // } else if (member === "schedule") {
+    //   navigate("/select-a", { state: { vehicle: vehicle } });
+    // }
   };
 
   return (
@@ -112,15 +123,15 @@ export default function DeliveryType() {
 
           <input
             type="radio"
-            value="bus"
+            value="van"
             name="Vehicle"
             className="RadioV"
-            checked={vehicle === "bus"}
+            checked={vehicle === "van"}
             onChange={handleCheck}
           />
-          <label htmlFor="Bus">
+          <label htmlFor="van">
             {" "}
-            <span className="vehicle-text">Bus</span>
+            <span className="vehicle-text">Van</span>
           </label>
 
           <input

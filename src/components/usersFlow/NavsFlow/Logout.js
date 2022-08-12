@@ -77,7 +77,7 @@ export function Logout2() {
             <Button
               name="Yes"
               click={() => {
-                navigate("/");
+                navigate("/main1");
               }}
             />
           </div>

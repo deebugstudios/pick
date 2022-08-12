@@ -23,7 +23,7 @@ const SideBar = () => {
           <li className="toggle-sidebar" onClick={show}>
             X
           </li>
-          <Link to="/userflow">
+          <Link to="/type">
             <li>
               <FontAwesomeIcon icon={faHome} className="space-icons-1" />
               {sideBar ? "Request Pickup" : ""}
@@ -44,12 +44,12 @@ const SideBar = () => {
             </li>
           </Link>
 
-          {/* <Link to="/Chatwithadminuser"> */}
-          <li>
-            <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
-            {sideBar ? "Chat With Admin" : ""}
-          </li>
-          {/* </Link> */}
+          <Link to="/chatwithadminuser">
+            <li>
+              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
+              {sideBar ? "Chat With Admin" : ""}
+            </li>
+          </Link>
         </ul>
 
         <ul>

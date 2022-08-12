@@ -5,6 +5,10 @@ import "../../../components/css/toggle.css";
 import { useNavigate } from "react-router-dom";
 import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import { RiderContext } from "../Contexts/RiderContext";
+import { FleetSummarydetails } from "./ReauableComponents/PaymentWeeks/FleetSummarydetails";
+import Payment_Stat from "./Payment_Stat";
+
+
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_record() {
@@ -12,6 +16,15 @@ export default function Payment_record() {
   const { riderdata} = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
+
+
+  let listItem
+  if (toggle === true) {
+    listItem = <FleetSummarydetails/>;
+  } else {
+    listItem = <Payment_Stat/> ;
+  }
+
 
   const firstClick = () => {
     setToggle(true);
@@ -23,10 +36,21 @@ export default function Payment_record() {
     setToggle(false);
     // navigate("/Pending-del");
   };
+
+
+const goBack = () => {
+    navigate(-1)
+  }
+
+
   return (
     <div className="profile-page-container">
     {/* <MainTop/> */}
+
     <div className="profile-page-bottom">
+        <div className="back-arrow">
+            <p onClick={goBack}>go back</p> 
+        </div>
     <div className="payment-record-container">
       <div className="DA-payment-history">
         <div className="da-payment-props">
@@ -48,105 +72,7 @@ export default function Payment_record() {
               </div>
             </div>
           </div>
-          <div className="record-date">
-            <input type="date" />
-          </div>
-          <div className="payment-history">
-            <div className="payment-vehicle">
-              <div className="bikes">BIKES</div>
-              <div className="cars">CARS</div>
-              <div className="buses">BUSES</div>
-              <div className="truck">TRUCKS</div>
-            </div>
-            <PaymentWeeks />
-            <table className="table-data">
-              <thead>
-                <th>Agent ID</th>
-                <th>Agent Name</th>
-                <th>Weeks Earning</th>
-                <th>Status</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="paid">PAID</p>
-                  </td>
-                  <td>
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="paid">PAID</p>
-                  </td>
-                  <td>
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="paid">PAID</p>
-                  </td>
-                  <td>
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="paid">PAID</p>
-                  </td>
-                  <td>
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="not-paid">NOT PAID</p>{" "}
-                  </td>
-                  <td>
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-                <tr>
-                  <td>ID786789</td>
-                  <td>ODOGWU</td>
-                  <td>N23,000</td>
-                  <td>
-                    <p className="not-paid">NOT PAID</p>{" "}
-                  </td>
-                  <td>
-                    {" "}
-                    <button>View details</button>
-                  </td>
-                  {/* <td><FaGreaterThan /></td> */}
-                </tr>
-              </tbody>
-            </table>
-            <div className="last-para">
-              <h5>TOTAL BIKE WEEK 1 EARNINGS</h5>
-              <p>N 93450.00</p>
-            </div>
-          </div>
+          {listItem}
         </div>
       </div>
     </div>

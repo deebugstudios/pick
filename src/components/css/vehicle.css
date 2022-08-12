@@ -22,6 +22,7 @@
   height: 45px;
   background-color: #f5ec16;
   border: none;
+  width: 150px;
 }
 .date-field::placeholder {
   text-align: center;

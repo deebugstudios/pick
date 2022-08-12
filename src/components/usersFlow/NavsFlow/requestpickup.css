@@ -38,6 +38,17 @@
   font-size: medium;
   margin-top: 10px;
 }
+.set-location-btn-2 {
+  padding: 0.5em 4em;
+  border-radius: 8px;
+  color: white;
+  background-color: grey;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: medium;
+  margin-top: 10px;
+}
 .location-form {
   display: flex;
   flex-direction: row;

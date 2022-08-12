@@ -6,6 +6,9 @@
 .back-arrow {
     padding: 10px 20px;
 }
+.back-arrow p {
+    cursor: pointer;
+}
 .paid2 {
     background: #F5EC16;
     border-radius: 6px; 
