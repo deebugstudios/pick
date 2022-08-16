@@ -23,7 +23,7 @@
   display: grid;
   place-items: center;
   margin-bottom: 40px;
-  position: sticky;
+  /* position: sticky; */
   top: 5%;
   z-index: 2;
   /* overflow: visible; */
@@ -51,8 +51,9 @@
 .pending-delivery-pickup-left {
   display: flex;
 }
-.pending-delivery-pickup-left th {
+.pending-delivery-pickup-left table tr th {
   text-align: left;
+  margin-right: 5px !important;
 }
 .pending-delivery-pickup-left table {
   margin-left: 10px;

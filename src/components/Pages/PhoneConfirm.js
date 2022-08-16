@@ -3,9 +3,12 @@ import React from "react";
 import Button, { Button4 } from "../javascript/Button";
 import "../css/PhoneConfirm.css";
 import Head from "../javascript/Head";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function PhoneConfirm() {
+  const location = useLocation();
+  const phone_no = location.state.phone_no;
   return (
     <>
       <Head />
@@ -16,7 +19,7 @@ export default function PhoneConfirm() {
         <p>
           We would be verifying this Phone number
           <br />
-          <span id="PN">08067654534</span>. Is this okay or would you like to
+          <span id="PN">+234{phone_no}</span>. Is this okay or would you like to
           <br />
           edit the number?
         </p>

@@ -35,7 +35,7 @@ export function UsersProfile1() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    // console.log(results);
+    console.log(results);
     setUserStats(results?.stats);
     // pendingDeliveries.map((item) => console.log(item));
   };

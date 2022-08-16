@@ -5,6 +5,7 @@ import DeliveryImage from "../Images/DeliveryImage.png";
 import Button from "../javascript/Button";
 import Footer from "../javascript/Footer";
 import { Link } from "react-router-dom";
+import Mail from "../Images/mail.png";
 
 export default function ForgotNumber() {
   const asterik = <span id="asterik">*</span>;
@@ -38,12 +39,15 @@ export default function ForgotNumber() {
 
           <form id="i2" className="sign-form">
             <label className="requiredText">Email{asterik}</label>
-            <input
-              type="email"
-              className="input-field"
-              placeholder="Enter your Email"
-              name="email"
-            />
+            <div className="delivery-location-input">
+              <img src={Mail} alt="" className="mail-icon" />
+              <input
+                type="email"
+                className="input-field phone-input2"
+                placeholder="Enter your Email"
+                name="email"
+              />
+            </div>
             <br />
 
             <Button name="Submit" />

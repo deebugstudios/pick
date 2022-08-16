@@ -26,6 +26,12 @@ export default function IndividualVehicle() {
   const [fileLimit2, setFileLimit2] = useState(false);
   const [fileLimit3, setFileLimit3] = useState(false);
   const [vehicleImage, setVehicleImage] = useState([]);
+  const [formErrors, setFormErrors] = useState("");
+  const [noDate, setNoDate] = useState("");
+  const [image1Errors, setImage1Errors] = useState("");
+  const [image2Errors, setImage2Errors] = useState("");
+  const [image3Errors, setImage3Errors] = useState("");
+  const [dataError, setDataError] = useState("");
 
   const handleFullPicture = (files) => {
     const picUploaded = [...fullPicture];
@@ -116,42 +122,73 @@ export default function IndividualVehicle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // navigate("/account");
-    const bodyFormData = new FormData();
-    bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
-    bodyFormData.append(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
-    );
-    bodyFormData.append("fleet_manager_code", formData.fleet_id);
-    bodyFormData.append("color", formData.color);
-    bodyFormData.append("vehicle_name", formData.vehicle_name);
-    bodyFormData.append("vehicle_type", type);
-    bodyFormData.append("plate_no", formData.plate_no);
-    bodyFormData.append("driver_license_expiry_date", expiry_date);
-    bodyFormData.append("vehicle_details_imgs", formImages);
+    if (fullPicture.length === 0) {
+      setImage1Errors(`Upload Your Photo/Passport`);
+    } else setImage1Errors("");
+    if (license.length === 0) {
+      setImage2Errors(`Upload Photo of Your Driver's License`);
+    } else setImage2Errors("");
+    if (vehicleImage.length === 0) {
+      setImage3Errors(`Upload Image(s) of Your Vehicle`);
+    } else setImage3Errors("");
 
-    axios
-      .post(
-        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_three",
-        bodyFormData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        // if (response.status === 200) {
-        //   navigate(props.link);
-        // } else {
-        //   setMessage("Error occured");
-        // }
-        navigate("/account");
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (!expiry) {
+      setNoDate(`Select Your Driver's License Expiry Date`);
+    } else setNoDate("");
+
+    const validate = (data) => {
+      const errors = {};
+
+      if (!data.color) {
+        errors.color = `Enter Your ${type} Color`;
+      }
+      if (!data.vehicle_name) {
+        errors.vehicle_name = `Enter The Name of Your ${type} Manufacturer`;
+      }
+      if (!data.plate_no) {
+        errors.plate_no = `Enter Your ${type} Plate Number`;
+      }
+
+      return errors;
+    };
+    setFormErrors(validate(formData));
+
+    // const bodyFormData = new FormData();
+    // bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
+    // bodyFormData.append(
+    //   "token",
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
+    // );
+    // bodyFormData.append("fleet_manager_code", formData.fleet_id);
+    // bodyFormData.append("color", formData.color);
+    // bodyFormData.append("vehicle_name", formData.vehicle_name);
+    // bodyFormData.append("vehicle_type", type);
+    // bodyFormData.append("plate_no", formData.plate_no);
+    // bodyFormData.append("driver_license_expiry_date", expiry_date);
+    // bodyFormData.append("vehicle_details_imgs", formImages);
+
+    // axios
+    //   .post(
+    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_three",
+    //     bodyFormData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     // if (response.status === 200) {
+    //     //   navigate(props.link);
+    //     // } else {
+    //     //   setMessage("Error occured");
+    //     // }
+    navigate("/account");
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
   return (
     <>
@@ -167,7 +204,7 @@ export default function IndividualVehicle() {
 
         <form onSubmit={handleSubmit} className="sign-form">
           <label className="requiredText">
-            Fleet D{" "}
+            Fleet ID{" "}
             <span className="Upload" id="uploadText-2">
               (Fill this only if you are under a Fleet Manager and a code has
               been given
@@ -178,7 +215,7 @@ export default function IndividualVehicle() {
           <input
             value={formData.fleet_id}
             type="text"
-            className="form-field edit-field phone-input2"
+            className="form-field edit-field phone-input3"
             placeholder="Enter Your Fleet ID"
             name="fleet_id"
             onChange={handleChange}
@@ -259,12 +296,13 @@ export default function IndividualVehicle() {
             <input
               value={formData.vehicle_name}
               type="text"
-              className="form-field edit-field phone-input2"
+              className="form-field edit-field phone-input3"
               placeholder="Eg Toyota Corolla"
               name="vehicle_name"
               onChange={handleChange}
             />
           </label>
+          <p className="error-style">{formErrors.vehicle_name}</p>
           <br />
 
           <label htmlFor="Color">
@@ -273,12 +311,13 @@ export default function IndividualVehicle() {
             <input
               value={formData.color}
               type="text"
-              className="form-field edit-field phone-input2"
+              className="form-field edit-field phone-input3"
               placeholder="Eg Red"
               name="color"
               onChange={handleChange}
             />
           </label>
+          <p className="error-style">{formErrors.color}</p>
           <br />
 
           <label htmlFor="Vehicle Plate Number">
@@ -287,12 +326,13 @@ export default function IndividualVehicle() {
             <input
               value={formData.plate_no}
               type="text"
-              className="form-field edit-field phone-input2"
+              className="form-field edit-field phone-input3"
               placeholder="Eg LST 678KJ"
               name="plate_no"
               onChange={handleChange}
             />
           </label>
+          <p className="error-style">{formErrors.plate_no}</p>
           <br />
 
           <label htmlFor="license-expiry">
@@ -307,6 +347,7 @@ export default function IndividualVehicle() {
               onChange={handleDate}
             />
           </label>
+          <p className="error-style">{noDate}</p>
           <br />
 
           <div className="uploadFlex">
@@ -341,6 +382,7 @@ export default function IndividualVehicle() {
                     <div className="img_name">{file.name}</div>
                   ))}
                 </div>
+                <p className="error-style">{image1Errors}</p>
               </section>
             </div>
             <br />
@@ -373,6 +415,7 @@ export default function IndividualVehicle() {
                     <div className="img_name">{file.name}</div>
                   ))}
                 </div>
+                <p className="error-style">{image2Errors}</p>
               </section>
               <br />
             </div>
@@ -407,6 +450,7 @@ export default function IndividualVehicle() {
                     <div className="img_name">{file.name}</div>
                   ))}
                 </div>
+                <p className="error-style">{image3Errors}</p>
               </section>
             </div>
           </div>

@@ -6,6 +6,7 @@ import "./deliveryhistory.css";
 import LoggedinMainPage from "./LoggedinMainPage";
 import { useNavigate } from "react-router-dom";
 import { HistoryList, InstantHistoryList } from "../Details info/HistoryList";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function CompletedDeliveries() {
   return <LoggedinMainPage file={<CompletedDeliveries2 />} />;
@@ -17,6 +18,8 @@ export const CompletedDeliveries2 = () => {
   const [completedDeliveries, setCompletedDeliveries] = useState([]);
   const [cancelledDeliveries, setCancelledDeliveries] = useState([]);
   const navigate = useNavigate();
+
+  const search = `${faSearch} Nike Boots`;
 
   const fetchCompletedDeliveries = async () => {
     const res = await fetch(

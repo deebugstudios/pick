@@ -126,8 +126,9 @@ export default function DeliveryType() {
             value="van"
             name="Vehicle"
             className="RadioV"
-            checked={vehicle === "van"}
+            checked={vehicle === "van"} //{true}
             onChange={handleCheck}
+            // disabled={true}
           />
           <label htmlFor="van">
             {" "}
@@ -152,8 +153,9 @@ export default function DeliveryType() {
             value="car"
             name="Vehicle"
             className="RadioV"
-            checked={vehicle === "car"}
+            checked={vehicle === "car"} //{true}
             onChange={handleCheck}
+            // disabled={true}
           />
           <label htmlFor="Car">
             <span className="vehicle-text">Car</span>

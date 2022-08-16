@@ -22,8 +22,8 @@ export default function UserForm() {
     email: "",
     phone_no: "",
   });
-  // const [formErrors, setFormErrors] = useState({});
-  // const [isSubmit, setIsSubmit] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
@@ -34,6 +34,24 @@ export default function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validate = (data) => {
+      const errors = {};
+      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (!data.fullname) {
+        errors.fullname = "Full Name must be filled!";
+      }
+      if (!data.email) {
+        errors.email = "Email must be filled!";
+      } else if (!regex.test(data.email)) {
+        errors.email = "Please enter a valid email";
+      }
+      if (!data.phone_no) {
+        errors.phone_no = "Phone Number must be filled!";
+      }
+      return errors;
+    };
+    setFormErrors(validate(formData));
 
     try {
       const res = await fetch(
@@ -54,20 +72,22 @@ export default function UserForm() {
       );
       const data = await res.json();
       console.log(data);
+      if (data.msg === "An account with this phone number already exists") {
+        setDataError(data.msg);
+      }
 
       if (res.status === 200) {
         setMessage("User created successfully");
-        navigate("/confirm");
+        navigate("/confirm", { state: { phone_no: formData.phone_no } });
       } else {
-        setMessage("Error occured");
+        // setMessage("An Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      // const err = error
     }
-    console.log(formData);
   };
 
-  // setFormErrors(validate(formData));
   // setIsSubmit(true);
   // navigate("/confirm");
   // };
@@ -129,11 +149,11 @@ export default function UserForm() {
                 // required={true}
               />
             </div>
-            {/* <p className="error-style">{formErrors.fullname}</p> */}
+            <p className="error-style">{formErrors.fullname}</p>
             <br />
 
             <label className="requiredText" htmlFor="email">
-              Email
+              Email{asterik}
             </label>
             <div className="delivery-location-input">
               <img src={Mail} alt="" className="mail-icon" />
@@ -147,7 +167,7 @@ export default function UserForm() {
                 // required={false}
               />
             </div>
-            {/* <p className="error-style">{formErrors.email}</p> */}
+            <p className="error-style">{formErrors.email}</p>
             <br />
 
             <label className="requiredText">Phone Number{asterik}</label>
@@ -155,24 +175,23 @@ export default function UserForm() {
               <img src={Flag} alt="" className="flag-icon" />
               <span className="text-icon">+234</span>
               <input
-                value={formData.phone_no}
+                value={formData.phone_no.toString()}
                 onChange={handleChange}
                 maxLength={10}
-                type="text"
+                type="number"
                 className="input-field phone-input"
                 placeholder="Enter your Phone Number"
                 name="phone_no"
                 // required={true}
               />
             </div>
-            {/* <p className="error-style">{formErrors.phoneNumber}</p> */}
+            <p className="error-style">{formErrors.phone_no}</p>
+            <p className="error-style">{dataError}</p>
             <br />
 
             <div id="center-button">
               <Button name="Next" />
             </div>
-
-            <div className="message">{message ? <p>{message}</p> : null}</div>
           </form>
 
           <p id="accountAlready">
@@ -181,6 +200,10 @@ export default function UserForm() {
               <span id="loginSpan">Log in</span>
             </Link>
           </p>
+
+          <div className="message-text">
+            {message ? <p>{message}</p> : null}
+          </div>
         </div>
       </div>
       <Footer />

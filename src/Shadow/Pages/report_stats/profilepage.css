@@ -3,7 +3,11 @@
     background: #E8F4E3;
     width: 100% !important;
 }
-
+@media screen and (max-width:700px) {
+    .profile-page-container {
+        padding: 4px 7px !important;
+    }  
+}
 /* profile section page  */
 
 .profile-page-bottom {

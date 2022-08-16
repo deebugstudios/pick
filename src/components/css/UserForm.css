@@ -84,6 +84,15 @@
   padding-left: 20px !important;
   border: 2px solid rgba(10, 16, 52, 0.3);
 }
+.error-style {
+  font-size: small;
+  color: red;
+}
+.message-text {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
 
 @media screen and (max-width: 910px) {
   .delivery-img-form {

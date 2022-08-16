@@ -7,48 +7,61 @@ import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
+import Flag from "../Images/Nigerian_flag.png";
 
 export default function WelcomeUser(props) {
   const asterik = <span id="asterik">*</span>;
 
   const [phone_no, setPhone_no] = useState("");
   const [message, setMessage] = useState("");
+  const [formErrors, setFormErrors] = useState("");
+  const [dataError, setDataError] = useState("");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/user_auth/login",
-        {
-          method: "POST",
 
-          body: JSON.stringify({
-            phone_no: phone_no,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
-      const data = await res.json();
-      // setId();
-      // setToken(data.token);
-      // idU = data.token;
+    if (!phone_no) {
+      setFormErrors("Phone Number must be filled!");
+    } else setFormErrors("");
 
-      // console.log(data);
+    // try {
+    //   const res = await fetch(
+    //     "https://guarded-falls-60982.herokuapp.com/user_auth/login",
+    //     {
+    //       method: "POST",
 
-      if (res.status === 200) {
-        setMessage("User created successfully");
-        localStorage.setItem("id", data.user._id);
-        navigate("/type");
-        // console.log(idU);
-      } else {
-        setMessage("Error occured");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //       body: JSON.stringify({
+    //         phone_no: phone_no,
+    //       }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json, text/plain, */*",
+    //       },
+    //     }
+    //   );
+    //   const data = await res.json();
+    //   // setId();
+    //   // setToken(data.token);
+    //   // idU = data.token;
+
+    //   // console.log(data);
+    //   if (data.msg === `No user with phone no: ${phone_no} found`) {
+    //     setDataError(data.msg);
+    //   } else if (data.msg === "User not active") {
+    //     setDataError(data.msg);
+    //   }
+
+    //   if (res.status === 200) {
+    //     setMessage("User created successfully");
+    //     // localStorage.setItem("id", data.user._id);
+    navigate("/type");
+    //     // console.log(idU);
+    //   } else {
+    //     setMessage("An Error occured");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const navigate = useNavigate();
@@ -96,19 +109,27 @@ export default function WelcomeUser(props) {
             className="sign-form"
           >
             <label className="requiredText">Phone Number{asterik}</label>
-            <input
-              type="text"
-              className="input-field phone-input2"
-              placeholder="Enter your Phone Number"
-              name="phone_no"
-              value={phone_no}
-              onChange={onChange}
-            />
+            <div className="delivery-location-input">
+              <img src={Flag} alt="" className="flag-icon" />
+              <span className="text-icon">+234</span>
+              <input
+                type="text"
+                className="input-field phone-input"
+                placeholder="Enter your Phone Number"
+                name="phone_no"
+                value={phone_no}
+                maxLength={10}
+                onChange={onChange}
+              />
+            </div>
+            <p className="error-style">{formErrors}</p>
+            <p className="error-style">{dataError}</p>
 
             <p id="forgot" onClick={handleClick}>
               Forgot your Phone Number?
             </p>
 
+            <br />
             <br />
             <div id="center-button">
               <Button name="Login" />
@@ -122,6 +143,7 @@ export default function WelcomeUser(props) {
             </Link>
           </p>
         </div>
+        <div className="message-text">{message ? <p>{message}</p> : null}</div>
       </div>
       <p id="agree-p">
         By clicking Login, you agree to our{" "}
@@ -139,6 +161,8 @@ export function WelcomeAgent() {
   const navigate = useNavigate();
   const [phone_no, setPhone_no] = useState("");
   const [message, setMessage] = useState("");
+  const [formErrors, setFormErrors] = useState("");
+  const [dataError, setDataError] = useState("");
 
   const onChange = (e) => {
     setPhone_no(e.target.value);
@@ -146,33 +170,41 @@ export function WelcomeAgent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/login",
-        {
-          method: "POST",
 
-          body: JSON.stringify({
-            phone_no: phone_no,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
-      const data = await res.json();
-      console.log(data);
+    if (!phone_no) {
+      setFormErrors("Phone Number must be filled!");
+    } else setFormErrors("");
 
-      if (res.status === 200) {
-        setMessage("User created successfully");
-        navigate("/Deliveryrequest");
-      } else {
-        setMessage("Error occured");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const res = await fetch(
+    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/login",
+    //     {
+    //       method: "POST",
+
+    //       body: JSON.stringify({
+    //         phone_no: phone_no,
+    //       }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json, text/plain, */*",
+    //       },
+    //     }
+    //   );
+    //   const data = await res.json();
+    //   console.log(data);
+    //   if (data.msg == `No user with phone no: ${phone_no} found`) {
+    //     setDataError(data.msg);
+    //   }
+
+    //   if (res.status === 200) {
+    //     setMessage("User created successfully");
+    navigate("/Deliveryrequest");
+    //   } else {
+    //     setMessage("An Error occured");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleClick = (e) => {
@@ -204,19 +236,27 @@ export function WelcomeAgent() {
             className="sign-form"
           >
             <label className="requiredText">Phone Number{asterik}</label>
-            <input
-              type="text"
-              className="input-field phone-input2"
-              placeholder="Enter your Phone Number"
-              name="phone_no"
-              value={phone_no}
-              onChange={onChange}
-            />
+            <div className="delivery-location-input">
+              <img src={Flag} alt="" className="flag-icon" />
+              <span className="text-icon">+234</span>
+              <input
+                type="text"
+                className="input-field phone-input"
+                placeholder="Enter your Phone Number"
+                name="phone_no"
+                value={phone_no}
+                onChange={onChange}
+                maxLength={10}
+              />
+            </div>
+            <p className="error-style">{formErrors}</p>
+            <p className="error-style">{dataError}</p>
 
             <p id="forgot" onClick={handleClick}>
               Forgot your Phone Number?
             </p>
 
+            <br />
             <br />
             <div id="center-button">
               <Button name="Login" />
@@ -230,6 +270,7 @@ export function WelcomeAgent() {
             </Link>
           </p>
         </div>
+        <div className="message-text">{message ? <p>{message}</p> : null}</div>
       </div>
       <p id="agree-p">
         By clicking Login, you agree to our{" "}

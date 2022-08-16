@@ -120,8 +120,6 @@ export function PendingInstantDetails1() {
           <br />
 
           <h3>Delivery Details</h3>
-          <br />
-          <br />
 
           <div className="delivery-profile">
             <div className="driver-profile-image">

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "../css/sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,10 +10,10 @@ import {
   faCreditCard,
   faCreditCardAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import bikeicon from '../images/bikeicon.png'
-import cashicon from '../images/cashicon.png'
-import historyicon from '../images/historyicon.png'
-import reporticon from '../images/reporticon.png'
+import bikeicon from "../images/bikeicon.png";
+import cashicon from "../images/cashicon.png";
+import historyicon from "../images/historyicon.png";
+import reporticon from "../images/reporticon.png";
 import { Link, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
@@ -57,26 +57,24 @@ const SideBar = () => {
         </ul>
 
         <ul>
-              <li>
-              <Link to="/agent-profile">
-          <div className="side-bar-profile-details">
-            <div className="side-bar-profile-img skeleton">
-                <img src={riderdata?.img_url} alt="profile image" />
-              {/* </Link> */}
-            </div>
-            {/* <Link to="/agent-profile"> */}
+          <li>
+            <Link to="/agent-profile">
+              <div className="side-bar-profile-details">
+                <div className="side-bar-profile-img skeleton">
+                  <img src={riderdata?.img_url} alt="profile image" />
+                  {/* </Link> */}
+                </div>
+                {/* <Link to="/agent-profile"> */}
                 <div className="side-bar-profile-name">
                   <h5>{riderdata?.fullname}</h5>
                   <p>View Profile</p>
                 </div>
-          </div>
+              </div>
             </Link>
-              </li>
+          </li>
 
           <Link to="/payment-details">
-            {" "}
             <li>
-              {" "}
               <img src={cashicon} className="sidebar-icons space-icons" />
               {/* <FontAwesomeIcon icon={faCreditCard} className="space-icons" /> */}
               Payment details

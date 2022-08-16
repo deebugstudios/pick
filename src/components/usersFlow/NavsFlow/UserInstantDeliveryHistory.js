@@ -90,12 +90,11 @@ export const DeliveryHistoryDetails1 = () => {
           <br />
 
           <h3>Delivery Details</h3>
-          <br />
 
           <div className="delivery-profile">
             <div className="driver-profile-image">
               <div className="image">
-                <img src={deliveryDetails.delivery_agent_img} />{" "}
+                <img src={deliveryDetails.delivery_agent_img} alt="" />{" "}
               </div>
             </div>
             <div className="delivery-profile-details">
