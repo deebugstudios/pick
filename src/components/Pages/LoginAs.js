@@ -3,6 +3,8 @@ import Sign from "../javascript/sign";
 import Rider from "../Images/rider_image.png";
 import User from "../Images/user_image.png";
 
+import {app, auth, db} from '../../utils/firebase';
+
 export default function LoginAs() {
   return (
     <>
