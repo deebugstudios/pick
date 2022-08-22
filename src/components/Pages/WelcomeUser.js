@@ -1,4 +1,4 @@
-import React, { useState, useContext, useId } from "react";
+import React, { useState, useContext } from "react";
 import "../css/signup.css";
 import DeliveryImage from "../Images/DeliveryImage.png";
 import Button from "../javascript/Button";
@@ -24,44 +24,45 @@ export default function WelcomeUser(props) {
       setFormErrors("Phone Number must be filled!");
     } else setFormErrors("");
 
-    // try {
-    //   const res = await fetch(
-    //     "https://guarded-falls-60982.herokuapp.com/user_auth/login",
-    //     {
-    //       method: "POST",
+    try {
+      const res = await fetch(
+        "https://protected-temple-21445.herokuapp.com/user_auth/login",
+        {
+          method: "POST",
 
-    //       body: JSON.stringify({
-    //         phone_no: phone_no,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json, text/plain, */*",
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   // setId();
-    //   // setToken(data.token);
-    //   // idU = data.token;
+          body: JSON.stringify({
+            phone_no: phone_no,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      // setId();
+      // setToken(data.token);
+      // idU = data.token;
 
-    //   // console.log(data);
-    //   if (data.msg === `No user with phone no: ${phone_no} found`) {
-    //     setDataError(data.msg);
-    //   } else if (data.msg === "User not active") {
-    //     setDataError(data.msg);
-    //   }
+      // console.log(data);
+      if (data.msg === `No user with phone no: ${phone_no} found`) {
+        setDataError(data.msg);
+      } else if (data.msg === "User not active") {
+        setDataError(data.msg);
+      }
 
-    //   if (res.status === 200) {
-    //     setMessage("User created successfully");
-    //     // localStorage.setItem("id", data.user._id);
-    navigate("/type");
-    //     // console.log(idU);
-    //   } else {
-    //     setMessage("An Error occured");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (res.status === 200) {
+        setMessage("User created successfully");
+        // localStorage.setItem("id", data.user._id);
+        console.log(data);
+        navigate("/user/type");
+        // console.log(idU);
+      } else {
+        setMessage("An Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const navigate = useNavigate();
@@ -143,7 +144,7 @@ export default function WelcomeUser(props) {
             </Link>
           </p>
         </div>
-        <div className="message-text">{message ? <p>{message}</p> : null}</div>
+        {/* <div className="message-text">{message ? <p>{message}</p> : null}</div> */}
       </div>
       <p id="agree-p">
         By clicking Login, you agree to our{" "}
@@ -175,36 +176,37 @@ export function WelcomeAgent() {
       setFormErrors("Phone Number must be filled!");
     } else setFormErrors("");
 
-    // try {
-    //   const res = await fetch(
-    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/login",
-    //     {
-    //       method: "POST",
+    try {
+      const res = await fetch(
+        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/login",
+        {
+          method: "POST",
 
-    //       body: JSON.stringify({
-    //         phone_no: phone_no,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json, text/plain, */*",
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   console.log(data);
-    //   if (data.msg == `No user with phone no: ${phone_no} found`) {
-    //     setDataError(data.msg);
-    //   }
+          body: JSON.stringify({
+            phone_no: phone_no,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.msg == "Account not active or delivery agent does not exist") {
+        setDataError(data.msg);
+      }
 
-    //   if (res.status === 200) {
-    //     setMessage("User created successfully");
-    navigate("/Deliveryrequest");
-    //   } else {
-    //     setMessage("An Error occured");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (res.status === 200) {
+        setMessage("User created successfully");
+        navigate("/Deliveryrequest");
+        console.log(data);
+      } else {
+        setMessage("An Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleClick = (e) => {
@@ -246,7 +248,7 @@ export function WelcomeAgent() {
                 name="phone_no"
                 value={phone_no}
                 onChange={onChange}
-                maxLength={10}
+                // maxLength={10}
               />
             </div>
             <p className="error-style">{formErrors}</p>
@@ -270,12 +272,17 @@ export function WelcomeAgent() {
             </Link>
           </p>
         </div>
-        <div className="message-text">{message ? <p>{message}</p> : null}</div>
+        {/* <div className="message-text">{message ? <p>{message}</p> : null}</div> */}
       </div>
       <p id="agree-p">
         By clicking Login, you agree to our{" "}
-        <span className="policy">Terms of Use </span>and our{" "}
-        <span className="policy">Privacy Policy</span>.
+        <Link to="/Termsandconditions" target="_blank">
+          <span className="policy">Terms of Use </span>
+        </Link>
+        and our{" "}
+        <Link to="/privacy" target="_blank">
+          <span className="policy">Privacy Policy</span>
+        </Link>
       </p>
       <Footer />
     </>

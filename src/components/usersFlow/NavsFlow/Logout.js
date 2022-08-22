@@ -6,10 +6,6 @@ import { useNavigate } from "react-router-dom";
 import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function Logout() {
-  return <LoggedinMainPage file={<Logout1 />} />;
-}
-
-export function Logout1() {
   const navigate = useNavigate();
 
   return (

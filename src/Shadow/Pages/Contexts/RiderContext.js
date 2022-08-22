@@ -42,7 +42,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import SideBar from "../../javascripts/SideBar";
 import { useFetch } from "../CustomHook/useFect";
 const url =
-  "https://guarded-falls-60982.herokuapp.com/delivery_agent_profile/view_single_profile";
+  "https://protected-temple-21445.herokuapp.com/delivery_agent_profile/view_single_profile";
 export const RiderContext = createContext();
 export const userContext = createContext();
 
@@ -61,7 +61,7 @@ export const UseTokenProviderUser = (props) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/user_auth/login",
+        "https://protected-temple-21445.herokuapp.com/user_auth/login",
         {
           method: "POST",
 

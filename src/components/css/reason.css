@@ -1,3 +1,6 @@
+/* .reason-main-div{
+
+} */
 #reason-form {
   display: flex;
   flex-direction: column;
@@ -5,11 +8,11 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  /* position: absolute; */
+  /* top: 50%;
+  left: 50%; */
+  /* -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 #reason-form #why-input {
   background: rgba(196, 196, 196, 0.5);

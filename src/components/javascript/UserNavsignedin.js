@@ -4,9 +4,9 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Pickload from "../Images/pickload.png";
 import "../css/usernavsignedin.css";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
-const Navsignedin = () => {
+const Navsignedin = (props) => {
   return (
     <nav className="user-nav">
       <div className="nav-wrapper-1">
@@ -19,9 +19,10 @@ const Navsignedin = () => {
         </div>
         <div className="nav-links">
           <ul>
-            <Link to="/main">
-              <li>Home</li>
-            </Link>
+            <li>
+              <Link to="/main">Home</Link>
+            </li>
+
             <li>
               <Link to="/aboutUS1"> About Us </Link>
             </li>
@@ -32,10 +33,10 @@ const Navsignedin = () => {
               My Account <FontAwesomeIcon icon={faAngleDown} />
               <div className="sub-menu">
                 <ul>
-                  <Link to="/pending-del">
+                  <Link to="/user/pending-del">
                     <li>Pending deliveries</li>
                   </Link>
-                  <Link to="/completed-del">
+                  <Link to="/user/completed-del">
                     <li>Delivery History</li>
                   </Link>
                 </ul>
@@ -44,7 +45,9 @@ const Navsignedin = () => {
           </ul>
         </div>
         <div className="profile">
-          <div className="profile-img">{/* <img src={} alt="" /> */}</div>
+          <div className="profile-img-1">
+            <Link to="/user/user-profile">{props.profile}</Link>
+          </div>
           <FontAwesomeIcon icon={faBell} />
         </div>
       </div>

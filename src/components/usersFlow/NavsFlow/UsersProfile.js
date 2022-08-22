@@ -4,16 +4,11 @@ import Schedule from "../../Images/scheduled.png";
 import Cancel from "../../Images/cancel.png";
 import "../../css/userprofile.css";
 import Button from "../../javascript/Button";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
 
 export default function UsersProfile() {
-  return <LoggedinMainPage file={<UsersProfile1 />} />;
-}
-
-export function UsersProfile1() {
   const [loading, setLoading] = useState(true);
   const [userStats, setUserStats] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
@@ -28,7 +23,7 @@ export function UsersProfile1() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
         }),
       }
     );
@@ -49,7 +44,7 @@ export function UsersProfile1() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
         }),
       }
     );

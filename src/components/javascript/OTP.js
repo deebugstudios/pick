@@ -4,6 +4,7 @@ import Button from "./Button";
 // import Head from "./Head";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function OTP() {
   return (
@@ -40,6 +41,13 @@ export default function OTP() {
 
 export function OTP2() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const id = location.state.id;
+  const token = location.state.token;
+
+  // console.log(location.state.id);
+  // console.log(id);
 
   const handleClick = async (e) => {
     //   e.preventDefault();
@@ -66,7 +74,8 @@ export function OTP2() {
 
     //     if (res.status === 200) {
     //       // setMessage("User created successfully");
-    navigate("/individual-v");
+    navigate("/individual-v", { state: { id: id, token: token } });
+
     //     } else {
     //       // setMessage("Error occured");
     //       console.log("error");

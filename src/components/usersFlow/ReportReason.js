@@ -2,12 +2,15 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/reason.css";
 import Button from "../javascript/Button";
+import ReportThanks from "./ReportThanks";
+import Popup from "../javascript/Popup";
 
 export default function ReportReason(props) {
   const navigate = useNavigate();
   const [reason, setReason] = useState("Parcel Seal Broken");
   const [others, setOthers] = useState("");
   const [message, setMessage] = useState("");
+  const [popupButton, setPopupButton] = useState(false);
   /**@type React.MutableRefObject<HTMLInputElement> */
   const othersRef = useRef();
 
@@ -19,7 +22,9 @@ export default function ReportReason(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/report-thanks");
+    setPopupButton(true);
+
+    // navigate("/report-thanks");
     // try {
     //   const res = await fetch(
     //     "https://guarded-falls-60982.herokuapp.com/user_auth/signup",
@@ -71,91 +76,97 @@ export default function ReportReason(props) {
 
   console.log(reason);
   return (
-    <form id="reason-form" onSubmit={handleSubmit}>
-      <h2>
-        Please let us know why you are reporting <br /> this delivery request
-      </h2>
-      <br />
+    <div className="reason-main-div">
+      <form id="reason-form" onSubmit={handleSubmit}>
+        <h2>
+          Please let us know why you are reporting <br /> this delivery request
+        </h2>
+        <br />
 
-      <div id="reason-div">
-        <div className="div-reason">
-          <div className="real-div">
-            <input
-              id="maleCheck"
-              type="checkbox"
-              value="Parcel Seal Broken"
-              checked={reason === "Parcel Seal Broken"}
-              name="Reason"
-              onChange={handleCheck}
-            />
-            <label className="check-reason" htmlFor="Reason">
-              Parcel Seal Broken
-            </label>
+        <div id="reason-div">
+          <div className="div-reason">
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Parcel Seal Broken"
+                checked={reason === "Parcel Seal Broken"}
+                name="Reason"
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Parcel Seal Broken
+              </label>
+            </div>
+
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Damaged Goods"
+                checked={reason === "Damaged Goods"}
+                name="Reason"
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Damaged Goods
+              </label>
+            </div>
           </div>
 
-          <div className="real-div">
-            <input
-              id="maleCheck"
-              type="checkbox"
-              value="Damaged Goods"
-              checked={reason === "Damaged Goods"}
-              name="Reason"
-              onChange={handleCheck}
-            />
-            <label className="check-reason" htmlFor="Reason">
-              Damaged Goods
-            </label>
+          <div className="div-reason">
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Long delivery time"
+                name="Reason"
+                checked={reason === "Long delivery time"}
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Long delivery time
+              </label>
+            </div>
+
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Other reasons"
+                name="Reason"
+                checked={reason === "Other reasons"}
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Other reasons
+              </label>
+            </div>
           </div>
         </div>
+        <br />
 
-        <div className="div-reason">
-          <div className="real-div">
-            <input
-              id="maleCheck"
-              type="checkbox"
-              value="Long delivery time"
-              name="Reason"
-              checked={reason === "Long delivery time"}
-              onChange={handleCheck}
-            />
-            <label className="check-reason" htmlFor="Reason">
-              Long delivery time
-            </label>
-          </div>
-
-          <div className="real-div">
-            <input
-              id="maleCheck"
-              type="checkbox"
-              value="Other reasons"
-              name="Reason"
-              checked={reason === "Other reasons"}
-              onChange={handleCheck}
-            />
-            <label className="check-reason" htmlFor="Reason">
-              Other reasons
-            </label>
-          </div>
+        <div id="input-div-w">
+          <label className="check-reason" htmlFor="why">
+            Please tell us why
+          </label>
+          <textarea
+            type="text"
+            name="why"
+            id="why-input"
+            className="phone-input3"
+            disabled={reason !== "Other reasons"}
+            ref={othersRef}
+            // onChange={handleChange}
+          />
         </div>
-      </div>
-      <br />
 
-      <div id="input-div-w">
-        <label className="check-reason" htmlFor="why">
-          Please tell us why
-        </label>
-        <input
-          type="text"
-          name="why"
-          id="why-input"
-          className="phone-input2"
-          disabled={reason !== "Other reasons"}
-          ref={othersRef}
-          // onChange={handleChange}
-        />
-      </div>
+        <Button name="Submit" type="submit" />
+      </form>
 
-      <Button name="Submit" type="submit" />
-    </form>
+      <Popup trigger={popupButton} setTrigger={setPopupButton}>
+        <ReportThanks />
+      </Popup>
+    </div>
   );
 }

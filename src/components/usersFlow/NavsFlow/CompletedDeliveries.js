@@ -9,10 +9,6 @@ import { HistoryList, InstantHistoryList } from "../Details info/HistoryList";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function CompletedDeliveries() {
-  return <LoggedinMainPage file={<CompletedDeliveries2 />} />;
-}
-
-export const CompletedDeliveries2 = () => {
   const [toggle, setToggle] = useState(true);
   const [loading, setLoading] = useState(true);
   const [completedDeliveries, setCompletedDeliveries] = useState([]);
@@ -72,20 +68,6 @@ export const CompletedDeliveries2 = () => {
     fetchCancelledDeliveries();
   }, []);
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   {
-  //     toggle ? navigate("/user-schedule") : navigate("/cancelled-details");
-  //   }
-  // };
-
-  // const handleClick2 = (e) => {
-  //   e.preventDefault();
-  //   {
-  //     toggle ? navigate("/user-instant") : navigate("/cancelled-details");
-  //   }
-  // };
-
   const firstClick = () => {
     setToggle(true);
   };
@@ -96,7 +78,7 @@ export const CompletedDeliveries2 = () => {
 
   return (
     <section className="user-dashboard pending-delivery specifics">
-      <div className="history-wrapper">
+      <div className="history-wrapper-1">
         <div className="pending-delivery-pickup-slides">
           <br />
           <br />
@@ -138,11 +120,15 @@ export const CompletedDeliveries2 = () => {
                 click={
                   pObj.delivery_type === "instant"
                     ? () => {
-                        navigate("/user-instant", { state: { id: pObj._id } });
+                        navigate("/user/user-instant", {
+                          state: { id: pObj._id },
+                        });
                       }
                     : pObj.delivery_type === "scheduled"
                     ? () => {
-                        navigate("/user-schedule", { state: { id: pObj._id } });
+                        navigate("/user/user-schedule", {
+                          state: { id: pObj._id },
+                        });
                       }
                     : null
                 }
@@ -155,7 +141,9 @@ export const CompletedDeliveries2 = () => {
           : cancelledDeliveries.map((item) => (
               <InstantHistoryList
                 click={() => {
-                  navigate("/cancelled-details", { state: { id: item._id } });
+                  navigate("/user/cancelled-details", {
+                    state: { id: item._id },
+                  });
                 }}
                 parcelname={item.parcel_name}
                 parcelcode={item.parcel_code}
@@ -177,4 +165,4 @@ export const CompletedDeliveries2 = () => {
       </div>
     </section>
   );
-};
+}

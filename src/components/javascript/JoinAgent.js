@@ -105,41 +105,48 @@ export default function JoinAgent(props) {
     };
     setFormErrors(validate(formData));
 
-    navigate(props.link);
-    // const bodyFormData = new FormData();
-    // bodyFormData.append("fullname", formData.fullname);
-    // bodyFormData.append("phone_no", formData.phone_no);
-    // bodyFormData.append("email", formData.email);
-    // bodyFormData.append("delivery_agent_type", agent);
-    // bodyFormData.append("address", formData.address);
-    // bodyFormData.append("state", formData.resident_state);
-    // bodyFormData.append("city", formData.city);
-    // bodyFormData.append("gender", gender);
-    // bodyFormData.append("profile_img", selectedFile);
+    // navigate(props.link);
+    const bodyFormData = new FormData();
+    bodyFormData.append("fullname", formData.fullname);
+    bodyFormData.append("phone_no", formData.phone_no);
+    bodyFormData.append("email", formData.email);
+    bodyFormData.append("delivery_agent_type", agent);
+    bodyFormData.append("address", formData.address);
+    bodyFormData.append("nin", formData.nin);
+    bodyFormData.append("state", formData.resident_state);
+    bodyFormData.append("city", formData.city);
+    bodyFormData.append("gender", gender);
+    bodyFormData.append("profile_img", selectedFile);
 
-    // axios
-    //   .post(
-    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_one",
-    //     bodyFormData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     // if (response.status === 200) {
-    //     //   navigate(props.link);
-    //     // } else {
-    //     //   setMessage("An Error occured");
-    //     // }
-    //
-    //     console.log(response);
-    //     console.log(selectedFile);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .post(
+        "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_one",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          let data = response.data;
+          const userToken = data.token;
+          const userId = data.delivery_agent._id;
+          setToken(data.token);
+          setId(data.delivery_agent._id);
+          navigate(props.link, { state: { id: userId, token: userToken } });
+        } else {
+          setMessage("An Error occured");
+        }
+
+        // console.log(response);
+        // console.log(selectedFile);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // const _id = "62ed9fa9ef8d4752b2e1b9e2";
@@ -223,6 +230,7 @@ export default function JoinAgent(props) {
             className="form-field edit-field phone-input3"
             placeholder="Enter your National Identification Number"
             name="nin"
+            maxLength={11}
           />
           <p className="error-style">{formErrors.nin}</p>
           <br />

@@ -32,6 +32,7 @@ export default function FleetVehicle() {
   const [image2Errors, setImage2Errors] = useState("");
   const [image3Errors, setImage3Errors] = useState("");
   const [dataError, setDataError] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleFullPicture = (files) => {
     const picUploaded = [...fullPicture];
@@ -155,42 +156,43 @@ export default function FleetVehicle() {
     };
     setFormErrors(validate(formData));
 
-    // const bodyFormData = new FormData();
-    // bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
-    // bodyFormData.append(
-    //   "token",
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
-    // );
-    // bodyFormData.append("fleet_manager_code", formData.fleet_name);
-    // bodyFormData.append("color", formData.color);
-    // bodyFormData.append("vehicle_name", formData.vehicle_name);
-    // bodyFormData.append("vehicle_type", type);
-    // bodyFormData.append("plate_no", formData.plate_no);
-    // bodyFormData.append("driver_license_expiry_date", expiry_date);
-    // bodyFormData.append("vehicle_details_imgs", formImages);
+    const bodyFormData = new FormData();
+    bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
+    bodyFormData.append(
+      "token",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
+    );
+    bodyFormData.append("fleet_name", formData.fleet_name);
+    bodyFormData.append("color", formData.color);
+    bodyFormData.append("vehicle_name", formData.vehicle_name);
+    bodyFormData.append("vehicle_type", type);
+    bodyFormData.append("plate_no", formData.plate_no);
+    bodyFormData.append("driver_license_expiry_date", expiry_date);
+    bodyFormData.append("vehicle_details_imgs", formImages);
 
-    // axios
-    //   .post(
-    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_three",
-    //     bodyFormData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     // if (response.status === 200) {
-    //     //   navigate(props.link);
-    //     // } else {
-    //     //   setMessage("Error occured");
-    //     // }
-    navigate("/account");
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .post(
+        "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_three",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          navigate("/account");
+          // navigate(props.link);
+        } else {
+          setMessage("Error occured");
+        }
+
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

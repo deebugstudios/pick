@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import "./requestpickup.css";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { Link, useNavigate } from "react-router-dom";
 import Map from "../../../Shadow/javascripts/Map";
 // import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
@@ -10,10 +9,6 @@ import { Autocomplete } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 
 export default function UserRequestPickup() {
-  return <LoggedinMainPage file={<UserRequestPickup1 />} />;
-}
-
-export function UserRequestPickup1() {
   const [distance, setDistance] = useState("");
   const [direction, setDirection] = useState(null);
   const [duration, setDuration] = useState("");
@@ -97,7 +92,9 @@ export function UserRequestPickup1() {
 
   const handleNavigate = () => {
     if (buttonName === "Clear Route") {
-      member === "instant" ? navigate("/formuser") : navigate("/select-a");
+      member === "instant"
+        ? navigate("/user/formuser")
+        : navigate("/user/select-a");
     }
   };
 
@@ -116,7 +113,11 @@ export function UserRequestPickup1() {
       </div>
       <div className="set-location-pickup-1">
         <div className="location-form">
-          <Autocomplete>
+          <Autocomplete
+            options={{
+              componentRestrictions: { country: "ng" },
+            }}
+          >
             <div className="location-form-input" id="location-form-input-1">
               <label htmlFor="Pickup Location">Pickup Location</label>
               <div className="delivery-location-input">
@@ -131,7 +132,11 @@ export function UserRequestPickup1() {
             </div>
           </Autocomplete>
 
-          <Autocomplete>
+          <Autocomplete
+            options={{
+              componentRestrictions: { country: "ng" },
+            }}
+          >
             <div className="location-form-input" id="location-form-input-2">
               <label htmlFor="Delivery Location">Delivery Location</label>
               <div className="delivery-location-input">

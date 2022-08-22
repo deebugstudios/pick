@@ -1,0 +1,41 @@
+.para-m-bottom p {
+    margin-bottom: 10px;
+}
+
+.privacy-wrapper p {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+.privacy-wrapper h1 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 18px
+}
+@media screen and (min-width:800px) {
+    .privacy-wrapper h1 {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.7;
+    }
+}
+.privacy-wrapper h2 {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.privacy-wrapper h3 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+.privacy-wrapper h4 {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 5px 0;
+}

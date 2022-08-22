@@ -13,7 +13,7 @@ export default function RequestSuccess() {
         First="This Pickup Request was successful"
         Second="The Agent will contact you and be available to pickup your Parcel"
         button={
-          <Link to="/pending-del">
+          <Link to="/user/pending-del">
             <Button name="Done" />
           </Link>
         }

@@ -25,7 +25,7 @@ export default function PaymentSuccess() {
         </p>
         <br />
 
-        <Link to="/pending-del">
+        <Link to="/user/pending-del">
           <Button name="Go to Pending Deliveries" />
         </Link>
       </div>

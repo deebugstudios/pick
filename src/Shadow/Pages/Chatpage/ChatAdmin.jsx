@@ -128,14 +128,9 @@ const ChatAdmin = () => {
     </section>
   );
 };
-
 export default ChatAdmin;
 
-export const UserChatAdmin = () => {
-  return <LoggedinMainPage file={<UserChatAdmin1 />} />;
-};
-
-export const UserChatAdmin1 = () => {
+export function UserChatAdmin () {
   return (
     <section className="user-dashboard chat-admin">
       <div className="chat-wrapper">

@@ -8,9 +8,9 @@ import {
   faNoteSticky,
   faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const SideBar = () => {
+const SideBar = (props) => {
   const [sideBar, setSideBar] = useState(true);
   const show = () => {
     setSideBar(!sideBar);
@@ -23,45 +23,83 @@ const SideBar = () => {
           <li className="toggle-sidebar" onClick={show}>
             X
           </li>
-          <Link to="/type">
+          <NavLink
+            to="/user/type"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+          >
             <li>
               <FontAwesomeIcon icon={faHome} className="space-icons-1" />
               {sideBar ? "Request Pickup" : ""}
             </li>
-          </Link>
+          </NavLink>
 
-          <Link to="/pending-del">
+          <NavLink
+            to="/user/pending-del"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+          >
             <li>
               <FontAwesomeIcon icon={faBiking} className="space-icons-1" />
               {sideBar ? "Pending Deliveries" : ""}
             </li>
-          </Link>
+          </NavLink>
 
-          <Link to="/completed-del">
+          <NavLink
+            to="/user/completed-del"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+          >
             <li>
               <FontAwesomeIcon icon={faTimesCircle} className="space-icons-1" />
               {sideBar ? "Delivery History" : ""}
             </li>
-          </Link>
+          </NavLink>
 
-          <Link to="/chatwithadminuser">
+          <NavLink
+            to="/user/chatwithadminuser"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+          >
             <li>
               <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
               {sideBar ? "Chat With Admin" : ""}
             </li>
-          </Link>
-        </ul>
+          </NavLink>
+          {/* </ul> */}
 
-        <ul>
-          <Link to="/user-profile">
+          {/* <ul> */}
+          <NavLink
+            to="/user/user-profile"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "10px",
+              };
+            }}
+          >
             <li>
               {sideBar ? (
                 <div className="side-bar-profile-detail-1">
-                  <div className="side-bar-profile-img-1">
-                    {/* <img src={} alt="" /> */}
-                  </div>
+                  <div className="side-bar-profile-img-1">{props.profile}</div>
                   <div className="side-bar-profile-name">
-                    <h5>Angie</h5>
+                    <h5>{props.username}</h5>
                     <p>View Profile</p>
                   </div>
                 </div>
@@ -69,15 +107,22 @@ const SideBar = () => {
                 ""
               )}
             </li>
-          </Link>
+          </NavLink>
 
-          <Link to="/user-logout">
+          <NavLink
+            to="/user/user-logout"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+          >
             <li>
-              {" "}
               <FontAwesomeIcon icon={faSignOut} className="space-icons-1" />
               {sideBar ? "Log out" : ""}
             </li>
-          </Link>
+          </NavLink>
         </ul>
       </div>
     </section>

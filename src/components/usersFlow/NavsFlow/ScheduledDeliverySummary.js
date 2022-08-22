@@ -9,13 +9,8 @@ import { DeliverInfo } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
 import FormProgress2 from "../../Images/FormProgress2.png";
 import { Link } from "react-router-dom";
-import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function ScheduledDeliverySummary() {
-  return <LoggedinMainPage file={<ScheduledDeliverySummary1 />} />;
-}
-
-export function ScheduledDeliverySummary1() {
   return (
     <section className="user-dashboard pending-delivery specifics">
       <div className="history-wrapper">

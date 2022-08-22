@@ -1,12 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, NavLink } from "react-router-dom";
 import {
   faInstagramSquare,
   faLinkedin,
   faFacebookSquare,
   faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
-import logo from "../Images/pickload.png";
+import logo from "../../Shadow/images/pickloadlogo.png";
 import "../css/footer.css";
 const Footer = () => {
   return (
@@ -19,7 +20,11 @@ const Footer = () => {
         <div className="list-items">
           <ul>
             <li>Links</li>
-            <li>Home</li>
+            <li>
+              <Link to="/" target="_self">
+                Home
+              </Link>{" "}
+            </li>
             <li>Features</li>
             <li>FAQs</li>
             <li>Reviews Stories</li>
@@ -27,9 +32,18 @@ const Footer = () => {
           <ul>
             <li>Privacy</li>
             <li>Privacy</li>
-            <li>Policy</li>
+            <li>
+              <Link to="/privacy" target="_blank">
+                Policy
+              </Link>
+            </li>
             <li>Payment</li>
-            <li>Terms</li>
+            <li>
+              <Link to="/Termsandconditions" target="_blank">
+                {" "}
+                Terms{" "}
+              </Link>
+            </li>
           </ul>
           <div className="list-item-2">
             <ul>
@@ -41,22 +55,47 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-social-links">
-        <div className="logo">
+        <div className="logo-footer">
           <img src={logo} alt="" className="logo-footer" />
         </div>
         <div className="list-item-2-1">
-          <span>
-            {" "}
-            <FontAwesomeIcon icon={faInstagramSquare} />{" "}
+          <span className="green-icons">
+            <a
+              className="green-icons"
+              href="https://www.instagram.com"
+              target="_blank"
+            >
+              {" "}
+              <FontAwesomeIcon icon={faInstagramSquare} />{" "}
+            </a>
           </span>
           <span>
-            <FontAwesomeIcon icon={faLinkedin} />
+            <a
+              className="green-icons"
+              href="https://www.linkedin.com"
+              target="_blank"
+            >
+              {" "}
+              <FontAwesomeIcon icon={faLinkedin} />
+            </a>
           </span>
           <span>
-            <FontAwesomeIcon icon={faFacebookSquare} />
+            <a
+              className="green-icons"
+              href="https://www.facebook.com"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faFacebookSquare}> </FontAwesomeIcon>{" "}
+            </a>
           </span>
           <span>
-            <FontAwesomeIcon icon={faTwitterSquare} />
+            <a
+              className="green-icons"
+              href="https://www.twitter.com"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faTwitterSquare} />
+            </a>
           </span>
         </div>
       </div>
@@ -67,7 +106,9 @@ const Footer = () => {
         <div>
           <ul>
             <li>Contact Us</li>
-            <li>Terms</li>
+            <Link to="/Termsandconditions" target="_blank">
+              <li>Terms</li>
+            </Link>
           </ul>
         </div>
       </div>

@@ -6,13 +6,8 @@ import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function DeliveryHistoryDetails() {
-  return <LoggedinMainPage file={<DeliveryHistoryDetails1 />} />;
-}
-
-export const DeliveryHistoryDetails1 = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -164,4 +159,4 @@ export const DeliveryHistoryDetails1 = () => {
       </div>
     </section>
   );
-};
+}

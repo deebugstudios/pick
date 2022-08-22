@@ -35,11 +35,21 @@ const Main = () => {
       destination: destinationRef.current.value,
       travelMode: google.maps.TravelMode.DRIVING, // eslint-disable-line
     });
+    const geocoder = new google.maps.Geocoder(); // eslint-disable-line
+    const pickupLatLng = await geocoder.geocode(
+      { address: pickupRef.current.value },
+      function (results, status) {
+        if (status == "OK") {
+          console.log(results[0].address_components[6].long_name);
+          console.log(results[0].geometry.location.toString());
+        }
+      }
+    );
     setDirection(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    console.log(distance);
-    console.log(duration);
+    // console.log(results);
+    // console.log(duration);
   };
 
   return (
@@ -57,7 +67,11 @@ const Main = () => {
                 </h3>
               </div>
               <form className="main-form" onSubmit={calculateRoute}>
-                <Autocomplete>
+                <Autocomplete
+                  options={{
+                    componentRestrictions: { country: "ng" },
+                  }}
+                >
                   <div className="pickup-location-input">
                     <img src={pickupicon} alt="" className="left-icon" />
 
@@ -72,7 +86,11 @@ const Main = () => {
                   </div>
                 </Autocomplete>
 
-                <Autocomplete>
+                <Autocomplete
+                  options={{
+                    componentRestrictions: { country: "ng" },
+                  }}
+                >
                   <div className="delivery-location-input">
                     <img src={dropofficon} alt="" className="left-icon" />
                     <input

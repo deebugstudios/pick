@@ -1,10 +1,10 @@
-.history-wrapper {
+.history-wrapper-1 {
   background: #fefefe !important;
   width: 100% !important;
   margin: 0 auto !important;
   overflow-y: scroll !important;
-  overflow: visible !important;
   padding: 2em !important;
+  height: 80vh;
 }
 .calendar {
   width: max-content !important;

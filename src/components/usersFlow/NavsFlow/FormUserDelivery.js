@@ -11,15 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 
 export default function FormUserDelivery() {
-  return <LoggedinMainPage file={<FormUserDelivery1 />} />;
-}
-
-export function FormUserDelivery1() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/summary-i");
+    navigate("/user/summary-i");
   };
 
   const asterik = <span id="asterik">*</span>;

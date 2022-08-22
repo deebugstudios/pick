@@ -1,153 +1,86 @@
-import React from "react";
-import Footer from "../../components/javascript/Footer";
-import "../css/terms.css";
-import LoggedinMainPage from "../../components/usersFlow/NavsFlow/LoggedinMainPage";
+import React from 'react'
+import Footer from './Footer'
+import '../css/terms.css'
 export const Terms = () => {
   return (
     <section className="terms">
-      <div className="terms-wrapper">
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
+      <div className="background-top">
+        <h3>Terms of Service</h3>
       </div>
-      <Footer />
-    </section>
-  );
-};
-
-export const Terms1 = () => {
-  return <LoggedinMainPage file={<Terms2 />} />;
-};
-
-export const Terms2 = () => {
-  return (
-    <section className="terms">
-      <div className="terms-wrapper">
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
-        <h2>User Agreement</h2>
-        <p>
-          Pickload was birthed to bridge a gap between at home buyers, sellers
-          and the item’s logistics. Our Delivery agents provide Super fast
-          pickup and Delivery services to it’s pickload users and also provides
-          a way for delivery agents to earn extra cash as well for the services
-          rendered In short, PICKLOAD serves the purpose of connecting these
-          sets of people together in a secure and convenient space. Pickload was
-          birthed to bridge a gap between at home buyers, sellers and the item’s
-          logistics. Our Delivery agents provide Super fast pickup and Delivery
-          services to it’s pickload users and also provides a way for delivery
-          agents to earn extra cash as well for the services rendered. In short,
-          PICKLOAD serves the purpose of connecting these sets of people
-          together in a secure and convenient space. Pickload was birthed to
-          bridge a gap between at home buyers, sellers and the item’s logistics.
-          Our Delivery agents provide Super fast pickup and Delivery services to
-          it’s pickload users and also provides a way for delivery agents to
-          earn extra cash as well for the services rendered. In short, PICKLOAD
-          serves the purpose of connecting these sets of people together in a
-          secure and convenient space
-        </p>
+      <div className="terms-container">
+        <div className="terms-wrapper">
+            <h2>Terms of Service</h2>
+            <p>
+              Our Terms of Use were last updated on [16/08/2022]. Please read these terms and conditions carefully before using Our Service.
+            </p>
+            <h3>Interpretation and Definitions</h3>
+            <p>Interpretation</p>
+            <p>
+              The words of which the initial letter is capitalized have meanings defined under the following conditions. The  following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+            </p>
+            <h4>Definitions</h4>
+            <p>
+              For the purposes of these Terms of Use:
+            </p>
+            <p>
+              “Affiliate” means an entity that controls, is controlled by or is under common control with a party, where "control"  means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
+            </p>
+            <p>
+              “Account” means a unique account created for You to access our Service or parts of our Service.
+            </p>
+            <p>
+            “Company” (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to [COMPANY_INFORMATION].
+            </p>
+            <p>
+            “Country” refers to [COMPANY_COUNTRY].
+            </p>
+            <p>
+            “Content” refers to content such as text, images, or other information that can be posted, uploaded, linked to or otherwise made available by You, regardless of the form of that content.
+            </p>
+            <p>
+              “Device” means any device that can access the Service such as a computer, a cell phone or a digital tablet.
+            </p>
+            <p>
+            “Feedback” means feedback, innovations or suggestions sent by You regarding the attributes, performance or features of our Service.
+            </p>
+            <p>
+            “Service” refers to the Website.
+            </p>
+            <p>
+            “Terms of Use” (also referred as "Terms") mean these Terms of Use that form the entire agreement between You and the Company regarding the use of the Service. This Terms of Use Agreement was generated by TermsFeed Terms of Use Generator.
+            </p>
+            <p>
+            “Third-party Social Media Service” means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
+            </p>
+            <p>
+            “Website” refers to [WEBSITE_NAME], accessible from [WEBSITE_URL]
+            </p>
+            <p>
+            “You” means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+            </p>
+            <h3>Acknowledgment</h3>
+            <p>
+            These are the Terms of Use governing the use of this Service and the agreement that operates between You and the Company. These Terms of Use set out the rights and obligations of all users regarding the use of the Service.
+            </p>
+            <p>
+            Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms of Use. These Terms of Use apply to all visitors, users and others who access or use the Service.
+            </p>
+            <p>
+            By accessing or using the Service You agree to be bound by these Terms of Use. If You disagree with any part of these Terms of Use then You may not access the Service.
+            </p>
+            <p>
+            You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.
+            </p>
+            <p>
+            Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.
+            </p>
+            <h3>User Accounts</h3>
+            <p>
+            When You create an account with Us, You must provide Us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of Your account on Our Service.
+            </p>
+        </div>
       </div>
-      <Footer />
+      <Footer/>
     </section>
-  );
-};
+  )
+}

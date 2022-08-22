@@ -6,19 +6,14 @@ import FormProgress from "../../Images/FormProgress.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "../../css/userflowform.css";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { Link, useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 
 export default function ScheduleForm() {
-  return <LoggedinMainPage file={<ScheduleForm1 />} />;
-}
-
-export function ScheduleForm1() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/scheduled-summary");
+    navigate("/user/scheduled-summary");
   };
 
   const asterik = <span id="asterik">*</span>;

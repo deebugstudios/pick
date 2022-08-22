@@ -14,10 +14,6 @@ import { Link } from "react-router-dom";
 import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function InstantDeliverySummary() {
-  return <LoggedinMainPage file={<InstantDeliverySummary1 />} />;
-}
-
-export function InstantDeliverySummary1() {
   return (
     <section className="user-dashboard pending-delivery specifics">
       <div className="history-wrapper">

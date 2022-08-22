@@ -53,9 +53,8 @@
 }
 .user-image img {
   border-radius: 50%;
-  padding: 5px;
-  width: max-content;
-  height: 100%;
+  width: 90px;
+  height: 90px;
 }
 #user-info-form {
   display: flex;

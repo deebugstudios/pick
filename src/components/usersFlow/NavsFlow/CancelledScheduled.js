@@ -7,13 +7,8 @@ import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
 import Cancel from "../../Images/cancel.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function CancelledScheduled() {
-  return <LoggedinMainPage file={<CancelledScheduled1 />} />;
-}
-
-export function CancelledScheduled1() {
   const navigate = useNavigate();
 
   const location = useLocation();

@@ -11,8 +11,6 @@ import User from "../Images/user.png";
 import Mail from "../Images/mail.png";
 import Flag from "../Images/Nigerian_flag.png";
 import Footer from "../../Shadow/javascripts/Footer";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserForm() {
   const navigate = useNavigate();
@@ -88,35 +86,9 @@ export default function UserForm() {
     }
   };
 
-  // setIsSubmit(true);
-  // navigate("/confirm");
-  // };
-
-  // const validate = (data) => {
-  //   const errors = {};
-  //   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //   if (!data.fullname) {
-  //     errors.fullname = "Full Name must be filled!";
-  //   }
-  //   if (!regex.test(data.email)) {
-  //     errors.email = "Please enter a valid email";
-  //   }
-  //   if (!data.phoneNumber) {
-  //     errors.phoneNumber = "Phone Number must be filled!";
-  //   }
-  //   return errors;
-  // };
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(formData);
-  //   }
-  // }, [formErrors]);
   return (
     <>
       <Head />
-      {/* <pre>{JSON.stringify(formData, undefined, 2)}</pre> */}
       <div className="mainBox">
         <div className="delivery-img-form" id="DeliveryImage">
           <p>

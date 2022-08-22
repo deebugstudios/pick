@@ -3,14 +3,9 @@ import FormProgress from "../../Images/FormProgress.png";
 import "../../css/selectagent.css";
 import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SelectAgent() {
-  return <LoggedinMainPage file={<SelectAgent1 />} />;
-}
-
-export function SelectAgent1() {
   // const location = useLocation();
   // const vehicle = location.state.vehicle;
   // console.log(vehicle);
@@ -56,7 +51,7 @@ export function SelectAgent1() {
           </div>
 
           <div id="agent-profiles-div">
-            <Link to="/schedule-form">
+            <Link to="/user/schedule-form">
               <div className="agent-profiles" id="agent-profiles">
                 <div className="agent-profiles-image">
                   <img src={Splash} />

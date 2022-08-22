@@ -1,10 +1,19 @@
+.typeFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 30px auto 30px auto;
+  height: 80vh;
+}
 #typeFlex {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: center;
-  margin: 30px auto 0px auto;
+  margin: 30px auto 30px auto;
 }
 .type {
   margin-left: 30px;

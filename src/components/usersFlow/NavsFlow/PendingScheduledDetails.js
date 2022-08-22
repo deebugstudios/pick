@@ -7,19 +7,17 @@ import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
 import Cancel from "../../Images/close.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoggedinMainPage from "./LoggedinMainPage";
+import Popup from "../../javascript/Popup";
+import ReportReason from "../ReportReason";
 
-export default function PendingInstantDetails() {
-  return <LoggedinMainPage file={<PendingScheduledDetails2 />} />;
-}
-
-export function PendingScheduledDetails2() {
+export default function PendingScheduledDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
+  const [popupButton, setPopupButton] = useState(false);
 
   const Delivery_id = location.state.id;
 
@@ -158,7 +156,7 @@ export function PendingScheduledDetails2() {
             </div>
             <p
               onClick={() => {
-                navigate("/report");
+                setPopupButton(true);
               }}
             >
               Report this Delivery
@@ -166,6 +164,9 @@ export function PendingScheduledDetails2() {
           </div>
           <br />
         </div>
+        <Popup trigger={popupButton} setTrigger={setPopupButton}>
+          <ReportReason />
+        </Popup>
       </div>
     </section>
   );

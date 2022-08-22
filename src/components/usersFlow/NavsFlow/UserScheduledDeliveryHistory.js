@@ -6,13 +6,8 @@ import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoggedinMainPage from "./LoggedinMainPage";
 
 export default function UserScheduledDeliveryHistory() {
-  return <LoggedinMainPage file={<UserScheduledDeliveryHistory1 />} />;
-}
-
-export function UserScheduledDeliveryHistory1() {
   const navigate = useNavigate();
 
   const location = useLocation();

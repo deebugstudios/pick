@@ -2,8 +2,8 @@
   background: #fefefe;
   width: 90%;
   margin: 0 auto;
-  overflow-y: scroll;
-  overflow: visible;
+  /* overflow-y: scroll; */
+  /* overflow: visible; */
 }
 .specifics {
   padding-top: 20px;

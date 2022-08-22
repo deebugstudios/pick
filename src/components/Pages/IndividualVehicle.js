@@ -8,9 +8,16 @@ import Footer from "../javascript/Footer";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function IndividualVehicle() {
   const asterik = <span id="asterik">*</span>;
+  const location = useLocation();
+
+  const token = location.state.token;
+  const id = location.state.id;
+
+  // console.log(id);
 
   const [formData, setFormData] = useState({
     fleet_id: "",
@@ -32,6 +39,7 @@ export default function IndividualVehicle() {
   const [image2Errors, setImage2Errors] = useState("");
   const [image3Errors, setImage3Errors] = useState("");
   const [dataError, setDataError] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleFullPicture = (files) => {
     const picUploaded = [...fullPicture];
@@ -115,11 +123,11 @@ export default function IndividualVehicle() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const formImages = [fullPicture, license, vehicleImage];
-
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    const formImages = [fullPicture, license, vehicleImage];
+
     e.preventDefault();
     // navigate("/account");
     if (fullPicture.length === 0) {
@@ -153,42 +161,41 @@ export default function IndividualVehicle() {
     };
     setFormErrors(validate(formData));
 
-    // const bodyFormData = new FormData();
-    // bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
-    // bodyFormData.append(
-    //   "token",
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
-    // );
-    // bodyFormData.append("fleet_manager_code", formData.fleet_id);
-    // bodyFormData.append("color", formData.color);
-    // bodyFormData.append("vehicle_name", formData.vehicle_name);
-    // bodyFormData.append("vehicle_type", type);
-    // bodyFormData.append("plate_no", formData.plate_no);
-    // bodyFormData.append("driver_license_expiry_date", expiry_date);
-    // bodyFormData.append("vehicle_details_imgs", formImages);
+    const bodyFormData = new FormData();
+    bodyFormData.append("_id", id);
+    bodyFormData.append("token", token);
+    bodyFormData.append("fleet_manager_code", formData.fleet_id);
+    bodyFormData.append("color", formData.color);
+    bodyFormData.append("vehicle_name", formData.vehicle_name);
+    bodyFormData.append("vehicle_type", type);
+    bodyFormData.append("plate_no", formData.plate_no);
+    bodyFormData.append("driver_license_expiry_date", expiry_date);
+    bodyFormData.append("vehicle_details_imgs", vehicleImage);
 
-    // axios
-    //   .post(
-    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_three",
-    //     bodyFormData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     // if (response.status === 200) {
-    //     //   navigate(props.link);
-    //     // } else {
-    //     //   setMessage("Error occured");
-    //     // }
-    navigate("/account");
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    // console.log(bodyFormData.json());
+
+    axios
+      .post(
+        "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_three",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+
+      .then((response) => {
+        if (response.status === 200) {
+          navigate("/account", { state: { id: id, token: token } });
+        } else {
+          setMessage("Error occured");
+        }
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>

@@ -7,20 +7,18 @@ import locationimg from "../../Images/checkoutprogress.png";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { useNavigate, useLocation } from "react-router-dom";
+import Popup from "../../javascript/Popup";
+import ReportReason from "../ReportReason";
 
 export default function PendingInstantDetails() {
-  return <LoggedinMainPage file={<PendingInstantDetails1 />} />;
-}
-
-export function PendingInstantDetails1() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [pickDate, setPickDate] = useState(Number);
+  const [popupButton, setPopupButton] = useState(false);
   // const [time, setTime] = useState({});
 
   const Delivery_id = location.state.id;
@@ -80,7 +78,9 @@ export function PendingInstantDetails1() {
         <br />
 
         <div className="specific-details-section">
-          <h3>Instant Delivery ID: {deliveryDetails?.parcel_code}</h3>
+          <h3>
+            Instant Delivery ID: <span>{deliveryDetails?.parcel_code}</span>
+          </h3>
           <div className="delivery-details-pictures specifics-images">
             {deliveryDetails.imgs?.map((item, index) => (
               <li key={index}>
@@ -177,25 +177,7 @@ export function PendingInstantDetails1() {
             </div>
             <p
               onClick={() => {
-                navigate("/report", {
-                  state: {
-                    delivery_id: Delivery_id,
-                    delivery_code: deliveryDetails?.parcel_code,
-                    delivery_img_ids: deliveryDetails?.img_ids,
-                    delivery_img_urls: deliveryDetails?.imgs,
-                    user_id: deliveryDetails?._id,
-                    user_name: deliveryDetails?.sender_fullname,
-                    user_img_id: deliveryDetails?.user_img_id,
-                    user_img_url: deliveryDetails?.user_img_url,
-                    delivery_agent_name: deliveryDetails?.delivery_agent_name,
-                    delivery_agent_code: deliveryDetails?.delivery_agent_code,
-                    delivery_agent_id: deliveryDetails?.delivery_agent_id,
-                    delivery_agent_img_url:
-                      deliveryDetails?.delivery_agent_img_url,
-                    delivery_agent_img_id:
-                      deliveryDetails?.delivery_agent_img_id,
-                  },
-                });
+                setPopupButton(true);
               }}
             >
               Report this Delivery
@@ -203,6 +185,9 @@ export function PendingInstantDetails1() {
           </div>
           <br />
         </div>
+        <Popup trigger={popupButton} setTrigger={setPopupButton}>
+          <ReportReason />
+        </Popup>
       </div>
     </section>
   );

@@ -7,17 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import { PendingDeliveryList } from "../Details info/PendingDeliveryList";
 import "./pendingdeliverypickup.css";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { useNavigate } from "react-router-dom";
-import Toggle from "../../javascript/Toggle";
 import { PendingDeliveryScheduled } from "../Details info/PendingDeliveryList";
 import "../../css/toggle.css";
 
-export default function PendingDeliveryPickup() {
-  return <LoggedinMainPage file={<PendingDeliveryPickup1 />} />;
-}
-
-export function PendingDeliveryPickup1(props) {
+export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
   const [loading, setLoading] = useState(true);
   const [pendingDeliveries, setPendingDeliveries] = useState([]);
@@ -50,21 +44,12 @@ export function PendingDeliveryPickup1(props) {
     fetchPendingDeliveries();
   }, []);
 
-  // if (toggle === true) {
-  //   listItem = <PendingDeliveryList click={handleClick} />;
-  // } else {
-  //   listItem = <PendingDeliveryScheduled click2={handleClick2} />;
-  // }
-
   const firstClick = () => {
     setToggle(true);
-
-    // navigate("/Pending-del");
   };
 
   const secondClick = () => {
     setToggle(false);
-    // navigate("/Pending-del");
   };
 
   return (
@@ -98,7 +83,7 @@ export function PendingDeliveryPickup1(props) {
           toggle === true && item.delivery_type === "instant" ? (
             <PendingDeliveryList
               click={() => {
-                navigate("/pending-instant", { state: { id: item._id } });
+                navigate("/user/pending-instant", { state: { id: item._id } });
               }}
               parcelname={item.parcel_name}
               parcelcode={item.parcel_code}
@@ -107,7 +92,9 @@ export function PendingDeliveryPickup1(props) {
           ) : toggle === false && item.delivery_type === "scheduled" ? (
             <PendingDeliveryScheduled
               click2={() => {
-                navigate("/pending-scheduled", { state: { id: item._id } });
+                navigate("/user/pending-scheduled", {
+                  state: { id: item._id },
+                });
               }}
               parcelname={item.parcel_name}
               parcelcode={item.parcel_code}

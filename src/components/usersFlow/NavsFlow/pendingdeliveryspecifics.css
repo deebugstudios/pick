@@ -2,8 +2,9 @@
   background: #fefefe;
   width: 100%;
   margin: 0 auto;
-  /* overflow-y: scroll; */
-  overflow: visible;
+  /* height: 86vh !important; */
+  /* overflow-y: scroll !important; */
+  /* overflow: visible; */
 }
 .specifics {
   padding-top: 20px;
@@ -27,6 +28,9 @@
 }
 .specific-details-section h3 {
   font-size: 15px !important;
+}
+.specific-details-section h3 span {
+  font-weight: 400;
 }
 .specifics-images {
   margin-top: 20px;
