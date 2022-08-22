@@ -7,8 +7,10 @@ import Button from "../../javascript/Button";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersProfile() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [userStats, setUserStats] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
@@ -113,6 +115,14 @@ export default function UsersProfile() {
                 className="user-info"
                 disabled={true}
               />
+              <span
+                className="change-prof"
+                // onClick={() => {
+                //   navigate("/user/change");
+                // }}
+              >
+                change
+              </span>
             </div>
             <br />
 
@@ -135,11 +145,18 @@ export default function UsersProfile() {
                 className="user-info"
                 disabled={true}
               />
-              <span className="change-prof">change</span>
+              <span
+                className="change-prof"
+                // onClick={() => {
+                //   navigate("/user/change");
+                // }}
+              >
+                change
+              </span>
             </div>
             <br />
 
-            <Button name="Edit Profile" />
+            <Button name="Save and Update" />
           </form>
           <br />
         </div>

@@ -83,6 +83,7 @@ const ProfilePage = () => {
 
   // console.log(ridervechile)
   return (
+    // <div className="white">
     <div className=" profile-page-container">
       <MainTop riderdata={riderdata} />
       <div className="profile-page-bottom">
@@ -265,6 +266,7 @@ const ProfilePage = () => {
       </div>
       <Outlet />
     </div>
+    // </div>
   );
 };
 

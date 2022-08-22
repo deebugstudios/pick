@@ -43,46 +43,45 @@ export function OTP2() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const phone = location.state.phone;
   const id = location.state.id;
   const token = location.state.token;
 
-  // console.log(location.state.id);
+  console.log(phone);
   // console.log(id);
 
   const handleClick = async (e) => {
-    //   e.preventDefault();
-    //   try {
-    //     const res = await fetch(
-    //       "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_two",
-    //       {
-    //         method: "POST",
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_two",
+        {
+          method: "POST",
 
-    //         body: JSON.stringify({
-    //           phone_no: "8157542820",
-    //           _id: "62ed9fa9ef8d4752b2e1b9e2",
-    //           token:
-    //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ",
-    //         }),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Accept: "application/json, text/plain, */*",
-    //         },
-    //       }
-    //     );
-    //     const data = await res.json();
-    //     console.log(data);
+          body: JSON.stringify({
+            phone_no: phone,
+            _id: id,
+            token: token,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
 
-    //     if (res.status === 200) {
-    //       // setMessage("User created successfully");
-    navigate("/individual-v", { state: { id: id, token: token } });
-
-    //     } else {
-    //       // setMessage("Error occured");
-    //       console.log("error");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+      if (res.status === 200) {
+        // setMessage("User created successfully");
+        navigate("/individual-v", { state: { id: id, token: token } });
+      } else {
+        // setMessage("Error occured");
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

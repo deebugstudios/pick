@@ -134,9 +134,12 @@ export default function JoinAgent(props) {
           let data = response.data;
           const userToken = data.token;
           const userId = data.delivery_agent._id;
+          const phone = formData.phone_no;
           setToken(data.token);
           setId(data.delivery_agent._id);
-          navigate(props.link, { state: { id: userId, token: userToken } });
+          navigate(props.link, {
+            state: { id: userId, token: userToken, phone: phone },
+          });
         } else {
           setMessage("An Error occured");
         }

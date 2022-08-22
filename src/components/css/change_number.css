@@ -1,0 +1,155 @@
+.change-number {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; */
+  flex-direction: column;
+}
+
+.change-number-props {
+  background-color: white;
+  /* width: 76vw; */
+  margin-left: 20vw;
+  border-radius: 4px;
+  height: 90vh;
+}
+
+.change-number-style {
+  padding-top: 17vh;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.existing-number {
+  margin-top: 5vh;
+}
+
+/* .old-phone-number-props {
+  margin-left: 10vw;
+} */
+
+.old-no {
+  font-size: 12px;
+}
+
+.old-number-props {
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  width: 14vw;
+  justify-items: center;
+  margin-top: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.nigerian-flag {
+  width: 45px;
+  height: 35px;
+}
+
+.old-number-styling {
+  width: 4vw;
+  height: 5vh;
+}
+
+.old-phone-number {
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  width: 35vw;
+  justify-items: center;
+  margin-top: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.old-number-main {
+  display: flex;
+  flex-direction: row;
+}
+
+.existing-number {
+  margin-top: 5vh;
+}
+
+/* .new-phone-number-props {
+  margin-left: 10vw;
+} */
+
+.new-no {
+  font-size: 12px;
+}
+
+.new-number-props {
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  width: 14vw;
+  justify-items: center;
+  margin-top: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.nigerian-flag {
+  width: 45px;
+  height: 35px;
+}
+
+.new-number-styling {
+  width: 4vw;
+  height: 5vh;
+}
+
+.new-phone-number {
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  width: 35vw;
+  justify-items: center;
+  margin-top: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.4);
+  border-collapse: collapse;
+  outline: none;
+}
+
+.new-number-main {
+  display: flex;
+  flex-direction: row;
+}
+
+.save-changes {
+  background-color: #1aa803;
+  color: white;
+  width: 25vw;
+  padding-left: 22px;
+  padding-right: 20px;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid #1aa803;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 6.5vh;
+  /* margin-left: 25vw; */
+}

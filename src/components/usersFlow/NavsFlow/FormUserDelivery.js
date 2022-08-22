@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "../../css/userflowform.css";
 import LoggedinMainPage from "./LoggedinMainPage";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 
 export default function FormUserDelivery() {
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const vehicle = location.state.vehicle;
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/user/summary-i");
@@ -133,8 +135,8 @@ export default function FormUserDelivery() {
             </div>
 
             <div className="Upload" id="uploadText">
-              N/B: The closest available <span>BIKE</span> delivery agent would
-              receive and confirm
+              N/B: The closest available <span>{vehicle.toUpperCase()}</span>{" "}
+              delivery agent would receive and confirm
               <br /> your request after which you'll be directed to the payment
               page.
             </div>

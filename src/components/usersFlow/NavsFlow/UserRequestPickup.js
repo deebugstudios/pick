@@ -93,7 +93,9 @@ export default function UserRequestPickup() {
   const handleNavigate = () => {
     if (buttonName === "Clear Route") {
       member === "instant"
-        ? navigate("/user/formuser")
+        ? navigate("/user/formuser", {
+            state: { vehicle: vehicle, member: member },
+          })
         : navigate("/user/select-a");
     }
   };
@@ -153,7 +155,7 @@ export default function UserRequestPickup() {
         </div>
         <div id="price-div">
           <p>Delivery Fee </p>
-          <p id="price-p">&#8358; {price}</p>
+          <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
         </div>
 
         <div id="div-button">

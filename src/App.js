@@ -84,6 +84,7 @@ import LoggedinMainPageUser, {
   LoggedinMainPage2,
 } from "./components/usersFlow/NavsFlow/LoggedinMainPage";
 import Privacy from "./Shadow/javascripts/Privacy";
+import Change_Number from "./components/Pages/Change_Number";
 
 export default function App() {
   return (
@@ -115,6 +116,7 @@ export default function App() {
               /> */}
               {/* <Route path="aboutUS1" element={<AboutUs1 />} /> */}
               <Route path="Termsandconditions" element={<Terms />} />
+
               <Route path="privacy" element={<Privacy />} />
               {/* <Route
                 path="Termsandconditions2"
@@ -181,6 +183,7 @@ export default function App() {
                 <Route path="user-profile" element={<UsersProfile />} />
                 <Route path="user-logout" element={<Logout />} />
                 <Route path="chatwithadminuser" element={<UserChatAdmin />} />
+                <Route path="change" element={<Change_Number />} />
               </Route>
 
               <Route
