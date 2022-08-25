@@ -12,7 +12,7 @@ export default function DeliveryAgentStatPage() {
   const {no_accepted_deliveries, no_completed_deliveries, no_declined_deliveries, no_cancelled_deliveries } = riderdata
   return (
     <div className="profile-page-container">
-    {/* <MainTop/> */}
+    <MainTop riderdata={riderdata}/>
     <div className="profile-page-bottom height">
     <h3><input type="date" name="" id="" className="width-small"/></h3>
         <div className="fleet-manager-stats">

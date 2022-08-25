@@ -1,0 +1,37 @@
+.loading-state {
+    width: 100% !important;
+    height: 100vh !important;
+    background: rgba(221, 241, 217, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.loading-state-wrapper {
+    width: 50% !important;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.loading-state-image-container {
+    width: 70%;
+}
+.loading-state-image-container img {
+    width: 100%;
+    height: 100%;
+}
+.loading-state-text-container h4 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: rgba(10, 16, 52, 0.8);
+    text-align: center;
+}

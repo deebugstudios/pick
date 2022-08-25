@@ -10,12 +10,14 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export const MainTop = (props) => {
-  const { fleet_manager_vehicles, rating } = props?.riderdata;
+  const { fleet_manager_vehicles, rating, 
+    delivery_agent_type } = props?.riderdata;
   // const {no_of_bikes, no_of_buses, no_of_cars, no_of_trucks} = fleet_manager_vehicles;
   // const {total_rating} = rating
-  const [fleetManger, setFleetManger] = useState(false);
+  const [fleetManger, setFleetManger] = useState(true);
   return (
     <div className="profile-page-top">
+    <Link to = "/agent-profile">
       <div className="pages">
         <h3>PROFILE INFORMATION</h3>
         <div className="profile-icons">
@@ -28,6 +30,7 @@ export const MainTop = (props) => {
           </div>
         </div>
       </div>
+      </Link>
       {/* conditional statement to check if fleet manager or not  */}
 
       {fleetManger ? (
@@ -127,7 +130,7 @@ export const MainTop = (props) => {
         </div>
       )}
 
-      {/* <Outlet/> */}
+      <Outlet/>
     </div>
   );
 };

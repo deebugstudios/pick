@@ -62,7 +62,7 @@ export default function JoinAgent(props) {
 
   const navigate = useNavigate();
 
-  let agent = props.agent;
+  const agent = props.agent;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,6 +117,7 @@ export default function JoinAgent(props) {
     bodyFormData.append("city", formData.city);
     bodyFormData.append("gender", gender);
     bodyFormData.append("profile_img", selectedFile);
+    console.log(selectedFile);
 
     axios
       .post(
@@ -138,7 +139,7 @@ export default function JoinAgent(props) {
           setToken(data.token);
           setId(data.delivery_agent._id);
           navigate(props.link, {
-            state: { id: userId, token: userToken, phone: phone },
+            state: { id: userId, token: userToken, phone: phone, agent: agent },
           });
         } else {
           setMessage("An Error occured");
@@ -229,7 +230,7 @@ export default function JoinAgent(props) {
           <input
             value={formData.nin}
             onChange={handleChange}
-            type="text"
+            type="number"
             className="form-field edit-field phone-input3"
             placeholder="Enter your National Identification Number"
             name="nin"

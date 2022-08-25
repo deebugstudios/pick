@@ -12,7 +12,7 @@ const LoggedinMainPageUser = (props) => {
 
   const fetchUserDetails = async () => {
     const res = await fetch(
-      `https://protected-temple-21445.herokuapp.com/user_profile//user_profile`,
+      `https://protected-temple-21445.herokuapp.com/user_profile/user_profile`,
       {
         method: "POST",
         headers: {

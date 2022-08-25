@@ -19,8 +19,8 @@ export default function Payment_Bar_stat() {
       }
 
   return (
-    // <div className="profile-page-container">
-    // <MainTop/>
+   <div className="profile-page-container">
+    <MainTop riderdata={riderdata} />
     <div className="profile-page-bottom height">
         <div className="back-arrow">
                <p onClick={goBack}>go back</p> 
@@ -115,6 +115,6 @@ export default function Payment_Bar_stat() {
             </div>
         </div>
     </div>
-    // </div>
+ </div>
   );
 }

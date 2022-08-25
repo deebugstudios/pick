@@ -3,42 +3,46 @@ import FormProgress from "../../Images/FormProgress.png";
 import "../../css/selectagent.css";
 import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function SelectAgent() {
-  // const location = useLocation();
-  // const vehicle = location.state.vehicle;
-  // console.log(vehicle);
+  const location = useLocation();
+  const vehicle = location.state.vehicle;
+  const deliveryState = location.state.pickupState;
+  const navigate = useNavigate();
 
-  // const [agent, setAgent] = useState({});
-  // const [loading, setLoading] = useState(true);
+  const [agent, setAgent] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // const fetchAgent = async () => {
-  //   const res = await fetch(
-  //     "https://guarded-falls-60982.herokuapp.com/user_delivery/delivery_agents",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         pagec: 1,
-  //         token:
-  //           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
-  //         delivery_medium: vehicle,
-  //       }),
-  //     }
-  //   );
-  //   const data = await res.json();
-  //   const results = await data;
-  //   setLoading(false);
-  //   // setAgent(results?.deliveries);
-  //   console.log(results);
-  // };
+  const fetchAgent = async () => {
+    const res = await fetch(
+      "https://protected-temple-21445.herokuapp.com/user_delivery/delivery_agents",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
+          delivery_medium: vehicle,
+          state: deliveryState,
+        }),
+      }
+    );
+    const data = await res.json();
+    // console.log(data);
+    // const results = await data;
+    setLoading(false);
+    // setAgent(results?.deliveries);
+    setAgent(data?.delivery_agents);
+    console.log(data?.delivery_agents);
+  };
 
-  // useEffect(() => {
-  //   fetchAgent();
-  // }, []);
+  useEffect(() => {
+    fetchAgent();
+  }, []);
 
   const Stars = <img src={Star} alt="" />;
   return (
@@ -51,72 +55,75 @@ export default function SelectAgent() {
           </div>
 
           <div id="agent-profiles-div">
-            <Link to="/user/schedule-form">
-              <div className="agent-profiles" id="agent-profiles">
+            {agent?.map((item) => (
+              <div
+                className="agent-profiles"
+                id="agent-profiles"
+                onClick={() => {
+                  navigate("/user/specific-a", {
+                    state: {
+                      name: item?.fullname,
+                      profile: item?.img_url,
+                      rating: item?.rating.total_rating,
+                      deliveries: item?.no_successful_deliveries,
+                      phone: item?.phone_no,
+                      agentId: item?._id,
+                      color: item?.vehicle_details.color,
+                      plate: item?.vehicle_details.plate_no,
+                      vehicle_name: item?.vehicle_details.name,
+                      vehicle_image: item?.vehicle_details.img_urls,
+                    },
+                  });
+                }}
+              >
                 <div className="agent-profiles-image">
-                  <img src={Splash} />
+                  <img src={item?.img_url} />
                 </div>
 
                 <div className="agent-profiles-rating">
-                  <p className="agent-info-name">Matthew Johnson</p>
+                  <p className="agent-info-name">{item?.fullname}</p>
                   <div className="ratings-info">
                     <div className="ratings-star">
                       <p>Rating</p>
-                      <p>4.5 {Stars}</p>
+                      <p>
+                        {item?.rating.total_rating}.0 {Stars}
+                      </p>
                     </div>
                     <div className="ratings-star">
                       <p>Deliveries</p>
-                      <p>178</p>
+                      <p>{item?.no_successful_deliveries}</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </Link>
-
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
-            <AgentProfile />
+            ))}
           </div>
         </div>
       </div>
     </>
   );
 }
-
-function AgentProfile() {
-  const Stars = <img src={Star} alt="" />;
-  return (
-    <div className="agent-profiles">
-      <div className="agent-profiles-image">
-        <img src={Splash} />
-      </div>
-      <div className="agent-profiles-rating">
-        <p className="agent-info-name">Matthew Johnson</p>
-        <div className="ratings-info">
-          <div className="ratings-star">
-            <p>Rating</p>
-            <p>4.5 {Stars}</p>
-          </div>
-          <div className="ratings-star">
-            <p>Deliveries</p>
-            <p>178</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+// </Link>;
+// function AgentProfile() {
+//   const Stars = <img src={Star} alt="" />;
+//   return (
+//     <div className="agent-profiles">
+//       <div className="agent-profiles-image">
+//         <img src={Splash} />
+//       </div>
+//       <div className="agent-profiles-rating">
+//         <p className="agent-info-name">Matthew Johnson</p>
+//         <div className="ratings-info">
+//           <div className="ratings-star">
+//             <p>Rating</p>
+//             <p>4.5 {Stars}</p>
+//           </div>
+//           <div className="ratings-star">
+//             <p>Deliveries</p>
+//             <p>178</p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }

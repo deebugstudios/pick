@@ -15,9 +15,13 @@ export default function UserRequestPickup() {
   const [buttonName, setButtonName] = useState("Calculate Route");
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
+  const [pickupState, setPickupState] = useState("");
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [dropLocation, setDropLocation] = useState("");
 
   const location = useLocation();
   const vehicle = location.state.vehicle;
+  const member = location.state.member;
 
   const navigate = useNavigate();
 
@@ -38,6 +42,35 @@ export default function UserRequestPickup() {
     });
     setDirection(results);
 
+    const geocoder = new google.maps.Geocoder(); // eslint-disable-line
+    const pickupLatLng = await geocoder.geocode(
+      { address: pickupRef.current.value },
+      function (results, status) {
+        if (status == "OK") {
+          console.log(results);
+          results[0].address_components.map((item, index) => {
+            if (item.types[0] == "administrative_area_level_1") {
+              setPickupState(item.long_name);
+            }
+          });
+          
+          const pLoc = results[0].geometry.location.toString().slice(1, -1);
+          setPickupLocation(pLoc);
+        }
+      }
+    );
+
+    const dropOffLatLng = await geocoder.geocode(
+      { address: destinationRef.current.value },
+      function (results, status) {
+        if (status == "OK") {
+          
+          const dLoc = results[0].geometry.location.toString().slice(1, -1);
+          setDropLocation(dLoc);
+        }
+      }
+    );
+
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
     console.log(distance);
@@ -47,13 +80,13 @@ export default function UserRequestPickup() {
     console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
     try {
       const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/user_delivery//delivery_price",
+        "https://protected-temple-21445.herokuapp.com/user_delivery/delivery_price",
         {
           method: "POST",
 
           body: JSON.stringify({
             token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
             pickup_location: pickupRef.current.value,
             drop_off_location: destinationRef.current.value,
             distance: realDistance,
@@ -70,7 +103,7 @@ export default function UserRequestPickup() {
       if (res.status === 200) {
         console.log(data.price);
         setPrice(parseInt(data.price));
-        // console.log(price);
+        console.log(pickupState);
       } else {
         setMessage("Error occured");
       }
@@ -91,16 +124,43 @@ export default function UserRequestPickup() {
   };
 
   const handleNavigate = () => {
+    const realDistance = parseFloat(distance);
+    const deliveryState = pickupState;
+    const pickLocation = pickupLocation;
+    const dropOffLocation = dropLocation;
+    const pickup_address = pickupRef.current.value;
+    const drop_off_address = destinationRef.current.value;
+
     if (buttonName === "Clear Route") {
       member === "instant"
         ? navigate("/user/formuser", {
-            state: { vehicle: vehicle, member: member },
+            state: {
+              vehicle: vehicle,
+              member: member,
+              distance: realDistance,
+              pickupLocation: pickLocation,
+              pickupState: deliveryState,
+              dropOffLocation: dropOffLocation,
+              price: price,
+              pickup_address: pickup_address,
+              drop_off_address: drop_off_address,
+            },
           })
-        : navigate("/user/select-a");
+        : navigate("/user/select-a", {
+            state: {
+              vehicle: vehicle,
+              member: member,
+              distance: realDistance,
+              pickupLocation: pickLocation,
+              pickupState: deliveryState,
+              dropOffLocation: dropOffLocation,
+              price: price,
+              pickup_address: pickup_address,
+              drop_off_address: drop_off_address,
+            },
+          });
     }
   };
-
-  const member = location.state.member;
 
   const handleRoute = () => {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();

@@ -45,7 +45,7 @@ const goBack = () => {
 
   return (
     <div className="profile-page-container">
-    {/* <MainTop/> */}
+    <MainTop riderdata={riderdata} />
 
     <div className="profile-page-bottom">
         <div className="back-arrow">

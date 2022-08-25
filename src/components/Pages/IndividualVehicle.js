@@ -16,6 +16,7 @@ export default function IndividualVehicle() {
 
   const token = location.state.token;
   const id = location.state.id;
+  const agent = location.state.agent;
 
   // console.log(id);
 
@@ -111,7 +112,7 @@ export default function IndividualVehicle() {
     const newDate = dayjs(e.target.value).format("YYYY-MM-DD");
     setExpiry(newDate);
   };
-  let expiry_date = dayjs(expiry).format("DD-MM-YYYY").toString();
+  const expiry_date = dayjs(expiry).format("DD-MM-YYYY").toString();
 
   const handleRadio = (e) => {
     setType(e.target.value);
@@ -126,13 +127,11 @@ export default function IndividualVehicle() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    const formImages = [fullPicture, license, vehicleImage];
+    const formImage = [fullPicture, license, vehicleImage];
 
     e.preventDefault();
     // navigate("/account");
-    if (fullPicture.length === 0) {
-      setImage1Errors(`Upload Your Photo/Passport`);
-    } else setImage1Errors("");
+
     if (license.length === 0) {
       setImage2Errors(`Upload Photo of Your Driver's License`);
     } else setImage2Errors("");
@@ -169,11 +168,13 @@ export default function IndividualVehicle() {
     bodyFormData.append("vehicle_name", formData.vehicle_name);
     bodyFormData.append("vehicle_type", type);
     bodyFormData.append("plate_no", formData.plate_no);
+    bodyFormData.append("vehicle_details_imgs", formImage);
     bodyFormData.append("driver_license_expiry_date", expiry_date);
-    bodyFormData.append("vehicle_details_imgs", vehicleImage);
+
+    // bodyFormData.append("delivery_agent_type", agent);
 
     // console.log(bodyFormData.json());
-
+    // console.log(formImage);
     axios
       .post(
         "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_three",
@@ -358,42 +359,6 @@ export default function IndividualVehicle() {
           <br />
 
           <div className="uploadFlex">
-            <div className="uploadPad">
-              <legend className="requiredText">
-                {asterik} Upload Your Photo/Passport{" "}
-                <span className="Upload" id="uploadText-2">
-                  (Please provide a clear potrait photo which shows
-                  <br />
-                  clearly your face in front view with your eyes open. NOT A
-                  FULL BODY PHOTO)
-                </span>
-              </legend>
-              <br />
-
-              <section>
-                <div className="Upload" id="vector">
-                  <label>
-                    <img src={Vector} alt="Vector" />
-                    <input
-                      multiple
-                      accept=".png, .jpg, .jpeg, .gif"
-                      type="file"
-                      name="fullPicture"
-                      onChange={handleFullPictureE}
-                      disabled={fileLimit}
-                    />
-                  </label>
-                </div>
-                <div>
-                  {fullPicture.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
-                </div>
-                <p className="error-style">{image1Errors}</p>
-              </section>
-            </div>
-            <br />
-
             <div className="uploadPad">
               <legend className="requiredText">
                 {asterik} Upload Your Driver's License{" "}

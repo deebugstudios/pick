@@ -7,8 +7,9 @@ import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
 import Cancel from "../../Images/close.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Popup from "../../javascript/Popup";
+import Popup, { Popup2 } from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
+import CancelBooking from "../CancelBooking";
 
 export default function PendingScheduledDetails() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function PendingScheduledDetails() {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
   const [popupButton, setPopupButton] = useState(false);
+  const [cancelButton, setCancelButton] = useState(false);
 
   const Delivery_id = location.state.id;
 
@@ -142,7 +144,7 @@ export default function PendingScheduledDetails() {
           <div
             className="report-user"
             onClick={() => {
-              navigate("/cancel-booking");
+              setCancelButton(true);
             }}
           >
             <div>
@@ -167,6 +169,9 @@ export default function PendingScheduledDetails() {
         <Popup trigger={popupButton} setTrigger={setPopupButton}>
           <ReportReason />
         </Popup>
+        <Popup2 trigger={cancelButton} setTrigger={setCancelButton}>
+          <CancelBooking />
+        </Popup2>
       </div>
     </section>
   );

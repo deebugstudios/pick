@@ -1,7 +1,7 @@
 import React from "react";
-import notransaction from "../../images/message.png";
+import notransaction from "../../images/notransaction.png";
 import "./notransaction.css";
-import { PaymentWeeks } from "../ReauableComponents/PaymentWeeks/PaymentWeeks";
+import { PaymentWeeks } from "../Payment Record/ReauableComponents/PaymentWeeks/PaymentWeeks";
 export const NoTransaction = () => {
   return (
     <section className="no-transaction-wrapper">

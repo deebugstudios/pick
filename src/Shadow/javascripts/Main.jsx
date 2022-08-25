@@ -48,8 +48,6 @@ const Main = () => {
     setDirection(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    // console.log(results);
-    // console.log(duration);
   };
 
   return (

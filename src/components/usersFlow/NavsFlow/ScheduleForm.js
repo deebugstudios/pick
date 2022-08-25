@@ -32,9 +32,11 @@ export default function ScheduleForm() {
         <label className="requiredText">Sender's Full name{asterik}</label>
         <input
           type="text"
-          className="form-fields phone-input2"
+          className="form-fields phone-input3"
           placeholder="Enter your full name"
           name="Fullname"
+          // value={userDetails.fullname}
+          // disabled={true}
         />
         <br />
 
@@ -47,6 +49,8 @@ export default function ScheduleForm() {
             className="form-fields phone-input"
             placeholder="Enter your Phone Number"
             name="PhoneNumber"
+            // value={userDetails.phone_no}
+            // disabled={true}
           />
         </div>
         <br />
@@ -54,10 +58,13 @@ export default function ScheduleForm() {
         <label className="requiredText">Receiver's Full name{asterik}</label>
         <input
           type="text"
-          className="form-fields"
+          className="form-fields phone-input3"
           placeholder="Enter Receiver's full name"
-          name="ReceiverFullname"
+          name="reciever_name"
+          // value={formData.reciever_name}
+          // onChange={handleChange}
         />
+        {/* <p className="error-style">{formErrors.reciever_name}</p> */}
         <br />
 
         <label className="requiredText">Receiver's Phone Number{asterik}</label>
@@ -68,47 +75,62 @@ export default function ScheduleForm() {
             type="text"
             className="form-fields phone-input"
             placeholder="Enter Receiver's Phone Number"
-            name="ReceiverPhoneNumber"
+            name="reciever_phone_no"
+            // value={formData.reciever_phone_no}
+            // onChange={handleChange}
+            maxLength={10}
           />
         </div>
+        {/* <p className="error-style">{formErrors.receiver_phone_no}</p> */}
         <br />
 
-        <label className="requiredText">Parcel Name{asterik}</label>
+        <label className="requiredText">Item Name{asterik}</label>
         <input
           type="text"
-          className="form-fields phone-input2"
+          className="form-fields phone-input3"
           placeholder="Enter A Name For Your Item"
-          name="Parcelname"
+          name="parcel_name"
+          // value={formData.parcel_name}
+          // onChange={handleChange}
         />
+        {/* <p className="error-style">{formErrors.parcel_name}</p> */}
         <br />
 
-        <label className="requiredText">Parcel Type{asterik}</label>
+        <label className="requiredText">Item Type{asterik}</label>
         <select
-          defaultValue="Fragile"
-          className="form-fields phone-input2"
+          defaultValue="fragile"
+          className="form-fields phone-input3"
           name="ParcelType"
+          // onChange={handleType}
+          // value={parcelType}
         >
-          <option value="Fragile">Fragile</option>
-          <option value="Non-Fragile">Non-Fragile</option>
+          <option value="fragile">Fragile</option>
+          <option value="non-fragile">Non-Fragile</option>
         </select>
         <br />
 
-        <label className="requiredText">Parcel Description{asterik}</label>
+        <label className="requiredText">Quantity of Items{asterik}</label>
         <input
-          type="text"
-          className="form-fields phone-input2"
+          type="number"
+          className="form-fields phone-input3"
           placeholder="Describe your Item"
-          name="ParcelDescription"
+          name="parcel_description"
+          // value={formData.parcel_description}
+          // onChange={handleChange}
         />
+        {/* <p className="error-style">{formErrors.parcel_description}</p> */}
         <br />
 
-        <label className="requiredText">Delivery Instructions{asterik}</label>
-        <input
+        <label className="requiredText">Delivery Instructions</label>
+        <textarea
           type="text"
-          className="form-field-Instructions phone-input2"
+          className="form-field-Instructions phone-input3 textarea"
           placeholder="Enter any specific Instruction for the delivery agent to note"
-          name="ParcelDescription"
+          name="delivery_instructions"
+          // value={formData.delivery_instructions}
+          // onChange={handleChange}
         />
+        {/* <p className="error-style">{formErrors.delivery_instructions}</p> */}
         <br />
 
         <div id="time-factor">

@@ -9,23 +9,54 @@ import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_Stat() {
+  // const [bike, setBike] = useState('bikes');
+  // const [car, setCar] = useState('cars');
+  // const [van, setVan] = useState('cars');
+  // const [truck, setTruck] = useState('cars');
+
+  // const handleCName1 = () => {
+  //   setBike('bikes');
+  //   setCar('cars');
+  //   setVan('cars');
+  //   setTruck('cars');
+  // }
+  // const handleCName2 = () => {
+  //   setBike('cars');
+  //   setCar('bikes');
+  //   setVan('cars');
+  //   setTruck('cars');
+  // }
+  // const handleCName3 = () => {
+  //   setBike('cars');
+  //   setCar('cars');
+  //   setVan('bikes');
+  //   setTruck('cars');
+  // }
+  // const handleCName4 = () => {
+  //   setBike('cars');
+  //   setCar('cars');
+  //   setVan('cars');
+  //   setTruck('bikes');
+  // }
+
+
     const value = useContext(RiderContext);
     const { riderdata} = value;
-  const [toggle, setToggle] = useState(true);
-  const navigate = useNavigate();
+  // const [toggle, setToggle] = useState(true);
+  // const navigate = useNavigate();
 
-  const firstClick = () => {
-    setToggle(true);
+  // const firstClick = () => {
+  //   setToggle(true);
 
-    // navigate("/Pending-del");
-  };
+  // };
+  // navigate("/Pending-del");
 
-  const secondClick = () => {
-    setToggle(false);
-    // navigate("/Pending-del");
-  };
+  // const secondClick = () => {
+  //   setToggle(false);
+  // };
+  // navigate("/Pending-del");
   return (
-    <div className="profile-page-container">
+    <div className="wrapper-payment">
     {/* <MainTop/> */}
     <div className="profile-page-bottom height">
     <div className="payment-record-container">
@@ -33,7 +64,7 @@ export default function Payment_Stat() {
         <div className="da-payment-props">
           <div className="payment-to">
             <div className="toggle-div">
-              <div
+              {/* <div
                 className="first-toggle"
                 onClick={firstClick}
                 id={toggle ? "active" : "inactive2"}
@@ -46,19 +77,19 @@ export default function Payment_Stat() {
                 id={toggle ? "inactive" : "active2"}
               >
                 Combined Earnings
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="record-date">
             <input type="date" />
           </div>
           <div className="payment-history">
-            <div className="payment-vehicle">
-              <div className="bikes">BIKES</div>
-              <div className="cars">CARS</div>
-              <div className="buses">BUSES</div>
-              <div className="truck">TRUCKS</div>
-            </div>
+            {/* <div className="payment-vehicle">
+            <div className={bike} onClick={handleCName1}>BIKES</div>
+              <div className={car} onClick={handleCName2}>CARS</div>
+              <div className={van} onClick={handleCName3}>BUSES</div>
+              <div className={truck} onClick={handleCName4}>TRUCKS</div>
+            </div> */}
             <PaymentWeeks />
             <div className="payment-stat">
                 <div className="payment-stat-details">

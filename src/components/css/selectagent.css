@@ -38,15 +38,18 @@
   cursor: pointer;
 }
 #agent-profiles {
+  background-color: white;
+}
+#agent-profiles:hover {
   background-color: #e8f4e3;
 }
 .agent-profiles-image {
-  height: 120px;
-  width: 159px;
+  height: 150px;
+  width: 150px;
 }
 .agent-profiles-image img {
-  width: 100%;
-  height: auto;
+  height: 150px;
+  width: 150px;
 }
 .agent-info-name {
   font-size: small;
@@ -61,7 +64,10 @@
   column-gap: 40px;
 }
 .ratings-star p {
-  font-size: x-small;
+  font-size: small;
+}
+.important {
+  font-weight: bold;
 }
 .ratings-star p img {
   height: 10px;

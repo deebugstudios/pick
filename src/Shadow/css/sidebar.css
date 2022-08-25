@@ -5,7 +5,7 @@
   overflow: hidden !important;
   background-color: white;
   z-index: 10000;
-  border-right: 2px solid black;
+  /* border-right: 2px solid black; */
 }
 .sidebar-icons {
   width: 20px;
@@ -19,7 +19,8 @@
   font-weight: 400;
 }
 .side-bar-links ul:first-child {
-  height: 50vh;
+  margin-top: 20px;
+  height: 40vh;
   font-size: 0.85rem;
   display: flex;
   flex-direction: column;
@@ -29,7 +30,7 @@
   font-size: 1rem;
 }
 .side-bar-links ul li {
-  font-size: 12px;
+  font-size: 15px;
   padding: 0.8em 0;
   cursor: pointer;
   padding-left: 10px;

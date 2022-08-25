@@ -71,7 +71,7 @@ const ProfilePage = () => {
   // const ridervechile = riderdata?.vehicle_details.map((details) =>
   //   details
   // )
-  const vehcileImages = riderdata?.vehicle_details?.[0]?.img_urls.map(
+  const vehcileImages = riderdata?.vehicle_details?.img_urls.map(
     (image, index) => {
       return (
         <div className="front-side skeleton" key={index}>
@@ -187,7 +187,7 @@ const ProfilePage = () => {
                 type="text"
                 name="vehicleType"
                 id=""
-                value={riderdata?.vehicle_details?.[0]?.type}
+                value={riderdata?.vehicle_details?.type}
                 disabled
               />{" "}
               <br />
@@ -196,7 +196,7 @@ const ProfilePage = () => {
                 type="text"
                 name="plateNumber"
                 id=""
-                value={riderdata?.vehicle_details?.[0]?.plate_no}
+                value={riderdata?.vehicle_details?.plate_no}
                 disabled
               />
             </form>
@@ -215,7 +215,7 @@ const ProfilePage = () => {
                 type="text"
                 name="vehicleColor"
                 id=""
-                value={riderdata?.vehicle_details?.[0]?.color}
+                value={riderdata?.vehicle_details?.color}
                 disabled
               />
               <br />
@@ -225,7 +225,7 @@ const ProfilePage = () => {
                 name="driverLicense"
                 id=""
                 value={
-                  riderdata?.vehicle_details?.[0]?.driver_license_expiry_date
+                  riderdata?.vehicle_details?.driver_license_expiry_date
                 }
                 disabled
               />
@@ -240,13 +240,13 @@ const ProfilePage = () => {
             <div className="driver-driver-license">
               <div className="front-side skeleton">
                 <img
-                  src={riderdata?.vehicle_details?.[0]?.img_urls?.[1]}
+                  src={riderdata?.vehicle_details?.img_urls?.[1]}
                   alt=""
                 />
               </div>
               <div className="back-side skeleton">
                 <img
-                  src={riderdata?.vehicle_details?.[0]?.img_urls?.[2]}
+                  src={riderdata?.vehicle_details?.img_urls?.[2]}
                   alt=""
                 />
               </div>

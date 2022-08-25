@@ -27,8 +27,12 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-color: var(--maincolor);
   margin-bottom: 5px;
+}
+.image2 img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 .image img {
   border-radius: 50%;
@@ -44,6 +48,13 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+}
+.delivery-details-pictures-1 {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 }
 .report-user {
   display: flex;
@@ -68,4 +79,5 @@
 #arrow-div {
   width: 40px;
   cursor: pointer;
+  margin-left: 40px;
 }

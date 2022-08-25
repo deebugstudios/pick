@@ -1,0 +1,55 @@
+
+.bikes{
+    background-color: #1aa803;
+    border: 1px solid #1aa803;
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cars{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.buses{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.truck{
+    background-color: white;
+    border: 1px solid #1aa803;
+    color: #1aa803;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}

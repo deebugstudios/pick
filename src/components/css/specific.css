@@ -10,8 +10,121 @@
 #specific-table {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: start;
 }
 #specific-table div {
   align-self: center;
   text-align: center;
+}
+#review-p-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+#specific-a-div {
+  margin-top: 20px;
+  /* height: 80vh; */
+  background-color: white;
+  /* overflow-y: scroll; */
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column; */
+}
+#arrow-div-specific {
+  width: 40px;
+  cursor: pointer;
+  align-self: flex-start;
+  justify-content: flex-start;
+  margin-left: 40px;
+}
+.review-span {
+  background: #fff;
+  padding: 0 30px;
+}
+#review-p {
+  width: 80%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+.review-profile {
+  border-radius: 50%;
+  background-color: green;
+  height: 90px;
+  width: 90px;
+  margin-right: 20px;
+}
+.review-profile img {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+}
+#review-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  padding: 20px 20px;
+  background: #ffffff;
+  border: 0.4px solid #dadada;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  width: max-content;
+}
+#review-div-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#text-review {
+  display: flex;
+  text-align: start;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 350px;
+  margin-right: 30px;
+}
+#reviewer {
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+#actual-review {
+  font-size: small;
+  font-weight: 400;
+  max-width: 350px;
+  line-break: anywhere;
+}
+#star-review {
+  display: flex;
+  align-items: flex-end;
+  text-align: end;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.date-review {
+  font-size: x-small;
+  font-weight: normal;
+}
+#star-review p img {
+  width: 100%;
+}
+#split-star {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+#actual-star {
+  margin-right: 10px;
 }

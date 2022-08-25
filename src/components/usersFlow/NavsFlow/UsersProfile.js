@@ -17,7 +17,7 @@ export default function UsersProfile() {
 
   const fetchUserStats = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_profile/user_stats",
+      "https://protected-temple-21445.herokuapp.com/user_profile/user_stats",
       {
         method: "POST",
         headers: {
@@ -38,7 +38,7 @@ export default function UsersProfile() {
   };
   const fetchUserDetails = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_profile//user_profile",
+      "https://protected-temple-21445.herokuapp.com/user_profile//user_profile",
       {
         method: "POST",
         headers: {

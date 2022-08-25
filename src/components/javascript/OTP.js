@@ -46,6 +46,7 @@ export function OTP2() {
   const phone = location.state.phone;
   const id = location.state.id;
   const token = location.state.token;
+  const agent = location.state.agent;
 
   console.log(phone);
   // console.log(id);
@@ -74,7 +75,9 @@ export function OTP2() {
 
       if (res.status === 200) {
         // setMessage("User created successfully");
-        navigate("/individual-v", { state: { id: id, token: token } });
+        navigate("/individual-v", {
+          state: { id: id, token: token, agent: agent },
+        });
       } else {
         // setMessage("Error occured");
         console.log("error");

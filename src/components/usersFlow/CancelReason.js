@@ -7,7 +7,7 @@ export default function CancelReason(props) {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/pending-del");
+    navigate("/user/pending-del");
   };
 
   return (
