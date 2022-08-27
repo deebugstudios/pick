@@ -12,7 +12,7 @@ const LoggedinMainPageUser = (props) => {
 
   const fetchUserDetails = async () => {
     const res = await fetch(
-      `https://protected-temple-21445.herokuapp.com/user_profile/user_profile`,
+      `https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile`,
       {
         method: "POST",
         headers: {
@@ -28,7 +28,7 @@ const LoggedinMainPageUser = (props) => {
     const results = await data;
     // setLoading(false);
 
-    console.log(results);
+    // console.log(results);
     setUserDetails(results?.user);
     // console.log(userDetails);
     // pendingDeliveries.map((item) => console.log(item));
@@ -64,7 +64,6 @@ const LoggedinMainPageUser = (props) => {
     </section>
   );
 };
-
 export default LoggedinMainPageUser;
 
 export const LoggedinMainPage2 = (props) => {

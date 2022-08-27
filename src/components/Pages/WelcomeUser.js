@@ -26,7 +26,7 @@ export default function WelcomeUser(props) {
 
     try {
       const res = await fetch(
-        "https://protected-temple-21445.herokuapp.com/user_auth/login",
+        "https://ancient-wildwood-73926.herokuapp.com/user_auth/login",
         {
           method: "POST",
 
@@ -178,7 +178,7 @@ export function WelcomeAgent() {
 
     try {
       const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/login",
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/login",
         {
           method: "POST",
 

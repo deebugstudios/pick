@@ -14,7 +14,7 @@ export default function Thanks(props) {
 
         <button
           onClick={() => {
-            navigate("/user/pending-del");
+            navigate("/user/completed-del");
           }}
         >
           Okay

@@ -7,16 +7,15 @@ import "./pendingdeliverylist.css";
 import { useNavigate } from "react-router-dom";
 import p5 from "../../images/p5.png";
 export const PendingDeliveryDropoffList = (props) => {
-    const navigate = useNavigate();
-    console.log(props);
-    const handleClick = (e) => {
+  const navigate = useNavigate();
+  console.log(props);
+  const handleClick = (e) => {
     e.preventDefault();
-    if(props.deliverytype == "instant"){
-        navigate("/pending-instant");
-    }else{
-        navigate("/pending-scheduled");
+    if (props.deliverytype == "instant") {
+      navigate("/pending-instant");
+    } else {
+      navigate("/pending-scheduled");
     }
-    
   };
 
   return (
@@ -29,7 +28,7 @@ export const PendingDeliveryDropoffList = (props) => {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>
@@ -40,11 +39,19 @@ export const PendingDeliveryDropoffList = (props) => {
           </div>
           <div className="pending-delivery-pickup-action">
             <div className="icon-img">
-              <Link to=""> {props?.deliverytype == "instant" ? <img src={icons} alt="instant delivery" /> : <img src={icons2} alt="scheduled delivery" />}
+              <Link to="">
+                {" "}
+                {props?.deliverytype == "instant" ? (
+                  <img src={icons} alt="instant delivery" />
+                ) : (
+                  <img src={icons2} alt="scheduled delivery" />
+                )}
               </Link>
             </div>
             {/* <Link to="/Specificpickupdetails"> */}
-              <button className="delivery-list-btn" onClick={handleClick}>View Details</button>{" "}
+            <button className="delivery-list-btn" onClick={handleClick}>
+              View Details
+            </button>{" "}
             {/* </Link> */}
           </div>
         </div>

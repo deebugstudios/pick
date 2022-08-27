@@ -16,9 +16,11 @@ const NavigationBar = () => {
         </div>
         <div className="nav-links">
           <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
+            <Link to="/">
+              <li>
+                <a href="">Home</a>
+              </li>
+            </Link>
             <li>
               <Link to="/aboutUS"> About Us </Link>
             </li>

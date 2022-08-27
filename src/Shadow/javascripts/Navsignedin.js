@@ -10,8 +10,7 @@ import { RiderContext } from "../Pages/Contexts/RiderContext";
 
 const Navsignedin = () => {
   const value = useContext(RiderContext);
-  const { riderdata } = value;
-  // console.log(riderdata)
+  const { riderdata, loading } = value;
   return (
     <nav className="agent-nav">
       <div className="nav-wrapper">
@@ -24,13 +23,15 @@ const Navsignedin = () => {
           <ul>
             <Link to="/">Home</Link>
             <li>
-              <Link to="/aboutUS2"> About Us </Link>
+              <Link to="/aboutUS"> About Us </Link>
             </li>
             <li>
-              <Link to="/contactUS2"> Contact Us </Link>
+              <Link to="/contactUS"> Contact Us </Link>
             </li>
             <li className="hover-me">
-              My Account <FontAwesomeIcon icon={faAngleDown} />
+              <a href="">
+                My Account <FontAwesomeIcon icon={faAngleDown} />
+              </a>
               <div className="sub-menu">
                 <ul>
                   <li>Pending deliveries</li>
@@ -41,11 +42,11 @@ const Navsignedin = () => {
           </ul>
         </div>
         <div className="profile">
-          <div className="profile-img">
+        <div className="profile-img skeleton">
             <img src={riderdata?.img_url} alt="" />
           </div>
-          <div className="notification1">
-            <FontAwesomeIcon icon={faBell} className="notification1-bell" />
+          <div className="notification">
+            <FontAwesomeIcon icon={faBell} className="notification-bell" />
             <span>3</span>
           </div>
         </div>

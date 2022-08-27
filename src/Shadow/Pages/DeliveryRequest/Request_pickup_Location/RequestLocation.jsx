@@ -26,7 +26,7 @@ const RequestLocation = () => {
           Estimated Delivery Fee <span className="amount">₦ 1,500,000.00</span>
         </p>
         <h4>
-          Parcel Name: <span className="lower-case-words"> Nike Boots</span>
+          Item Name: <span className="lower-case-words"> Nike Boots</span>
         </h4>
         <div className="location-drops">
           <h4>Pickup Location</h4>

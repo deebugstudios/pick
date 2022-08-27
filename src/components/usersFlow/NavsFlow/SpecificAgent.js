@@ -10,9 +10,10 @@ import {
 } from "../Details info/DeliveryImages";
 import Button from "../../javascript/Button";
 import MainStar from "../../Images/MainStar.png";
+import Stars from "react-stars-display";
 
 export default function SpecificAgent() {
-  const Stars = <img src={Star} alt="" />;
+  // const Stars = <img src={Star} alt="" />;
   const MainStars = <img src={MainStar} alt="" />;
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +32,7 @@ export default function SpecificAgent() {
 
   const fetchReviews = async () => {
     const res = await fetch(
-      `https://protected-temple-21445.herokuapp.com/user_review/top_reviews`,
+      `https://ancient-wildwood-73926.herokuapp.com/user_review/top_reviews`,
       {
         method: "POST",
         headers: {
@@ -176,8 +177,19 @@ export default function SpecificAgent() {
             </div>
             <div id="star-review">
               <div id="split-star">
-                <p id="actual-star">{MainStars}</p>
-                <p>{item.stars}.0</p>
+                <div id="actual-star">
+                  <Stars
+                    stars={item.stars}
+                    size={35}
+                    spacing={2}
+                    fill="#ea9c46"
+                  />
+                </div>
+                <p>
+                  {Number.isInteger(item.stars)
+                    ? `${item.stars}.0`
+                    : item.stars}
+                </p>
               </div>
               <br />
               <p className="date-review">11/06/21</p>

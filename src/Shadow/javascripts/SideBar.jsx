@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import "../css/sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,11 +10,11 @@ import {
   faCreditCard,
   faCreditCardAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import bikeicon from "../images/bikeicon.png";
-import cashicon from "../images/cashicon.png";
-import historyicon from "../images/historyicon.png";
-import reporticon from "../images/reporticon.png";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import bikeicon from '../images/bikeicon.png'
+import cashicon from '../images/cashicon.png'
+import historyicon from '../images/historyicon.png'
+import reporticon from '../images/reporticon.png'
+import { Link, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
 
@@ -25,127 +25,72 @@ const SideBar = () => {
     <section className="side-bar">
       <div className="side-bar-links">
         <ul>
-          <NavLink
-            to="/Deliveryrequest"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          <Link to="/Deliveryrequest">
             <li>
               <FontAwesomeIcon icon={faHome} className="space-icons " />
               Delivery Request
             </li>{" "}
-          </NavLink>
-
-          <NavLink
-            to="/pendingdeliveries"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          </Link>
+          <Link to="/pendingdeliveries">
             <li>
               <img src={bikeicon} className="sidebar-icons space-icons " />
               {/* <FontAwesomeIcon icon={faBiking} className="space-icons" /> */}
               Pending Deliveries
             </li>
-          </NavLink>
+          </Link>
 
-          <NavLink
-            to="/deliveryhistory"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          <Link to="/deliveryhistory">
             <li>
               <img src={historyicon} className="sidebar-icons space-icons" />
               {/* <FontAwesomeIcon icon={faTimesCircle} className="space-icons" /> */}
               Delivery History
             </li>
-          </NavLink>
+          </Link>
 
-          <NavLink
-            to="/Chatwithadmin"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          <Link to="/Chatwithadmin">
             <li>
               <img src={reporticon} className="sidebar-icons space-icons" />
               {/* <FontAwesomeIcon icon={faNoteSticky} className="space-icons" /> */}
               Chat with Admin
             </li>
-          </NavLink>
+          </Link>
         </ul>
 
         <ul>
-          <NavLink
-            to="/agent-profile"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
-            <li>
-              <div className="side-bar-profile-details">
-                <div className="side-bar-profile-img skeleton">
-                  <img src={riderdata?.img_url} alt="profile image" />
-                  {/* </Link> */}
-                </div>
-                {/* <Link to="/agent-profile"> */}
+              <li>
+              <Link to="/agent-profile">
+          <div className="side-bar-profile-details">
+            <div className="side-bar-profile-img skeleton">
+                <img src={riderdata?.img_url} alt="profile image" />
+              {/* </Link> */}
+            </div>
+            {/* <Link to="/agent-profile"> */}
                 <div className="side-bar-profile-name">
                   <h5>{riderdata?.fullname}</h5>
                   <p>View Profile</p>
                 </div>
-              </div>
-            </li>
-          </NavLink>
+          </div>
+            </Link>
+              </li>
 
-          <NavLink
-            to="/payment-details"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          <Link to="/payment-details">
+            {" "}
             <li>
+              {" "}
               <img src={cashicon} className="sidebar-icons space-icons" />
               {/* <FontAwesomeIcon icon={faCreditCard} className="space-icons" /> */}
               Payment details
             </li>
-          </NavLink>
+          </Link>
 
-          <NavLink
-            to="/agent-logout"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-          >
+          <Link to="/agent-logout">
             {" "}
             <li>
               {" "}
               <FontAwesomeIcon icon={faSignOut} className="space-icons" />
               Log out
             </li>
-          </NavLink>
+          </Link>
         </ul>
         {/* <Outlet /> */}
       </div>

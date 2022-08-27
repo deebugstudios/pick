@@ -7,6 +7,9 @@ import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
 import Cancel from "../../Images/cancel.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import Popup from "../../javascript/Popup";
+import ReportReason from "../ReportReason";
+import LeaveReview from "../LeaveReview";
 
 export default function CancelledScheduled() {
   const navigate = useNavigate();
@@ -14,13 +17,15 @@ export default function CancelledScheduled() {
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
+  const [popupButton, setPopupButton] = useState(false);
+  const [reviewButton, setReviewButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
 
   const Delivery_id = location.state.id;
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/single_delivery",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/single_delivery",
       {
         method: "POST",
         headers: {
@@ -160,14 +165,14 @@ export default function CancelledScheduled() {
             </div>
             <p
               onClick={() => {
-                navigate("/report");
+                setPopupButton(true);
               }}
             >
               Report this Delivery
             </p>
             <button
               onClick={() => {
-                navigate("/review");
+                setReviewButton(true);
               }}
             >
               Leave a Review
@@ -175,6 +180,12 @@ export default function CancelledScheduled() {
           </div>
           <br />
         </div>
+        <Popup trigger={popupButton} setTrigger={setPopupButton}>
+          <ReportReason />
+        </Popup>
+        <Popup trigger={reviewButton} setTrigger={setReviewButton}>
+          <LeaveReview agentId={deliveryDetails.delivery_agent_id} />
+        </Popup>
       </div>
     </section>
   );

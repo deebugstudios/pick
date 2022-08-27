@@ -6,6 +6,9 @@ import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import Popup from "../../javascript/Popup";
+import ReportReason from "../ReportReason";
+import LeaveReview from "../LeaveReview";
 
 export default function DeliveryHistoryDetails() {
   const navigate = useNavigate();
@@ -13,6 +16,8 @@ export default function DeliveryHistoryDetails() {
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
+  const [reviewButton, setReviewButton] = useState(false);
+  const [popupButton, setPopupButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   // const [pickDate, setPickDate] = useState(Number);
 
@@ -20,7 +25,7 @@ export default function DeliveryHistoryDetails() {
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/single_delivery",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/single_delivery",
       {
         method: "POST",
         headers: {
@@ -36,12 +41,16 @@ export default function DeliveryHistoryDetails() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
+    console.log(results);
     setDeliveryDetails(results?.delivery);
   };
 
   useEffect(() => {
     fetchDeliveryDetails();
   }, []);
+
+  const img_ids = deliveryDetails.img_ids;
+  const imgs = deliveryDetails.imgs;
 
   return (
     <section className="user-dashboard pending-delivery specifics">
@@ -72,14 +81,14 @@ export default function DeliveryHistoryDetails() {
               <div className="location-img">
                 <img src={Checkout} alt="" />
               </div>
-              <h3>Parcel Received by Delivery Agent at the Pickup Location </h3>
+              <h3>Item Received by Delivery Agent at the Pickup Location </h3>
               <p>Thursday March 25th at 9:30 PM</p>
-              <h3>Parcel Received by User at the Drop off loaction </h3>
+              <h3>Item Received by User at the Drop off loaction </h3>
               <p>Thursday March 25th at 10:30 PM</p>
             </div>
           </div>
           <div className="estimatedtime">
-            <h2>Your Parcel arrived at your Location in 60 minutes</h2>
+            <h2>Your Item arrived at your Location in 60 minutes</h2>
           </div>
           <br />
           <br />
@@ -141,14 +150,14 @@ export default function DeliveryHistoryDetails() {
             </div>
             <p
               onClick={() => {
-                navigate("/report");
+                setPopupButton(true);
               }}
             >
               Report this Delivery
             </p>
             <button
               onClick={() => {
-                navigate("/review");
+                setReviewButton(true);
               }}
             >
               Leave a Review
@@ -156,6 +165,22 @@ export default function DeliveryHistoryDetails() {
           </div>
           <br />
         </div>
+        <Popup trigger={popupButton} setTrigger={setPopupButton}>
+          <ReportReason
+            delivery_id={Delivery_id}
+            parcel_code={deliveryDetails.parcel_code}
+            img_ids={img_ids}
+            imgs={imgs}
+            agentName={deliveryDetails.delivery_agent_name}
+            delivery_agent_code={deliveryDetails.delivery_agent_code}
+            delivery_agent_id={deliveryDetails.delivery_agent_id}
+            delivery_agent_img={deliveryDetails.delivery_agent_img}
+            delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
+          />
+        </Popup>
+        <Popup trigger={reviewButton} setTrigger={setReviewButton}>
+          <LeaveReview agentId={deliveryDetails.delivery_agent_id} />
+        </Popup>
       </div>
     </section>
   );

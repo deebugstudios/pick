@@ -22,13 +22,25 @@ export default function Popup(props) {
 export function Popup2(props) {
   return props.trigger ? (
     <div className="nedu-popup">
-      <div className="nedu-popup-inner">
-        <button
-          className="nedu-close-btn"
-          onClick={() => props.setTrigger(false)}
-        >
-          close
-        </button>
+      <div className="nedu-popup-inner-1">
+        <p className="nedu-close-btn" onClick={() => props.setTrigger(false)}>
+          x
+        </p>
+        {props.children}
+      </div>
+    </div>
+  ) : (
+    ""
+  );
+}
+
+export function Popup3(props) {
+  return props.trigger ? (
+    <div className="nedu-popup">
+      <div className="nedu-popup-inner-1">
+        {/* <p className="nedu-close-btn" onClick={() => props.setTrigger(false)}>
+          x
+        </p> */}
         {props.children}
       </div>
     </div>

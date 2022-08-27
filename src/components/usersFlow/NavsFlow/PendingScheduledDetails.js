@@ -7,7 +7,7 @@ import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
 import Cancel from "../../Images/close.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Popup, { Popup2 } from "../../javascript/Popup";
+import Popup, { Popup2, Popup3 } from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
 import CancelBooking from "../CancelBooking";
 
@@ -18,14 +18,13 @@ export default function PendingScheduledDetails() {
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
-  const [popupButton, setPopupButton] = useState(false);
   const [cancelButton, setCancelButton] = useState(false);
 
   const Delivery_id = location.state.id;
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/single_delivery",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/single_delivery",
       {
         method: "POST",
         headers: {
@@ -152,26 +151,17 @@ export default function PendingScheduledDetails() {
             </div>
             <p>Cancel</p>
           </div>
-          <div className="report-user">
-            <div>
-              <img src={Flag} alt="" />
-            </div>
-            <p
-              onClick={() => {
-                setPopupButton(true);
-              }}
-            >
-              Report this Delivery
-            </p>
-          </div>
           <br />
         </div>
-        <Popup trigger={popupButton} setTrigger={setPopupButton}>
-          <ReportReason />
-        </Popup>
-        <Popup2 trigger={cancelButton} setTrigger={setCancelButton}>
-          <CancelBooking />
-        </Popup2>
+
+        <Popup3 trigger={cancelButton}>
+          <CancelBooking
+            click={() => {
+              setCancelButton(false);
+            }}
+            delivery_id={Delivery_id}
+          />
+        </Popup3>
       </div>
     </section>
   );

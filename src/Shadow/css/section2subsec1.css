@@ -16,6 +16,9 @@
     .subsec1-description div {
         padding: 1em;
     }
+    .subsec1 {
+        padding: 1.67em;
+    }
 }
 @media screen and (max-width:673px) {
     .subsec1-description div {
@@ -30,11 +33,16 @@
         font-size: .8rem !important;
         padding: 0 .2em;
     }
+    .subsec1 {
+        padding: 1.4em;
+    }
 }
 @media screen and (max-width:513px) {
     .subsec1-description {
         flex-direction: column;
-    
+    }
+    .subsec1 {
+        padding: 0.5em;
     }
 }
 

@@ -4,15 +4,12 @@ import {
   GoogleMap,
   Marker,
   Circle,
-  useLoadScript,
   MarkerClusterer,
   Autocomplete,
-  DirectionsRenderer,
 } from "@react-google-maps/api";
 import { type } from "@testing-library/user-event/dist/type";
-import usePlacesAutocomplete from "use-places-autocomplete";
 
-const Map = (props) => {
+const Map = () => {
   const [map, setMap] = useState(/** @type google.maps.map */ (null));
   const center = useMemo(() => ({ lat: 6.335, lng: 5.6037 }), []);
   const option = useMemo(
@@ -36,10 +33,9 @@ const Map = (props) => {
              <button onClick={()=> map.panto(center)}>pan to</button> 
         </div> 
     </div>*/}
-
       <div className="map">
         <GoogleMap
-          zoom={16}
+          zoom={18}
           center={center}
           mapContainerClassName="map-container"
           options={option}
@@ -47,7 +43,6 @@ const Map = (props) => {
         >
           <Marker position={center} />
           <Circle center={center} radius={500} options={closeOption} />
-          {props.direct && <DirectionsRenderer directions={props.direct} />}
         </GoogleMap>
       </div>
     </div>

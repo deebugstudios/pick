@@ -4,13 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import "./deliveryhistory.css";
 import { DeliveryHistoryList } from "../../Details info/DeliveryHistoryList";
+import { useNavigate } from "react-router-dom";
 const DeliveryHistory = () => {
   const [loading, setLoading] = useState(true);
   const [deliveryHistory, setDeliveryHistory] = useState([{}])
+  const [searchItem, setSearchItem] = useState("")
   // const navigate = useNavigate();
 
   const fetchDeliveryHistory = async() => {
-        const res = await fetch( "https://guarded-falls-60982.herokuapp.com/delivery_agent_delivery/view_delivery_history", 
+        const res = await fetch( "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_delivery/view_delivery_history", 
         {
           method: 'POST',
           headers: {
@@ -35,12 +37,29 @@ const DeliveryHistory = () => {
     useEffect(()=> {
       fetchDeliveryHistory()
     },[])
-// console.log(deliveryHistory);
-    const historyItems = deliveryHistory?.map((dobj,index)=> (
-      <DeliveryHistoryList index={index} parcelname={dobj?.parcel_name} parcelcode={dobj?.parcel_code} deliverytype={dobj?.delivery_type} deliveryimage={dobj?.imgs?.[0]} />
+
+    const navigate = useNavigate()
+
+
+
+    const historyItems = deliveryHistory?.filter((value)=> {
+      if (value == ""){
+        return value
+      }else if (value.parcel_name?.toLowerCase().includes(searchItem.toLocaleLowerCase())){
+        return value
+      }
+    }).map((dobj,index)=> (
+      <DeliveryHistoryList index={index} parcelname={dobj?.parcel_name} parcelcode={dobj?.parcel_code} deliverytype={dobj?.delivery_type} deliveryimage={dobj?.imgs?.[0]}  click={
+        dobj.delivery_type === "instant" || dobj.delivery_type === "scheduled"
+          ? () => {
+              navigate("/deliveryhistorydetails", {
+                state: { id: dobj._id },
+              });
+            }
+          : null
+      }/>
       ))
       // console.log(dobj.parcel_name);
-      console.log(historyItems);
   return (
     <section className="user-dashboard pending-delivery specifics">
       <div className="history-wrapper">
@@ -48,7 +67,7 @@ const DeliveryHistory = () => {
           <button className="calender">JULY 19, 2021</button>
         </div>
         <div className="search-box-container">
-          <input type="text" placeholder="Nike Boots" className="search-box" />
+          <input type="text" placeholder="Nike Boots" className="search-box" onChange={(event)=> setSearchItem(event.target.value)}/>
         </div>
         {/* {deliveryHistory?.map(dobj=> (
         <DeliveryHistoryList parcelname={dobj.parcel_name} parcelcode={dobj.parcel_code} deliverytype={dobj.delivery_type} deliveryimage={dobj.imgs[0]} />

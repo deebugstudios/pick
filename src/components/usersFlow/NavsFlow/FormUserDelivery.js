@@ -26,22 +26,33 @@ import { db } from "../../../utils/firebase";
 export default function FormUserDelivery() {
   const navigate = useNavigate();
   const location = useLocation();
+  const senderName = location.state.senderName;
+  const number = location.state.number;
 
   const [message, setMessage] = useState("");
+  const [firestoreData, setFirestoreData] = useState("");
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
-  const [userDetails, setUserDetails] = useState([]);
+  // const [userDetails, setUserDetails] = useState([]);
   const [parcelType, setParcelType] = useState("fragile");
-  const [fileLimit, setFileLimit] = useState(false);
+  const [name, setName] = useState("");
+  // const [fileLimit, setFileLimit] = useState(false);
   const [deliveryFiles, setDeliveryFiles] = useState([]);
+  const [instructions, setInstructions] = useState("");
+  const [fileLimit, setFileLimit] = useState(false);
   const [formData, setFormData] = useState({
+    fullname: senderName,
+    phone_no: number,
     reciever_phone_no: "",
     reciever_name: "",
     parcel_name: "",
     parcel_description: 1,
-    delivery_instructions: "",
   });
+
+  const handleInstructions = (e) => {
+    setInstructions(e.target.value);
+  };
 
   const vehicle = location.state.vehicle;
   const distance = location.state.distance;
@@ -53,34 +64,7 @@ export default function FormUserDelivery() {
   const pickup_address = location.state.pickup_address;
   const drop_off_address = location.state.drop_off_address;
 
-  const fetchUserDetails = async () => {
-    const res = await fetch(
-      "https://protected-temple-21445.herokuapp.com/user_profile//user_profile",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
-        }),
-      }
-    );
-    const data = await res.json();
-    const results = await data;
-
-    // console.log(results);
-    setUserDetails(results?.user);
-    // console.log(userDetails);
-    // pendingDeliveries.map((item) => console.log(item));
-  };
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
-
-  const handleDeliveryFiles = (files) => {
+  const handleVehicleImage = (files) => {
     const picUploaded = [...deliveryFiles];
     let limitExceeded = false;
     files.some((file) => {
@@ -97,9 +81,9 @@ export default function FormUserDelivery() {
     if (!limitExceeded) setDeliveryFiles(picUploaded);
   };
 
-  const handleDeliveryFilesE = (e) => {
+  const uploadMultipleFiles = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
-    handleDeliveryFiles(chosenFiles);
+    handleVehicleImage(chosenFiles);
   };
 
   const handleChange = (e) => {
@@ -115,11 +99,16 @@ export default function FormUserDelivery() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(pickupLocation);
 
-    if (!deliveryFiles) {
+    console.log(deliveryFiles);
+
+    if (deliveryFiles == []) {
       setFileError("Please Upload a Picture");
     } else setFileError("");
+
+    if (!instructions) {
+      setInstructions("No delivery instructions set");
+    }
 
     const validate = (data) => {
       const errors = {};
@@ -127,16 +116,13 @@ export default function FormUserDelivery() {
         errors.reciever_name = "Receiver name must be filled!";
       }
       if (!data.parcel_description) {
-        errors.parcel_description = "Give a Parcel Description";
+        errors.parcel_description = "Give an Item Description";
       }
       if (!data.reciever_phone_no) {
         errors.reciever_phone_no = "Receiver Phone Number must be filled!";
       }
       if (!data.parcel_name) {
-        errors.parcel_name = "Give a Parcel Name";
-      }
-      if (!data.delivery_instructions) {
-        errors.delivery_instructions = "Delivery Instructions must be filled";
+        errors.parcel_name = "Give an Item Name";
       }
       return errors;
     };
@@ -148,8 +134,8 @@ export default function FormUserDelivery() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8"
     );
     bodyFormData.append("distance", distance);
-    bodyFormData.append("fullname", userDetails.fullname);
-    bodyFormData.append("phone_no", userDetails.phone_no);
+    bodyFormData.append("fullname", "userDetails.fullname");
+    bodyFormData.append("phone_no", "userDetails.phone_no");
     bodyFormData.append("delivery_type", member);
     bodyFormData.append("delivery_medium", vehicle);
     bodyFormData.append("pickup_location", pickupLocation);
@@ -170,11 +156,13 @@ export default function FormUserDelivery() {
     bodyFormData.append("parcel_type", parcelType);
     bodyFormData.append("delivery_cost", delivery_cost);
     bodyFormData.append("state", pickupState);
-    bodyFormData.append("delivery_files", "");
+    for (let i = 0; i < deliveryFiles.length; i++) {
+      bodyFormData.append("delivery_files", deliveryFiles[i]);
+    }
 
     axios
       .post(
-        "https://protected-temple-21445.herokuapp.com/user_delivery/new_delivery",
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
         bodyFormData,
         {
           headers: {
@@ -183,25 +171,39 @@ export default function FormUserDelivery() {
         }
       )
       .then((response) => {
-        // console.log(response);
         if (response.status === 200) {
           console.log(response);
           let data = response.data;
           setLoading(true);
           const deliveryID = data.delivery._id;
           const q = query(
-            collection(db, "delivery_requests").doc(deliveryID),
-            where("delivery_status_is_accepted" == true)
+            collection(db, "delivery_requests"),
+            where("delivery_status_is_accepted", "==", "false")
           );
-          const accepted = onSnapshot(q, (QuerySnapshot) => {
-            navigate("/user/summary-i");
+          const accepted = onSnapshot(q, (snapShot) => {
+            snapShot.docChanges().forEach((state) => {
+              if (state.type === "modified") {
+                navigate("/user/summary-i");
+                // accepted();
+                setLoading(false);
+              }
+            });
+            // QuerySnapshot.forEach((doc) => {
+            //   console.log(doc.data());
+            //   if (doc.data.delivery_status_is_accepted == true) {
+            //     navigate("/user/summary-i");
+            //   }
+            // });
           });
+
+          // if (firestoreData.delivery_status_is_accepted == true) {
+          //   navigate("/user/summary-i");
+          //   accepted();
+          // }
+          // navigate("/user/summary-i");
         } else {
           setMessage("An Error occured");
         }
-
-        // console.log(response);
-        // console.log(selectedFile);
       })
       .catch((error) => {
         console.log(error);
@@ -209,7 +211,7 @@ export default function FormUserDelivery() {
   };
 
   const asterik = <span id="asterik">*</span>;
-  if (loading === true) {
+  if (loading == true) {
     return <FindingDeliveriesUser />;
   } else
     return (
@@ -228,9 +230,9 @@ export default function FormUserDelivery() {
             type="text"
             className="form-fields phone-input3"
             placeholder="Enter your full name"
-            name="Fullname"
-            value={userDetails.fullname}
-            disabled={true}
+            name="fullname"
+            value={formData.fullname}
+            onChange={handleChange}
           />
           <br />
 
@@ -242,9 +244,10 @@ export default function FormUserDelivery() {
               type="text"
               className="form-fields phone-input"
               placeholder="Enter your Phone Number"
-              name="PhoneNumber"
-              value={userDetails.phone_no}
-              disabled={true}
+              name="phone_no"
+              maxLength={10}
+              value={formData.phone_no}
+              onChange={handleChange}
             />
           </div>
           <br />
@@ -277,7 +280,7 @@ export default function FormUserDelivery() {
               maxLength={10}
             />
           </div>
-          <p className="error-style">{formErrors.receiver_phone_no}</p>
+          <p className="error-style">{formErrors.reciever_phone_no}</p>
           <br />
 
           <label className="requiredText">Item Name{asterik}</label>
@@ -323,14 +326,13 @@ export default function FormUserDelivery() {
             className="form-field-Instructions phone-input3 textarea"
             placeholder="Enter any specific Instruction for the delivery agent to note"
             name="delivery_instructions"
-            value={formData.delivery_instructions}
-            onChange={handleChange}
+            value={instructions}
+            onChange={handleInstructions}
           />
-          <p className="error-style">{formErrors.delivery_instructions}</p>
           <br />
 
           <div className="field">
-            <legend className="requiredText">Parcel Images {asterik}</legend>
+            <legend className="requiredText">Item Images {asterik}</legend>
             <br />
 
             <section id="vector-sec">
@@ -341,15 +343,20 @@ export default function FormUserDelivery() {
                     type="file"
                     accept=".png, .jpg, .jpeg, .gif"
                     name="deliveryFiles"
-                    disabled={fileLimit}
-                    onChange={handleDeliveryFilesE}
+                    // disabled={fileLimit}
+                    onChange={uploadMultipleFiles}
+                    multiple
                   />
                 </label>
               </div>
               <div>
-                {deliveryFiles.map((file) => (
-                  <div className="img_name">{file.name}</div>
-                ))}
+                {deliveryFiles
+                  ? deliveryFiles.map((file, index) => (
+                      <li key={index} className="img_name">
+                        {file.name}
+                      </li>
+                    ))
+                  : null}
               </div>
 
               <p className="error-style">{fileError}</p>

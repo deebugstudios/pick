@@ -54,6 +54,7 @@
      }
      .watch-video {
         margin-left: .5em;
+        cursor: pointer;
      }
      .subsecs2-right {
         margin-left: 5.5em;

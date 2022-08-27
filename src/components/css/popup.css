@@ -22,7 +22,18 @@
   border-radius: 15px;
 }
 
-.nedu-popup-inner .nedu-close-btn {
+.nedu-popup-inner-1 {
+  position: relative;
+  /* padding: 32px; */
+  width: fit-content;
+  max-width: 640px;
+  height: fit-content;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.nedu-popup-inner .nedu-close-btn,
+.nedu-popup-inner-1 .nedu-close-btn {
   position: absolute;
   top: 16px;
   right: 16px;

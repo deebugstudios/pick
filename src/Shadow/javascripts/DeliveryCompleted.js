@@ -14,7 +14,7 @@ const DeliveryCompleted = () => {
       </div>
       <div className="bottom-section">
         <p>
-          Parcel Name <span>Nike Boots</span>
+          Item Name <span>Nike Boots</span>
         </p>
         <p>
           Instant delivery ID <span>7809874</span>

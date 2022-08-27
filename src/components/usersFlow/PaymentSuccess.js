@@ -16,11 +16,11 @@ export default function PaymentSuccess() {
           <img src={Validated} alt="validated" />
         </div>
         <p>
-          Parcel ID : <span id="parcel-id">678843</span>
+          Item ID : <span id="parcel-id">678843</span>
         </p>
         <br />
         <p id="payment-p">
-          N/B: Please write this number on your Parcel <br />
+          N/B: Please write this number on your Item <br />
           before handing over to the delivery agent
         </p>
         <br />

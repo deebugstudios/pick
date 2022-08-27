@@ -70,9 +70,7 @@ const ChatAdmin = () => {
           <div className="messages-wrapper">
             <p className="date-of-msg">TODAY MARCH 23</p>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -85,9 +83,7 @@ const ChatAdmin = () => {
               <p>hi</p>
             </div>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -100,9 +96,7 @@ const ChatAdmin = () => {
               <p>hi</p>
             </div>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -130,7 +124,7 @@ const ChatAdmin = () => {
 };
 export default ChatAdmin;
 
-export function UserChatAdmin () {
+export function UserChatAdmin() {
   return (
     <section className="user-dashboard chat-admin">
       <div className="chat-wrapper">
@@ -195,9 +189,7 @@ export function UserChatAdmin () {
           <div className="messages-wrapper">
             <p className="date-of-msg">TODAY MARCH 23</p>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -210,9 +202,7 @@ export function UserChatAdmin () {
               <p>hi</p>
             </div>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -225,9 +215,7 @@ export function UserChatAdmin () {
               <p>hi</p>
             </div>
             <div className="incoming-msgs">
-              <p>
-                I am reporting Delivery “ID 879709” for “Parcel Seal Broken”
-              </p>
+              <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
                 be reviewed by the admin.
@@ -252,4 +240,4 @@ export function UserChatAdmin () {
       </div>
     </section>
   );
-};
+}

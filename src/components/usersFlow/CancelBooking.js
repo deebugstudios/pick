@@ -36,7 +36,7 @@ export default function CancelBooking(props) {
           />{" "}
         </div>
         <Popup trigger={popupButton} setTrigger={setPopupButton}>
-          <CancelReason />
+          <CancelReason delivery_id={props.delivery_id} />
         </Popup>
       </div>
     </>

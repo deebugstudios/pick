@@ -27,7 +27,7 @@ export const PendingDeliveryList = (props) => {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>
@@ -62,7 +62,7 @@ export const PendingDeliveryScheduled = (props) => {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>

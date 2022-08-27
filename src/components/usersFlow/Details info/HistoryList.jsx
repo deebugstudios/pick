@@ -18,7 +18,7 @@ export function HistoryList(props) {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>Grocceries</td>
               </tr>
               <tr>
@@ -51,7 +51,7 @@ export function InstantHistoryList(props) {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>

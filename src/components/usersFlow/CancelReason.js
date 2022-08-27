@@ -1,13 +1,51 @@
-import React from "react";
+// import { async } from "@firebase/util";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/reason.css";
 import Button from "../javascript/Button";
 
 export default function CancelReason(props) {
   const navigate = useNavigate();
+  const [reason, setReason] = useState("I changed my mind");
+  const [explain, setExplain] = useState("");
 
-  const handleSubmit = () => {
-    navigate("/user/pending-del");
+  const handleCheck = (e) => {
+    setReason(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_delivery",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            delivery_id: props.delivery_id,
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            cancel_reason: reason,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        navigate("/user/completed-del");
+      } else {
+        // setMessage("Error occured");
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -25,6 +63,8 @@ export default function CancelReason(props) {
               type="checkbox"
               value="I changed my mind"
               name="Reason"
+              checked={reason === "I changed my mind"}
+              onChange={handleCheck}
             />
             <label className="check-reason" htmlFor="Reason">
               I changed my mind
@@ -37,6 +77,8 @@ export default function CancelReason(props) {
               type="checkbox"
               value="High cost of delivery"
               name="Reason"
+              checked={reason === "High cost of delivery"}
+              onChange={handleCheck}
             />
             <label className="check-reason" htmlFor="Reason">
               High cost of delivery
@@ -51,6 +93,8 @@ export default function CancelReason(props) {
               type="checkbox"
               value="Long delivery time"
               name="Reason"
+              checked={reason === "Long delivery time"}
+              onChange={handleCheck}
             />
             <label className="check-reason" htmlFor="Reason">
               Long delivery time
@@ -63,6 +107,8 @@ export default function CancelReason(props) {
               type="checkbox"
               value="Other reasons"
               name="Reason"
+              checked={reason === "Other reasons"}
+              onChange={handleCheck}
             />
             <label className="check-reason" htmlFor="Reason">
               Other reasons
@@ -76,12 +122,17 @@ export default function CancelReason(props) {
         <label className="check-reason" htmlFor="why">
           Please tell us why
         </label>
-        <input type="text" name="why" id="why-input" />
+        <textarea
+          type="text"
+          name="why"
+          id="why-input"
+          className="phone-input3 textarea"
+          disabled={reason !== "Other reasons"}
+          value={explain}
+        />
       </div>
 
-      {/* <Link to="pending-del"> */}
       <Button name="Submit" />
-      {/* </Link> */}
     </form>
   );
 }

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 // import Login_Header from "../../pages/logout/Login_Header";
 import "../css/change_number.css";
 import Nigerianflag from "../Images/Nigerian_flag.png";
@@ -6,52 +7,97 @@ import Flag from "../Images/Nigerian_flag.png";
 import Button from "../javascript/Button";
 
 export default function Change_Number() {
-  return (
-    <div className="change-number">
-      {/* <Login_Header /> */}
-      <div className="change-number-props">
-        <div className="change-number-style">Change Phone Number</div>
-        <div className="existing-number">
-          <div className="old-phone-number-props">
-            <label className="old-no">Existing phone number</label>
-            <div className="delivery-location-input">
-              <img src={Flag} alt="" className="flag-icon" />
-              <span className="text-icon">+234</span>
-              <input
-                type="text"
-                className="input-field phone-input"
-                placeholder="Enter your Phone Number"
-                name="phone_no"
-                value=""
-                maxLength={10}
-                // onChange={onChange}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="existing-number">
-          <div className="new-phone-number-props">
-            <label className="new-no">Existing phone number</label>
-            <div className="delivery-location-input">
-              <img src={Flag} alt="" className="flag-icon" />
-              <span className="text-icon">+234</span>
-              <input
-                type="text"
-                className="input-field phone-input"
-                placeholder="Enter your Phone Number"
-                name="phone_no"
-                value=""
-                maxLength={10}
-                // onChange={onChange}
-              />
-            </div>
-          </div>
-        </div>
+  const location = useLocation();
+  const navigate = useNavigate();
 
-        <div id="center-button">
-          <Button name="Save and update" />
-        </div>
+  const [newNo, setNewNo] = useState("");
+  const [newNoError, setNewNoError] = useState("");
+
+  const handleChange = (e) => {
+    setNewNo(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    if (!newNo) {
+      setNewNoError("Please enter a new Phone Number");
+    }
+    e.preventDefault();
+
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_auth/change_phone_no",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            old_phone_no: phone_no,
+            new_phone_no: newNo,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        // setPopupButton(true);
+        navigate("/user/user-profile");
+      } else {
+        // setMessage("Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const phone_no = location.state.phone;
+  return (
+    <>
+      <div className="change_no">
+        <div className="change_no-text">Change Phone Number</div>
+        <form id="user-info-form" onSubmit={handleSubmit}>
+          <label htmlFor="phonenumber">Exisiting phone number</label>
+          <div className="user-info-div-1">
+            <div className="delivery-location-input">
+              <img src={Flag} alt="" className="flag-icon" />
+              <span className="text-icon">+234</span>
+              <input
+                name="phonenumber"
+                value={phone_no}
+                className="user-info phone-input-4"
+                disabled={true}
+              />
+            </div>
+          </div>
+
+          <label htmlFor="phonenumber">New phone number</label>
+          <div className="user-info-div-1">
+            <div className="delivery-location-input">
+              <div>
+                <img src={Flag} alt="" className="flag-icon" />
+                <span className="text-icon">+234</span>
+                <input
+                  name="phonenumber"
+                  value={newNo}
+                  onChange={handleChange}
+                  className="user-info phone-input-4"
+                  maxLength={10}
+                />
+              </div>
+              <p className="error-style">{newNoError}</p>
+            </div>
+          </div>
+
+          <div id="center-button-1">
+            <Button name="Save and update" />
+          </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 }

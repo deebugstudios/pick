@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
 import { useNavigate } from "react-router-dom";
+import Flag from "../../Images/Nigerian_flag.png";
 
 export default function UsersProfile() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function UsersProfile() {
 
   const fetchUserStats = async () => {
     const res = await fetch(
-      "https://protected-temple-21445.herokuapp.com/user_profile/user_stats",
+      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_stats",
       {
         method: "POST",
         headers: {
@@ -32,13 +33,13 @@ export default function UsersProfile() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    console.log(results);
+    // console.log(results);
     setUserStats(results?.stats);
     // pendingDeliveries.map((item) => console.log(item));
   };
   const fetchUserDetails = async () => {
     const res = await fetch(
-      "https://protected-temple-21445.herokuapp.com/user_profile//user_profile",
+      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
       {
         method: "POST",
         headers: {
@@ -64,6 +65,11 @@ export default function UsersProfile() {
     fetchUserStats();
     fetchUserDetails();
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div id="user-info-back">
@@ -139,17 +145,23 @@ export default function UsersProfile() {
 
             <label htmlFor="phonenumber">Phone number</label>
             <div className="user-info-div">
-              <input
-                name="phonenumber"
-                value={userDetails.phone_no}
-                className="user-info"
-                disabled={true}
-              />
+              <div className="delivery-location-input">
+                <img src={Flag} alt="" className="flag-icon" />
+                <span className="text-icon">+234</span>
+                <input
+                  name="phonenumber"
+                  value={userDetails.phone_no}
+                  className="user-info phone-input"
+                  disabled={true}
+                />
+              </div>
               <span
                 className="change-prof"
-                // onClick={() => {
-                //   navigate("/user/change");
-                // }}
+                onClick={() => {
+                  navigate("/user/change", {
+                    state: { phone: userDetails.phone_no },
+                  });
+                }}
               >
                 change
               </span>

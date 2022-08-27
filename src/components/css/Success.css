@@ -52,6 +52,7 @@
 #successText-1 {
   font-weight: 400;
   opacity: 0.9;
+  margin: 0px 25px;
 }
 #div-button {
   display: flex;

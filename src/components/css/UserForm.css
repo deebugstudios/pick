@@ -50,6 +50,12 @@
   padding-left: 80px !important;
   border: 2px solid rgba(10, 16, 52, 0.3);
 }
+
+.phone-input-4 {
+  opacity: 1 !important;
+  padding-left: 85px !important;
+  border: 2px solid rgba(10, 16, 52, 0.3);
+}
 .phone-input::placeholder,
 .phone-input2::placeholder,
 .phone-input3::placeholder {

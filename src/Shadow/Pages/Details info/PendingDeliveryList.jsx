@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import "./pendingdeliverylist.css";
 import p5 from "../../images/p5.png";
 export const PendingDeliveryList = (props) => {
-console.log(props);
+  console.log(props);
   return (
     <div className="pending-delivery-pickup-details-Container">
       <div className="pending-delivery-pickup-details-wrapper">
@@ -17,7 +17,7 @@ console.log(props);
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>
@@ -28,7 +28,12 @@ console.log(props);
           </div>
           <div className="pending-delivery-pickup-action">
             <div className="icon-img">
-              {/* <Link to=""> */} {props?.deliverytype == "instant" ? <img src={icons} alt="instant delivery" /> : <img src={icons2} alt="scheduled delivery" />}
+              {/* <Link to=""> */}{" "}
+              {props?.deliverytype == "instant" ? (
+                <img src={icons} alt="instant delivery" />
+              ) : (
+                <img src={icons2} alt="scheduled delivery" />
+              )}
               {/* </Link> */}
             </div>
             <Link to="/Specificpickupdetails">

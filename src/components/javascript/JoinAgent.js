@@ -121,7 +121,7 @@ export default function JoinAgent(props) {
 
     axios
       .post(
-        "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_one",
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_one",
         bodyFormData,
         {
           headers: {

@@ -98,6 +98,7 @@
   border-radius: 50%;
   /* background-color: black; */
   margin-right: 0.5em;
+  overflow: hidden;
 }
 .notification {
   position: relative;

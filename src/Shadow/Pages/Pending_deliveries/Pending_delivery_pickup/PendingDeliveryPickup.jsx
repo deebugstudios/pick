@@ -14,74 +14,75 @@ import { useNavigate } from "react-router-dom";
 const PendingDeliveryPickupAgent = () => {
   const [toggle, setToggle] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [pendingDeliveries, setPendingDeliveries] = useState([])
-  const [pendingDropoff, setPendingDropoff] = useState([])
+  const [pendingDeliveries, setPendingDeliveries] = useState([]);
+  const [pendingDropoff, setPendingDropoff] = useState([]);
   // const [pageNumber, setPageNumber] = useState(1)
 
   const navigate = useNavigate();
-  
-  const fetchPendingDeliveries = async() => {
-    const res = await fetch( "https://guarded-falls-60982.herokuapp.com/delivery_agent_delivery/view_pending_pickup_deliveries", 
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-          body: JSON.stringify({
-            pagec: 1,
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU"
-          })
-          
-        });
-        const data = await res.json();
-        const results = await data
-        setLoading(false)
-        setPendingDeliveries(results?.deliveries);
-      }
-      
-      useEffect(()=> {
-        fetchPendingDeliveries()
-    },[])
-  
 
-    // this is the fetch for the pending drop off deliveries from the backend server 
-
-
-    const fetchPendingDropoff = async() => {
-      const res = await fetch( "https://guarded-falls-60982.herokuapp.com/delivery_agent_delivery/view_pending_drop_off_deliveries", 
+  const fetchPendingDeliveries = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_delivery/view_pending_pickup_deliveries",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-            body: JSON.stringify({
-              pagec: 1,
-              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU"
-            })
-            
-          });
-          const data = await res.json();
-          const results = await data
-          setLoading(false)
-          setPendingDropoff(results?.deliveries);
-        }
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setPendingDeliveries(results?.deliveries);
+  };
 
-        useEffect(()=> {
-          fetchPendingDropoff()
-      },[])
+  useEffect(() => {
+    fetchPendingDeliveries();
+  }, []);
 
+  // this is the fetch for the pending drop off deliveries from the backend server
 
-      // const displayDeliveries = pendingDeliveries.slice(pagesVisted, pagesVisted * displayPerPage).map((pObj, index)=> {
-      //   return (
-      //         <PendingDeliveryList parcelname={pObj.parcel_name} parcelcode={pObj.parcel_code} deliverytype={pObj.delivery_type} deliveryimage={pObj.imgs[0]} />
-      //       )
-      // })
-      
-      // const deliveryList = pendingDeliveries.map(list => list._id)
-      // const newList = deliveryList.map(newList => newList)
-      // console.log(deliveryList)
-      // console.log(newList);
-// console.log(pendingDeliveries);
+  const fetchPendingDropoff = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_delivery/view_pending_drop_off_deliveries",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pagec: 1,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setLoading(false);
+    setPendingDropoff(results?.deliveries);
+  };
+
+  useEffect(() => {
+    fetchPendingDropoff();
+  }, []);
+
+  // const displayDeliveries = pendingDeliveries.slice(pagesVisted, pagesVisted * displayPerPage).map((pObj, index)=> {
+  //   return (
+  //         <PendingDeliveryList parcelname={pObj.parcel_name} parcelcode={pObj.parcel_code} deliverytype={pObj.delivery_type} deliveryimage={pObj.imgs[0]} />
+  //       )
+  // })
+
+  // const deliveryList = pendingDeliveries.map(list => list._id)
+  // const newList = deliveryList.map(newList => newList)
+  // console.log(deliveryList)
+  // console.log(newList);
+  // console.log(pendingDeliveries);
   // const handleClick = (e) => {
   //   e.preventDefault();
   //   {
@@ -98,7 +99,7 @@ const PendingDeliveryPickupAgent = () => {
 
   // let listItem = <HistoryList click={handleClick} />;
   // let listItem2 = <InstantHistoryList click={handleClick2} />;
-   const handleClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     navigate("/pending-instant");
   };
@@ -108,15 +109,25 @@ const PendingDeliveryPickupAgent = () => {
     navigate("/pending-scheduled");
   };
 
-let listItem
+  let listItem;
   if (toggle === true) {
-    listItem = pendingDeliveries.map(pObj=> (
-      <PendingDeliveryList parcelname={pObj.parcel_name} parcelcode={pObj.parcel_code} deliverytype={pObj.delivery_type} deliveryimage={pObj.imgs[0]} />
-      ));
+    listItem = pendingDeliveries.map((pObj) => (
+      <PendingDeliveryList
+        parcelname={pObj.parcel_name}
+        parcelcode={pObj.parcel_code}
+        deliverytype={pObj.delivery_type}
+        deliveryimage={pObj.imgs[0]}
+      />
+    ));
   } else {
-    listItem =pendingDropoff.map(pObj=> (
-      <PendingDeliveryDropoffList parcelname={pObj.parcel_name} parcelcode={pObj.parcel_code} deliverytype={pObj.delivery_type} deliveryimage={pObj.imgs[0]} />
-      ));;
+    listItem = pendingDropoff.map((pObj) => (
+      <PendingDeliveryDropoffList
+        parcelname={pObj.parcel_name}
+        parcelcode={pObj.parcel_code}
+        deliverytype={pObj.delivery_type}
+        deliveryimage={pObj.imgs[0]}
+      />
+    ));
   }
   const firstClick = () => {
     setToggle(true);

@@ -19,7 +19,7 @@ export default function CompletedDeliveries() {
 
   const fetchCompletedDeliveries = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/completed_history",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/completed_history",
       {
         method: "POST",
         headers: {
@@ -42,7 +42,7 @@ export default function CompletedDeliveries() {
 
   const fetchCancelledDeliveries = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/cancel_history",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_history",
       {
         method: "POST",
         headers: {

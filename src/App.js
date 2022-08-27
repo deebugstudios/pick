@@ -79,7 +79,7 @@ import { ContactUs } from "./Shadow/javascripts/ContactUs";
 import { AboutUs } from "./Shadow/javascripts/AboutUs";
 import { Terms } from "./Shadow/javascripts/Terms";
 import { UseTokenProviderUser } from "./Shadow/Pages/Contexts/RiderContext";
-import { Main1 } from "./Shadow/javascripts/Main";
+// import { Main1 } from "./Shadow/javascripts/Main";
 import LoggedinMainPageUser, {
   LoggedinMainPage2,
 } from "./components/usersFlow/NavsFlow/LoggedinMainPage";
@@ -129,7 +129,7 @@ export default function App() {
                 element={<LoggedinMainPage name={<Main />} logged={false} />}
               />
 
-              <Route exact path="main" element={<Main1 />} />
+              {/* <Route exact path="main" element={<Main1 />} /> */}
               <Route exact path="main1" element={<LoggedinMainPage1 />} />
               <Route path="join" element={<Signup />} />
               <Route path="userform" element={<UserForm />} />

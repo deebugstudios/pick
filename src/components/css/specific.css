@@ -72,7 +72,7 @@
   justify-content: center;
   flex-direction: row;
   text-align: center;
-  padding: 20px 20px;
+  padding: 15px 15px;
   background: #ffffff;
   border: 0.4px solid #dadada;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
@@ -126,5 +126,6 @@
   text-align: center;
 }
 #actual-star {
-  margin-right: 10px;
+  margin-right: 7px;
+  margin-bottom: 5px;
 }

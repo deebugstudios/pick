@@ -12,7 +12,7 @@ const Section2subsec2 = () => {
             <p>Pickload was birthed to bridge a gap between at home buyers, sellers and the item's logistics. Our Delivery agents provide super fast pickup and Delivery services to it's pickload users and also provides a way for delivery agents to earn cash as well for the services rendered. In short, PICKLOAD serves the purpose of connecting these sets of people together in a secure and convenient space </p>
             <div className="btns">
             <button className="learn-more">Learn More</button>
-            <button className="watch-video">Watch Video <FontAwesomeIcon icon={faPlay}/></button>
+            <button className="watch-video"> <a href="http://www.youtube.com" target="_blank"> Watch Video <FontAwesomeIcon icon={faPlay}/> </a></button>
             </div>
             
         </div>

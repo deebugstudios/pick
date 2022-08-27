@@ -86,7 +86,7 @@ const PendingDeliveryspecificsAgent = () => {
               </h3>
               <p>Thursday March 25th at 9:30pm</p>
               <h3>
-                Collect parcel and in transit{" "}
+                Collect Item and in transit{" "}
                 <input type="checkbox" className="checkbox" />
               </h3>
             </div>

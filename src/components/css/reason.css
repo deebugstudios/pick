@@ -57,3 +57,19 @@
 #why-input {
   height: 120px;
 }
+
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: gold;
+}
+.off {
+  color: #ccc;
+}
+.star {
+  font-size: 50px;
+}

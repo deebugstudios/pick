@@ -16,7 +16,7 @@ export default function SelectAgent() {
 
   const fetchAgent = async () => {
     const res = await fetch(
-      "https://protected-temple-21445.herokuapp.com/user_delivery/delivery_agents",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/delivery_agents",
       {
         method: "POST",
         headers: {

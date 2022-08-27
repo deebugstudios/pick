@@ -1,18 +1,43 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/reason.css";
 import Button from "../javascript/Button";
 import ReportThanks from "./ReportThanks";
-import Popup from "../javascript/Popup";
+import Popup, { Popup2, Popup3 } from "../javascript/Popup";
 
 export default function ReportReason(props) {
   const navigate = useNavigate();
-  const [reason, setReason] = useState("Parcel Seal Broken");
+  const [reason, setReason] = useState("Item Seal Broken");
   const [others, setOthers] = useState("");
   const [message, setMessage] = useState("");
   const [popupButton, setPopupButton] = useState(false);
+  const [explain, setExplain] = useState("");
+  const [userDetails, setUserDetails] = useState([]);
   /**@type React.MutableRefObject<HTMLInputElement> */
   const othersRef = useRef();
+
+  const fetchUserDetails = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setUserDetails(results?.user);
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
   const handleCheck = (e) => {
     setReason(e.target.value);
@@ -22,52 +47,50 @@ export default function ReportReason(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setPopupButton(true);
 
     // navigate("/report-thanks");
-    // try {
-    //   const res = await fetch(
-    //     "https://guarded-falls-60982.herokuapp.com/user_auth/signup",
-    //     {
-    //       method: "POST",
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_report/report_delivery",
+        {
+          method: "POST",
 
-    //       body: JSON.stringify({
-    //         token:
-    //           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
-    //         body: reason,
-    //         delivery_id: "",
-    //         delivery_code: "",
-    //         delivery_img_ids: "",
-    //         delivery_img_urls: "",
-    //         user_id: "",
-    //         user_name: "",
-    //         user_img_id: "",
-    //         user_img_url: "",
-    //         delivery_agent_name: "",
-    //         delivery_agent_code: "",
-    //         delivery_agent_id: "",
-    //         delivery_agent_img_url: "",
-    //         delivery_agent_img_id: "",
-    //         reporter: "",
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json, text/plain, */*",
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   console.log(data);
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            body: reason,
+            delivery_id: props.delivery_id,
+            parcel_code: props.parcel_code,
+            delivery_img_ids: props.img_ids,
+            delivery_img_urls: props.imgs,
+            user_id: userDetails._id,
+            user_name: userDetails.fullname,
+            user_img_id: userDetails.img_id,
+            user_img_url: userDetails.img,
+            delivery_agent_name: props.agentName,
+            delivery_agent_code: props.delivery_agent_code,
+            delivery_agent_id: props.delivery_agent_id,
+            delivery_agent_img_url: props.delivery_agent_img,
+            delivery_agent_img_id: props.delivery_agent_img_id,
+            reporter: "user",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
 
-    //   if (res.status === 200) {
-    //     setMessage("User created successfully");
-    //     navigate("/report-thanks");
-    //   } else {
-    //     setMessage("Error occured");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (res.status === 200) {
+        setPopupButton(true);
+      } else {
+        setMessage("Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // if (reason === "Other reasons" && othersRef.current.value !== "") {
@@ -89,13 +112,13 @@ export default function ReportReason(props) {
               <input
                 id="maleCheck"
                 type="checkbox"
-                value="Parcel Seal Broken"
-                checked={reason === "Parcel Seal Broken"}
+                value="Item Seal Broken"
+                checked={reason === "Item Seal Broken"}
                 name="Reason"
                 onChange={handleCheck}
               />
               <label className="check-reason" htmlFor="Reason">
-                Parcel Seal Broken
+                Item Seal Broken
               </label>
             </div>
 
@@ -154,9 +177,10 @@ export default function ReportReason(props) {
             type="text"
             name="why"
             id="why-input"
-            className="phone-input3"
+            className="phone-input3 textarea"
             disabled={reason !== "Other reasons"}
-            ref={othersRef}
+            value={explain}
+            // onChange={handleCheck}
             // onChange={handleChange}
           />
         </div>
@@ -164,9 +188,9 @@ export default function ReportReason(props) {
         <Button name="Submit" type="submit" />
       </form>
 
-      <Popup trigger={popupButton} setTrigger={setPopupButton}>
+      <Popup3 trigger={popupButton} setTrigger={setPopupButton}>
         <ReportThanks />
-      </Popup>
+      </Popup3>
     </div>
   );
 }

@@ -55,7 +55,7 @@ export function OTP2() {
     e.preventDefault();
     try {
       const res = await fetch(
-        "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/signup_stage_two",
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_two",
         {
           method: "POST",
 

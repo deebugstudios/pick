@@ -18,14 +18,14 @@ export default function PendingInstantDetails() {
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [pickDate, setPickDate] = useState(Number);
-  const [popupButton, setPopupButton] = useState(false);
+  // const [popupButton, setPopupButton] = useState(false);
   // const [time, setTime] = useState({});
 
   const Delivery_id = location.state.id;
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/single_delivery",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/single_delivery",
       {
         method: "POST",
         headers: {
@@ -95,11 +95,11 @@ export default function PendingInstantDetails() {
               <div className="location-img">
                 <img src={locationimg} alt="" />
               </div>
-              <h3>Parcel Received by Delivery Agent </h3>
+              <h3>Item Received by Delivery Agent </h3>
               <p>
                 {dateString} at {timeString}
               </p>
-              <h3>Parcel in Transit </h3>
+              <h3>Item in Transit </h3>
             </div>
             {/* <table>
                         <tr>
@@ -112,8 +112,7 @@ export default function PendingInstantDetails() {
           </div>
           <div className="estimatedtime">
             <h2>
-              Your Parcel will arrive at your Location in Approximately 10
-              minutes
+              Your Item will arrive at your Location in Approximately 10 minutes
             </h2>
           </div>
           <br />
@@ -171,7 +170,7 @@ export default function PendingInstantDetails() {
           </div>
           <br />
 
-          <div className="report-user">
+          {/* <div className="report-user">
             <div>
               <img src={Flag} alt="" />
             </div>
@@ -182,12 +181,9 @@ export default function PendingInstantDetails() {
             >
               Report this Delivery
             </p>
-          </div>
+          </div> */}
           <br />
         </div>
-        <Popup trigger={popupButton} setTrigger={setPopupButton}>
-          <ReportReason />
-        </Popup>
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ export default function PendingDeliveryPickup(props) {
 
   const fetchPendingDeliveries = async () => {
     const res = await fetch(
-      "https://guarded-falls-60982.herokuapp.com/user_delivery/pending_delivery",
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/pending_delivery",
       {
         method: "POST",
         headers: {

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import "./requestpickup.css";
 import { Link, useNavigate } from "react-router-dom";
 import Map from "../../../Shadow/javascripts/Map";
@@ -18,12 +18,40 @@ export default function UserRequestPickup() {
   const [pickupState, setPickupState] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropLocation, setDropLocation] = useState("");
+  const [userDetails, setUserDetails] = useState([]);
+  const [senderName, setSenderName] = useState("");
 
   const location = useLocation();
   const vehicle = location.state.vehicle;
   const member = location.state.member;
 
   const navigate = useNavigate();
+
+  const fetchUserDetails = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
+        }),
+      }
+    );
+    const data = await res.json();
+    // console.log(results);
+    setUserDetails(data?.user);
+    console.log(data);
+  };
+  const name = userDetails.fullname;
+  const number = userDetails.phone_no;
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
   /**@type React.MutableRefObject<HTMLInputElement> */
   const pickupRef = useRef();
@@ -53,7 +81,7 @@ export default function UserRequestPickup() {
               setPickupState(item.long_name);
             }
           });
-          
+
           const pLoc = results[0].geometry.location.toString().slice(1, -1);
           setPickupLocation(pLoc);
         }
@@ -64,7 +92,6 @@ export default function UserRequestPickup() {
       { address: destinationRef.current.value },
       function (results, status) {
         if (status == "OK") {
-          
           const dLoc = results[0].geometry.location.toString().slice(1, -1);
           setDropLocation(dLoc);
         }
@@ -80,7 +107,7 @@ export default function UserRequestPickup() {
     console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
     try {
       const res = await fetch(
-        "https://protected-temple-21445.herokuapp.com/user_delivery/delivery_price",
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/delivery_price",
         {
           method: "POST",
 
@@ -144,6 +171,8 @@ export default function UserRequestPickup() {
               price: price,
               pickup_address: pickup_address,
               drop_off_address: drop_off_address,
+              senderName: name,
+              number: number,
             },
           })
         : navigate("/user/select-a", {

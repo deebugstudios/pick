@@ -177,7 +177,7 @@ export default function IndividualVehicle() {
     // console.log(formImage);
     axios
       .post(
-        "https://protected-temple-21445.herokuapp.com/delivery_agent_auth/signup_stage_three",
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_three",
         bodyFormData,
         {
           headers: {

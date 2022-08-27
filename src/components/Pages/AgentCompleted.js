@@ -62,7 +62,7 @@ export default function AgentCompleted() {
     setFormErrors(validate(formData));
     // try {
     //   const res = await fetch(
-    //     "https://guarded-falls-60982.herokuapp.com/delivery_agent_auth/set_bank_account_details",
+    //     "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/set_bank_account_details",
     //     {
     //       method: "POST",
 

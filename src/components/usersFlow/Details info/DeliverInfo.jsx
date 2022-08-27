@@ -21,15 +21,15 @@ export const DeliverInfo = () => {
           <td>08077665543</td>
         </tr>
         <tr>
-          <th>Parcel Name:</th>
+          <th>Item Name:</th>
           <td>1 Pair Of Nike Airforce Shoes “44</td>
         </tr>
         <tr>
-          <th>Parcel Type:</th>
+          <th>Item Type:</th>
           <td> Non fragile</td>
         </tr>
         <tr>
-          <th>Parcel Description: </th>
+          <th>Item Description: </th>
           <td> Nice pair of brown new nike boots</td>
         </tr>
         <tr>
@@ -45,14 +45,6 @@ export const DeliverInfo = () => {
           <td>12:30PM</td>
         </tr>
       </table>
-      {/* comment just incase i decide to note use the table */}
-      {/* <h3>Sender’s Name: <span className='delivery-details-spans'>April Purpose</span></h3>
-                <h3>Sender’s Phone Number:<span className='delivery-details-spans'>08077665543</span></h3>
-                <h3>Receiver’s Name: <span className='delivery-details-spans'>Purpose April</span></h3>
-                <h3>Receiver’s Phone Number: <span className='delivery-details-spans'>08077665543</span></h3>
-                <h3>Parcel Name: <span className='delivery-details-spans'>1 Pair Of Nike Airforce Shoes “44</span></h3>
-                <h3>Parcel Description: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3>
-                <h3>Delivery Instruction: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3> */}
     </>
   );
 };
@@ -78,15 +70,15 @@ export const DeliverInfo2 = (props) => {
           <td>{props.receiver_no}</td>
         </tr>
         <tr>
-          <th>Parcel Name:</th>
+          <th>Item Name:</th>
           <td>{props.parcel_name}</td>
         </tr>
         <tr>
-          <th>Parcel Type:</th>
+          <th>Item Type:</th>
           <td> {props.parcel_type}</td>
         </tr>
         <tr>
-          <th>Parcel Description: </th>
+          <th>Item Description: </th>
           <td> {props.description}</td>
         </tr>
         <tr>
@@ -99,8 +91,8 @@ export const DeliverInfo2 = (props) => {
                 <h3>Sender’s Phone Number:<span className='delivery-details-spans'>08077665543</span></h3>
                 <h3>Receiver’s Name: <span className='delivery-details-spans'>Purpose April</span></h3>
                 <h3>Receiver’s Phone Number: <span className='delivery-details-spans'>08077665543</span></h3>
-                <h3>Parcel Name: <span className='delivery-details-spans'>1 Pair Of Nike Airforce Shoes “44</span></h3>
-                <h3>Parcel Description: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3>
+                <h3>Item Name: <span className='delivery-details-spans'>1 Pair Of Nike Airforce Shoes “44</span></h3>
+                <h3>Item Description: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3>
                 <h3>Delivery Instruction: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3> */}
     </>
   );

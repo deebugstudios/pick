@@ -1,48 +1,50 @@
 import React from 'react'
+import { DateConverter, TimeConverter } from '../../../DateAndTimeConverter'
 import './deliveryinfo.css'
-export const DeliverInfo = () => {
+export const DeliverInfo = (props) => {
+    // console.log(props.timestamp)
   return (
     <>
         <table>
                 <tr>
-                    <th>Sender’s Name:</th>
-                    <td>April Purpose</td>
+                    <th>Sender's Name:</th>
+                    <td>{props.sender}</td>
                 </tr>
                 <tr>
-                    <th>Sender’s Phone Number:</th>
-                    <td>08077665543</td>
+                    <th>Sender's Phone Number:</th>
+                    <td>{props.sender_no}</td>
                 </tr>
                 <tr>
-                    <th>Receiver’s Name:</th>
-                    <td>Purpose April</td>
+                    <th>Receiver's Name:</th>
+                    <td>{props.receiver}</td>
                 </tr>
                 <tr>
-                    <th>Receiver’s Phone Number: </th>
-                    <td>08077665543</td>
+                    <th>Receiver's Phone Number: </th>
+                    <td>{props.receiver_no}</td>
                 </tr>
                 <tr>
                     <th>Parcel Name:</th>
-                    <td>1 Pair Of Nike Airforce Shoes “44</td>
+                    <td>{props.parcel_name}</td>
                 </tr>
                 <tr>
                     <th>Parcel Type:</th>
-                    <td> Non fragile</td>
+                    <td> {props.parcel_type}</td>
                 </tr>
                 <tr>
                     <th>Parcel Description: </th>
-                    <td> Nice pair of brown new nike boots</td>
+                    <td> {props.description}</td>
                 </tr>
                 <tr>
                     <th>Delivery Instruction:</th>
-                    <td>Deliver as received</td>
+                    <td>{props.instruction}</td>
                 </tr>
                 <tr>
                     <th>Scheduled Pickup Date :</th>
-                    <td>Tuesday January 4th January 2022</td>
+                    <td><DateConverter value = {props.timestamp}/></td>
                 </tr>
                 <tr>
                     <th>Scheduled Pickup Time :</th>
-                    <td>12:30PM</td>
+                    <td><TimeConverter value = {props.timestamp}/></td>
                 </tr>
             </table>
              {/* comment just incase i decide to note use the table */}

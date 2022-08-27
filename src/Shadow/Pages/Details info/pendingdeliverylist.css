@@ -48,7 +48,41 @@
     .pending-delivery-pickup-details-Container {
        padding: 5px 10px !important;
     }
+    .pending-delivery-pickup-details-Container {
+        width: 100% !important;
+    }
+    
 }
+
+@media screen and (max-width:560px) {
+    .delivery-list-btn {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+    }
+    .pending-delivery-pickup-left table th {
+        font-size: 10px !important;
+    }
+    .pending-delivery-pickup-left table td {
+        font-size: 10px !important;
+    }
+    .pending-delivery-pickup-img {
+        width: 40px !important;
+        height: 40px;
+        /* margin-right: 5px; */
+    }
+    .pending-delivery-pickup-details-Container {
+       padding: 5px 3px !important;
+    }
+    .icon-img {
+        width: 15px !important;
+        margin-right: 2px !important;
+    }
+    .hide-this {
+        display: none;
+    }
+}
+
+
 .pending-delivery-pickup-left table th {
     font-size: 15px;
     font-weight: 600;
@@ -58,7 +92,7 @@
     font-weight: 400;
 }
 .pending-delivery-pickup-details-Container {
-    width: 70% !important;
+    width: 70% ;
     /* background-color: black; */
     max-width: 700px;
 }
