@@ -5,9 +5,9 @@ import icons2 from "../../images/scheduledicon.png";
 import "./pendingdeliverylist.css";
 import p5 from "../../images/p5.png";
 export const DeliveryHistoryList = (props) => {
-// console.log(props);
+  // console.log(props);
   return (
-    <div className="pending-delivery-pickup-details-Container" >
+    <div className="pending-delivery-pickup-details-Container">
       <div className="pending-delivery-pickup-details-wrapper">
         <div className="pending-delivery-pickup-detail" key={props.index}>
           <div className="pending-delivery-pickup-left">
@@ -16,7 +16,7 @@ export const DeliveryHistoryList = (props) => {
             </div>
             <table>
               <tr>
-                <th>Parcel Name:</th>
+                <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
               </tr>
               <tr>
@@ -27,11 +27,15 @@ export const DeliveryHistoryList = (props) => {
           </div>
           <div className="pending-delivery-pickup-action">
             <div className="icon-img">
-            
-              {props?.deliverytype == "instant" ? <img src={icons} alt="instant delivery" /> : <img src={icons2} alt="scheduled delivery" />}
-              
+              {props?.deliverytype == "instant" ? (
+                <img src={icons} alt="instant delivery" />
+              ) : (
+                <img src={icons2} alt="scheduled delivery" />
+              )}
             </div>
-              <button className="delivery-list-btn" onClick={props.click}>View Details</button>
+            <button className="delivery-list-btn" onClick={props.click}>
+              View Details
+            </button>
           </div>
         </div>
       </div>

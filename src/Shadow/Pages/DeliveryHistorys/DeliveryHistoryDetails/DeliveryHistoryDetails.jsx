@@ -6,7 +6,6 @@ import { DeliverInfo } from "../../Details info/DeliverInfo";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const DeliveryHistoryDetailsAgent = () => {
-
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
@@ -34,28 +33,31 @@ const DeliveryHistoryDetailsAgent = () => {
       const results = await data;
       setLoading(false);
       setDeliveryDetails(results?.delivery);
-
-    }catch (err) {
-        console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
-console.log(deliveryDetails)
+  console.log(deliveryDetails);
   useEffect(() => {
     fetchDeliveryDetails();
   }, []);
-
-
 
   const navigate = useNavigate();
   return (
     <section className=" user-dashboard pending-delivery pending-delivery specifics-1">
       <div className="history-wrapper">
         <div className="specifics-details-section-1">
-        
-          <h3>{ deliveryDetails?.delivery_type == "instant" ? "Instant" : deliveryDetails?.delivery_type === "scheduled" ? "Scheduled" : null} Delivery ID : {deliveryDetails?.delivered_in} </h3>
+          <h3>
+            {deliveryDetails?.delivery_type == "instant"
+              ? "Instant"
+              : deliveryDetails?.delivery_type === "scheduled"
+              ? "Scheduled"
+              : null}{" "}
+            Delivery ID : {deliveryDetails?.delivered_in}{" "}
+          </h3>
           <div className="delivery-details-pictures specifics-images">
             {deliveryDetails.imgs?.map((item, index) => (
-                <DeliveryImages rectangle={item} index={index} />
+              <DeliveryImages rectangle={item} index={index} />
             ))}
           </div>
           <h3>Delivery status</h3>
@@ -64,22 +66,22 @@ console.log(deliveryDetails)
               <div className="location-img">
                 <img src={locationimg} alt="" />
               </div>
-              <h3>Parcel Received by Delivery Agent at the Pickup Location </h3>
+              <h3>Item Received by Delivery Agent at the Pickup Location </h3>
               <p>Thursday March 25th at 9:30 PM</p>
-              <h3>Parcel Received by User at the Drop off loaction </h3>
+              <h3>Item Received by User at the Drop off loaction </h3>
               <p>Thursday March 25th at 10:30 PM</p>
             </div>
           </div>
           <div className="estimatedtime">
             <h2>
-              Parcel delivered in{" "}
+              Item delivered in{" "}
               <span className="delivered-time">1 hour 20 minutes</span>{" "}
             </h2>
           </div>
           <div className="delivery-profile">
             <div className="driver-profile-image">
               <div className="image">
-              <img src={deliveryDetails.delivery_agent_img} alt="" />
+                <img src={deliveryDetails.delivery_agent_img} alt="" />
               </div>
               <p>View Profile</p>
             </div>
@@ -109,12 +111,11 @@ console.log(deliveryDetails)
                   <th>Senders Contact:</th>
                   <td>{deliveryDetails.sender_phone_no}</td>
                 </tr>
-                
               </table>
             </div>
           </div>
           <div className="delivery-history-info">
-            <DeliverInfo 
+            <DeliverInfo
               sender={deliveryDetails.sender_fullname}
               sender_no={deliveryDetails.sender_phone_no}
               receiver={deliveryDetails.reciever_name}
@@ -123,7 +124,7 @@ console.log(deliveryDetails)
               parcel_type={deliveryDetails.parcel_type}
               description={deliveryDetails.parcel_description}
               instruction={deliveryDetails.delivery_instructions}
-              timestamp = {deliveryDetails.timestamp}
+              timestamp={deliveryDetails.timestamp}
             />
           </div>
           <br />
@@ -164,15 +165,15 @@ export const ScheduledHistoryDetailsAgent = () => {
               <div className="location-img">
                 <img src={locationimg} alt="" />
               </div>
-              <h3>Parcel Received by Delivery Agent at the Pickup Location </h3>
+              <h3>Item Received by Delivery Agent at the Pickup Location </h3>
               <p>Thursday March 25th at 9:30 PM</p>
-              <h3>Parcel Received by User at the Drop off loaction </h3>
+              <h3>Item Received by User at the Drop off loaction </h3>
               <p>Thursday March 25th at 10:30 PM</p>
             </div>
           </div>
           <div className="estimatedtime">
             <h2>
-              Parcel delivered in{" "}
+              Item delivered in{" "}
               <span className="delivered-time">1 hour 20 minutes</span>{" "}
             </h2>
           </div>
