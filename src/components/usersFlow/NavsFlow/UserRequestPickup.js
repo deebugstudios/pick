@@ -44,10 +44,11 @@ export default function UserRequestPickup() {
     const data = await res.json();
     // console.log(results);
     setUserDetails(data?.user);
-    console.log(data);
+    // console.log(data);
   };
   const name = userDetails.fullname;
   const number = userDetails.phone_no;
+  const email = userDetails.email;
 
   useEffect(() => {
     fetchUserDetails();
@@ -75,15 +76,18 @@ export default function UserRequestPickup() {
       { address: pickupRef.current.value },
       function (results, status) {
         if (status == "OK") {
-          console.log(results);
+          // console.log(results);
           results[0].address_components.map((item, index) => {
             if (item.types[0] == "administrative_area_level_1") {
               setPickupState(item.long_name);
             }
           });
 
-          const pLoc = results[0].geometry.location.toString().slice(1, -1);
-          setPickupLocation(pLoc);
+          // const pLoc = results[0].geometry.location.toString().slice(1, -1);
+          const piLoc = results[0].geometry.location.lat();
+          const piiLoc = results[0].geometry.location.lng();
+          // console.log(piLoc);
+          setPickupLocation(`${piLoc},${piiLoc}`);
         }
       }
     );
@@ -92,19 +96,21 @@ export default function UserRequestPickup() {
       { address: destinationRef.current.value },
       function (results, status) {
         if (status == "OK") {
-          const dLoc = results[0].geometry.location.toString().slice(1, -1);
-          setDropLocation(dLoc);
+          // const dLoc = results[0].geometry.location.toString().slice(1, -1);
+          const piLoc = results[0].geometry.location.lat();
+          const piiLoc = results[0].geometry.location.lng();
+          setDropLocation(`${piLoc},${piiLoc}`);
         }
       }
     );
 
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    console.log(distance);
-    console.log(duration);
+    // console.log(distance);
+    // console.log(duration);
     const userDistance = results.routes[0].legs[0].distance.text;
     const realDistance = parseFloat(userDistance);
-    console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
+    // console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
     try {
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/user_delivery/delivery_price",
@@ -128,9 +134,10 @@ export default function UserRequestPickup() {
 
       const data = await res.json();
       if (res.status === 200) {
-        console.log(data.price);
+        // console.log(data.price);
         setPrice(parseInt(data.price));
-        console.log(pickupState);
+        // console.log(pickupLocation);
+        // console.log(dropLocation);
       } else {
         setMessage("Error occured");
       }
@@ -173,6 +180,7 @@ export default function UserRequestPickup() {
               drop_off_address: drop_off_address,
               senderName: name,
               number: number,
+              email: email,
             },
           })
         : navigate("/user/select-a", {
@@ -186,6 +194,9 @@ export default function UserRequestPickup() {
               price: price,
               pickup_address: pickup_address,
               drop_off_address: drop_off_address,
+              senderName: name,
+              number: number,
+              email: email,
             },
           });
     }
@@ -204,24 +215,24 @@ export default function UserRequestPickup() {
       </div>
       <div className="set-location-pickup-1">
         <div className="location-form">
-          <Autocomplete
-            options={{
-              componentRestrictions: { country: "ng" },
-            }}
-          >
-            <div className="location-form-input" id="location-form-input-1">
-              <label htmlFor="Pickup Location">Pickup Location</label>
-              <div className="delivery-location-input">
-                <img src={Locate} alt="" className="locate-icon" />
+          <div className="location-form-input" id="location-form-input-1">
+            <label htmlFor="Pickup Location">Pickup Location</label>
+            <div className="delivery-location-input">
+              <img src={Locate} alt="" className="locate-icon" />
+              <Autocomplete
+                options={{
+                  componentRestrictions: { country: "ng" },
+                }}
+              >
                 <input
                   name="Pickup Location"
                   placeholder="5 Noma Street GRA Edo State "
                   className="phone-input2"
                   ref={pickupRef}
                 />
-              </div>
+              </Autocomplete>
             </div>
-          </Autocomplete>
+          </div>
 
           <Autocomplete
             options={{

@@ -16,6 +16,7 @@ export default function WelcomeUser(props) {
   const [message, setMessage] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [dataError, setDataError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +24,8 @@ export default function WelcomeUser(props) {
     if (!phone_no) {
       setFormErrors("Phone Number must be filled!");
     } else setFormErrors("");
-
     try {
+      setLoading(true);
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/user_auth/login",
         {
@@ -55,9 +56,11 @@ export default function WelcomeUser(props) {
         setMessage("User created successfully");
         // localStorage.setItem("id", data.user._id);
         console.log(data);
+        setLoading(false);
         navigate("/user/type");
         // console.log(idU);
       } else {
+        setLoading(false);
         setMessage("An Error occured");
       }
     } catch (error) {
@@ -121,6 +124,7 @@ export default function WelcomeUser(props) {
                 value={phone_no}
                 maxLength={10}
                 onChange={onChange}
+                disabled={loading}
               />
             </div>
             <p className="error-style">{formErrors}</p>
@@ -164,6 +168,7 @@ export function WelcomeAgent() {
   const [message, setMessage] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [dataError, setDataError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onChange = (e) => {
     setPhone_no(e.target.value);
@@ -177,6 +182,7 @@ export function WelcomeAgent() {
     } else setFormErrors("");
 
     try {
+      setLoading(true);
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/login",
         {
@@ -195,14 +201,19 @@ export function WelcomeAgent() {
       console.log(data);
       if (data.msg == "Account not active or delivery agent does not exist") {
         setDataError(data.msg);
+        setTimeout(() => {
+          setDataError("");
+        }, 4000);
       }
 
       if (res.status === 200) {
         setMessage("User created successfully");
-        navigate("/Deliveryrequest");
-        console.log(data);
+        setLoading(false);
+        navigate("/deliveryhistory");
+        // localStorage.setItem("rubbish", JSON.stringify(data.token))
       } else {
         setMessage("An Error occured");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -251,6 +262,7 @@ export function WelcomeAgent() {
                 // maxLength={10}
               />
             </div>
+            <span>{message}</span>
             <p className="error-style">{formErrors}</p>
             <p className="error-style">{dataError}</p>
 
@@ -261,7 +273,7 @@ export function WelcomeAgent() {
             <br />
             <br />
             <div id="center-button">
-              <Button name="Login" />
+              <Button name="Login" loading={loading} />
             </div>
           </form>
 

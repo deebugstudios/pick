@@ -3,23 +3,18 @@ import Button from "../../javascript/Button";
 import "../../css/Personal.css";
 import Vector from "../../Images/Vector.png";
 import FormProgress from "../../Images/FormProgress.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "../../css/userflowform.css";
-import LoggedinMainPage from "./LoggedinMainPage";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 import axios from "axios";
-import {
-  FindingDeliveries,
-  FindingDeliveriesUser,
-} from "../../../Shadow/Pages/FindingDeliveries/FindingDeliveries";
+import { FindingDeliveriesUser } from "../../../Shadow/Pages/FindingDeliveries/FindingDeliveries";
 import {
   collection,
   query,
   where,
   onSnapshot,
   QuerySnapshot,
+  doc,
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
 
@@ -28,14 +23,16 @@ export default function FormUserDelivery() {
   const location = useLocation();
   const senderName = location.state.senderName;
   const number = location.state.number;
+  const email = location.state.email;
 
   const [message, setMessage] = useState("");
-  const [firestoreData, setFirestoreData] = useState("");
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
+  const [fireData, setFireData] = useState({});
   // const [userDetails, setUserDetails] = useState([]);
   const [parcelType, setParcelType] = useState("fragile");
+  const [status, setStatus] = useState(null);
   const [name, setName] = useState("");
   // const [fileLimit, setFileLimit] = useState(false);
   const [deliveryFiles, setDeliveryFiles] = useState([]);
@@ -94,17 +91,14 @@ export default function FormUserDelivery() {
 
   const handleType = (e) => {
     setParcelType(e.target.value);
-    console.log(parcelType);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(deliveryFiles);
-
     if (deliveryFiles == []) {
       setFileError("Please Upload a Picture");
-    } else setFileError("");
+    }
 
     if (!instructions) {
       setInstructions("No delivery instructions set");
@@ -116,7 +110,7 @@ export default function FormUserDelivery() {
         errors.reciever_name = "Receiver name must be filled!";
       }
       if (!data.parcel_description) {
-        errors.parcel_description = "Give an Item Description";
+        errors.parcel_description = "Give an Quantity of Items";
       }
       if (!data.reciever_phone_no) {
         errors.reciever_phone_no = "Receiver Phone Number must be filled!";
@@ -134,8 +128,8 @@ export default function FormUserDelivery() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8"
     );
     bodyFormData.append("distance", distance);
-    bodyFormData.append("fullname", "userDetails.fullname");
-    bodyFormData.append("phone_no", "userDetails.phone_no");
+    bodyFormData.append("fullname", formData.fullname);
+    bodyFormData.append("phone_no", formData.phone_no);
     bodyFormData.append("delivery_type", member);
     bodyFormData.append("delivery_medium", vehicle);
     bodyFormData.append("pickup_location", pickupLocation);
@@ -143,16 +137,16 @@ export default function FormUserDelivery() {
     bodyFormData.append("drop_off_address", drop_off_address);
     bodyFormData.append("drop_off_location", dropOffLocation);
     bodyFormData.append("reciever_name", formData.reciever_name);
-    bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
+    bodyFormData.append(
+      "reciever_phone_no",
+      `+234${formData.reciever_phone_no}`
+    );
     bodyFormData.append("parcel_name", formData.parcel_name);
     bodyFormData.append(
       "parcel_description",
       formData.parcel_description.toString()
     );
-    bodyFormData.append(
-      "delivery_instructions",
-      formData.delivery_instructions
-    );
+    bodyFormData.append("delivery_instructions", instructions);
     bodyFormData.append("parcel_type", parcelType);
     bodyFormData.append("delivery_cost", delivery_cost);
     bodyFormData.append("state", pickupState);
@@ -176,31 +170,38 @@ export default function FormUserDelivery() {
           let data = response.data;
           setLoading(true);
           const deliveryID = data.delivery._id;
-          const q = query(
-            collection(db, "delivery_requests"),
-            where("delivery_status_is_accepted", "==", "false")
-          );
-          const accepted = onSnapshot(q, (snapShot) => {
-            snapShot.docChanges().forEach((state) => {
-              if (state.type === "modified") {
-                navigate("/user/summary-i");
-                // accepted();
-                setLoading(false);
-              }
-            });
-            // QuerySnapshot.forEach((doc) => {
-            //   console.log(doc.data());
-            //   if (doc.data.delivery_status_is_accepted == true) {
-            //     navigate("/user/summary-i");
-            //   }
-            // });
-          });
 
-          // if (firestoreData.delivery_status_is_accepted == true) {
-          //   navigate("/user/summary-i");
-          //   accepted();
-          // }
-          // navigate("/user/summary-i");
+          const accepted = onSnapshot(
+            doc(db, "delivery_requests", deliveryID),
+            async (doc) => {
+              if (doc.data().delivery_status_is_accepted === true) {
+                accepted();
+                setLoading(false);
+
+                navigate("/user/summary-i", {
+                  state: {
+                    type: member,
+                    price: delivery_cost,
+                    pickup_address: pickup_address,
+                    drop_off_address: drop_off_address,
+                    senderName: formData.fullname,
+                    senderNumber: formData.phone_no,
+                    reciever_name: formData.reciever_name,
+                    reciever_phone_no: formData.reciever_phone_no,
+                    parcelName: formData.parcel_name,
+                    parcelType: parcelType,
+                    Quantity: formData.parcel_description,
+                    instructions: instructions,
+                    deliveryMedium: vehicle,
+                    deliveryID: deliveryID,
+                    email: email,
+                    name: senderName,
+                    number: number,
+                  },
+                });
+              }
+            }
+          );
         } else {
           setMessage("An Error occured");
         }
@@ -297,11 +298,11 @@ export default function FormUserDelivery() {
 
           <label className="requiredText">Item Type{asterik}</label>
           <select
-            // defaultValue={parcelType}
+            defaultValue={parcelType}
             className="form-fields phone-input3"
             name="ParcelType"
             onChange={handleType}
-            value={parcelType}
+            // value={parcelType}
           >
             <option value="fragile">Fragile</option>
             <option value="non-fragile">Non-Fragile</option>
@@ -343,7 +344,7 @@ export default function FormUserDelivery() {
                     type="file"
                     accept=".png, .jpg, .jpeg, .gif"
                     name="deliveryFiles"
-                    // disabled={fileLimit}
+                    disabled={fileLimit}
                     onChange={uploadMultipleFiles}
                     multiple
                   />
@@ -358,9 +359,9 @@ export default function FormUserDelivery() {
                     ))
                   : null}
               </div>
-
               <p className="error-style">{fileError}</p>
             </section>
+
             <div className="Upload" id="uploadText">
               N/B: The closest available <span>{vehicle.toUpperCase()}</span>{" "}
               delivery agent would receive and confirm
@@ -368,6 +369,7 @@ export default function FormUserDelivery() {
               page.
             </div>
           </div>
+
           <div id="center-button">
             <Button name="Next" type="submit" />
           </div>

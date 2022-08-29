@@ -1,48 +1,48 @@
 import React from "react";
 import "./deliveryinfo.css";
-export const DeliverInfo = () => {
+export const DeliverInfo = (props) => {
   return (
     <>
       <table>
         <tr>
           <th>Sender's Name:</th>
-          <td>April Purpose</td>
+          <td>{props.sender}</td>
         </tr>
         <tr>
           <th>Sender's Phone Number:</th>
-          <td>08077665543</td>
+          <td>{props.sender_no}</td>
         </tr>
         <tr>
           <th>Receiver's Name:</th>
-          <td>Purpose April</td>
+          <td>{props.receiver}</td>
         </tr>
         <tr>
           <th>Receiver's Phone Number: </th>
-          <td>08077665543</td>
+          <td>{props.receiver_no}</td>
         </tr>
         <tr>
           <th>Item Name:</th>
-          <td>1 Pair Of Nike Airforce Shoes “44</td>
+          <td>{props.parcel_name}</td>
         </tr>
         <tr>
           <th>Item Type:</th>
-          <td> Non fragile</td>
+          <td> {props.parcel_type}</td>
         </tr>
         <tr>
-          <th>Item Description: </th>
-          <td> Nice pair of brown new nike boots</td>
+          <th>Quantity of Items: </th>
+          <td> {props.description}</td>
         </tr>
         <tr>
           <th>Delivery Instruction:</th>
-          <td>Deliver as received</td>
+          <td>{props.instruction}</td>
         </tr>
         <tr>
           <th>Scheduled Pickup Date :</th>
-          <td>Tuesday January 4th January 2022</td>
+          <td>{props.date}</td>
         </tr>
         <tr>
           <th>Scheduled Pickup Time :</th>
-          <td>12:30PM</td>
+          <td>{props.time}</td>
         </tr>
       </table>
     </>
@@ -78,7 +78,7 @@ export const DeliverInfo2 = (props) => {
           <td> {props.parcel_type}</td>
         </tr>
         <tr>
-          <th>Item Description: </th>
+          <th>Quantity of Items: </th>
           <td> {props.description}</td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@ export const DeliverInfo2 = (props) => {
                 <h3>Receiver’s Name: <span className='delivery-details-spans'>Purpose April</span></h3>
                 <h3>Receiver’s Phone Number: <span className='delivery-details-spans'>08077665543</span></h3>
                 <h3>Item Name: <span className='delivery-details-spans'>1 Pair Of Nike Airforce Shoes “44</span></h3>
-                <h3>Item Description: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3>
+                <h3>Quantity of Items: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3>
                 <h3>Delivery Instruction: <span className='delivery-details-spans'>Lorem ipsum dolor sit amet, cons ect eturadipiscing elit. Nisl pretium. scing elit</span></h3> */}
     </>
   );

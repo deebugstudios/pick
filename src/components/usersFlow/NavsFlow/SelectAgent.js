@@ -8,8 +8,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function SelectAgent() {
   const location = useLocation();
   const vehicle = location.state.vehicle;
-  const deliveryState = location.state.pickupState;
+  const distance = location.state.distance;
+  const pickupLocation = location.state.pickupLocation;
+  const pickupState = location.state.pickupState;
+  const dropOffLocation = location.state.dropOffLocation;
+  const delivery_cost = location.state.price;
+  const member = location.state.member;
+  const pickup_address = location.state.pickup_address;
+  const drop_off_address = location.state.drop_off_address;
   const navigate = useNavigate();
+  const senderName = location.state.senderName;
+  const number = location.state.number;
+  const email = location.state.email;
 
   const [agent, setAgent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +37,7 @@ export default function SelectAgent() {
           token:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
           delivery_medium: vehicle,
-          state: deliveryState,
+          state: pickupState,
         }),
       }
     );
@@ -72,6 +82,18 @@ export default function SelectAgent() {
                       plate: item?.vehicle_details.plate_no,
                       vehicle_name: item?.vehicle_details.name,
                       vehicle_image: item?.vehicle_details.img_urls,
+                      vehicle: vehicle,
+                      distance: distance,
+                      pickupLocation: pickupLocation,
+                      pickupState: pickupState,
+                      dropOffLocation: dropOffLocation,
+                      price: delivery_cost,
+                      type: member,
+                      pickup_address: pickup_address,
+                      drop_off_address: drop_off_address,
+                      senderName: senderName,
+                      phone_no: number,
+                      email: email,
                     },
                   });
                 }}

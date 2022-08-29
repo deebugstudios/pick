@@ -5,7 +5,7 @@ export const useFetch = (url) => {
   // console.log(UseRiderProvider());
   const [riderdata, setRiderData] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const token = localStorage.getItem("rubbish")
   const fetchData = async () => {
     const res = await fetch(url, {
       method: "POST",
@@ -14,8 +14,7 @@ export const useFetch = (url) => {
       },
       body: JSON.stringify({
         delivery_agent_id: "63029e8bd7325cc1c3f1faa4",
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9ubyI6IisyMzQ4MTMwNDM5ODM0IiwiX2lkIjoiNjMwMjllOGJkNzMyNWNjMWMzZjFmYWE0IiwiaWF0IjoxNjYxMzM0NzIyfQ.lJqklLaU1XWNjHGc105Iy724DEnLcV64ADbpPSzQlbw",
+        token: JSON.parse(token),
       }),
     });
     const data = await res.json();
@@ -26,5 +25,5 @@ export const useFetch = (url) => {
   useEffect(() => {
     fetchData();
   }, [url]);
-  return { riderdata, loading };
+  return { riderdata, loading, token };
 };

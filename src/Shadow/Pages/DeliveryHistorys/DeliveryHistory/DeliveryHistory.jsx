@@ -1,15 +1,18 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useContext} from "react";
 import { PendingDeliveryList } from "../../Details info/PendingDeliveryList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import "./deliveryhistory.css";
 import { DeliveryHistoryList } from "../../Details info/DeliveryHistoryList";
 import { useNavigate } from "react-router-dom";
+import { RiderContext } from "../../Contexts/RiderContext";
 const DeliveryHistory = () => {
   const [loading, setLoading] = useState(true);
   const [deliveryHistory, setDeliveryHistory] = useState([{}])
   const [searchItem, setSearchItem] = useState("")
   // const navigate = useNavigate();
+  const value = useContext(RiderContext);
+  const { token } = value;
 
   const fetchDeliveryHistory = async() => {
         const res = await fetch( "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_delivery/view_delivery_history", 
@@ -20,13 +23,14 @@ const DeliveryHistory = () => {
           },
           body: JSON.stringify({
             pagec: 1,
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNWZjYWU5ZDdkYTk1MzA4ZjI4YTgiLCJwaG9uZV9ubyI6IisyMzQ5MTUzNTQwMDIzIiwiaWF0IjoxNjU4NzQwNjgyfQ.Lf1I9AZLNRuY5Q3w7uOqQSGDRoKb5yUUe61LNpdQMUU"
+            token: JSON.parse(token)
           })
   
         });
         const data = await res.json();
         const results = await data
         setLoading(false)
+        console.log(results)
         setDeliveryHistory(results?.deliveries);
     }
       // const newListItems = deliveryHistory.map(list => {

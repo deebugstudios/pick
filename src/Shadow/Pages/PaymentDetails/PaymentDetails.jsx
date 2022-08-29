@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { RiderContext } from "../Contexts/RiderContext";
 import "./paymentdetails.css";
 const PaymentDetails = () => {
@@ -8,9 +9,13 @@ const PaymentDetails = () => {
   const [bankName, setBankName] = useState(bank_details?.bank_name);
   const [accountName, setAccountName] = useState(bank_details?.account_name);
   const [accountNumber, setAccountNumber] = useState(bank_details?.account_no);
-  const [accountType, setAccountType] = useState(bank_details?.accont_type);
+  const [accountType, setAccountType] = useState(bank_details?.account_type);
   const [bvn, setBvn] = useState(bank_details?.bvn);
 
+  const navigate = useNavigate()
+  const handleClick =()=> {
+    navigate("/change-payment-details")
+  }
   return (
     <div className="iiii">
       <section className="payment-details-section">
@@ -57,7 +62,7 @@ const PaymentDetails = () => {
             <br />
             <input type="text" name="bvn" id="bvn" value={bvn} disabled />{" "}
             <br />
-            <button type="submit" className="payment-btn">
+            <button type="submit" className="payment-btn" onClick={handleClick}>
               Request to change payment account
             </button>
           </form>

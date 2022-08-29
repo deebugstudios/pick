@@ -1,10 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./profilepage.css";
-import driverlicense1 from "../../images/driverslicence.jpg";
-import driverlicense2 from "../../images/driverslicence2.jpg";
-import vechile1 from "../../images/lamborghini.jpg";
-import vechile2 from "../../images/koenigseggagera.jpg";
-import vechile3 from "../../images/hpcrizinger.jpg";
 import passportphoto from "../../images/profilepic3.jpg";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
@@ -12,6 +7,7 @@ import { Outlet } from "react-router-dom";
 const ProfilePage = () => {
   const value = useContext(RiderContext);
   const { riderdata } = value;
+  console.log(riderdata?.fullname)
   // console.log(JSON.parse(riderdata.phone_no) , riderdata.phone_no);
 
   const [formData, setFormData] = useState({
@@ -21,6 +17,8 @@ const ProfilePage = () => {
     number: parseInt(riderdata?.phone_no),
     state: riderdata?.state,
   });
+  const fullnameref = useRef(riderdata?.fullname)
+  console.log(formData)
   // const [formData2, setFormData2] = useState({
   //   vehicleType: riderdata.vehicle_details[0].type,
   //   fleetID: "",
@@ -95,6 +93,7 @@ const ProfilePage = () => {
               type="text"
               name="fullname"
               id="fullname"
+              ref={fullnameref}
               value={formData?.fullname}
               disabled={disabled}
               required
@@ -180,7 +179,7 @@ const ProfilePage = () => {
           <div className="vechile-forms">
             <form className="vechile-details-form1">
               <label htmlFor="">Fleet ID</label> <br />
-              <input type="text" name="fleetID" id="" value={"Nil"} disabled />
+              <input type="text" name="fleetID" id="" value={riderdata?.fleet_manager_code || "Not Under A Fleet Manager"} disabled />
               <br />
               <label htmlFor="">Vehicle Type</label> <br />
               <input
@@ -206,7 +205,7 @@ const ProfilePage = () => {
                 type="text"
                 name="agentId"
                 id=""
-                value={"56747"}
+                value={riderdata?.delivery_agent_code}
                 disabled
               />{" "}
               <br />

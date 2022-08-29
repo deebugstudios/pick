@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DeliveryImages } from "../../Details info/DeliveryImages";
 import locationimg from "../../../images/checkoutprogress.png";
 import "./deliveryhistorydetails.css";
 import { DeliverInfo } from "../../Details info/DeliverInfo";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { RiderContext } from "../../Contexts/RiderContext";
 
 const DeliveryHistoryDetailsAgent = () => {
   const location = useLocation();
+  const value = useContext(RiderContext);
+  const { token } = value;
 
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
@@ -23,8 +26,7 @@ const DeliveryHistoryDetailsAgent = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9ubyI6IisyMzQ4MTMwNDM5ODM0IiwiX2lkIjoiNjMwMjllOGJkNzMyNWNjMWMzZjFmYWE0IiwiaWF0IjoxNjYxMzM0NzIyfQ.lJqklLaU1XWNjHGc105Iy724DEnLcV64ADbpPSzQlbw",
+            token: JSON.parse(token),
             delivery_id: Delivery_id,
           }),
         }

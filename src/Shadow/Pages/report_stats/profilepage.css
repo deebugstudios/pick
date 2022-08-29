@@ -67,9 +67,9 @@
   .profile-page-bottom {
     margin-top: 15px !important;
   }
-  .bottom-wrapper {
+  /* .bottom-wrapper {
     padding: 6px !important;
-  }
+  } */
   .shorter-form {
     width: 85% !important;
   }
@@ -89,9 +89,9 @@
   .profile-page-bottom {
     margin-top: 10px !important;
   }
-  .bottom-wrapper {
+  /* .bottom-wrapper {
     padding: 5px !important;
-  }
+  } */
   .shorter-form {
     width: 83% !important;
   }
@@ -111,9 +111,9 @@
   .profile-page-bottom {
     margin-top: 8px !important;
   }
-  .bottom-wrapper {
+  /* .bottom-wrapper {
     padding: 2px !important;
-  }
+  } */
   .shorter-form {
     width: 78% !important;
   }

@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import profileimage from "../images/profileimage.png";
 import "../css/navsignedin.css";
 import { Link } from "react-router-dom";
 import Pickload from "../../components/Images/pickload.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
-
-const Navsignedin = () => {
+const Navsignedin = (props) => {
   const value = useContext(RiderContext);
   const { riderdata, loading } = value;
+  
   return (
     <nav className="agent-nav">
       <div className="nav-wrapper">
@@ -46,8 +46,10 @@ const Navsignedin = () => {
             <img src={riderdata?.img_url} alt="" />
           </div>
           <div className="notification">
-            <FontAwesomeIcon icon={faBell} className="notification-bell" />
-            <span>3</span>
+            {/* <FontAwesomeIcon icon={faBell} className="notification-bell" /> */}
+            {/* <li className="siderbar-small" onClick={props.siderBar}>X</li> */}
+            <FontAwesomeIcon icon={faBars} className="siderbar-small" onClick={props.siderBar}/>
+            {/* <span>3</span> */}
           </div>
         </div>
       </div>

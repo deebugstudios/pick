@@ -18,6 +18,20 @@
   margin-top: -70px;
   overflow-y: hidden !important;
 }
+.paystack-button {
+  background: #1aa803;
+  border: 2.5px solid #1aa803;
+  border-radius: 5px;
+  color: white;
+  width: 250px;
+  height: 40px;
+  font-size: large;
+  text-align: center;
+  justify-self: center !important;
+  align-self: center !important;
+  margin: 5px 20px 10px 20px;
+  cursor: pointer;
+}
 .specifics-map-container img {
   width: 100%;
   height: 100%;
@@ -34,6 +48,22 @@
 }
 .specifics-images {
   margin-top: 20px;
+}
+.estimate-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#message-agent {
+  margin-right: 20px;
+  color: black;
+  font-size: medium;
+  cursor: pointer;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+#message-agent span {
+  margin-left: 10px;
 }
 .estimatedtime {
   font-size: 15px;

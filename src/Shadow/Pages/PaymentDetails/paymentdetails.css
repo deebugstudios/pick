@@ -1,18 +1,28 @@
 .payment-details-section {
   background-color: #e8f4e3;
-  padding: 1.2em;
-  /* overflow: hidden !important; */
+  padding: 10px 15px !important;
   height: 89vh;
   margin: 0px auto;
   width: 100% !important;
-  margin-top: 15px;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   max-width: 1000px;
 }
 .iiii {
   background-color: #e8f4e3;
+}
+.red-message {
+  color: red;
+  font-size: 15px;
+}
+.green-message {
+  color: #1aa803;
+  font-size: 15px;
+}
+button:disabled {
+  opacity: 0.3;
+  cursor: progress;
+}
+.margin-top {
+  margin-top: 20px;
 }
 .payment-details-wrapper {
   background-color: white;
@@ -22,8 +32,16 @@
   overflow-x: hidden;
   position: relative;
 }
+.hidden {
+  display: none;
+}
+.shown {
+  display: block;
+}
 .payment-details-form {
   margin: auto 0;
+  height: 70vh;
+  overflow: hidden;
 }
 .payment-details-form input {
   width: 100%;

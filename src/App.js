@@ -86,6 +86,7 @@ import LoggedinMainPageUser, {
 import Privacy from "./Shadow/javascripts/Privacy";
 import Change_Number from "./components/Pages/Change_Number";
 import SpecificAgent from "./components/usersFlow/NavsFlow/SpecificAgent";
+import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDetails";
 
 export default function App() {
   return (
@@ -282,6 +283,15 @@ export default function App() {
                 path="payment-details"
                 element={
                   <LoggedinMainPage name={<PaymentDetails />} logged={true} />
+                }
+              />
+              <Route
+                path="change-payment-details"
+                element={
+                  <LoggedinMainPage
+                    name={<ChangePaymentDetails />}
+                    logged={true}
+                  />
                 }
               />
               <Route

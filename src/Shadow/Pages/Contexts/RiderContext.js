@@ -50,7 +50,6 @@ export const UseTokenProviderUser = (props) => {
   const [phone_no, setPhone_no] = useState("");
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
-  // const userToken = useMemo(() => ({ token, setToken }), [token, setToken]);
   const [id, setId] = useState("");
   // const userId = useMemo(() => ({ id, setId }), [id, setId]);
 
@@ -113,10 +112,12 @@ export const UseTokenProviderUser = (props) => {
 };
 
 export const UseRiderProvider = (props) => {
-  const { loading, riderdata } = useFetch(url);
+  const { loading, riderdata, token } = useFetch(url);
+  // const token = localStorage.getItem("rubbish")
   const values = {
     riderdata,
     loading,
+    token,
   };
 
   return (

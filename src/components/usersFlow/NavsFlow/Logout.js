@@ -73,6 +73,7 @@ export function Logout2() {
             <Button
               name="Yes"
               click={() => {
+                localStorage.clear()
                 navigate("/main1");
               }}
             />

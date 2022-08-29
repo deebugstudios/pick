@@ -25,7 +25,7 @@ export default function DeliveryType() {
     if (member === "instant") {
       setBgColor("white");
       setSecBg("rgba(31, 170, 8, 0.15)");
-    } else if (member === "schedule") {
+    } else if (member === "scheduled") {
       setBgColor("rgba(31, 170, 8, 0.15)");
       setSecBg("white");
     }
@@ -92,8 +92,8 @@ export default function DeliveryType() {
                   className="choose"
                   type="radio"
                   name="choose"
-                  value="schedule"
-                  checked={member === "schedule"}
+                  value="scheduled"
+                  checked={member === "scheduled"}
                   onChange={handleChange}
                 />
                 <div>

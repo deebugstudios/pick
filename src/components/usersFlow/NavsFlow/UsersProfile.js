@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Instant from "../../Images/instant.png";
 import Schedule from "../../Images/scheduled.png";
 import Cancel from "../../Images/cancel.png";
@@ -15,6 +15,9 @@ export default function UsersProfile() {
   const [loading, setLoading] = useState(true);
   const [userStats, setUserStats] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
+  const [changeActive, setChangeActive] = useState(true);
+  const [userName, setUserName] = useState("");
+  const inputRef = useRef();
 
   const fetchUserStats = async () => {
     const res = await fetch(
@@ -31,10 +34,9 @@ export default function UsersProfile() {
       }
     );
     const data = await res.json();
-    const results = await data;
     setLoading(false);
     // console.log(results);
-    setUserStats(results?.stats);
+    setUserStats(data?.stats);
     // pendingDeliveries.map((item) => console.log(item));
   };
   const fetchUserDetails = async () => {
@@ -52,13 +54,19 @@ export default function UsersProfile() {
       }
     );
     const data = await res.json();
-    const results = await data;
     setLoading(false);
 
     // console.log(results);
-    setUserDetails(results?.user);
-    // console.log(userDetails);
-    // pendingDeliveries.map((item) => console.log(item));
+    setUserDetails(data?.user);
+    setUserName(data?.user.fullname);
+  };
+
+  // ;
+
+  // setUserName(user);
+
+  const handleChange = (e) => {
+    setUserName(e.target.value);
   };
 
   useEffect(() => {
@@ -66,8 +74,39 @@ export default function UsersProfile() {
     fetchUserDetails();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            fullname: userName,
+            image: "",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        // setPopupButton(true);
+        navigate("/user/user-profile");
+      } else {
+        // setMessage("Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -112,20 +151,26 @@ export default function UsersProfile() {
             </div>
           </div>
 
-          <form id="user-info-form">
+          <form id="user-info-form" onSubmit={handleSubmit}>
             <label htmlFor="fullname">Full name</label>
             <div className="user-info-div">
               <input
                 name="fullname"
-                value={userDetails.fullname}
-                className="user-info"
-                disabled={true}
+                value={userName}
+                onChange={handleChange}
+                style={{
+                  backgroundColor: changeActive ? "#ececec" : "white",
+                  border: changeActive ? "none" : "1px solid black",
+                }}
+                disabled={changeActive}
+
+                // autoFocus
               />
               <span
                 className="change-prof"
-                // onClick={() => {
-                //   navigate("/user/change");
-                // }}
+                onClick={() => {
+                  setChangeActive(false);
+                }}
               >
                 change
               </span>

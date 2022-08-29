@@ -10,6 +10,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Popup, { Popup2, Popup3 } from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
 import CancelBooking from "../CancelBooking";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function PendingScheduledDetails() {
   const navigate = useNavigate();
@@ -89,40 +91,48 @@ export default function PendingScheduledDetails() {
           <h3>Delivery Request Accepted by:</h3>
           <br />
 
-          <div className="delivery-profile">
-            <div className="driver-profile-image">
-              <div className="image">
-                <img src={deliveryDetails.delivery_agent_img} />{" "}
+          <div className="estimate-div">
+            <div className="delivery-profile">
+              <div className="driver-profile-image">
+                <div className="image">
+                  <img src={deliveryDetails.delivery_agent_img} />{" "}
+                </div>
+              </div>
+              <div className="delivery-profile-details">
+                <table>
+                  <tr>
+                    <th>Delivery Agent :</th>
+                    <td>{deliveryDetails?.delivery_agent_name}</td>
+                  </tr>
+                  <tr>
+                    <th>Vehicle Type :</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                  </tr>
+                  <tr>
+                    <th>Vehicle Color :</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                  </tr>
+                  <tr>
+                    <th>Agent ID :</th>
+                    <td>{deliveryDetails.delivery_agent_id}</td>
+                  </tr>
+                  <tr>
+                    <th>Plate Number :</th>
+                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                  </tr>
+                  <tr>
+                    <th>Phone Number :</th>
+                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                  </tr>
+                </table>
               </div>
             </div>
-            <div className="delivery-profile-details">
-              <table>
-                <tr>
-                  <th>Delivery Agent :</th>
-                  <td>{deliveryDetails?.delivery_agent_name}</td>
-                </tr>
-                <tr>
-                  <th>Vehicle Type :</th>
-                  <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
-                </tr>
-                <tr>
-                  <th>Vehicle Color :</th>
-                  <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                </tr>
-                <tr>
-                  <th>Agent ID :</th>
-                  <td>{deliveryDetails.delivery_agent_id}</td>
-                </tr>
-                <tr>
-                  <th>Plate Number :</th>
-                  <td>{deliveryDetails.delivery_agent_plate_no}</td>
-                </tr>
-                <tr>
-                  <th>Phone Number :</th>
-                  <td>{deliveryDetails.delivery_agent_phone_no}</td>
-                </tr>
-              </table>
-            </div>
+            <p id="message-agent">
+              Message Agent
+              <span>
+                <FontAwesomeIcon icon={faMessage} className="space-icons-1" />
+              </span>
+            </p>
           </div>
           <div className="delivery-history-info">
             <DeliverInfo2

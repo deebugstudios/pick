@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Arrow from "../../Images/Arrow.png";
 import FormProgress from "../../Images/FormProgress2.png";
-import Star from "../../Images/Star.png";
+import Starr from "../../Images/Star.png";
 import "../../css/specific.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import MainStar from "../../Images/MainStar.png";
 import Stars from "react-stars-display";
 
 export default function SpecificAgent() {
-  // const Stars = <img src={Star} alt="" />;
+  const Star = <img src={Starr} alt="" />;
   const MainStars = <img src={MainStar} alt="" />;
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,11 +24,25 @@ export default function SpecificAgent() {
   const rating = location.state.rating;
   const deliveries = location.state.deliveries;
   const phone = location.state.phone;
-  const agentId = location.state.agentId;
+
   const color = location.state.color;
   const plate = location.state.plate;
   const vehicle_name = location.state.vehicle_name;
   const vehicle_image = location.state.vehicle_image;
+
+  const vehicle = location.state.vehicle;
+  const agentId = location.state.agentId;
+  const distance = location.state.distance;
+  const pickupState = location.state.pickupState;
+  const pickupLocation = location.state.pickupLocation;
+  const dropOffLocation = location.state.dropOffLocation;
+  const price = location.state.price;
+  const type = location.state.type;
+  const pickup_address = location.state.pickup_address;
+  const drop_off_address = location.state.drop_off_address;
+  const senderName = location.state.senderName;
+  const phone_no = location.state.phone_no;
+  const email = location.state.email;
 
   const fetchReviews = async () => {
     const res = await fetch(
@@ -120,7 +134,7 @@ export default function SpecificAgent() {
               <div className="ratings-star">
                 <p className="important">Rating</p>
                 <p>
-                  {rating == null ? 0 : `${rating}.0`} {Stars}
+                  {rating == null ? 0 : `${rating}.0`} {Star}
                 </p>
               </div>
               <div className="ratings-star">
@@ -146,7 +160,23 @@ export default function SpecificAgent() {
         <Button
           name="Proceed with this Agent"
           click={() => {
-            navigate("/user/schedule-form");
+            navigate("/user/schedule-form", {
+              state: {
+                vehicle: vehicle,
+                distance: distance,
+                pickupState: pickupState,
+                pickupLocation: pickupLocation,
+                agentId: agentId,
+                dropOffLocation: dropOffLocation,
+                price: price,
+                type: type,
+                pickup_address: pickup_address,
+                drop_off_address: drop_off_address,
+                senderName: senderName,
+                phone_no: phone_no,
+                email: email,
+              },
+            });
           }}
         />
       </div>

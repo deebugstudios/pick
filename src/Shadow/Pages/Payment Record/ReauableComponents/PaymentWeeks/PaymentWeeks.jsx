@@ -7,9 +7,10 @@ export const PaymentWeeks = () => {
     const [cname3, setCname3] = useState('week2');
     const [cname4, setCname4] = useState('week2');
     const [cname5, setCname5] = useState('week2');
-
+    const [week, setWeek ] = useState(1)
 
     const handleClassName1 = () => {
+        setWeek(1)
         setCname1('week1');
         setCname2('week2');
         setCname3('week2');
@@ -17,6 +18,7 @@ export const PaymentWeeks = () => {
         setCname5('week2');
       }
       const handleClassName2 = () => {
+        setWeek(2)
         setCname1('week2');
         setCname2('week1');
         setCname3('week2');
@@ -24,6 +26,7 @@ export const PaymentWeeks = () => {
         setCname5('week2');
       }
       const handleClassName3 = () => {
+        setWeek(3)
         setCname1('week2');
         setCname2('week2');
         setCname3('week1');
@@ -31,6 +34,7 @@ export const PaymentWeeks = () => {
         setCname5('week2');
       }
       const handleClassName4 = () => {
+        setWeek(4)
         setCname1('week2');
         setCname2('week2');
         setCname3('week2');
@@ -38,6 +42,7 @@ export const PaymentWeeks = () => {
         setCname5('week2');
       }
       const handleClassName5 = () => {
+        setWeek(5)
         setCname1('week2');
         setCname2('week2');
         setCname3('week2');
@@ -45,7 +50,7 @@ export const PaymentWeeks = () => {
         setCname5('week1');
       }
     
-
+console.log(week)
 
   return (
     <section className="paymentweeks-container">

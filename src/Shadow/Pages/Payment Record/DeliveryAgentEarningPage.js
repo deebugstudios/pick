@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RiderContext } from "../Contexts/RiderContext";
+import { NoTransaction } from "../NoTransactionpage/NoTransaction";
 import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import "./deliveryagentearningpage.css";
 import { PaymentWeeks } from "./ReauableComponents/PaymentWeeks/PaymentWeeks";
@@ -9,7 +10,7 @@ const DeliveryAgentEarningPage = () => {
   // const [message, setMessage]= useState("")
 
   const value = useContext(RiderContext);
-  const { riderdata } = value;
+  const { riderdata, token } = value;
 
   const fetchEarning = async () => {
     try {
@@ -21,8 +22,7 @@ const DeliveryAgentEarningPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9ubyI6IisyMzQ4MTMwNDM5ODM0IiwiX2lkIjoiNjMwMjllOGJkNzMyNWNjMWMzZjFmYWE0IiwiaWF0IjoxNjYxMzM0NzIyfQ.lJqklLaU1XWNjHGc105Iy724DEnLcV64ADbpPSzQlbw",
+            token:JSON.parse(token),
             month: 7,
             year: 2022,
             week: 4,
@@ -48,14 +48,14 @@ const DeliveryAgentEarningPage = () => {
   //     <li>{obj?.timestamp}</li>
   // ))
 
-  const earningList = dataList.map((itemsObj, index) => (
+  const earningList = dataList?.map((itemsObj, index) => (
     <tr key={index}>
       <td>{itemsObj?.timestamp}</td>
       <td>{itemsObj?.timestamp}</td>
       <td>{itemsObj?.amt_for_delivery_agent}</td>
     </tr>
   ));
-  const totalAmount = dataList.map((itemsObj) => (
+  const totalAmount = dataList?.map((itemsObj) => (
     <span>{itemsObj?.total_weekly_earnings}</span>
   ));
   // console.log(totalAmount);
@@ -75,16 +75,20 @@ const DeliveryAgentEarningPage = () => {
             loading...
           </h1>
         </div>
-      ) : (
+      ) :  (
         <div className="profile-page-bottom height padding">
           <PaymentWeeks />
+         { dataList ?
+         <>
           <table className="table-data">
             <thead>
               <th>Date</th>
               <th>Weekday</th>
               <th>Daily Earning</th>
             </thead>
-            <tbody className="earning-tbody">{earningList}</tbody>
+            <tbody className="earning-tbody">
+              {earningList}
+            </tbody>
           </table>
           <div className="total-earnings">
             <h5>TOTAL WEEKS EARNING</h5>
@@ -95,8 +99,10 @@ const DeliveryAgentEarningPage = () => {
               <p>PENDING PAYMENT</p>
             </div>
           </div>
+          </>
+        : <NoTransaction/> }
         </div>
-      )}
+      )  }
     </div>
   );
 };

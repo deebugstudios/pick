@@ -10,6 +10,8 @@ import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 import { useNavigate, useLocation } from "react-router-dom";
 import Popup from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function PendingInstantDetails() {
   const navigate = useNavigate();
@@ -110,10 +112,16 @@ export default function PendingInstantDetails() {
                         </tr>
                     </table> */}
           </div>
-          <div className="estimatedtime">
+          <div className="estimatedtime estimate-div">
             <h2>
-              Your Item will arrive at your Location in Approximately 10 minutes
+              Your Item will arrive at your Location in Approximately 10 minutes{" "}
             </h2>
+            <p id="message-agent">
+              Message Agent
+              <span>
+                <FontAwesomeIcon icon={faMessage} className="space-icons-1" />
+              </span>
+            </p>
           </div>
           <br />
           <br />

@@ -4,7 +4,7 @@ import "../css/button.css";
 
 export default function Button(props) {
   return (
-    <button id="compButton" type={props.type} onClick={props.click}>
+    <button id="compButton" type={props.type} onClick={props.click} disabled={props.loading}>
       <span>{props.name}</span>
     </button>
   );
@@ -12,7 +12,7 @@ export default function Button(props) {
 
 export function Button2(props) {
   return (
-    <button id="compButton2" type={props.type}>
+    <button id="compButton2" type={props.type} disabled={props.loading}>
       <span>{props.name}</span>
     </button>
   );
@@ -20,7 +20,7 @@ export function Button2(props) {
 
 export function Button3(props) {
   return (
-    <button id="compButton3" type={props.type} onClick={props.click}>
+    <button id="compButton3" type={props.type} onClick={props.click} disabled={props.loading}>
       <span>{props.name}</span>
     </button>
   );
@@ -28,7 +28,7 @@ export function Button3(props) {
 
 export function Button4(props) {
   return (
-    <button id="compButton4" type={props.type}>
+    <button id="compButton4" type={props.type} disabled={props.loading}>
       <span>{props.name}</span>
     </button>
   );

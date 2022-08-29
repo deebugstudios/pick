@@ -14,7 +14,7 @@ export const MainTop = (props) => {
     delivery_agent_type } = props?.riderdata;
   // const {no_of_bikes, no_of_buses, no_of_cars, no_of_trucks} = fleet_manager_vehicles;
   // const {total_rating} = rating
-  const [fleetManger, setFleetManger] = useState(true);
+  // const [fleetManger, setFleetManger] = useState(true);
   return (
     <div className="profile-page-top">
     <Link to = "/agent-profile">
@@ -33,7 +33,7 @@ export const MainTop = (props) => {
       </Link>
       {/* conditional statement to check if fleet manager or not  */}
 
-      {fleetManger ? (
+      { delivery_agent_type === "fleet manager" ? (
         <Link to="/earnings">
           <div className="pages">
             <h3>FLEET EARNINGS</h3>
@@ -59,7 +59,7 @@ export const MainTop = (props) => {
 
       {/* conditional statement to check if fleet manager or not  */}
 
-      {fleetManger ? (
+      {delivery_agent_type === "fleet manager" ? (
         <Link to="/fleet-stat">
           <div className="pages">
             <h3>FLEET STATISTICS</h3>
@@ -95,7 +95,7 @@ export const MainTop = (props) => {
 
       {/* conditional statement to check if fleet manager or not  */}
 
-      {fleetManger ? (
+      {delivery_agent_type === "fleet manager" ? (
         <div className="pages span-two">
           <h3>MY FLEET</h3>
           <div className="profile-icons">
@@ -119,7 +119,7 @@ export const MainTop = (props) => {
           <div className="become-a-fleet-manager-wrapper">
             <div className="become-fleet-manager-left-side">
               <div className="Not-fleet-manager-image">
-                {/* <img src={notFleetManager} alt="" /> */}
+                <img src={notFleetManager} alt="" />
               </div>
             </div>
             <div className="Not-fleet-manager-text-container">

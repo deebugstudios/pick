@@ -1,31 +1,70 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./payment_record.css";
 import './individual_records.css'
 import "../../../components/css/toggle.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 import profileimage from '../../images/profileimage.png'
 export default function Individual_records() {
+  const [loading, setLoading]= useState(true)
+  const [data, setData] = useState([])
+  const location = useLocation();
     const value = useContext(RiderContext);
     const { riderdata} = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
 
-  const firstClick = () => {
-    setToggle(true);
+  // const firstClick = () => {
+  //   setToggle(true);
 
-    // navigate("/Pending-del");
-  };
+  //    navigate("/Pending-del");
+  // };
 
-  const secondClick = () => {
-    setToggle(false);
-    // navigate("/Pending-del");
-  };
+  // const secondClick = () => {
+  //   setToggle(false);
+  //   navigate("/Pending-del");
+  // };
+
+  const DeliveryAgent_id = location.state.id;
+
+
+// console.log(DeliveryAgent_id)
+
+const fetchDeliveryDetails = async () => {
+  try {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_earnings/view_fleet_manager_delivery_agent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9ubyI6IisyMzQ4MTMwNDM5ODM0IiwiX2lkIjoiNjMwMjllOGJkNzMyNWNjMWMzZjFmYWE0IiwiaWF0IjoxNjYxMzM0NzIyfQ.lJqklLaU1XWNjHGc105Iy724DEnLcV64ADbpPSzQlbw",
+            delivery_agent_id: DeliveryAgent_id,
+        }),
+      }
+    );
+    const data = await res.json();
+    const results = await data;
+    setData(results?.delivery_agent?.[0]);
+    setLoading(false);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+useEffect(() => {
+  fetchDeliveryDetails();
+}, []);
+
   const goBack = () => {
     navigate(-1)
   }
+  
   return (
     <div className="profile-page-container">
     {/* <MainTop/> */}
@@ -40,11 +79,11 @@ export default function Individual_records() {
         <div className="delivery-profile">
             <div className="driver-profile-image">
               <div className="image">
-                <img src={profileimage} alt="profile image" />
+                <img src={data?.vehicle_details?.img_urls?.[0]} alt="profile image" />
               </div>
             </div>
             <div className="delivery-profile-details">
-                  <h3 className="earnings-h3">Monday Goodness</h3>
+                  <h3 className="earnings-h3">{data?.fullname}</h3>
               <table className="earning-first-table">
             
                 <tr>
@@ -53,15 +92,15 @@ export default function Individual_records() {
                 </tr>
                 <tr>
                   <th>Vehicle type:</th>
-                  <td>Bike</td>
+                  <td>{data?.vehicle_details.type}</td>
                 </tr>
                 <tr>
                   <th>Plate number:</th>
-                  <td> LSR786KM</td>
+                  <td> {data?.vehicle_details.plate_no}</td>
                 </tr>
                 <tr>
                   <th>Phone Number:</th>
-                  <td> 09088876543</td>
+                  <td> {data?.phone_no}</td>
                 </tr>
                 <tr>
                   <th>Weeks Earning:</th>
