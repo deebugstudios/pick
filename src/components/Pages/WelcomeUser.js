@@ -210,7 +210,7 @@ export function WelcomeAgent() {
         setMessage("User created successfully");
         setLoading(false);
         navigate("/deliveryhistory");
-        // localStorage.setItem("rubbish", JSON.stringify(data.token))
+        localStorage.setItem("rubbish", JSON.stringify(data.token));
       } else {
         setMessage("An Error occured");
         setLoading(false);
