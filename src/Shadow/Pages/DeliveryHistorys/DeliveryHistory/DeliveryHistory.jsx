@@ -10,11 +10,10 @@ const DeliveryHistory = () => {
   const [loading, setLoading] = useState(true);
   const [deliveryHistory, setDeliveryHistory] = useState([{}]);
   const [searchItem, setSearchItem] = useState("");
-  // const navigate = useNavigate();
   const value = useContext(RiderContext);
   const { token } = value;
 
-  console.log(token);
+  // console.log(token);
 
   const fetchDeliveryHistory = async () => {
     const res = await fetch(

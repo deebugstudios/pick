@@ -210,7 +210,11 @@ export default function UserRequestPickup() {
     <section className="user-dashboard">
       <div className="user-right-side-1">
         <div className="map-container-1">
-          <Map direct={direction} />
+          <Map
+            direct={direction}
+            // eslint-disable-next-line
+            mark={new google.maps.LatLng(6, 5)}
+          />
         </div>
       </div>
       <div className="set-location-pickup-1">

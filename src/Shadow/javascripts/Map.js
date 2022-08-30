@@ -6,10 +6,13 @@ import {
   Circle,
   MarkerClusterer,
   Autocomplete,
+  DirectionsRenderer,
+  DirectionsService,
 } from "@react-google-maps/api";
+import Close from "../../components/Images/close.png";
 import { type } from "@testing-library/user-event/dist/type";
 
-const Map = () => {
+const Map = (props) => {
   const [map, setMap] = useState(/** @type google.maps.map */ (null));
   const center = useMemo(() => ({ lat: 6.335, lng: 5.6037 }), []);
   const option = useMemo(
@@ -41,7 +44,10 @@ const Map = () => {
           options={option}
           onLoad={(map) => setMap(map)}
         >
+          {props.direct && <DirectionsRenderer directions={props.direct} />}
+          {props.mark && <Marker position={props.mark} />}
           <Marker position={center} />
+
           <Circle center={center} radius={500} options={closeOption} />
         </GoogleMap>
       </div>
