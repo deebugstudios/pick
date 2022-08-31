@@ -1,0 +1,48 @@
+.container-chat {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.chat-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.lighter {
+  align-self: flex-start;
+  justify-self: flex-start;
+  max-width: 500px;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+  align-self: flex-end;
+  justify-self: flex-end;
+  max-width: 500px;
+  word-break: break-all;
+  line-break: anywhere;
+}
+
+.container-chat::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+.main-chat-div {
+  padding: 20px 50px 20px 50px;
+}

@@ -16,16 +16,17 @@
   font-weight: 400;
   padding: 10px 0;
   color: #666666 !important;
+  width: 190px;
 }
 .side-bar-links-1 ul {
-  margin-top: 60px;
+  margin-top: 25px;
 }
 .side-bar-links-1 ul:first-child {
   height: 50vh;
   /* font-size: 0.85em; */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 /* .side-bar-links-1 ul:last-child {
   font-size: 0.85rem;

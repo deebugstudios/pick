@@ -45,7 +45,13 @@ const Map = (props) => {
           onLoad={(map) => setMap(map)}
         >
           {props.direct && <DirectionsRenderer directions={props.direct} />}
-          {props.mark && <Marker position={props.mark} />}
+          {props.mark && (
+            <Marker
+              position={props.mark}
+              icon={props.src}
+              title={props.title}
+            />
+          )}
           <Marker position={center} />
 
           <Circle center={center} radius={500} options={closeOption} />

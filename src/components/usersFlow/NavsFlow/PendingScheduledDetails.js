@@ -34,7 +34,7 @@ export default function PendingScheduledDetails() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
           delivery_id: Delivery_id,
         }),
       }
@@ -102,7 +102,7 @@ export default function PendingScheduledDetails() {
                 <table>
                   <tr>
                     <th>Delivery Agent :</th>
-                    <td>{deliveryDetails?.delivery_agent_name}</td>
+                    <td>{deliveryDetails.delivery_agent_name}</td>
                   </tr>
                   <tr>
                     <th>Vehicle Type :</th>
@@ -127,7 +127,17 @@ export default function PendingScheduledDetails() {
                 </table>
               </div>
             </div>
-            <p id="message-agent">
+            <p
+              id="message-agent"
+              onClick={() => {
+                navigate("/user/chatwithadminuser", {
+                  state: {
+                    agentId: deliveryDetails.delivery_agent_id,
+                    agentName: deliveryDetails.delivery_agent_name,
+                  },
+                });
+              }}
+            >
               Message Agent
               <span>
                 <FontAwesomeIcon icon={faMessage} className="space-icons-1" />

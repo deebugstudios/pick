@@ -59,7 +59,7 @@ export default function UserForm() {
 
           body: JSON.stringify({
             fullname: formData.fullname,
-            phone_no: formData.phone_no,
+            phone_no: `+234${formData.phone_no}`,
             email: formData.email,
           }),
           headers: {

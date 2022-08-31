@@ -55,10 +55,7 @@ import CompletedDeliveriesAgent from "./components/usersFlow/NavsFlow/CompletedD
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
-import ChatAdmin, {
-  UserChatAdmin,
-  UserChatAdmin1,
-} from "./Shadow/Pages/Chatpage/ChatAdmin";
+import UserChatAdmin from "./Shadow/Pages/Chatpage/ChatAdmin";
 import Navsignedin from "./Shadow/javascripts/Navsignedin";
 import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
@@ -87,6 +84,7 @@ import Privacy from "./Shadow/javascripts/Privacy";
 import Change_Number from "./components/Pages/Change_Number";
 import SpecificAgent from "./components/usersFlow/NavsFlow/SpecificAgent";
 import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDetails";
+import ChatPage from "./components/usersFlow/NavsFlow/ChatPage";
 
 export default function App() {
   return (
@@ -272,12 +270,12 @@ export default function App() {
                   />
                 }
               />
-              <Route
+              {/* <Route
                 path="Chatwithadmin"
                 element={
                   <LoggedinMainPage name={<ChatAdmin />} logged={true} />
                 }
-              />
+              /> */}
 
               <Route
                 path="payment-details"

@@ -16,15 +16,62 @@ import { PaystackButton } from "react-paystack";
 
 export default function InstantDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
+
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
   const price = location.state.price;
   const email = location.state.email;
   const name = location.state.name;
   const phone = location.state.number;
+  const vehicle = location.state.deliveryMedium;
   const navigate = useNavigate();
 
   const amount = price * 100;
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_transaction/new_transaction",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            fullname: name,
+            delivery_id: deliveryID,
+            deliivery_medium: vehicle,
+            delivery_agent_id: deliveryDetails.delivery_agent_id,
+            delivery_agent_name: deliveryDetails.delivery_agent_name,
+            amt: price,
+            ref: Date.now(),
+            to_fleet: false,
+            method: "card",
+            status: "Success",
+            fleet_manager_id: 0,
+            parcel_code: deliveryDetails.parcel_code,
+            parcel_name: deliveryDetails.parcel_name,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      // console.log(data);
+
+      if (res.status === 200) {
+        navigate("/paysuccess");
+      } else {
+        // setMessage("An Error occured");
+      }
+    } catch (error) {
+      // console.log(error);
+      // const err = error
+    }
+    setIsSuccess(true);
+  };
 
   const componentProps = {
     email,
@@ -37,9 +84,7 @@ export default function InstantDeliverySummary() {
     className: "paystack-button",
     text: "Proceed to Payment",
     onSuccess: () => {
-      setIsSuccess(true);
-      navigate("/paysuccess");
-      // console.log()
+      handleSubmit();
     },
     // callback: function
     // onFail: () => {},
@@ -59,7 +104,7 @@ export default function InstantDeliverySummary() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
           delivery_id: deliveryID,
         }),
       }

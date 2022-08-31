@@ -10,6 +10,7 @@ import Button from "../../javascript/Button";
 import FormProgress2 from "../../Images/FormProgress2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
+// import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -19,7 +20,50 @@ export default function ScheduledDeliverySummary() {
   const email = location.state.email;
   const name = location.state.name;
   const phone = location.state.number;
+  const vehicle = location.state.deliveryMedium;
   const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_transaction/new_transaction",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            fullname: name,
+            delivery_id: deliveryID,
+            deliivery_medium: vehicle,
+            delivery_agent_id: deliveryDetails.delivery_agent_id,
+            delivery_agent_name: deliveryDetails.delivery_agent_name,
+            amt: price,
+            ref: Date.now(),
+            to_fleet: false,
+            method: "card",
+            status: "Success",
+            fleet_manager_id: 0,
+            parcel_code: deliveryDetails.parcel_code,
+            parcel_name: deliveryDetails.parcel_name,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      // console.log(data);
+      if (res.status === 200) {
+        navigate("/paysuccess");
+      } else {
+        // setMessage("An Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+      // const err = error
+    }
+  };
 
   const amount = price * 100;
 
@@ -33,13 +77,10 @@ export default function ScheduledDeliverySummary() {
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
     className: "paystack-button",
     text: "Proceed to Payment",
+    // callback: function (response) {},
     onSuccess: () => {
-      setIsSuccess(true);
-      navigate("/paysuccess");
-      // console.log()
+      handleSubmit();
     },
-    // callback: function
-    // onFail: () => {},
 
     onClose: () => alert("Wait! Don't leave :("),
   };
@@ -56,7 +97,7 @@ export default function ScheduledDeliverySummary() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmQ2ZmVkOGU1OGEyOTIxN2I0MDRiMjIiLCJwaG9uZV9ubyI6IjgwNzI1ODk2NjQiLCJpYXQiOjE2NTgyNTcxMTJ9.bj4YL5kI9rpWJ7CTbMNiKcT1b26x1S33IPH8R-dc9rw",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
           delivery_id: deliveryID,
         }),
       }
@@ -90,7 +131,9 @@ export default function ScheduledDeliverySummary() {
 
           <div className="delivery-profile">
             <div className="driver-profile-image">
-              <div className="image2">{deliveryDetails.delivery_agent_img}</div>
+              <div className="image2">
+                <img src={deliveryDetails.delivery_agent_img} />
+              </div>
             </div>
             <div className="delivery-profile-details">
               <table>
@@ -155,9 +198,9 @@ export default function ScheduledDeliverySummary() {
                 <img src={Checkout} alt="" />
               </div>
               <h3>Pickup Location </h3>
-              <p>5 Noma Street GRA Edo State</p>
+              <p>{deliveryDetails.pickup_address}</p>
               <h3>Delivery loaction </h3>
-              <p>19 Akpakpava Road Benin City Ed...</p>
+              <p>{deliveryDetails.drop_off_address}</p>
             </div>
           </div>
 

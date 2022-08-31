@@ -5,7 +5,7 @@ import Map from "../../../Shadow/javascripts/Map";
 // import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 import { useLocation } from "react-router-dom";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
-import { Autocomplete } from "@react-google-maps/api";
+import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 
 export default function UserRequestPickup() {
@@ -20,6 +20,8 @@ export default function UserRequestPickup() {
   const [dropLocation, setDropLocation] = useState("");
   const [userDetails, setUserDetails] = useState([]);
   const [senderName, setSenderName] = useState("");
+  // console.log(new Date().getTime());
+  // console.log(Date.now());
 
   const location = useLocation();
   const vehicle = location.state.vehicle;
@@ -37,7 +39,7 @@ export default function UserRequestPickup() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
         }),
       }
     );
@@ -106,8 +108,8 @@ export default function UserRequestPickup() {
 
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    // console.log(distance);
-    // console.log(duration);
+    // console.log(results.routes[0].legs[0]);
+
     const userDistance = results.routes[0].legs[0].distance.text;
     const realDistance = parseFloat(userDistance);
     // console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
@@ -119,11 +121,12 @@ export default function UserRequestPickup() {
 
           body: JSON.stringify({
             token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmZmOWRjMTIwZjFmYzlhNjRjNzg2YjIiLCJwaG9uZV9ubyI6IjgwNjU4Njk1MDEiLCJpYXQiOjE2NjExMDY0MTh9.HJZDyNXDZqIxwgW8jni0RVJalip1jij3TtxELLy0vc8",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
             pickup_location: pickupRef.current.value,
             drop_off_location: destinationRef.current.value,
             distance: realDistance,
             delivery_medium: vehicle,
+            delivery_duration: 23,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -156,6 +159,7 @@ export default function UserRequestPickup() {
     setButtonName("Calculate Route");
     setPrice("");
   };
+  console.log(duration);
 
   const handleNavigate = () => {
     const realDistance = parseFloat(distance);
@@ -212,8 +216,9 @@ export default function UserRequestPickup() {
         <div className="map-container-1">
           <Map
             direct={direction}
+            // {...marker.map()}
             // eslint-disable-next-line
-            mark={new google.maps.LatLng(6, 5)}
+            // mark={new google.maps.LatLng(6, 5)}
           />
         </div>
       </div>
