@@ -42,7 +42,7 @@ const LoggedinMainPageUser = (props) => {
       <div className="user-left-side-main">
         <Navsignedin
           profile={
-            <img src={userDetails.img !== "" ? userDetails.img : null} />
+            <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
           }
         />
       </div>
@@ -50,7 +50,7 @@ const LoggedinMainPageUser = (props) => {
         <div className="sider-group">
           <SideBar
             profile={
-              <img src={userDetails.img !== "" ? userDetails.img : null} />
+              <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
             }
             username={userDetails.fullname}
           />

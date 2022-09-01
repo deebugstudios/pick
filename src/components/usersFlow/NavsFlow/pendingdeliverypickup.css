@@ -8,6 +8,10 @@
   width: 100%;
   margin: 0 auto;
 }
+.h1-center {
+  text-align: center;
+  margin-top: 0 auto;
+}
 .pending-delivery-pickup-slides {
   margin: 0 auto;
   width: 100%;

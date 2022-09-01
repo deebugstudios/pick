@@ -11,6 +11,13 @@
   overflow-x: hidden !important;
   overflow-y: scroll !important;
 }
+.map-container2 {
+  width: 100%;
+  height: 90vh !important;
+  background-color: rgb(232, 244, 227);
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
+}
 .sider-group {
   /* width: 15% !important; */
   z-index: 10000;

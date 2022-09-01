@@ -79,28 +79,34 @@ export default function PendingDeliveryPickup(props) {
         </div>
         <br />
 
-        {pendingDeliveries.map((item) =>
-          toggle === true && item.delivery_type === "instant" ? (
-            <PendingDeliveryList
-              click={() => {
-                navigate("/user/pending-instant", { state: { id: item._id } });
-              }}
-              parcelname={item.parcel_name}
-              parcelcode={item.parcel_code}
-              deliveryimage={item.imgs[0]}
-            />
-          ) : toggle === false && item.delivery_type === "scheduled" ? (
-            <PendingDeliveryScheduled
-              click2={() => {
-                navigate("/user/pending-scheduled", {
-                  state: { id: item._id },
-                });
-              }}
-              parcelname={item.parcel_name}
-              parcelcode={item.parcel_code}
-              deliveryimage={item.imgs[0]}
-            />
-          ) : null
+        {pendingDeliveries.length > 0 ? (
+          pendingDeliveries.map((item) =>
+            toggle === true && item.delivery_type === "instant" ? (
+              <PendingDeliveryList
+                click={() => {
+                  navigate("/user/pending-instant", {
+                    state: { id: item._id },
+                  });
+                }}
+                parcelname={item.parcel_name}
+                parcelcode={item.parcel_code}
+                deliveryimage={item.imgs[0]}
+              />
+            ) : toggle === false && item.delivery_type === "scheduled" ? (
+              <PendingDeliveryScheduled
+                click2={() => {
+                  navigate("/user/pending-scheduled", {
+                    state: { id: item._id },
+                  });
+                }}
+                parcelname={item.parcel_name}
+                parcelcode={item.parcel_code}
+                deliveryimage={item.imgs[0]}
+              />
+            ) : null
+          )
+        ) : (
+          <h1 className="h1-center">No Deliveries Yet</h1>
         )}
         <br />
         <div className="pending-delivery-pickup-entries">

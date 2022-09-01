@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="footer-section1">
         <div className="footer-1">
           <h4>Your Ultimate Logistic Service</h4>
-          <p>We off speed, safety and security of all your items.</p>
+          <p>We offer speed, safety and security of all your items.</p>
         </div>
         <div className="list-items">
           <ul>
@@ -66,7 +66,7 @@ const Footer = () => {
           <div className="list-item-2">
             <ul>
               <li>Contact Us</li>
-              <li>+01 234 567 8910</li>
+              <li>0803 890 6338</li>
               <li>pickload1@gmail.com</li>
             </ul>
           </div>

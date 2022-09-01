@@ -128,7 +128,7 @@ export default function FormUserDelivery() {
     );
     bodyFormData.append("distance", distance);
     bodyFormData.append("fullname", formData.fullname);
-    bodyFormData.append("phone_no", formData.phone_no);
+    bodyFormData.append("phone_no", `0${formData.phone_no}`);
     bodyFormData.append("delivery_type", member);
     bodyFormData.append("delivery_medium", vehicle);
     bodyFormData.append("pickup_location", pickupLocation);
@@ -136,10 +136,7 @@ export default function FormUserDelivery() {
     bodyFormData.append("drop_off_address", drop_off_address);
     bodyFormData.append("drop_off_location", dropOffLocation);
     bodyFormData.append("reciever_name", formData.reciever_name);
-    bodyFormData.append(
-      "reciever_phone_no",
-      `+234${formData.reciever_phone_no}`
-    );
+    bodyFormData.append("reciever_phone_no", `0${formData.reciever_phone_no}`);
     bodyFormData.append("parcel_name", formData.parcel_name);
     bodyFormData.append(
       "parcel_description",

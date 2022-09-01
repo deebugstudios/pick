@@ -117,11 +117,13 @@ export default function UserChatAdmin() {
   useEffect(() => {
     const q = query(collection(db, "messages_collection", convId, convId));
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const list = [];
       QuerySnapshot.forEach((doc) => {
-        const list = [];
         list.push(doc?.data());
-        // console.log(doc.docChanges());
+        // console.log(doc.data());
         setMessageList(list);
+        // setMessageList(messageList);
+        // console.log(list.length);
       });
     });
   }, [isLoaded === true]);

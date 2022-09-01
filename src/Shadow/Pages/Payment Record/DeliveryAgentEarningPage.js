@@ -58,7 +58,7 @@ const DeliveryAgentEarningPage = () => {
     setCname5("week1");
   };
 
-  console.log(week);
+  // console.log(week);
   // console.log(computedYear, computedMonth)
   // console.log(date.getFullYear())
   const value = useContext(RiderContext);
@@ -116,7 +116,7 @@ const DeliveryAgentEarningPage = () => {
   return (
     <div className="iii">
       <div className="profile-page-container">
-        {/* <MainTop riderdata={riderdata} /> */}
+        <MainTop riderdata={riderdata} />
         {loading ? (
           <div className="profile-page-bottom height padding">
             {/* <PaymentWeeks  handleClassName1={handleClassName1} handleClassName2={handleClassName2} handleClassName3={handleClassName3} handleClassName4={handleClassName4} handleClassName5={handleClassName5}/> */}

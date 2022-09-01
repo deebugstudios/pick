@@ -39,13 +39,6 @@ const Privacy = () => {
             otherwise defined in this Privacy Policy.
           </p>
 
-          {/* <p>First name and last name</p>
-                <p>Company name</p>
-                <p>Phone number</p>
-                <p>Address, State, Province, ZIP/Postal code, City</p>
-                <p>Pickup Location</p>
-                <p>Drop off location</p>
-                <p>Product type</p> */}
           <h4>Location Tracking</h4>
           <div className="para-m-bottom">
             <p>
