@@ -127,9 +127,8 @@ export default function IndividualVehicle() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    const formImage = [fullPicture, license, vehicleImage];
-
     e.preventDefault();
+    const formImage = [license, vehicleImage];
     // navigate("/account");
 
     if (license.length === 0) {

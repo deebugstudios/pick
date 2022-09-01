@@ -1,11 +1,14 @@
 .pages {
     background: #FFFFFF;
     height: 130px;
-    padding: 0 20px;
+    padding: 0 18px;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
+    border: 1.5px solid rgba(10, 16, 52, 0.7);
+    border-radius: 5px;
+    outline: none !important;
 }
 .shared-layout {
     background-color: #E8F4E3;
@@ -17,11 +20,24 @@
     line-height: 38px;
     color: rgba(0, 0, 0, 0.6);
 }
+.profile-page-top-container {
+    /* background-color: #E8F4E3; */
+    background-color: white;
+    margin: 0  10px 0px 15px;
+}
+@media screen and (max-width:678px) {
+    .profile-page-top-container {
+        /* background-color: #E8F4E3; */
+        background-color: white;
+        margin: 0 !important;
+    }
+}
 
 .profile-page-top {
     display: grid;
     grid-template-columns:  repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-gap: 18px;
+    background-color: #E8F4E3 ;
 }
 @media screen and (max-width:640px) {
     .profile-page-top {

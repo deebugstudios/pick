@@ -48,9 +48,9 @@ const goBack = () => {
     <MainTop riderdata={riderdata} />
 
     <div className="profile-page-bottom">
-        <div className="back-arrow">
+        {/* <div className="back-arrow">
             <p onClick={goBack}>go back</p> 
-        </div>
+        </div> */}
     <div className="payment-record-container">
       <div className="DA-payment-history">
         <div className="da-payment-props">

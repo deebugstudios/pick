@@ -1,7 +1,9 @@
 .profile-page-container {
-  padding: 10px 15px;
+  /* padding: 10px 15px; */
   background: #e8f4e3;
   width: 100% !important;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 @media screen and (max-width: 700px) {
   .profile-page-container {
@@ -13,19 +15,22 @@
 .profile-page-bottom {
   background-color: #ffffff;
   margin-top: 20px;
+  overflow-y: scroll !important;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .bottom-wrapper {
   padding: 10px;
 }
 .shadow-profile-form input {
-  width: 98%;
+  width: 93%;
   opacity: 0.5;
   border: 1.5px solid rgba(10, 16, 52, 0.7);
   padding: 10px 20px;
   border-radius: 5px;
 }
 .shorter-form {
-  width: 90% !important;
+  width: 93% !important;
 }
 .shadow-profile-form select {
   width: 150px;
@@ -65,7 +70,7 @@
 }
 @media screen and (max-width: 672px) {
   .profile-page-bottom {
-    margin-top: 15px !important;
+    margin: 15px 7px 0 7px !important;
   }
   /* .bottom-wrapper {
     padding: 6px !important;

@@ -50,6 +50,7 @@ export const UseTokenProviderUser = (props) => {
   const [phone_no, setPhone_no] = useState("");
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
+  // const userToken = useMemo(() => ({ token, setToken }), [token, setToken]);
   const [id, setId] = useState("");
   // const userId = useMemo(() => ({ id, setId }), [id, setId]);
 
@@ -95,7 +96,7 @@ export const UseTokenProviderUser = (props) => {
   };
   // const userToken = token;
   // const userId = id;
-
+// console.log(token)
   const userValues = {
     handleLoginSubmit,
     message,
@@ -113,11 +114,21 @@ export const UseTokenProviderUser = (props) => {
 
 export const UseRiderProvider = (props) => {
   const { loading, riderdata, token } = useFetch(url);
+  const [sideBar, setSideBar ]= useState(false)
+  
+
+  const toggleSideBar = () => {
+    setSideBar(!sideBar)
+  }
+
+
   // const token = localStorage.getItem("rubbish")
   const values = {
+    sideBar,
+    toggleSideBar,
     riderdata,
     loading,
-    token,
+    token
   };
 
   return (

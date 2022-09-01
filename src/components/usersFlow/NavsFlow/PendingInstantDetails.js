@@ -116,7 +116,17 @@ export default function PendingInstantDetails() {
             <h2>
               Your Item will arrive at your Location in Approximately 10 minutes{" "}
             </h2>
-            <p id="message-agent">
+            <p
+              id="message-agent"
+              onClick={() => {
+                navigate("/user/chatwithagentuser", {
+                  state: {
+                    agentId: deliveryDetails.delivery_agent_id,
+                    agentName: deliveryDetails.delivery_agent_name,
+                  },
+                });
+              }}
+            >
               Message Agent
               <span>
                 <FontAwesomeIcon icon={faMessage} className="space-icons-1" />

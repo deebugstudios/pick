@@ -1,6 +1,6 @@
 .side-bar {
   /* width: 100% !important; */
-  width: 150px;
+  width: 210px;
   max-width: 900px;
   height: 88vh;
   font-size: 62.5%;
@@ -39,7 +39,7 @@
   color: #666666;
   display: flex;
   align-items: center;
-  font-size: 11px;
+  font-size: 14px;
 }
 .side-bar-links ul >  li:hover {
   background-color: #e8f4e3;

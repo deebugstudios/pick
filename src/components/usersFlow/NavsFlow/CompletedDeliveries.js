@@ -78,7 +78,7 @@ export default function CompletedDeliveries() {
 
   return (
     <section className="user-dashboard pending-delivery specifics">
-      <div className="history-wrapper-1">
+      <div className="history-wrapper-2">
         <div className="pending-delivery-pickup-slides">
           <br />
           <br />

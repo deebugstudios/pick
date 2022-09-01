@@ -53,7 +53,7 @@ export default function PendingScheduledDetails() {
 
   return (
     <section className="user-dashboard pending-delivery specifics">
-      <div className="history-wrapper">
+      <div className="history-wrapper-1">
         <div className="specific-details-section">
           <div
             id="arrow-div"
@@ -130,7 +130,7 @@ export default function PendingScheduledDetails() {
             <p
               id="message-agent"
               onClick={() => {
-                navigate("/user/chatwithadminuser", {
+                navigate("/user/chatwithagentuser", {
                   state: {
                     agentId: deliveryDetails.delivery_agent_id,
                     agentName: deliveryDetails.delivery_agent_name,

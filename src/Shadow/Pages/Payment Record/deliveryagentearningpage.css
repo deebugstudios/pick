@@ -1,11 +1,17 @@
 .padding {
-    padding: 10px 30px;
+    /* padding: 10px 30px;
+     */
+     margin: 10px 15px;
+     padding: 20px 0;
 }
 .total-earnings {
     display: flex;
     justify-content: space-between;
     border-bottom: 0.5px solid #CCCACA;
     padding: 10px 10px;
+}
+.td-style td {
+    font-size: 13px;
 }
 .is-payment {
     background: rgba(196, 196, 196, 0.64);

@@ -32,7 +32,7 @@ export default function WelcomeUser(props) {
           method: "POST",
 
           body: JSON.stringify({
-            phone_no: `+234${phone_no}`,
+            phone_no: phone_no,
           }),
           headers: {
             "Content-Type": "application/json",

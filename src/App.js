@@ -55,7 +55,7 @@ import CompletedDeliveriesAgent from "./components/usersFlow/NavsFlow/CompletedD
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
-import UserChatAdmin from "./Shadow/Pages/Chatpage/ChatAdmin";
+import UserChatAdmin, { ChatAdmin } from "./Shadow/Pages/Chatpage/ChatAdmin";
 import Navsignedin from "./Shadow/javascripts/Navsignedin";
 import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
@@ -183,7 +183,8 @@ export default function App() {
                 />
                 <Route path="user-profile" element={<UsersProfile />} />
                 <Route path="user-logout" element={<Logout />} />
-                <Route path="chatwithadminuser" element={<UserChatAdmin />} />
+                <Route path="chatwithadminuser" element={<ChatAdmin />} />
+                <Route path="chatwithagentuser" element={<UserChatAdmin />} />
                 <Route path="change" element={<Change_Number />} />
               </Route>
 

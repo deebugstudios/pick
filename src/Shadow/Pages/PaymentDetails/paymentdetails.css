@@ -1,13 +1,29 @@
 .payment-details-section {
-  background-color: #e8f4e3;
-  padding: 10px 15px !important;
-  height: 89vh;
+  background-color: white;
+  /* padding: 10px 15px !important; */
+  height: 100%;
   margin: 0px auto;
   width: 100% !important;
   max-width: 1000px;
 }
 .iiii {
-  background-color: #e8f4e3;
+  background-color: white;
+  margin: 10px 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.iii {
+  background-color: white;
+  margin: 10px 20px;
+}
+
+@media screen and (max-width:678px) {
+  .iiii {
+    margin: 10px 8px !important;
+  }
+  .iii {
+    margin: 10px 8px !important;
+  }
 }
 .red-message {
   color: red;
@@ -27,7 +43,6 @@ button:disabled {
 .payment-details-wrapper {
   background-color: white;
   height: 100%;
-  padding: 28px 20px;
   /* overflow-y: scroll; */
   overflow-x: hidden;
   position: relative;
@@ -39,8 +54,10 @@ button:disabled {
   display: block;
 }
 .payment-details-form {
-  margin: auto 0;
-  height: 70vh;
+  /* margin: auto 0; */
+  padding: 50px 10px 0 10px;
+  
+  height: 100%;
   overflow: hidden;
 }
 .payment-details-form input {

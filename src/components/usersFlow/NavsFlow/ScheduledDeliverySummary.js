@@ -113,7 +113,7 @@ export default function ScheduledDeliverySummary() {
 
   return (
     <section className="user-dashboard pending-delivery specifics">
-      <div className="history-wrapper">
+      <div className="history-wrapper-1">
         <div className="specific-details-section">
           <div id="btn-proceed">
             <h2>Delivery Summary</h2>

@@ -11,10 +11,13 @@ const PaymentDetails = () => {
   const [accountNumber, setAccountNumber] = useState(bank_details?.account_no);
   const [accountType, setAccountType] = useState(bank_details?.account_type);
   const [bvn, setBvn] = useState(bank_details?.bvn);
-
+  
   const navigate = useNavigate()
   const handleClick =()=> {
     navigate("/change-payment-details")
+  }
+  if (!riderdata){
+    navigate("/welcome-agent")
   }
   return (
     <div className="iiii">

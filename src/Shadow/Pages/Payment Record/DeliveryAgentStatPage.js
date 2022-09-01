@@ -11,6 +11,7 @@ export default function DeliveryAgentStatPage() {
   const { riderdata} = value;
   const {no_accepted_deliveries, no_completed_deliveries, no_declined_deliveries, no_cancelled_deliveries } = riderdata
   return (
+    <div className="iii">
     <div className="profile-page-container">
     <MainTop riderdata={riderdata}/>
     <div className="profile-page-bottom height">
@@ -57,6 +58,7 @@ export default function DeliveryAgentStatPage() {
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
   );

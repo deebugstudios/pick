@@ -51,7 +51,7 @@ export default function UserScheduledDeliveryHistory() {
 
   return (
     <section className="user-dashboard pending-delivery specifics">
-      <div className="history-wrapper">
+      <div className="history-wrapper-1">
         <div className="specific-details-section">
           <div
             id="arrow-div"

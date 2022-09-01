@@ -155,14 +155,21 @@
   line-height: 15px;
   padding: 0.9em 0.7em;
   max-width: 70%;
-  background: rgba(218, 218, 218, 0.3);
+
   border-radius: 8px;
   margin-bottom: 10px;
+  color: white;
+}
+.incoming-msgs p {
+  background: grey;
 }
 .incoming-msgs {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.outgoing-msgs p {
+  background-color: green;
 }
 .outgoing-msgs {
   display: flex;

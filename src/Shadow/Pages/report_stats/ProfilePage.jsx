@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 const ProfilePage = () => {
   const value = useContext(RiderContext);
   const { riderdata } = value;
-  console.log(riderdata?.fullname)
+  // console.log(riderdata?.fullname)
   // console.log(JSON.parse(riderdata.phone_no) , riderdata.phone_no);
 
   const [formData, setFormData] = useState({
@@ -78,10 +78,11 @@ const ProfilePage = () => {
       );
     }
   );
-
+// console.log(riderdata?.delivery_agent_code)
   // console.log(ridervechile)
   return (
     // <div className="white">
+    <div className="iii">
     <div className=" profile-page-container">
       <MainTop riderdata={riderdata} />
       <div className="profile-page-bottom">
@@ -205,7 +206,7 @@ const ProfilePage = () => {
                 type="text"
                 name="agentId"
                 id=""
-                value={riderdata?.delivery_agent_code}
+                value={riderdata?.delivery_agent_code || "No Agent ID"}
                 disabled
               />{" "}
               <br />
@@ -265,7 +266,7 @@ const ProfilePage = () => {
       </div>
       <Outlet />
     </div>
-    // </div>
+   </div>
   );
 };
 

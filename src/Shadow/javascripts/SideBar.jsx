@@ -17,6 +17,7 @@ import reporticon from '../images/reporticon.png'
 import { Link, NavLink, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const SideBar = (props) => {
   const value = useContext(RiderContext);
@@ -52,7 +53,7 @@ const SideBar = (props) => {
                 <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/agent-profile" onClick={props.toggler}>
                 <div className="side-bar-profile-details">
                     <div className="side-bar-profile-img skeleton">
-                        <img src={riderdata?.img_url} alt="profile image" />
+                     {loading ?   <ClipLoader color={"#1AA803"} loading={loading} cssOverride={{margin:"10px 10px"}} size={30} /> : <img src={riderdata?.img_url}  /> }  
                     </div>
                     <div className="side-bar-profile-name">
                       <h5>{riderdata?.fullname}</h5>

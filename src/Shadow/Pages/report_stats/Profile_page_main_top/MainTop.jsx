@@ -10,12 +10,14 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export const MainTop = (props) => {
-  const { fleet_manager_vehicles, rating, 
+  const { fleet_manager_vehicles , rating, 
     delivery_agent_type } = props?.riderdata;
   // const {no_of_bikes, no_of_buses, no_of_cars, no_of_trucks} = fleet_manager_vehicles;
   // const {total_rating} = rating
   // const [fleetManger, setFleetManger] = useState(true);
+  // console.log(delivery_agent_type)
   return (
+    <div className="profile-page-top-container">
     <div className="profile-page-top">
     <Link to = "/agent-profile">
       <div className="pages">
@@ -105,12 +107,12 @@ export const MainTop = (props) => {
           </div>
           <div className="transportations">
             <ul>
-              <li>{fleet_manager_vehicles?.no_of_bikes} Bikes</li>
-              <li>{fleet_manager_vehicles?.no_of_cars} Cars</li>
+              <li>{fleet_manager_vehicles && fleet_manager_vehicles?.no_of_bikes} Bikes</li>
+              <li>{fleet_manager_vehicles && fleet_manager_vehicles?.no_of_cars} Cars</li>
             </ul>
             <ul>
-              <li>{fleet_manager_vehicles?.no_of_buses} Buses</li>
-              <li>{fleet_manager_vehicles?.no_of_trucks} Trucks</li>
+              <li>{fleet_manager_vehicles && fleet_manager_vehicles?.no_of_buses} Buses</li>
+              <li>{fleet_manager_vehicles && fleet_manager_vehicles?.no_of_trucks} Trucks</li>
             </ul>
           </div>
         </div>
@@ -131,6 +133,7 @@ export const MainTop = (props) => {
       )}
 
       <Outlet/>
+    </div>
     </div>
   );
 };

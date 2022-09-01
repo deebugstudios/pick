@@ -96,15 +96,14 @@ export default function FormUserDelivery() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (deliveryFiles == []) {
-      setFileError("Please Upload a Picture");
-    }
-
-    if (!instructions) {
-      setInstructions("No delivery instructions set");
-    }
-
     const validate = (data) => {
+      if (deliveryFiles == []) {
+        setFileError("Please Upload a Picture");
+      }
+
+      if (!instructions) {
+        setInstructions("No delivery instructions set");
+      }
       const errors = {};
       if (!data.reciever_name) {
         errors.reciever_name = "Receiver name must be filled!";

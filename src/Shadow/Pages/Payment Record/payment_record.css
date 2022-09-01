@@ -96,7 +96,7 @@
   flex-direction: row;
   justify-content: center;
   margin-bottom: 20px;
-  font-size: 12px;
+  /* font-size: 12px; */
   font-weight: 400;
 }
 .week1 {
@@ -109,17 +109,28 @@
 .week4,
 .week5 {
   border: 1px solid #1aa803;
-  padding-left: 30px;
-  padding-right: 30px;
   border-radius: 5px;
-  height: 28px;
+  height: 24px !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-right: 2px;
   cursor: pointer;
+  font-size: 8px;
+  padding: 8px 12px;
 }
-
+@media screen and (min-width:500px) {
+  .week1,
+.week2,
+.week3,
+.week4,
+.week5 {
+  height: 28px !important;
+  margin-right: 10px !important;
+  font-size: 13px !important;
+  padding: 10px 15px !important;
+}
+}
 .week2,
 .week3,
 .week4,
@@ -174,7 +185,6 @@
   display: grid;
   place-items: center;
   margin-bottom: 10px;
-  visibility: hidden;
 }
 .table-data {
   margin: 0 !important;

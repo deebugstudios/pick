@@ -33,7 +33,7 @@ const LoggedinMainPage = (props) => {
           </div>
         ) : null}
 
-        <div className="map-container">{props.name}</div>
+        <div className="map-container1">{props.name}</div>
       </div>
     </section>
   );

@@ -1,7 +1,8 @@
-.user-dashboard {
+/* .user-dashboard {
   display: flex;
-  /* flex-direction: column; */
-}
+  background-color: none; */
+/* flex-direction: column; */
+/* } */
 .green {
   color: var(--maincolor);
 }
