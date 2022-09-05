@@ -7,12 +7,14 @@ import { MainTop } from "../report_stats/Profile_page_main_top/MainTop";
 import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 import profileimage from '../../images/profileimage.png'
+import  ClipLoader  from "react-spinners/ClipLoader";
+
 export default function Individual_records() {
   const [loading, setLoading]= useState(true)
   const [data, setData] = useState([])
   const location = useLocation();
     const value = useContext(RiderContext);
-    const { riderdata} = value;
+    const { token, riderdata} = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
 
@@ -28,30 +30,41 @@ export default function Individual_records() {
   // };
 
   const DeliveryAgent_id = location.state.id;
-
+  const computedYear = location.state.year;
+  const week = location.state.week;
+  const computedMonth = location.state.month
 
 // console.log(DeliveryAgent_id)
 
 const fetchDeliveryDetails = async () => {
   try {
     const res = await fetch(
-      "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_earnings/view_fleet_manager_delivery_agent",
+      "https://ancient-wildwood-73926.herokuapp.com/view_fleet_manager_delivery_agent_earnings",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9ubyI6IisyMzQ4MTMwNDM5ODM0IiwiX2lkIjoiNjMwMjllOGJkNzMyNWNjMWMzZjFmYWE0IiwiaWF0IjoxNjYxMzM0NzIyfQ.lJqklLaU1XWNjHGc105Iy724DEnLcV64ADbpPSzQlbw",
+          token: JSON.parse(token),
             delivery_agent_id: DeliveryAgent_id,
+            year: computedYear,
+            month: computedMonth,
+            week: week
         }),
       }
     );
     const data = await res.json();
-    const results = await data;
-    setData(results?.delivery_agent?.[0]);
-    setLoading(false);
+
+      if(res.status === 200){
+        const results = await data;
+        console.log(results)
+        // setData(results?.delivery_agent?.[0]);
+        setLoading(false);
+      }else{
+          console.log("some error occurred")
+          setLoading(false)
+      }
   } catch (err) {
     console.log(err);
   }
@@ -66,9 +79,21 @@ useEffect(() => {
   }
   
   return (
+    <div className="iii">
     <div className="profile-page-container">
-    {/* <MainTop/> */}
-    <div className="profile-page-bottom">
+    <MainTop riderdata={riderdata}/>
+    {loading ? 
+    (
+      <h1 style={{
+        display: "flex",
+        aligneItem: "center",
+        justifyContent: "center"
+      }} >
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        </h1>
+    ): 
+    (
+      <div className="profile-page-bottom">
         <div className="back-arrow">
                <p onClick={goBack}>go back</p> 
         </div>
@@ -79,11 +104,11 @@ useEffect(() => {
         <div className="delivery-profile">
             <div className="driver-profile-image">
               <div className="image">
-                <img src={data?.vehicle_details?.img_urls?.[0]} alt="profile image" />
+                {/* <img src={data?.vehicle_details?.img_urls?.[0]} alt="profile image" /> */}
               </div>
             </div>
             <div className="delivery-profile-details">
-                  <h3 className="earnings-h3">{data?.fullname}</h3>
+                  {/* <h3 className="earnings-h3">{data?.fullname}</h3> */}
               <table className="earning-first-table">
             
                 <tr>
@@ -92,15 +117,15 @@ useEffect(() => {
                 </tr>
                 <tr>
                   <th>Vehicle type:</th>
-                  <td>{data?.vehicle_details.type}</td>
+                  {/* <td>{data?.vehicle_details.type}</td> */}
                 </tr>
                 <tr>
                   <th>Plate number:</th>
-                  <td> {data?.vehicle_details.plate_no}</td>
+                  {/* <td> {data?.vehicle_details.plate_no}</td> */}
                 </tr>
                 <tr>
                   <th>Phone Number:</th>
-                  <td> {data?.phone_no}</td>
+                  {/* <td> {data?.phone_no}</td> */}
                 </tr>
                 <tr>
                   <th>Weeks Earning:</th>
@@ -171,6 +196,9 @@ useEffect(() => {
               </tbody>
             </table>
           </div>
+    </div>
+    )
+    }
     </div>
     </div>
   );

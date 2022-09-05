@@ -12,6 +12,17 @@
   /* max-width: 70vw; */
   padding: 3px;
 }
+.mainBox-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  margin: 0 auto 0 auto;
+  width: fit-content;
+  /* max-width: 70vw; */
+}
 #DeliveryImage {
   text-align: left;
   color: white;
@@ -142,7 +153,8 @@
 }
 
 @media screen and (max-width: 510px) {
-  .mainBox {
+  .mainBox,
+  .mainBox-1 {
     box-shadow: none;
     border: none;
     padding: 0px;

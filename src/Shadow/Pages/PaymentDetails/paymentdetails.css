@@ -7,17 +7,23 @@
   max-width: 1000px;
 }
 .iiii {
-  /* background-color: white; */
+  background-color: white;
   margin: 10px 20px;
   height: 100%;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .iii {
-  /* background-color: white; */
+  background-color: white;
   margin: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (max-width: 678px) {
+@media screen and (max-width:678px) {
   .iiii {
     margin: 10px 8px !important;
   }
@@ -56,7 +62,7 @@ button:disabled {
 .payment-details-form {
   /* margin: auto 0; */
   padding: 50px 10px 0 10px;
-
+  
   height: 100%;
   overflow: hidden;
 }

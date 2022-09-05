@@ -4,7 +4,7 @@ import './deliveryimages.css'
 export const DeliveryImages = (props) => {
   // console.log(props)
   return (
-    <div className='delivery-imgs' key={props.index}>
+    <div className='delivery-imgs'>
         <img src={props.rectangle} />
     </div>
   )

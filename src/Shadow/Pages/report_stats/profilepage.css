@@ -18,19 +18,107 @@
   overflow-y: scroll !important;
   margin-left: 15px;
   margin-right: 15px;
+  overflow-x: hidden !important;
 }
 .bottom-wrapper {
   padding: 10px;
+  position: relative;
+}
+.profile-image-wrapper1{
+  position: relative;
+}
+.profile-image-wrapper1 img:hover{
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  opacity: 0.5;
+}
+
+#imageSelect, .imageSelect {
+  width: 5px !important;
+  height: 4px !important;
+  margin-left: -100%;
+}
+
+.driverLicenseSelect-div {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  /* justify-content: space-between; */
+}
+.driverLicenseSelect {
+  width:45px;
+  height:45px;
+}
+.driverLicenseSelect img {
+  width: 100%;
+  height: 100%;
+}
+.shadow-image {
+  display: flex;
+  justify-content: center;
+}
+.driverLicenseSelect-span {
+ font-size: 12px;
+ font-weight: 500;
+ padding-left: 15px;
+}
+@media screen and (min-width:890px) {
+  .driverLicenseSelect-span {
+    font-size: 15px;
+   }
+   .driverLicenseSelect {
+    width:60px;
+    height:60px;
+  }
+}
+
+.profile-image-wrapper1:hover .camera{
+  display: block !important;
+}
+
+#profile-picture-merge2 {
+  margin-top: 10px;
+  
+}
+.shadow-user-image {
+  margin: 0 auto;
+  width: 170px; 
+  height: 170px;
+  border-radius: 50%;
+  border: 4px solid #1ca905;
+  overflow: hidden;
+  margin-top: 20px;
+  position: relative;
+}
+.shadow-user-image > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 15px;
+}
+.camera {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: yellow;
+  position: absolute;
+  bottom: 50;
+  right: 50;
+  z-index: 1000000000000;
+  display: none;
+}
+.camera > img{
+  width: 100%;
+  height: 100%;
 }
 .shadow-profile-form input {
-  width: 93%;
+  width: 83% !important;
   opacity: 0.5;
   border: 1.5px solid rgba(10, 16, 52, 0.7);
   padding: 10px 20px;
   border-radius: 5px;
 }
 .shorter-form {
-  width: 93% !important;
+  width: 85% !important;
 }
 .shadow-profile-form select {
   width: 150px;
@@ -76,7 +164,7 @@
     padding: 6px !important;
   } */
   .shorter-form {
-    width: 85% !important;
+    width: 82% !important;
   }
   .shadow-profile-form input {
     padding: 8px 18px !important;
@@ -98,10 +186,11 @@
     padding: 5px !important;
   } */
   .shorter-form {
-    width: 83% !important;
+    width: 80% !important;
   }
   .shadow-profile-form input {
     padding: 7px 16px !important;
+    width: 80% !important;
   }
   .profile-confirm-btns {
     margin-top: 17px !important;
@@ -223,6 +312,7 @@
   margin-bottom: 10px;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .front-side,

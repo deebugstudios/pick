@@ -19,7 +19,7 @@ const Main = () => {
       <div className="scroll-main">
         <img src={reddots} alt="" className="red-dots" />
         <img src={greendots} alt="" className="green-dots" />
-        <div className="main-container">
+        <div className="main-container" style={{backgroundColor:"white"}}>
           <div className="main-left-side">
             <div className="left-side-container">
               <div className="header-text">

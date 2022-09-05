@@ -45,9 +45,9 @@ const Navsignedin = (props) => {
           </ul>
         </div>
         <div className="profile">
-          <div className="profile-img-1">
-            <Link to="/user/user-profile">{props.profile}</Link>
-          </div>
+          <Link to="/user/user-profile">
+            <div className="profile-img-1">{props.profile}</div>
+          </Link>
           <FontAwesomeIcon icon={faBell} />
         </div>
       </div>

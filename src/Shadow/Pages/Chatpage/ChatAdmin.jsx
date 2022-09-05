@@ -16,9 +16,9 @@ import {
   doc,
   getDocs,
   QuerySnapshot,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
-import { async } from "@firebase/util";
 
 export default function UserChatAdmin() {
   const location = useLocation();
@@ -26,13 +26,64 @@ export default function UserChatAdmin() {
   const agentName = location.state.agentName;
   const [isLoaded, setIsLoaded] = useState(false);
   const [messageList, setMessageList] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userImg, setUserImg] = useState("");
+  const [userId, setUserId] = useState("");
 
   const [convId, setConvId] = useState("");
   const [content, setContent] = useState("");
   const [new_conv, setNew_conv] = useState(undefined);
 
-  const handleSubmit = async () => {
+  const fetchUserDetails = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+        }),
+      }
+    );
+    const data = await res.json();
+    // setLoading(false);
+    setUserDetails(data?.user);
+    setUserName(data?.user.fullname);
+    setUserImg(data?.user.img);
+    setUserId(data?.user._id);
+  };
+
+  const fetchConversations = async () => {
+    const response = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_chat/get_conversations",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (content === "") {
+      return;
+    }
     if (new_conv === true || convId === "a") {
+      const contentToDB = content;
+      setContent("");
+      // console.log;
       try {
         const res = await fetch(
           "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
@@ -42,10 +93,10 @@ export default function UserChatAdmin() {
               token:
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
               receiver_id: agentId,
-              sender_name: "Nedu",
+              sender_name: userName,
               new_conv: true,
-              sender_img: "",
-              content: content,
+              sender_img: userImg,
+              content: contentToDB,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -55,26 +106,63 @@ export default function UserChatAdmin() {
         );
         const data = await res.json();
         console.log(data);
-        if (data.msg === "Success") {
-          setConvId(data.conversation_id);
+        if (data.msg === "Message sent") {
+          setConvId(data.message.conversation_id);
           setNew_conv(false);
-        } else if (data.msg === "No conversation found") {
-          setConvId("a");
-          setNew_conv(true);
-          // setIsLoaded(true);
         }
+        await setDoc(
+          doc(db, "messages_collection", convId, convId, `${Date.now()}`),
+          {
+            content: contentToDB,
+            conv_id: convId,
+            receiver_id: agentId,
+            sender_id: userId,
+            sender_img: userImg,
+            sender_name: userName,
+            timestamp: Date.now(),
+          }
+        );
       } catch (error) {
-        // console.log(error);
+        console.log(error);
         // const err = error
       }
+    } else {
+      const contentToDB = content;
+      // const timestamp = Date.now()
+      setContent("");
+      await setDoc(
+        doc(db, "messages_collection", convId, convId, `${Date.now()}`),
+        {
+          content: contentToDB,
+          conv_id: convId,
+          receiver_id: agentId,
+          sender_id: userId,
+          sender_img: userImg,
+          sender_name: userName,
+          timestamp: Date.now(),
+        }
+      );
+      await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            receiver_id: agentId,
+            sender_name: userName,
+            new_conv: false,
+            sender_img: userImg,
+            content: contentToDB,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
     }
   };
-
-  // const handleStream = async (e) => {
-  //   console.log(convId);
-  //   e.preventDefault();
-  //   ;
-  // };
 
   const handleContent = (e) => {
     setContent(e.target.value);
@@ -107,33 +195,32 @@ export default function UserChatAdmin() {
         setConvId("a");
         setNew_conv(true);
         // setIsLoaded(true);
+        // setIsLoaded(true);
       }
-    } catch (error) {
-      // console.log(error);
-      // const err = error
-    }
+    } catch (error) {}
   };
 
-  useEffect(() => {
-    const q = query(collection(db, "messages_collection", convId, convId));
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      const list = [];
-      QuerySnapshot.forEach((doc) => {
-        list.push(doc?.data());
-        // console.log(doc.data());
-        setMessageList(list);
-        // setMessageList(messageList);
-        // console.log(list.length);
-      });
+  // useEffect(() => {
+  const q = query(collection(db, "messages_collection", convId, convId));
+  const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+    const list = [];
+    QuerySnapshot.forEach((doc) => {
+      list.push(doc?.data());
+      setMessageList(list);
     });
-  }, [isLoaded === true]);
+  });
+  console.log(messageList);
+  if (isLoaded === false) {
+    unsubscribe();
+  }
+  // }, [isLoaded === true]);
 
-  // console.log(agentId);
   useEffect(() => {
     handleCheck();
+    fetchUserDetails();
+    fetchConversations();
   }, []);
 
-  // console.log(messageList);
   if (convId === "a") {
     return (
       <section className="user-dashboard chat-admin">
@@ -192,14 +279,14 @@ export default function UserChatAdmin() {
         </div>
       </section>
     );
-  } else if (convId.length > 1)
+  } else if (convId.length > 0)
     return (
       <section className="user-dashboard chat-admin">
         <div className="chat-wrapper">
           <div className="chat-left-side">
             <div className="chat-left-side-top">
-              <h5>New (4)</h5>
-              <div className="Chat-profile active-chat">
+              <h5>New</h5>
+              {/* <div className="Chat-profile active-chat">
                 <ProfilePix />
                 <div className="chat-report">
                   <p className="time-of-msg">3 mins ago</p>
@@ -209,15 +296,15 @@ export default function UserChatAdmin() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras.
                 </p>
                 <p className="no-of-messages">1</p>
-              </div>
+              </div> */}
             </div>
-            <div className="chat-left-side-bottom">
+            {/* <div className="chat-left-side-bottom">
               <h5>RESOLVED (16)</h5>
               <div className="resovled-chat chat-margin">
                 <p>1:32 PM 04/20</p>
                 <ProfilePix />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="chat-right-side">
@@ -274,7 +361,7 @@ export const ChatAdmin = () => {
     <section className="user-dashboard chat-admin">
       <div className="chat-wrapper">
         <div className="chat-left-side">
-          <div className="chat-left-side-top">
+          {/* <div className="chat-left-side-top">
             <h5>New (4)</h5>
             <div className="Chat-profile">
               <div>
@@ -282,7 +369,6 @@ export const ChatAdmin = () => {
               </div>
               <div className="chat-report">
                 <p className="time-of-msg">now</p>
-                {/* <img src={report} alt="report flag" /> */}
               </div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras.
@@ -300,8 +386,8 @@ export const ChatAdmin = () => {
               </p>
               <p className="no-of-messages">1</p>
             </div>
-          </div>
-          <div className="chat-left-side-bottom">
+          </div> */}
+          {/* <div className="chat-left-side-bottom">
             <h5>RESOLVED (16)</h5>
             <div className="resovled-chat chat-margin">
               <p>1:32 PM 04/20</p>
@@ -319,21 +405,19 @@ export const ChatAdmin = () => {
               <p>1:32 PM 04/20</p>
               <ProfilePix />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="chat-right-side">
           <div className="your-profile">
-            <h3>Andrew Olatunji</h3>
-            <h6>andrewtunji@gmail.com</h6>
+            <h3>Admin</h3>
+            {/* <h6>andrewtunji@gmail.com</h6> */}
           </div>
           <div className="message-header">
-            <h6>
-              Conversations <img src={report} alt="report flag" />{" "}
-            </h6>
+            <h6>Conversations</h6>
           </div>
           <div className="messages-wrapper">
             <p className="date-of-msg">TODAY MARCH 23</p>
-            <div className="incoming-msgs">
+            {/* <div className="incoming-msgs">
               <p>I am reporting Delivery “ID 879709” for “Item Seal Broken”</p>
               <p>
                 Good afternoon Andrew, your report has been recorded and would
@@ -366,7 +450,7 @@ export const ChatAdmin = () => {
                 be reviewed by the admin.
               </p>
               <p>hi</p>
-            </div>
+            </div> */}
             <div className="chat-section">
               <div className="typing-bar">
                 <input type="text" placeholder="Type your message here" />

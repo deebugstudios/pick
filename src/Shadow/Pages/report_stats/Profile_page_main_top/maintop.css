@@ -20,6 +20,12 @@
     line-height: 38px;
     color: rgba(0, 0, 0, 0.6);
 }
+
+.special-h3 {
+ display: flex;
+align-self: flex-start;
+padding-top: 10px;
+}
 .profile-page-top-container {
     /* background-color: #E8F4E3; */
     background-color: white;

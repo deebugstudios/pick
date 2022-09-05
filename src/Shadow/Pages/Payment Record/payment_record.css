@@ -1,8 +1,8 @@
-.payment-record-container {
+/* .payment-record-container {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 /* .DA-payment-history{
     width: 80%; */
 /* margin-left: 18.6%;
@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-size: 17px;
+  font-size: 8px;
   margin-bottom: 20px;
   margin-top: 20px;
 }
@@ -70,14 +70,15 @@
 .buses,
 .truck {
   border: 1px solid #1aa803;
-  padding: 0px 30px;
-  height: 28px;
+  border-radius: 5px;
+  height: 24px !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 2px;
   cursor: pointer;
+  font-size: 8px;
+  padding: 8px 12px;
 }
 /* styling for the non selected button */
 .not-active-record {
@@ -125,6 +126,18 @@
 .week3,
 .week4,
 .week5 {
+  height: 28px !important;
+  margin-right: 10px !important;
+  font-size: 13px !important;
+  padding: 10px 15px !important;
+}
+.payment-to {
+  font-size: 13px;
+}
+.bikes,
+.cars,
+.buses,
+.truck {
   height: 28px !important;
   margin-right: 10px !important;
   font-size: 13px !important;
@@ -186,9 +199,13 @@
   place-items: center;
   margin-bottom: 10px;
 }
+.record-date input {
+ width: 60%;
+}
 .table-data {
   margin: 0 !important;
   width: 100%;
+  padding: 2px 26px;
 }
 .table-data tr td button {
   border: none;
@@ -203,11 +220,29 @@
 .table-data tr td {
   font-size: 11px !important;
   opacity: 1 !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   padding: 5px 0;
   border-bottom: 0.5px solid #cccaca;
 }
 
+@media screen and (min-width:500px) {
+  .table-data thead th {
+    font-size: 14px !important;
+  }
+  .table-data tr td {
+    font-size: 13px !important;
+  }
+  
+}
+@media screen and (min-width:950px) {
+  .table-data thead th {
+    font-size: 16px !important;
+  }
+  .table-data tr td {
+    font-size: 15px !important;
+  }
+  
+}
 .table-data tr td,
 .table-data thead th {
   text-align: center;
@@ -216,7 +251,7 @@
 .not-paid {
   color: rgba(0, 0, 0, 0.6);
   /* padding: 2px 0px; */
-  width: 50%;
+  width: 60%;
   font-size: 10px;
   font-weight: 600;
 }

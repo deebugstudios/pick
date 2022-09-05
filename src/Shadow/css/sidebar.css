@@ -30,7 +30,7 @@
 /* .side-bar-links ul:last-child {
   font-size: 1rem;
 } */
-.side-bar-links ul  li {
+.side-bar-links ul li {
   padding: 20px 9px;
 }
 
@@ -39,9 +39,9 @@
   color: #666666;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  /* font-size: 14px; */
 }
-.side-bar-links ul >  li:hover {
+.side-bar-links ul > li:hover {
   background-color: #e8f4e3;
 }
 .side-bar-profile-details {
@@ -65,7 +65,7 @@
   height: 100%;
 }
 .side-bar-profile-name h5 {
-  font-size: 13px !important;
+  /* font-size: 13px !important; */
   font-weight: 500;
 }
 .side-bar-profile-name p {
@@ -77,10 +77,10 @@
     width: 40px;
     height: 40px;
   }
-  .side-bar-links ul >  li {
+  .side-bar-links ul > li {
     padding: 7px 12px;
   }
-  
+
   .side-bar-links ul li {
     cursor: pointer;
     color: #666666;

@@ -15,7 +15,7 @@ export default function DeliveryAgentStatPage() {
     <div className="profile-page-container">
     <MainTop riderdata={riderdata}/>
     <div className="profile-page-bottom height">
-    <h3><input type="date" name="" id="" className="width-small"/></h3>
+    {/* <h3><input type="date" name="" id="" className="width-small"/></h3> */}
         <div className="fleet-manager-stats">
             <div className="deliveries">
                 <div className="delivery-stats payment-stat-details">

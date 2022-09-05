@@ -127,6 +127,7 @@ export default function FormUserDelivery() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis"
     );
     bodyFormData.append("distance", distance);
+    bodyFormData.append("email", "nanagwonye@gmail.com");
     bodyFormData.append("fullname", formData.fullname);
     bodyFormData.append("phone_no", `0${formData.phone_no}`);
     bodyFormData.append("delivery_type", member);

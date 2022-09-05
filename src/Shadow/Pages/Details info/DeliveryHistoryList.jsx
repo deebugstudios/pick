@@ -9,12 +9,16 @@ export const DeliveryHistoryList = (props) => {
   return (
     <div className="pending-delivery-pickup-details-Container">
       <div className="pending-delivery-pickup-details-wrapper">
-        <div className="pending-delivery-pickup-detail" key={props.index}>
+        <div className="pending-delivery-pickup-detail" >
           <div className="pending-delivery-pickup-left">
             <div className="pending-delivery-pickup-img">
               <img src={props?.deliveryimage} alt="" />
             </div>
-            <table>
+            <div className="history-list-div">
+              <h3 className="history-list-h3"> Item Name : <span className="history-list-span"> {props?.parcelname}</span> </h3>
+              <h3 className="history-list-h3"> Delivery ID : <span className="history-list-span"> {props?.parcelcode}</span> </h3>
+            </div>
+            {/* <table>
               <tr>
                 <th>Item Name:</th>
                 <td>{props?.parcelname}</td>
@@ -23,7 +27,7 @@ export const DeliveryHistoryList = (props) => {
                 <th>Delivery ID:</th>
                 <td>{props?.parcelcode}</td>
               </tr>
-            </table>
+            </table> */}
           </div>
           <div className="pending-delivery-pickup-action">
             <div className="icon-img">

@@ -65,7 +65,7 @@ export default function PendingInstantDetails() {
     return <h1>Loading</h1>;
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics">
+      <section className="user-dashboard pending-delivery specifics no-max">
         <div className="pending-delivery-specifics-wrapper">
           <div className="pending-delivery-pickup-slide">
             <div
@@ -144,7 +144,7 @@ export default function PendingInstantDetails() {
 
             <h3>Delivery Details</h3>
 
-            <div className="delivery-profile">
+            <div className="delivery-profile" style={{ width: "50%" }}>
               <div className="driver-profile-image">
                 <div className="image">
                   <img src={deliveryDetails.delivery_agent_img} />{" "}

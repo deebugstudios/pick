@@ -44,15 +44,15 @@ const goBack = () => {
 
 
   return (
+      <div className="iii">
     <div className="profile-page-container">
     <MainTop riderdata={riderdata} />
-
     <div className="profile-page-bottom">
         {/* <div className="back-arrow">
             <p onClick={goBack}>go back</p> 
         </div> */}
     <div className="payment-record-container">
-      <div className="DA-payment-history">
+      {/* <div className="DA-payment-history"> */}
         <div className="da-payment-props">
           <div className="payment-to">
             <div className="toggle-div">
@@ -74,7 +74,8 @@ const goBack = () => {
           </div>
           {listItem}
         </div>
-      </div>
+        </div>
+      {/* </div> */}
     </div>
     </div>
     </div>

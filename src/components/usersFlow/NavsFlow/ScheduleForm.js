@@ -185,6 +185,7 @@ export default function ScheduleForm() {
       "reciever_phone_no",
       `+234${formData.reciever_phone_no}`
     );
+    bodyFormData.append("email", "nanagwonye@gmail.com");
     bodyFormData.append("parcel_name", formData.parcel_name);
     bodyFormData.append(
       "parcel_description",

@@ -14,7 +14,7 @@ export default function CompletedDeliveries() {
   const [completedDeliveries, setCompletedDeliveries] = useState([]);
   const [cancelledDeliveries, setCancelledDeliveries] = useState([]);
   const navigate = useNavigate();
-
+  const [searchItems, setSearchItems] = useState("");
   const search = `${faSearch} Nike Boots`;
 
   const fetchCompletedDeliveries = async () => {
@@ -77,7 +77,7 @@ export default function CompletedDeliveries() {
   };
 
   return (
-    <section className="user-dashboard pending-delivery specifics">
+    <section className="user-dashboard pending-delivery specifics no-max">
       <div className="history-wrapper-2">
         <div className="pending-delivery-pickup-slides">
           <br />
@@ -106,47 +106,76 @@ export default function CompletedDeliveries() {
           {/* </input> */}
         </div>
         <div className="search-box-container">
-          <input type="text" placeholder="Search" className="search-box-1" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="search-box-1"
+            onChange={(e) => setSearchItems(e.target.value)}
+          />
         </div>
 
         {toggle === true
-          ? completedDeliveries.map((pObj) => (
-              <InstantHistoryList
-                // click={handleClick}
-                click={
-                  pObj.delivery_type === "instant"
-                    ? () => {
-                        navigate("/user/user-instant", {
-                          state: { id: pObj._id },
-                        });
-                      }
-                    : pObj.delivery_type === "scheduled"
-                    ? () => {
-                        navigate("/user/user-schedule", {
-                          state: { id: pObj._id },
-                        });
-                      }
-                    : null
+          ? completedDeliveries
+              ?.filter((value) => {
+                if (value === "") {
+                  return value;
+                } else if (
+                  value.parcel_name
+                    .toLowerCase()
+                    .includes(searchItems.toLowerCase())
+                ) {
+                  return searchItems;
                 }
-                parcelname={pObj.parcel_name}
-                parcelcode={pObj.parcel_code}
-                deliverytype={pObj.delivery_type}
-                deliveryimage={pObj.imgs[0]}
-              />
-            ))
-          : cancelledDeliveries.map((item) => (
-              <InstantHistoryList
-                click={() => {
-                  navigate("/user/cancelled-details", {
-                    state: { id: item._id },
-                  });
-                }}
-                parcelname={item.parcel_name}
-                parcelcode={item.parcel_code}
-                deliverytype={item.delivery_type}
-                deliveryimage={item.imgs[0]}
-              />
-            ))}
+              })
+              ?.map((pObj) => (
+                <InstantHistoryList
+                  // click={handleClick}
+                  click={
+                    pObj.delivery_type === "instant"
+                      ? () => {
+                          navigate("/user/user-instant", {
+                            state: { id: pObj._id },
+                          });
+                        }
+                      : pObj.delivery_type === "scheduled"
+                      ? () => {
+                          navigate("/user/user-schedule", {
+                            state: { id: pObj._id },
+                          });
+                        }
+                      : null
+                  }
+                  parcelname={pObj.parcel_name}
+                  parcelcode={pObj.parcel_code}
+                  deliverytype={pObj.delivery_type}
+                  deliveryimage={pObj.imgs[0]}
+                />
+              ))
+          : cancelledDeliveries
+              ?.filter((value) => {
+                if (value === "") {
+                  return value;
+                } else if (
+                  value.parcel_name
+                    .toLowerCase()
+                    .includes(searchItems.toLowerCase())
+                ) {
+                  return searchItems;
+                }
+              })
+              ?.map((item) => (
+                <InstantHistoryList
+                  click={() => {
+                    navigate("/user/cancelled-details", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliverytype={item.delivery_type}
+                  deliveryimage={item.imgs[0]}
+                />
+              ))}
 
         <div className="pending-delivery-pickup-entries">
           <h6>

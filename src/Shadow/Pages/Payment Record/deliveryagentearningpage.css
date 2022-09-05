@@ -7,8 +7,16 @@
 .total-earnings {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 0.5px solid #CCCACA;
-    padding: 10px 10px;
+    padding: 10px 30px;
+    margin: 0 30px;
+}
+@media screen and (max-width:500px) {
+    .total-earnings {
+        padding: 10px 10px !important;
+        font-size: 12px;
+    } 
 }
 .td-style td {
     font-size: 13px;
@@ -17,7 +25,7 @@
     background: rgba(196, 196, 196, 0.64);
     border-radius: 6px;
     padding: 9px 15px;
-    width: 25%;
+    width: 37%;
     font-size: 12px;
     line-height: 1.5;
     margin-top: 10px;
@@ -27,4 +35,5 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding: 0 30px;
 }

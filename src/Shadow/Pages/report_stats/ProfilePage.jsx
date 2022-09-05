@@ -1,61 +1,79 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect  } from "react";
 import "./profilepage.css";
 import passportphoto from "../../images/profilepic3.jpg";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
 import { Outlet } from "react-router-dom";
+import camera from "../../images/camera.png"
+import addFile from '../../images/addfile.png'
+import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 const ProfilePage = () => {
   const value = useContext(RiderContext);
-  const { riderdata } = value;
+  const {  token } = value;
+  const [error, setError]= useState("")
+  const [success, setSuccess]= useState("")
+  const [riderdata, setRiderData] = useState([])
+  const [loading, setLoading]= useState(true)
+  const [disabled, setDisabled] = useState(true);
+
   // console.log(riderdata?.fullname)
   // console.log(JSON.parse(riderdata.phone_no) , riderdata.phone_no);
 
   const [formData, setFormData] = useState({
     fullname: riderdata?.fullname,
     address: riderdata?.address,
-    email: riderdata?.email,
+    // email: riderdata?.email,
     number: parseInt(riderdata?.phone_no),
     state: riderdata?.state,
+    img: riderdata?.img_url,
+    // driverLicenseSelect: ""
   });
   const fullnameref = useRef(riderdata?.fullname)
-  console.log(formData)
-  // const [formData2, setFormData2] = useState({
-  //   vehicleType: riderdata.vehicle_details[0].type,
-  //   fleetID: "",
-  //   plateNumber: riderdata.vehicle_details[0].plate_no,
-  //   vehicleColor: riderdata.vehicle_details[0].color,
-  //   agentId: "",
-  //   driverLicense: riderdata.vehicle_details[0].driver_license_expiry_date,
-  //   riderdata.vehicle_details.map((detail)=> {
-  //     return {detail}
-  //   })
-  //   const [formData2, setFormData2] = useState({
-  //     vehicleColor: detail.color
-  // })
 
-  // })
+// fetching profile details 
 
-  // const [fullname, setFullname] = useState(riderdata?.fullname)
+const fetchDetails = async() => {
+ try {
+  const res = await  fetch("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_profile/view_single_profile", 
+  {
+    method: "POST",
+    headers: {
+      "content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: JSON.parse(token)
+    })
+  })
+  const data = await res.json()
+  if (res.status === 200){
+    setRiderData(data?.delivery_agent)
+    setLoading(false)
+  }else{
+    console.log("error occurred")
+    setLoading(false)
+  }
+ } catch (error) {
+  console.log(error.message)
+  setLoading(false)
+ }
+}
+useEffect(() => {
+  fetchDetails()
+ 
+}, []);
 
-  // const [address, setAddress] = useState(riderdata?.address)
-  // const [email, setEmail] = useState(riderdata?.email)
-  // const [number, setNumber] = useState(riderdata?.phone_no)
-  // const [state, setState] = useState(riderdata?.state)
-  const [disabled, setDisabled] = useState(true);
+
 
   const handleChange = (e) => {
     e.preventDefault();
-    //  setFullname( [name]=e.target.value);
-    //  setNumber(e.target.value);
-    //  setAddress(e.target.value);
-    //  setState(e.target.value);
-
     setFormData((prev) => {
       return {
         ...prev,
         [e.target.name]: e.target.value,
       };
     });
+    console.log(formData)
   };
   const handleChangeDisable = (e) => {
     e.preventDefault();
@@ -65,11 +83,7 @@ const ProfilePage = () => {
     e.preventDefault();
     setDisabled(true);
   };
-  // console.log(riderdata.phone_no);
-  // const ridervechile = riderdata?.vehicle_details.map((details) =>
-  //   details
-  // )
-  const vehcileImages = riderdata?.vehicle_details?.img_urls.map(
+  const vehcileImages = riderdata?.vehicle_details?.img_urls?.map(
     (image, index) => {
       return (
         <div className="front-side skeleton" key={index}>
@@ -78,16 +92,103 @@ const ProfilePage = () => {
       );
     }
   );
-// console.log(riderdata?.delivery_agent_code)
-  // console.log(ridervechile)
+
+
+const handleSubmitChangeProfile = (e) => {
+  e.preventDefault()
+  // if(formData.address === formData.address || formData.fullname === formData.fullname || formData.state === formData.state) {
+  //   setDisabled(true)
+  //   return
+  // }else{
+    // console.log("fetching")
+    // console.log(token)
+    // console.log(JSON.parse(token))
+    // console.log(formData.state)
+    const bodyFormData = new FormData();
+    
+    bodyFormData.append("token", JSON.parse(token));
+    bodyFormData.append("fullname", formData.fullname);
+    bodyFormData.append("address", formData.address);
+    bodyFormData.append("state", formData.state);
+    
+  
+       axios.post("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_profile/edit_profile", 
+     bodyFormData,
+      {
+        headers: {
+          "content-Type": "application/json"
+        }
+        // body :  JSON.stringify(bodyFormData),
+      }
+      ).then(res=> {
+        if(res.status === 200){
+          setSuccess(res?.data?.msg)
+          setTimeout(() => {
+            setSuccess("")
+            window.location.reload()
+          }, 4000);
+        }else {
+          setError("some error occured")
+          setTimeout(() => {
+            setError("")
+          }, 4000);
+        }
+      })
+      // const formRes = await res.json()
+      //   console.log(formRes)
+      //   console.log(token)
+      // if (res.status === 200){
+      //   console.log(formRes)
+      // }else{
+      //   console.log('error occurred')
+      // }
+  
+  // }
+ 
+  }
   return (
     // <div className="white">
     <div className="iii">
     <div className=" profile-page-container">
       <MainTop riderdata={riderdata} />
       <div className="profile-page-bottom">
+      {loading ? 
+      (
+        <div style={{height: "1000px", backgroundColor: "white"}} >
+          <div style={{display: "flex", justifyContent: "center", alignItems:"center"}} > 
+          <ClipLoader color={"#1AA803"} loading={loading}  size={100} />
+          </div>
+        </div>
+      ):
+      (
+        <>
+        <p style={{textAlign:"center", marginTop:"10px"}}> <span className="red-message">{error}</span> <span className="green-message">{success}</span></p>
+      {/* <div id="profile-picture-merge2">
+            <div className="shadow-user-image">
+              <img src={riderdata?.img_url} />
+              <div className="camera">
+                <img src={camera} />
+              </div>
+              <input type="file" name="file" id="file"/>
+            </div>
+          </div> */}
+          
+
         <div className="bottom-wrapper">
-          <form className="shadow-profile-form">
+          <form className="shadow-profile-form" >
+          {/* <label htmlFor="imageSelect">
+          <div id="profile-picture-merge" className="shadow-image" >
+            <div className="user-image profile-image-wrapper1">
+              <img src={formData?.img} />
+              <input type="image" src={formData} width="100%" height="100%" onChange={handleChange}/>
+              <div className="camera">
+                <img src={camera} />
+            </div>
+            </div>
+          </div>
+          <input type="file" id="imageSelect" name= "imageSelect" />
+          </label> */}
+          <br />
             <label htmlFor="fullname">Full name</label>
             <br />
             <input
@@ -95,15 +196,15 @@ const ProfilePage = () => {
               name="fullname"
               id="fullname"
               ref={fullnameref}
-              value={formData?.fullname}
+              value={riderdata?.fullname || formData?.fullname}
               disabled={disabled}
               required
               className="shorter-form"
               onChange={handleChange}
             />
-            <button className="change-btn" onClick={handleChangeDisable}>
+            {/* <button className="change-btn" onClick={handleChangeDisable}>
               change
-            </button>
+            </button> */}
             <br />
             <label htmlFor="email">Email</label>
             <br />
@@ -112,7 +213,8 @@ const ProfilePage = () => {
               name="email"
               id="email"
               disabled
-              value={formData?.email}
+              value={riderdata?.email}
+              onChange={handleChange}
             />
             <br />
             <label htmlFor="number">Phone Number</label>
@@ -121,15 +223,15 @@ const ProfilePage = () => {
               type="number"
               name="number"
               id="number"
-              value={formData?.number}
+              value={parseInt(riderdata?.phone_no) || formData?.number}
               disabled={disabled}
               onChange={handleChange}
               required
               className="shorter-form"
             />
-            <button className="change-btn" onClick={handleChangeDisable}>
+            {/* <button className="change-btn" onClick={handleChangeDisable}>
               change
-            </button>
+            </button> */}
             <br />
             <label htmlFor="address">Address</label>
             <br />
@@ -137,41 +239,80 @@ const ProfilePage = () => {
               type="text"
               name="address"
               id="address"
-              value={formData?.address}
+              value={riderdata?.address || formData?.address}
               onChange={handleChange}
               disabled={disabled}
               required
               className="shorter-form"
             />
-            <button className="change-btn" onClick={handleChangeDisable}>
+            {/* <button className="change-btn" onClick={handleChangeDisable}>
               change
-            </button>
+            </button> */}
             <br />
             <label htmlFor="states">States</label>
             <br />
             <select
               name="state"
               id="states"
-              value={formData?.state}
+              value={riderdata?.state || formData?.state}
               onChange={handleChange}
             >
-              <option value="Edo">Edo</option>
+              <option value="Abia">Abia</option>
+              <option value="Adamawa">Adamawa</option>
+              <option value="Akwa Ibom">Akwa Ibom</option>
+              <option value="Anambra">Anambra</option>
+              <option value="Bauchi">Bauchi</option>
+              <option value="Bayelsa">Bayelsa</option>
+              <option value="Benue">Benue</option>
+              <option value="Borno">Borno</option>
+              <option value="Cross River">Cross River</option>
+              <option value="Delta">Delta</option>
+              <option value="Ebonyi">Ebonyi</option>
+              <option value="Edo" >Edo</option>
+              <option value="Ekiti">Ekiti</option>
+              <option value="Enugu">Enugu</option>
+              <option value="Gombe">Gombe</option>
+              <option value="Imo">Imo</option>
+              <option value="Jigawa">Jigawa</option>
+              <option value="Kaduna">Kaduna</option>
+              <option value="Kano">Kano</option>
+              <option value="Katsina">Katsina</option>
+              <option value="Kebbi">Kebbi</option>
+              <option value="Kogi">Kogi</option>
+              <option value="Kwara">Kwara</option>
               <option value="Lagos">Lagos</option>
-              <option value="Edo">Edo</option>
-              <option value="Edo">Edo</option>
-              <option value="Edo">Edo</option>
-              <option value="Edo">Edo</option>
-              <option value="Edo">Edo</option>
+              <option value="Nasarawa">Nasarawa</option>
+              <option value="Niger">Niger</option>
+              <option value="Ogun">Ogun</option>
+              <option value="Ondo">Ondo</option>
+              <option value="Osun">Osun</option>
+              <option value="Oyo">Oyo</option>
+              <option value="Plateau">Plateau</option>
+              <option value="Rivers">Rivers</option>
+              <option value="Sokoto">Sokoto</option>
+              <option value="Tarba">Tarba</option>
+              <option value="Yobe">Yobe</option>
+              <option value="Zamfara">Zamfara</option>
             </select>
             <br />
-            <div className="profile-confirm-btns">
+            {/* <label htmlFor="driverLicenseSelect">
+            <div className="driverLicenseSelect-div">
+            <div className="driverLicenseSelect">
+              <img src={addFile} />
+            </div>
+              <span className="driverLicenseSelect-span">Upload new driver's license in the event of an expiry</span>
+            </div>
+            </label>
+            <input type="file" id="driverLicenseSelect" name="driverLicenseSelect"  className="imageSelect" onChange={handleChange}/> */}
+            <br />
+            {/* <div className="profile-confirm-btns">
               <button className="cancel-btn" onClick={handleCancel}>
                 Cancel
               </button>
-              <button type="submit" className="save-and-update-btn">
+              <button type="submit" className="save-and-update-btn" onClick={handleSubmitChangeProfile}>
                 Save and update
               </button>
-            </div>
+            </div> */}
           </form>
         </div>
         <div className="vechile-details">
@@ -234,7 +375,7 @@ const ProfilePage = () => {
           <div className="driver-passport-pictures">
             <h6>Passport/Selfie</h6>
             <div className="driver-passport skeleton">
-              <img src={passportphoto} alt="driver passport" />
+              <img src={riderdata?.img_url} alt="driver passport" />
             </div>
             <h6>Drivers license</h6>
             <div className="driver-driver-license">
@@ -263,6 +404,8 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
+        </>
+      )}
       </div>
       <Outlet />
     </div>

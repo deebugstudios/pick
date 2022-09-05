@@ -7,7 +7,7 @@ import {
   faFacebookSquare,
   faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
-import logo from "../../Shadow/images/pickloadlogo.png";
+import logo from "../Images/pickload.png";
 import "../css/footer.css";
 const Footer = () => {
   return (
@@ -15,15 +15,21 @@ const Footer = () => {
       <div className="footer-section1">
         <div className="footer-1">
           <h4>Your Ultimate Logistic Service</h4>
-          <p>We off speed, safety and security of all your items.</p>
+          <p>We offer speed, safety and security of all your items.</p>
         </div>
         <div className="list-items">
           <ul>
             <li>Links</li>
             <li>
-              <Link to="/" target="_self">
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/"
+                target="_self"
+              >
                 Home
-              </Link>{" "}
+              </NavLink>{" "}
             </li>
             <li>Features</li>
             <li>FAQs</li>
@@ -33,23 +39,37 @@ const Footer = () => {
             <li>Privacy</li>
             <li>Privacy</li>
             <li>
-              <Link to="/privacy" target="_blank">
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Policy
-              </Link>
+              </NavLink>
             </li>
             <li>Payment</li>
             <li>
-              <Link to="/Termsandconditions" target="_blank">
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/Termsandconditions"
+                target="_blank"
+                rel="noreferrer"
+              >
                 {" "}
                 Terms{" "}
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <div className="list-item-2">
             <ul>
               <li>Contact Us</li>
-              <li>+01 234 567 8910</li>
-              <li>arshakir@gmail.com</li>
+              <li>0803 890 6338</li>
+              <li>pickload1@gmail.com</li>
             </ul>
           </div>
         </div>
@@ -64,6 +84,7 @@ const Footer = () => {
               className="green-icons"
               href="https://www.instagram.com"
               target="_blank"
+              rel="noreferrer"
             >
               {" "}
               <FontAwesomeIcon icon={faInstagramSquare} />{" "}
@@ -74,6 +95,7 @@ const Footer = () => {
               className="green-icons"
               href="https://www.linkedin.com"
               target="_blank"
+              rel="noreferrer"
             >
               {" "}
               <FontAwesomeIcon icon={faLinkedin} />
@@ -84,6 +106,7 @@ const Footer = () => {
               className="green-icons"
               href="https://www.facebook.com"
               target="_blank"
+              rel="noreferrer"
             >
               <FontAwesomeIcon icon={faFacebookSquare}> </FontAwesomeIcon>{" "}
             </a>
@@ -93,6 +116,7 @@ const Footer = () => {
               className="green-icons"
               href="https://www.twitter.com"
               target="_blank"
+              rel="noreferrer"
             >
               <FontAwesomeIcon icon={faTwitterSquare} />
             </a>
@@ -106,9 +130,7 @@ const Footer = () => {
         <div>
           <ul>
             <li>Contact Us</li>
-            <Link to="/Termsandconditions" target="_blank">
-              <li>Terms</li>
-            </Link>
+            <li>Terms</li>
           </ul>
         </div>
       </div>

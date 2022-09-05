@@ -4,10 +4,16 @@
   max-width: 1000px;
   height: 100% !important;
   margin: 0 auto !important;
-  overflow-y: scroll !important;
+  /* overflow-y: scroll !important; */
   overflow-x: hidden !important;
-  padding: 1.5em !important;
+  margin: 0 1.5em !important;
 }
+@media screen and (max-width: 510px) {
+  .history-wrapper {
+    margin: 0 0.8em !important;
+  }
+}
+
 .small-date {
   width: 100px;
   height: 50px;
@@ -26,7 +32,44 @@
   border-radius: 8px;
   width: 100%;
 }
+.times-icon {
+  font-size: 30px;
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  color: rgba(88, 37, 172, 0.5);
+  font-weight: lighter;
+  cursor: pointer;
+}
 .search-box:focus {
   border: none;
   outline: none;
+}
+.search-box-container {
+  position: relative;
+}
+
+/* styling for this delivery list css  */
+.history-list-div {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.history-list-h3 {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 10px;
+}
+.history-list-span {
+  font-size: 11px;
+  font-weight: 500;
+}
+@media screen and (min-width: 900px) {
+  .history-list-h3 {
+    font-size: 14px !important;
+  }
+  .history-list-span {
+    font-size: 13px !important;
+  }
 }

@@ -35,3 +35,10 @@
 .delivery-profile {
     margin-left: 15px !important;
 }
+
+/* styles from the table for delivery agent earnings  */
+
+.td-style td {
+    font-size: 12px;
+    font-weight: 500;
+}

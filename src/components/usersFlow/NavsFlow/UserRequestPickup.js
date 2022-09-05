@@ -151,6 +151,7 @@ export default function UserRequestPickup() {
   };
 
   const clearRoute = () => {
+    console.log(pickupState);
     setDirection(null);
     setDistance("");
     setDuration("");

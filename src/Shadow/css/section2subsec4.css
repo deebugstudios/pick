@@ -44,6 +44,7 @@
     right: 20%;
     top:-50%  */
 }
+
 @media screen and (max-width:850px) {
     .background-green h3 {
         line-height: 30px;
@@ -52,6 +53,10 @@
     .mobile {
         width: 240px;
         margin-top: -150px;
+    }
+    .first-bg-green {
+        padding: 2em 1.3em !important;
+    border-radius: 10px;
     }
 }
 @media screen and (max-width:850px) {

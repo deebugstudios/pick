@@ -5,6 +5,8 @@ import "./deliveryhistorydetails.css";
 import { DeliverInfo } from "../../Details info/DeliverInfo";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RiderContext } from "../../Contexts/RiderContext";
+import { DateConverter, EveryDateConverter, HourConverter, MinsConverter, TimeConverter } from "../../../../DateAndTimeConverter";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const DeliveryHistoryDetailsAgent = () => {
   const location = useLocation();
@@ -46,20 +48,29 @@ const DeliveryHistoryDetailsAgent = () => {
 
   const navigate = useNavigate();
   return (
-    <section className=" user-dashboard pending-delivery pending-delivery specifics-1">
+    <div className="iii">
+    <section className=" pending-delivery">
       <div className="history-wrapper">
-        <div className="specifics-details-section-1">
+        {loading ? 
+        ( <div style={{height: "1000px", backgroundColor: "white"}} >
+          <div style={{display: "flex", justifyContent: "center", alignItems:"center"}}> 
+          <ClipLoader color={"#1AA803"} loading={loading}  size={100} />
+          </div>
+          </div>
+        ):
+        (
+          <div className="specifics-details-section-1">
           <h3>
             {deliveryDetails?.delivery_type == "instant"
               ? "Instant"
               : deliveryDetails?.delivery_type === "scheduled"
               ? "Scheduled"
               : null}{" "}
-            Delivery ID : {deliveryDetails?.delivered_in}{" "}
+            Delivery ID : {deliveryDetails?._id}
           </h3>
           <div className="delivery-details-pictures specifics-images">
-            {deliveryDetails.imgs?.map((item, index) => (
-              <DeliveryImages rectangle={item} index={index} />
+            {deliveryDetails?.imgs?.map((item, index) => (
+              <DeliveryImages key={index} rectangle={item}  />
             ))}
           </div>
           <h3>Delivery status</h3>
@@ -69,26 +80,27 @@ const DeliveryHistoryDetailsAgent = () => {
                 <img src={locationimg} alt="" />
               </div>
               <h3>Item Received by Delivery Agent at the Pickup Location </h3>
-              <p>Thursday March 25th at 9:30 PM</p>
+              <p><EveryDateConverter value={deliveryDetails?.pickup_time}/> at <TimeConverter value={deliveryDetails?.pickup_time}/></p>
               <h3>Item Received by User at the Drop off loaction </h3>
-              <p>Thursday March 25th at 10:30 PM</p>
+              <p><EveryDateConverter value={deliveryDetails?.delivery_status?.is_completed_at}/> at <TimeConverter value={deliveryDetails?.delivery_status?.is_completed_at}/></p>
             </div>
           </div>
           <div className="estimatedtime">
             <h2>
               Item delivered in{" "}
-              <span className="delivered-time">1 hour 20 minutes</span>{" "}
+              <span className="delivered-time"><HourConverter value={deliveryDetails?.delivered_in}/> hour <MinsConverter value={deliveryDetails?.delivered_in}/> minutes</span>{" "}
             </h2>
           </div>
-          <div className="delivery-profile">
+          <div className="delivery-profile1">
             <div className="driver-profile-image">
+              <p>Delivery Details</p>
               <div className="image">
                 <img src={deliveryDetails.delivery_agent_img} alt="" />
               </div>
-              <p>View Profile</p>
             </div>
             <div className="delivery-profile-details">
               <table>
+              <thead>
                 <tr>
                   <th>Delivery Agent :</th>
                   <td>{deliveryDetails?.delivery_agent_name}</td>
@@ -111,22 +123,24 @@ const DeliveryHistoryDetailsAgent = () => {
                 </tr>
                 <tr>
                   <th>Senders Contact:</th>
-                  <td>{deliveryDetails.sender_phone_no}</td>
+                  <td>+234{deliveryDetails.sender_phone_no}</td>
                 </tr>
+                </thead>
               </table>
             </div>
           </div>
           <div className="delivery-history-info">
             <DeliverInfo
-              sender={deliveryDetails.sender_fullname}
-              sender_no={deliveryDetails.sender_phone_no}
-              receiver={deliveryDetails.reciever_name}
-              receiver_no={deliveryDetails.reciever_phone_no}
-              parcel_name={deliveryDetails.parcel_name}
-              parcel_type={deliveryDetails.parcel_type}
-              description={deliveryDetails.parcel_description}
-              instruction={deliveryDetails.delivery_instructions}
-              timestamp={deliveryDetails.timestamp}
+            key={deliveryDetails?._id}
+              sender={deliveryDetails?.sender_fullname}
+              sender_no={deliveryDetails?.sender_phone_no}
+              receiver={deliveryDetails?.reciever_name}
+              receiver_no={deliveryDetails?.reciever_phone_no}
+              parcel_name={deliveryDetails?.parcel_name}
+              parcel_type={deliveryDetails?.parcel_type}
+              description={deliveryDetails?.parcel_description}
+              instruction={deliveryDetails?.delivery_instructions}
+              timestamp={deliveryDetails?.timestamp}
             />
           </div>
           <br />
@@ -142,8 +156,10 @@ const DeliveryHistoryDetailsAgent = () => {
             </p>
           </div> */}
         </div>
+        )}
       </div>
     </section>
+    </div>
   );
 };
 

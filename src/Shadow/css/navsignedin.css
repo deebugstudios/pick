@@ -100,11 +100,15 @@
   margin-right: 0.5em;
   overflow: hidden;
 }
+.profile-img img {
+ width: 100% !important;
+}
+
 .notification {
   position: relative;
 }
 .notification-bell {
-  width: 15px;
+  width: 40px;
 }
 .notification span {
   font-size: 10px;

@@ -12,6 +12,9 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.no-max {
+  max-width: none !important;
+}
 #active {
   background-color: #1aa803;
   color: white;

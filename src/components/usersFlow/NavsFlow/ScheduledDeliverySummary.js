@@ -112,7 +112,7 @@ export default function ScheduledDeliverySummary() {
   }, []);
 
   return (
-    <section className="user-dashboard pending-delivery specifics">
+    <section className="user-dashboard pending-delivery specifics no-max">
       <div className="history-wrapper-1">
         <div className="specific-details-section">
           <div id="btn-proceed">

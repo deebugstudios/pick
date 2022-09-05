@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./payment_record.css";
 import "../../../components/css/toggle.css";
 import "./payment_bar_stat.css";
@@ -9,14 +9,50 @@ import { useNavigate } from "react-router-dom";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_Bar_stat() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
   const value = useContext(RiderContext);
-  const { riderdata } = value;
+  const { riderdata, token } = value;
 
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate(-1);
+  // const goBack = () => {
+  //     navigate(-1)
+  //   }
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_stats/view_statistics",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pagec: 1,
+            token: JSON.parse(token),
+            delivery_agent_type: riderdata?.delivery_agent_type,
+          }),
+        }
+      );
+      const data = await res.json();
+      const results = await data;
+      setLoading(false);
+      // console.log(results)
+      setData(results?.fleet_stats);
+    } catch (err) {
+      console.log(err);
+    }
   };
+  // const newListItems = deliveryHistory.map(list => {
+  //   return list
+  // })
+  //   console.log(newListItems?._id);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="iii">
@@ -26,10 +62,10 @@ export default function Payment_Bar_stat() {
           {/* <div className="back-arrow">
                <p onClick={goBack}>go back</p> 
         </div> */}
-          <div className="input-div">
-            {/* <input type="date" name="" id="" className="width-small"/> */}
-            {/* <Calendar/> */}
-          </div>
+          {/* <div className="input-div"> */}
+          {/* <input type="date" name="" id="" className="width-small"/> */}
+          {/* <Calendar/> */}
+          {/* </div> */}
           <div className="fleet-manager-stats">
             <div className="deliveries">
               <div className="delivery-stats payment-stat-details">
@@ -38,7 +74,7 @@ export default function Payment_Bar_stat() {
                   <h5>Accepted deliveries</h5>
                 </div>
                 <div className="amount-made">
-                  <h5>800</h5>
+                  <h5>{data?.no_accepted_deliveries}</h5>
                 </div>
               </div>
               <div className="delivery-stats payment-stat-details">
@@ -47,7 +83,7 @@ export default function Payment_Bar_stat() {
                   <h5>Completed deliveries</h5>
                 </div>
                 <div className="amount-made">
-                  <h5>750</h5>
+                  <h5>{data?.no_completed_deliveries}</h5>
                 </div>
               </div>
               <div className="delivery-stats payment-stat-details">
@@ -56,7 +92,7 @@ export default function Payment_Bar_stat() {
                   <h5>Ignored deliveries</h5>
                 </div>
                 <div className="amount-made">
-                  <h5>800</h5>
+                  <h5>{data?.no_declined_deliveries}</h5>
                 </div>
               </div>
               <div className="delivery-stats payment-stat-details">
@@ -65,7 +101,7 @@ export default function Payment_Bar_stat() {
                   <h5>Cancelled deliveries</h5>
                 </div>
                 <div className="amount-made">
-                  <h5>800</h5>
+                  <h5>{data?.no_cancelled_deliveries}</h5>
                 </div>
               </div>
             </div>

@@ -2,6 +2,8 @@ import React from "react";
 import "./findingdeliveries.css";
 // import loadingimage from "../images/loadingimage.png";
 import Loading from "../../../components/Images/loading.png";
+import { ClipLoader } from "react-spinners";
+import FadeLoader from "react-spinners/FadeLoader";
 
 // export const FindingDeliveries = () => {
 //   return (
@@ -26,7 +28,7 @@ export const FindingDeliveriesUser = () => {
     <section className="loading-state">
       <div className="loading-state-wrapper">
         <div className="loading-state-image-container">
-          <img src={Loading} alt="" />
+          <ClipLoader color={"grey"} size={100} />
         </div>
         <div className="loading-state-text-container">
           <h4>

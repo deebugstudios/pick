@@ -7,6 +7,8 @@ import "../css/navsignedin.css";
 import { Link } from "react-router-dom";
 import Pickload from "../../components/Images/pickload.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
+import ClipLoader from "react-spinners/ClipLoader";
+
 const Navsignedin = (props) => {
   const value = useContext(RiderContext);
   const { riderdata, loading } = value;
@@ -43,7 +45,7 @@ const Navsignedin = (props) => {
         </div>
         <div className="profile">
         <div className="profile-img skeleton">
-            <img src={riderdata?.img_url} alt="" />
+        {loading ?   <ClipLoader color={"#1AA803"} loading={loading} cssOverride={{margin:"5px 5px"}} size={25} /> : <img src={riderdata?.img_url}  /> }
           </div>
           <div className="notification">
             {/* <FontAwesomeIcon icon={faBell} className="notification-bell" /> */}

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Amico3 from "../../Images/amico3.png";
 import Button, { Button3 } from "../../javascript/Button";
 import "../../css/logout.css";
 import { useNavigate } from "react-router-dom";
 import LoggedinMainPage from "./LoggedinMainPage";
+import { async } from "@firebase/util";
+import { RiderContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function Logout() {
   const navigate = useNavigate();
@@ -45,7 +47,39 @@ export default function Logout() {
 }
 
 export function Logout2() {
+  const [loading, setLoading] = useState(false);
+  const value = useContext(RiderContext);
+  const { token } = value;
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    setLoading(true);
+    // try {
+    //   const res = await fetch("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/logout",{
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json, text/plain, */*",
+    //   },
+    //   body: JSON.stringify({
+    //     token: JSON.parse(token)
+    //   })
+    //   })
+    // const data = await res.json()
+    // if(res.status === 200){
+    // console.log(data)
+    localStorage.clear();
+    navigate("/main1");
+    window.location.reload(true);
+    setLoading(false);
+    // }else {
+    // setLoading(false)
+    // }
+
+    // }catch (err) {
+    // console.log(err);
+    // }
+  };
 
   return (
     <>
@@ -70,13 +104,7 @@ export function Logout2() {
                 navigate(-1);
               }}
             />{" "}
-            <Button
-              name="Yes"
-              click={() => {
-                localStorage.clear()
-                navigate("/main1");
-              }}
-            />
+            <Button name="Yes" click={handleLogout} />
           </div>
         </div>
       </div>

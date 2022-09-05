@@ -52,7 +52,7 @@ export default function PendingScheduledDetails() {
   }, [loading === true]);
 
   return (
-    <section className="user-dashboard pending-delivery specifics">
+    <section className="user-dashboard pending-delivery specifics no-max">
       <div className="history-wrapper-1">
         <div className="specific-details-section">
           <div
@@ -92,7 +92,7 @@ export default function PendingScheduledDetails() {
           <br />
 
           <div className="estimate-div">
-            <div className="delivery-profile">
+            <div className="delivery-profile" style={{ width: "50%" }}>
               <div className="driver-profile-image">
                 <div className="image">
                   <img src={deliveryDetails.delivery_agent_img} />{" "}

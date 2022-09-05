@@ -54,9 +54,9 @@ export default function UsersProfile() {
       }
     );
     const data = await res.json();
-    setLoading(false);
+    // setLoading(false);
 
-    // console.log(results);
+    // console.log(data);
     setUserDetails(data?.user);
     setUserName(data?.user.fullname);
   };

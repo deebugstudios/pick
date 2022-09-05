@@ -72,6 +72,8 @@ export default function ReportReason(props) {
             delivery_agent_img_url: props.delivery_agent_img,
             delivery_agent_img_id: props.delivery_agent_img_id,
             reporter: "user",
+            delivery_agent_email: "shadow@gmail.com",
+            user_email: "nanagwonye@gmail.com",
           }),
           headers: {
             "Content-Type": "application/json",

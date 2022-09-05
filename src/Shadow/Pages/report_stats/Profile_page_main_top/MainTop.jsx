@@ -99,7 +99,7 @@ export const MainTop = (props) => {
 
       {delivery_agent_type === "fleet manager" ? (
         <div className="pages span-two">
-          <h3>MY FLEET</h3>
+          <h3 className="special-h3">MY FLEET</h3>
           <div className="profile-icons">
             <div className="half-circle yellow-color">
               <img src={fleeticons} alt="icon" className="profile-big-icon" />

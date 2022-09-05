@@ -195,8 +195,12 @@
   padding-right: 10px;
   width: 100%;
   resize: none;
+  /* max-height: 100px; */
   /* border: none; */
 }
+/* .typing-bar textarea::placeholder {
+  
+} */
 .attachment,
 .send-message {
   width: 25px;

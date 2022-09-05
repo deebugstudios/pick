@@ -9,7 +9,6 @@ import { useLocation } from "react-router-dom";
 export default function OTP() {
   return (
     <>
-      {/* <Head /> */}
       <div id="otp-div">
         <p id="otp-paragraph">Enter the OTP sent by SMS to 08067654532</p>
         <div id="otpField">

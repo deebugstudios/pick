@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../css/signup.css";
 import DeliveryImage from "../Images/DeliveryImage.png";
 import Button from "../javascript/Button";
@@ -6,9 +6,12 @@ import Head from "../javascript/Head";
 import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
+import { RiderContext } from "../../Shadow/Pages/Contexts/RiderContext";
 import Flag from "../Images/Nigerian_flag.png";
-
+import { auth } from "../../utils/firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { OTP3 } from "../javascript/OTP";
+import { Popup2 } from "../javascript/Popup";
 export default function WelcomeUser(props) {
   const asterik = <span id="asterik">*</span>;
 
@@ -17,9 +20,43 @@ export default function WelcomeUser(props) {
   const [formErrors, setFormErrors] = useState("");
   const [dataError, setDataError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const [loadOtp, setLoadOtp] = useState(false);
+  const [otpValues, setOtpValues] = useState({
+    one: "",
+    two: "",
+    three: "",
+    four: "",
+    five: "",
+    six: "",
+  });
+  const [countDown, setCountDown] = useState(60);
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    const number = "+234" + [phone_no];
+
+    try {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // console.log(response);
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            handleLoginSubmit();
+          },
+        },
+        auth
+      );
+    } catch (err) {
+      console.log("can't send Otp");
+      console.log(err);
+    }
+
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
 
     if (!phone_no) {
       setFormErrors("Phone Number must be filled!");
@@ -41,23 +78,32 @@ export default function WelcomeUser(props) {
         }
       );
       const data = await res.json();
-      // setId();
-      // setToken(data.token);
-      // idU = data.token;
 
-      // console.log(data);
+      console.log(data);
       if (data.msg === `No user with phone no: ${phone_no} found`) {
+        setLoading(false);
         setDataError(data.msg);
-      } else if (data.msg === "User not active") {
-        setDataError(data.msg);
+
+        setTimeout(() => {
+          setDataError("");
+        }, 4000);
       }
 
       if (res.status === 200) {
-        setMessage("User created successfully");
-        // localStorage.setItem("id", data.user._id);
-        console.log(data);
+        setLoadOtp(true);
+        signInWithPhoneNumber(auth, number, appVerifier)
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
+
+        localStorage.setItem("input", JSON.stringify(data?.token));
         setLoading(false);
-        navigate("/user/type");
+
         // console.log(idU);
       } else {
         setLoading(false);
@@ -67,19 +113,7 @@ export default function WelcomeUser(props) {
       console.log(error);
     }
   };
-
-  const navigate = useNavigate();
-
-  // const value = useContext(userContext);
-  // const {
-  //   handleLoginSubmit,
-  //   message,
-  //   phone_no,
-  //   setPhone_no,
-  //   setMessage,
-  //   token,
-  // } = value;
-
+  // window.
   const onChange = (e) => {
     setPhone_no(e.target.value);
   };
@@ -88,9 +122,38 @@ export default function WelcomeUser(props) {
     navigate("/forgot");
   };
 
+  const handleFinalSubmit = () => {
+    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+
+    try {
+      let confirmationResult = window.confirmationResult;
+      confirmationResult
+        .confirm(computedNum)
+        .then((result) => {
+          const user = result.user;
+          // ...
+          console.log("worked");
+          navigate("/user/type");
+          console.log(user);
+        })
+        .catch((error) => {
+          console.log("error");
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const OtpChange = (e) => {
+    const target = e.target;
+    const { name, value } = target;
+    setOtpValues({ ...otpValues, [name]: value });
+  };
+
   return (
     <>
       <Head />
+
       <div className="mainBox" id="welcome-main">
         <div className="delivery-img-welcome" id="DeliveryImage">
           <p>
@@ -136,8 +199,8 @@ export default function WelcomeUser(props) {
 
             <br />
             <br />
-            <div id="center-button">
-              <Button name="Login" />
+            <div className="center-button">
+              <Button name="Login" loading={loading} />
             </div>
           </form>
 
@@ -155,70 +218,190 @@ export default function WelcomeUser(props) {
         <span className="policy">Terms of Use </span>and our{" "}
         <span className="policy">Privacy Policy</span>.
       </p>
+      <div id="recaptcha-container"></div>
       <Footer />
+      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+        <div>
+          <div className="mainBox-1">
+            <div className="delivery-img-otp" id="DeliveryImage">
+              <p>
+                Door to Door <span id="yellow">delivery</span>
+                <br /> services for individuals
+                <br /> and businesses.
+              </p>
+              <br id="otp-hide" />
+              <br />
+              <img src={DeliveryImage} alt="Deliver" />
+            </div>
+
+            <div id="otp-flex">
+              <h2 id="join" className="otp-p">
+                Phone number verification
+              </h2>
+              <div id="otp-div">
+                <p id="otp-paragraph">
+                  Enter the OTP sent by SMS to {phone_no}
+                </p>
+                <div id="otpField">
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="one"
+                    value={otpValues.one}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="two"
+                    value={otpValues.two}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="three"
+                    value={otpValues.three}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="four"
+                    value={otpValues.four}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength="1"
+                    name="five"
+                    value={otpValues.five}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="six"
+                    value={otpValues.six}
+                    onChange={OtpChange}
+                  />
+
+                  <br />
+                  <br />
+                  <p id="another-code">
+                    We would send you another code in{" "}
+                    <span id="otpTimer">00:{countDown}</span>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+
+                  <Button name="DONE" click={handleFinalSubmit} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Popup2>
     </>
   );
 }
 
 export function WelcomeAgent() {
   const asterik = <span id="asterik">*</span>;
+  const [countDown, setCountDown] = useState(60);
+  const [otpValues, setOtpValues] = useState({
+    one: "",
+    two: "",
+    three: "",
+    four: "",
+    five: "",
+    six: "",
+  });
+
+  const value = useContext(RiderContext);
+  const {
+    token,
+    setOtp,
+    formErrors,
+    setPhone_no,
+    isOtp,
+    message,
+    loading,
+    handleOtp,
+    handleSubmit,
+    phone_no,
+    dataError,
+    loadOtp,
+    setLoadOtp,
+  } = value;
+
+  const handleFinalSubmit = () => {
+    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+
+    try {
+      let confirmationResult = window.confirmationResult;
+      confirmationResult
+        .confirm(computedNum)
+        .then((result) => {
+          const user = result.user;
+          // ...
+          console.log("worked");
+          navigate("/deliveryhistory");
+          // console.log(user);
+        })
+        .catch((error) => {
+          console.log("error");
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const navigate = useNavigate();
-  const [phone_no, setPhone_no] = useState("");
-  const [message, setMessage] = useState("");
-  const [formErrors, setFormErrors] = useState("");
-  const [dataError, setDataError] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  // useEffect(() => {
+  //   if (token) {
+  //     //
+  //   }
+  // }, [token]);
+  // console.log(token);
   const onChange = (e) => {
     setPhone_no(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!phone_no) {
-      setFormErrors("Phone Number must be filled!");
-    } else setFormErrors("");
-
-    try {
-      setLoading(true);
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/login",
-        {
-          method: "POST",
-
-          body: JSON.stringify({
-            phone_no: phone_no,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
-      const data = await res.json();
-      console.log(data);
-      if (data.msg == "Account not active or delivery agent does not exist") {
-        setDataError(data.msg);
-        setTimeout(() => {
-          setDataError("");
-        }, 4000);
-      }
-
-      if (res.status === 200) {
-        setMessage("User created successfully");
-        setLoading(false);
-        navigate("/deliveryhistory");
-        localStorage.setItem("rubbish", JSON.stringify(data.token));
-      } else {
-        setMessage("An Error occured");
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const OtpChange = (e) => {
+    const target = e.target;
+    const { name, value } = target;
+    setOtpValues({ ...otpValues, [name]: value });
   };
+
+  //   const generate = () => {
+  //     try {
+  //       window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+  //         'size': 'invisible',
+  //         'callback': (response) => {
+  //           console.log(response)
+  //           // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //           handleSubmit();
+  //         }
+  //       }, auth);
+
+  //     } catch (err) {
+  //       console.log("can't send Otp")
+  //       console.log(err)
+  //     }
+
+  //   }
+
+  // useEffect(()=> {
+  //     generate()
+  //     return ()=> generate()
+  //   },[])
+
+  //   const appVerifier = window.recaptchaVerifier;
+
+  // console.log(appVerifier)
 
   const handleClick = (e) => {
     navigate("/forgot");
@@ -296,7 +479,92 @@ export function WelcomeAgent() {
           <span className="policy">Privacy Policy</span>
         </Link>
       </p>
+      <div id="sign-in-button"></div>
       <Footer />
+      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+        <div>
+          <div className="mainBox-1">
+            <div className="delivery-img-otp" id="DeliveryImage">
+              <p>
+                Door to Door <span id="yellow">delivery</span>
+                <br /> services for individuals
+                <br /> and businesses.
+              </p>
+              <br id="otp-hide" />
+              <br />
+              <img src={DeliveryImage} alt="Deliver" />
+            </div>
+
+            <div id="otp-flex">
+              <h2 id="join" className="otp-p">
+                Phone number verification
+              </h2>
+              <div id="otp-div">
+                <p id="otp-paragraph">
+                  Enter the OTP sent by SMS to {phone_no}
+                </p>
+                <div id="otpField">
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="one"
+                    value={otpValues.one}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="two"
+                    value={otpValues.two}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="three"
+                    value={otpValues.three}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="four"
+                    value={otpValues.four}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength="1"
+                    name="five"
+                    value={otpValues.five}
+                    onChange={OtpChange}
+                  />
+                  <input
+                    type="text"
+                    maxLength={1}
+                    name="six"
+                    value={otpValues.six}
+                    onChange={OtpChange}
+                  />
+
+                  <br />
+                  <br />
+                  <p id="another-code">
+                    We would send you another code in{" "}
+                    <span id="otpTimer">00:{countDown}</span>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+
+                  <Button name="DONE" click={handleFinalSubmit} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Popup2>
     </>
   );
 }

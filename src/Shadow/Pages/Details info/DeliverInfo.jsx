@@ -1,18 +1,19 @@
 import React from "react";
-import { DateConverter, TimeConverter } from "../../../DateAndTimeConverter";
+import { DateConverter, EveryDateConverter, TimeConverter } from "../../../DateAndTimeConverter";
 import "./deliveryinfo.css";
 export const DeliverInfo = (props) => {
   // console.log(props.timestamp)
   return (
     <>
       <table>
+      <thead>
         <tr>
           <th>Sender's Name:</th>
           <td>{props.sender}</td>
         </tr>
         <tr>
           <th>Sender's Phone Number:</th>
-          <td>{props.sender_no}</td>
+          <td>+234{props.sender_no}</td>
         </tr>
         <tr>
           <th>Receiver's Name:</th>
@@ -20,7 +21,7 @@ export const DeliverInfo = (props) => {
         </tr>
         <tr>
           <th>Receiver's Phone Number: </th>
-          <td>{props.receiver_no}</td>
+          <td>+234{props.receiver_no}</td>
         </tr>
         <tr>
           <th>Item Name:</th>
@@ -41,7 +42,7 @@ export const DeliverInfo = (props) => {
         <tr>
           <th>Scheduled Pickup Date :</th>
           <td>
-            <DateConverter value={props.timestamp} />
+            <EveryDateConverter value={props.timestamp} />
           </td>
         </tr>
         <tr>
@@ -50,6 +51,7 @@ export const DeliverInfo = (props) => {
             <TimeConverter value={props.timestamp} />
           </td>
         </tr>
+        </thead>
       </table>
       {/* comment just incase i decide to note use the table */}
       {/* <h3>Sender’s Name: <span className='delivery-details-spans'>April Purpose</span></h3>
