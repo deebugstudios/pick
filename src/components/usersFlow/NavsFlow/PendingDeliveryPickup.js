@@ -53,10 +53,7 @@ export default function PendingDeliveryPickup(props) {
   };
 
   return (
-    <section
-      className="user-dashboard pending-delivery no-max"
-      style={{ marginTop: "30px" }}
-    >
+    <section className="user-dashboard pending-delivery no-max">
       <div className="pending-delivery-pickup-wrapper">
         <div className="pending-delivery-pickup-slides">
           <br />
