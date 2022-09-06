@@ -167,7 +167,12 @@ export default function IndividualVehicle() {
     bodyFormData.append("vehicle_name", formData.vehicle_name);
     bodyFormData.append("vehicle_type", type);
     bodyFormData.append("plate_no", formData.plate_no);
-    bodyFormData.append("vehicle_details_imgs", formImage);
+    for (let i = 0; i < license.length; i++) {
+      bodyFormData.append("vehicle_details_imgs", license[i]);
+    }
+    for (let i = 0; i < vehicleImage.length; i++) {
+      bodyFormData.append("vehicle_details_imgs", vehicleImage[i]);
+    }
     bodyFormData.append("driver_license_expiry_date", expiry_date);
 
     // bodyFormData.append("delivery_agent_type", agent);
@@ -187,7 +192,9 @@ export default function IndividualVehicle() {
 
       .then((response) => {
         if (response.status === 200) {
-          navigate("/account", { state: { id: id, token: token } });
+          navigate(formData.fleet_id !== "" ? "/success" : "/account", {
+            state: { id: id, token: token },
+          });
         } else {
           setMessage("Error occured");
         }

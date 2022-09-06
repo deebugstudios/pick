@@ -11,6 +11,7 @@ import ReportReason from "../ReportReason";
 import LeaveReview from "../LeaveReview";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
+import { ClipLoader } from "react-spinners";
 
 export default function DeliveryHistoryDetails() {
   const navigate = useNavigate();
@@ -55,7 +56,12 @@ export default function DeliveryHistoryDetails() {
   const imgs = deliveryDetails.imgs;
   console.log(imgs);
   if (loading === true) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Getting Data</p>
+      </div>
+    );
   } else
     return (
       <section className="user-dashboard pending-delivery specifics no-max">

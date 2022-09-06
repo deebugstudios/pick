@@ -77,127 +77,42 @@ export default function JoinAgent(props) {
           const user = result.user;
           // ...
           console.log("worked");
-          if (!gender) {
-            setGenderError("Please Select Your Gender");
-          } else setGenderError("");
 
-          if (!selectedFile) {
-            setFileError("Please Upload a Picture");
-          } else setFileError("");
-
-          const validate = (data) => {
-            const errors = {};
-            const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if (!data.fullname) {
-              errors.fullname = "Full Name must be filled!";
-            }
-            if (!data.email) {
-              errors.email = "Email must be filled!";
-            } else if (!regex.test(data.email)) {
-              errors.email = "Please enter a valid email";
-            }
-            if (!data.phone_no) {
-              errors.phone_no = "Phone Number must be filled!";
-            }
-            if (!data.nin) {
-              errors.nin = "Enter your National Identification Number";
-            }
-            if (!data.address) {
-              errors.address = "Please Enter an Address";
-            }
-            if (!data.city) {
-              errors.city = "Please Enter a City Name";
-            }
-            return errors;
-          };
-          setFormErrors(validate(formData));
-
-          // navigate(props.link);
-          const bodyFormData = new FormData();
-          bodyFormData.append("fullname", formData.fullname);
-          bodyFormData.append("phone_no", `+234${formData.phone_no}`);
-          bodyFormData.append("email", formData.email);
-          bodyFormData.append("delivery_agent_type", agent);
-          bodyFormData.append("address", formData.address);
-          bodyFormData.append("nin", formData.nin);
-          bodyFormData.append("state", residentState);
-          bodyFormData.append("city", formData.city);
-          bodyFormData.append("gender", gender);
-          bodyFormData.append("profile_img", selectedFile);
-
-          axios
-            .post(
-              "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_one",
-              bodyFormData,
+          try {
+            const res = await fetch(
+              "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_two",
               {
+                method: "POST",
+
+                body: JSON.stringify({
+                  phone_no: `+234${formData.phone_no}`,
+                  _id: id,
+                  token: token,
+                }),
                 headers: {
-                  "Content-Type": "multipart/form-data",
+                  "Content-Type": "application/json",
+                  Accept: "application/json, text/plain, */*",
                 },
               }
-            )
-            .then(async (response) => {
-              if (response.status === 200) {
-                console.log(response);
-                let data = response.data;
-                const userToken = data.token;
-                const userId = data.delivery_agent._id;
-                const phone = `+234${formData.phone_no}`;
-                setToken(data.token);
-                setId(data.delivery_agent._id);
-                try {
-                  const res = await fetch(
-                    "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_two",
-                    {
-                      method: "POST",
+            );
+            const data = await res.json();
+            console.log(data);
 
-                      body: JSON.stringify({
-                        phone_no: phone,
-                        _id: userId,
-                        token: userToken,
-                      }),
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json, text/plain, */*",
-                      },
-                    }
-                  );
-                  const data = await res.json();
-                  console.log(data);
-
-                  if (res.status === 200) {
-                    // setMessage("User created successfully");
-                    navigate(
-                      agent === "delivery agent" ? "/individual-v" : "/fleet-v",
-                      {
-                        state: { id: id, token: token, agent: agent },
-                      }
-                    );
-                  } else {
-                    // setMessage("Error occured");
-                    console.log("error");
-                  }
-                } catch (error) {
-                  console.log(error);
+            if (res.status === 200) {
+              // setMessage("User created successfully");
+              navigate(
+                agent === "delivery agent" ? "/individual-v" : "/fleet-v",
+                {
+                  state: { id: id, token: token, agent: agent },
                 }
-                // navigate(props.link, {
-                //   state: {
-                //     id: userId,
-                //     token: userToken,
-                //     phone: phone,
-                //     agent: agent,
-                //   },
-                // });
-              } else {
-                setMessage("An Error occured");
-              }
-
-              // console.log(response);
-              // console.log(selectedFile);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          console.log(user);
+              );
+            } else {
+              // setMessage("Error occured");
+              console.log("error");
+            }
+          } catch (error) {
+            console.log(error);
+          }
         })
         .catch((error) => {
           console.log("error");
@@ -226,30 +141,165 @@ export default function JoinAgent(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const number = "+234" + [formData.phone_no];
 
-    try {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
+    if (!gender) {
+      setGenderError("Please Select Your Gender");
+    } else setGenderError("");
+
+    if (!selectedFile) {
+      setFileError("Please Upload a Picture");
+    } else setFileError("");
+
+    const validate = (data) => {
+      const errors = {};
+      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (!data.fullname) {
+        errors.fullname = "Full Name must be filled!";
+      }
+      if (!data.email) {
+        errors.email = "Email must be filled!";
+      } else if (!regex.test(data.email)) {
+        errors.email = "Please enter a valid email";
+      }
+      if (!data.phone_no) {
+        errors.phone_no = "Phone Number must be filled!";
+      }
+      if (!data.nin) {
+        errors.nin = "Enter your National Identification Number";
+      }
+      if (!data.address) {
+        errors.address = "Please Enter an Address";
+      }
+      if (!data.city) {
+        errors.city = "Please Enter a City Name";
+      }
+      return errors;
+    };
+    setFormErrors(validate(formData));
+
+    // navigate(props.link);
+    const bodyFormData = new FormData();
+    bodyFormData.append("fullname", formData.fullname);
+    bodyFormData.append("phone_no", `+234${formData.phone_no}`);
+    bodyFormData.append("email", formData.email);
+    bodyFormData.append("delivery_agent_type", agent);
+    bodyFormData.append("address", formData.address);
+    bodyFormData.append("nin", formData.nin);
+    bodyFormData.append("state", residentState);
+    bodyFormData.append("city", formData.city);
+    bodyFormData.append("gender", gender);
+    bodyFormData.append("profile_img", selectedFile);
+
+    axios
+      .post(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_one",
+        bodyFormData,
         {
-          size: "invisible",
-          callback: (response) => {
-            // console.log(response);
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            handleSubmit();
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
-        },
-        auth
-      );
-    } catch (err) {
-      console.log("can't send Otp");
-      console.log(err);
-    }
+        }
+      )
+      .then(async (response) => {
+        if (response.status === 200) {
+          console.log(response);
+          let data = response.data;
+          const userToken = data.token;
+          const userId = data.delivery_agent._id;
+          // const phone = ;
+          setToken(data.token);
+          setId(data.delivery_agent._id);
+
+          const number = "+234" + [formData.phone_no];
+
+          try {
+            window.recaptchaVerifier = new RecaptchaVerifier(
+              "recaptcha-container",
+              {
+                size: "invisible",
+                callback: (response) => {
+                  // console.log(response);
+                  // reCAPTCHA solved, allow signInWithPhoneNumber.
+                  handleSubmit();
+                },
+              },
+              auth
+            );
+          } catch (err) {
+            console.log("can't send Otp");
+            console.log(err);
+          }
+
+          const appVerifier = window.recaptchaVerifier;
+          console.log(appVerifier);
+
+          setLoadOtp(true);
+          const interval = setInterval(() => {
+            setCountDown((countDown) => countDown - 1);
+          }, 1000);
+          if (countDown === 0) {
+            clearInterval(interval);
+          }
+          signInWithPhoneNumber(auth, number, appVerifier)
+            .then((confirmationResult) => {
+              window.confirmationResult = confirmationResult;
+              setLoading(false);
+            })
+            .catch((error) => {
+              console.log(error);
+              setLoading(false);
+            });
+
+          // navigate(props.link, {
+          //   state: {
+          //     id: userId,
+          //     token: userToken,
+          //     phone: phone,
+          //     agent: agent,
+          //   },
+          // });
+        } else {
+          setMessage("An Error occured");
+        }
+
+        // console.log(response);
+        // console.log(selectedFile);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const resend = () => {
+    setCountDown(60);
+    // try {
+    //   window.recaptchaVerifier = new RecaptchaVerifier(
+    //     "recaptcha-container",
+    //     {
+    //       size: "invisible",
+    //       callback: (response) => {
+    //         // console.log(response);
+    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //         handleSubmit();
+    //       },
+    //     },
+    //     auth
+    //   );
+    // } catch (err) {
+    //   console.log("can't send Otp");
+    //   console.log(err);
+    // }
 
     const appVerifier = window.recaptchaVerifier;
     console.log(appVerifier);
+    const number = "+234" + [formData.phone_no];
 
-    setLoadOtp(true);
+    const interval = setInterval(() => {
+      setCountDown((countDown) => countDown - 1);
+    }, 1000);
+    if (countDown === 0) {
+      clearInterval(interval);
+    }
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
@@ -520,7 +570,7 @@ export default function JoinAgent(props) {
               </h2>
               <div id="otp-div">
                 <p id="otp-paragraph">
-                  Enter the OTP sent by SMS to 08067654532
+                  Enter the OTP sent by SMS to 0{formData.phone_no}
                 </p>
                 <div id="otpField">
                   <input
@@ -568,15 +618,20 @@ export default function JoinAgent(props) {
 
                   <br />
                   <br />
-                  <p id="another-code">
-                    We would send you another code in{" "}
-                    <span id="otpTimer">00:{countDown}</span>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </p>
-
+                  {countDown >= 0 ? (
+                    <p id="another-code">
+                      We would send you another code in{" "}
+                      <span id="otpTimer">00:{countDown}</span>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                    </p>
+                  ) : (
+                    <button onClick={resend} id="another-code">
+                      Resend Otp
+                    </button>
+                  )}
                   <Button name="DONE" click={handleFinalSubmit} />
                 </div>
               </div>

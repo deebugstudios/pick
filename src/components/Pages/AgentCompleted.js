@@ -3,7 +3,7 @@ import Head from "../javascript/Head";
 import ProgressMM from "../Images/ProgressII.png";
 import Button from "../javascript/Button";
 import Footer from "../javascript/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function AgentCompleted() {
   const asterik = <span id="asterik">*</span>;
@@ -21,6 +21,9 @@ export default function AgentCompleted() {
   const [dataError, setDataError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [typeError, setTypeError] = useState("");
+  const location = useLocation();
+
+  const token = location.state.token;
 
   const handleChange = (e) => {
     const target = e.target;
@@ -60,41 +63,40 @@ export default function AgentCompleted() {
       return errors;
     };
     setFormErrors(validate(formData));
-    // try {
-    //   const res = await fetch(
-    //     "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/set_bank_account_details",
-    //     {
-    //       method: "POST",
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/set_bank_account_details",
+        {
+          method: "POST",
 
-    //       body: JSON.stringify({
-    //         token:
-    //           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ",
-    //         account_name: formData.account_name,
-    //         account_no: formData.account_no,
-    //         bank_name: formData.bank_name,
-    //         account_type: accType,
-    //         confirm_account_no: formData.confirm_account_no,
-    //         bvn: formData.bvn,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json, text/plain, */*",
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   console.log(data);
+          body: JSON.stringify({
+            token: token,
+            account_name: formData.account_name,
+            account_no: formData.account_no,
+            bank_name: formData.bank_name,
+            account_type: accType,
+            confirm_account_no: formData.confirm_account_no,
+            bvn: formData.bvn,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
 
-    //   if (res.status === 200) {
-    //     setMessage("User created successfully");
-    navigate("/success");
-    //   } else {
-    //     setMessage("Error occured");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log(formData);
+      if (res.status === 200) {
+        setMessage("User created successfully");
+        navigate("/success");
+      } else {
+        setMessage("Error occured");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(formData);
   };
 
   return (

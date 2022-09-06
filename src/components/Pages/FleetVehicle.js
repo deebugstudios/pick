@@ -5,18 +5,18 @@ import ProgressMMM from "../Images/ProgressIII.png";
 import "../css/vehicle.css";
 import Vector from "../Images/Vector.png";
 import Footer from "../javascript/Footer";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import axios from "axios";
 
 export default function FleetVehicle() {
   const asterik = <span id="asterik">*</span>;
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
     fleet_name: "",
-    color: "",
-    vehicle_name: "",
-    plate_no: "",
+    company_name: "",
+    cac_reg_no: "",
   });
   const [type, setType] = useState("bike");
   const [expiry, setExpiry] = useState("");
@@ -33,72 +33,9 @@ export default function FleetVehicle() {
   const [image3Errors, setImage3Errors] = useState("");
   const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
-
-  const handleFullPicture = (files) => {
-    const picUploaded = [...fullPicture];
-    let limitExceeded = false;
-    files.some((file) => {
-      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
-        picUploaded.push(file);
-        if (picUploaded.length === 1) setFileLimit(true);
-        if (picUploaded.length > 1) {
-          setFileLimit(false);
-          limitExceeded = true;
-          return true;
-        }
-      }
-    });
-    if (!limitExceeded) setFullPicture(picUploaded);
-  };
-
-  const handleFullPictureE = (e) => {
-    const chosenFiles = Array.prototype.slice.call(e.target.files);
-    handleFullPicture(chosenFiles);
-  };
-
-  const handleLicense = (files) => {
-    const picUploaded = [...license];
-    let limitExceeded = false;
-    files.some((file) => {
-      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
-        picUploaded.push(file);
-        if (picUploaded.length === 2) setFileLimit2(true);
-        if (picUploaded.length > 2) {
-          setFileLimit2(false);
-          limitExceeded = true;
-          return true;
-        }
-      }
-    });
-    if (!limitExceeded) setLicense(picUploaded);
-  };
-
-  const handleLicenseE = (e) => {
-    const chosenFiles = Array.prototype.slice.call(e.target.files);
-    handleLicense(chosenFiles);
-  };
-
-  const handleVehicleImage = (files) => {
-    const picUploaded = [...vehicleImage];
-    let limitExceeded = false;
-    files.some((file) => {
-      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
-        picUploaded.push(file);
-        if (picUploaded.length === 5) setFileLimit3(true);
-        if (picUploaded.length > 5) {
-          setFileLimit3(false);
-          limitExceeded = true;
-          return true;
-        }
-      }
-    });
-    if (!limitExceeded) setVehicleImage(picUploaded);
-  };
-
-  const handleVehicleImageE = (e) => {
-    const chosenFiles = Array.prototype.slice.call(e.target.files);
-    handleVehicleImage(chosenFiles);
-  };
+  const token = location.state.token;
+  const id = location.state.id;
+  const agent = location.state.agent;
 
   const handleDate = (e) => {
     const newDate = dayjs(e.target.value).format("YYYY-MM-DD");
@@ -142,14 +79,11 @@ export default function FleetVehicle() {
       if (!data.fleet_name) {
         errors.fleet_name = "Enter the name of your Fleet";
       }
-      if (!data.color) {
-        errors.color = `Enter Your ${type} Color`;
+      if (!data.company_name) {
+        errors.company_name = `Enter Your Company Name`;
       }
-      if (!data.vehicle_name) {
-        errors.vehicle_name = `Enter The Name of Your ${type} Manufacturer`;
-      }
-      if (!data.plate_no) {
-        errors.plate_no = `Enter Your ${type} Plate Number`;
+      if (!data.cac_reg_no) {
+        errors.cac_reg_no = `Enter Your CAC Number`;
       }
 
       return errors;
@@ -157,18 +91,11 @@ export default function FleetVehicle() {
     setFormErrors(validate(formData));
 
     const bodyFormData = new FormData();
-    bodyFormData.append("_id", "62ed9fa9ef8d4752b2e1b9e2");
-    bodyFormData.append(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkOWZhOWVmOGQ0NzUyYjJlMWI5ZTIiLCJwaG9uZV9ubyI6IjgxNTc1NDI4MjAiLCJpYXQiOjE2NTk3NDAwNzN9.mT3i4DgZA_B4kEd-VuKFpa9k4bmkBdIm-ve6JPd2yYQ"
-    );
+    bodyFormData.append("_id", id);
+    bodyFormData.append("token", token);
     bodyFormData.append("fleet_name", formData.fleet_name);
-    bodyFormData.append("color", formData.color);
-    bodyFormData.append("vehicle_name", formData.vehicle_name);
-    bodyFormData.append("vehicle_type", type);
-    bodyFormData.append("plate_no", formData.plate_no);
-    bodyFormData.append("driver_license_expiry_date", expiry_date);
-    bodyFormData.append("vehicle_details_imgs", formImages);
+    bodyFormData.append("company_name", formData.company_name);
+    bodyFormData.append("cac_reg_no", formData.cac_reg_no);
 
     axios
       .post(
@@ -182,7 +109,9 @@ export default function FleetVehicle() {
       )
       .then((response) => {
         if (response.status === 200) {
-          navigate("/account");
+          navigate("/account", {
+            state: { id: id, token: token },
+          });
           // navigate(props.link);
         } else {
           setMessage("Error occured");
@@ -223,240 +152,35 @@ export default function FleetVehicle() {
           <p className="error-style">{formErrors.fleet_name}</p>
           <br />
 
-          <p className="requiredText">
-            {asterik} Please select the delivery medium you want to register
-            <br />
-          </p>
-
-          <section className="Radio" id="Radio-1">
-            <input
-              type="radio"
-              value="bike"
-              name="Vehicle"
-              className="RadioV"
-              checked={type === "bike"}
-              onChange={handleRadio}
-            />
-            <label htmlFor="bike">
-              {" "}
-              <span className="vehicle-text">Bike</span>
-            </label>
-
-            <input
-              type="radio"
-              value="van"
-              checked={type === "van"}
-              name="Vehicle"
-              className="RadioV"
-              onChange={handleRadio}
-            />
-            <label htmlFor="van">
-              {" "}
-              <span className="vehicle-text">Van</span>
-            </label>
-          </section>
-          <br />
-
-          <section className="Radio" id="Radio-2">
-            <input
-              type="radio"
-              value="car"
-              checked={type === "car"}
-              name="Vehicle"
-              className="RadioV"
-              onChange={handleRadio}
-            />
-            <label htmlFor="car">
-              <span className="vehicle-text">Car</span>
-            </label>
-
-            <input
-              type="radio"
-              value="truck"
-              name="Vehicle"
-              checked={type === "truck"}
-              className="RadioV"
-              id="truck-rad"
-              onChange={handleRadio}
-            />
-            <label htmlFor="truck">
-              {" "}
-              <span className="vehicle-text">Truck</span>
-            </label>
-          </section>
-          <br />
-
-          <p>{type.toLocaleUpperCase()}</p>
-          <br />
-
-          <label htmlFor="Manufacturer">
-            <span className="requiredText">
-              Name of Manufacturer and model/ Type{asterik}
-            </span>
+          <label htmlFor="company_name">
+            <span className="requiredText">Company Name{asterik}</span>
             <br />
             <input
-              value={formData.vehicle_name}
+              value={formData.company_name}
               type="text"
               className="form-field edit-field phone-input3"
-              placeholder="Eg Toyota Corolla"
-              name="vehicle_name"
+              placeholder="Enter Your Company Name"
+              name="company_name"
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.vehicle_name}</p>
+          <p className="error-style">{formErrors.company_name}</p>
           <br />
 
-          <label htmlFor="Color">
-            <span className="requiredText">Vehicle color{asterik}</span>
+          <label htmlFor="cac_reg_no">
+            <span className="requiredText">CAC Number{asterik}</span>
             <br />
             <input
-              value={formData.color}
+              value={formData.cac_reg_no}
               type="text"
               className="form-field edit-field phone-input3"
-              placeholder="Eg Red"
-              name="color"
+              placeholder="Enter Your CAC Number"
+              name="cac_reg_no"
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.color}</p>
+          <p className="error-style">{formErrors.cac_reg_no}</p>
           <br />
-
-          <label htmlFor="Vehicle Plate Number">
-            <span className="requiredText">Vehicle Plate Number{asterik}</span>
-            <br />
-            <input
-              value={formData.plate_no}
-              type="text"
-              className="form-field edit-field phone-input3"
-              placeholder="Eg LST 678KJ"
-              name="plate_no"
-              onChange={handleChange}
-            />
-          </label>
-          <p className="error-style">{formErrors.plate_no}</p>
-          <br />
-
-          <label htmlFor="license-expiry">
-            <span className="requiredText">
-              Drivers license expiry date{asterik}
-            </span>
-            <br />
-            <input
-              value={expiry}
-              type="date"
-              className="date-field"
-              placeholder="Pick Date"
-              name="license-expiry"
-              onChange={handleDate}
-            />
-          </label>
-          <p className="error-style">{noDate}</p>
-          <br />
-
-          <div className="uploadFlex">
-            <div className="uploadPad">
-              <legend className="requiredText">
-                {asterik} Upload Your Photo/Passport{" "}
-                <span className="Upload" id="uploadText-2">
-                  (Please provide a clear potrait photo which shows
-                  <br />
-                  clearly your face in front view with your eyes open. NOT A
-                  FULL BODY PHOTO)
-                </span>
-              </legend>
-              <br />
-
-              <section>
-                <div className="Upload" id="vector">
-                  <label>
-                    <img src={Vector} alt="Vector" />
-                    <input
-                      multiple
-                      accept=".png, .jpg, .jpeg, .gif"
-                      type="file"
-                      name="fullPicture"
-                      onChange={handleFullPictureE}
-                      disabled={fileLimit}
-                    />
-                  </label>
-                </div>
-                <div>
-                  {fullPicture.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
-                </div>
-                <p className="error-style">{image1Errors}</p>
-              </section>
-            </div>
-            <br />
-
-            <div className="uploadPad">
-              <legend className="requiredText">
-                {asterik} Upload Your Driver's License{" "}
-                <span className="Upload" id="uploadText">
-                  N/B: Front and Back Image.
-                </span>
-              </legend>
-              <br />
-
-              <section>
-                <div className="Upload" id="vector">
-                  <label>
-                    <img src={Vector} alt="Vector" />
-                    <input
-                      onChange={handleLicenseE}
-                      type="file"
-                      multiple
-                      accept=".png, .jpg, .jpeg, .gif"
-                      name="license"
-                      disabled={fileLimit2}
-                    />
-                  </label>
-                </div>
-                <div>
-                  {license.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
-                </div>
-                <p className="error-style">{image2Errors}</p>
-              </section>
-              <br />
-            </div>
-
-            <div className="uploadPad" id="pad-vec">
-              <legend className="requiredText">
-                {asterik} Upload an image of your Vehicle showing your plate
-                number
-                <br />
-                <span className="Upload" id="uploadText">
-                  N/B: Max of 5 images allowed.
-                </span>
-              </legend>
-              <br />
-
-              <section>
-                <div className="Upload" id="vector">
-                  <label>
-                    <img src={Vector} alt="Vector" />
-                    <input
-                      onChange={handleVehicleImageE}
-                      type="file"
-                      multiple
-                      accept=".png, .jpg, .jpeg, .gif"
-                      name="vehicleImage"
-                      disabled={fileLimit3}
-                    />
-                  </label>
-                </div>
-                <div>
-                  {vehicleImage.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
-                </div>
-                <p className="error-style">{image3Errors}</p>
-              </section>
-            </div>
-          </div>
 
           <div id="center-button">
             <Button name="Submit" />

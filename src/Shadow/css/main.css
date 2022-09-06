@@ -7,18 +7,39 @@
 .small-img {
   display: none;
 }
+.wrapper-main {
+  width: 100%;
+    background: white;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-main-container {
+  background-color: #E8F4E3;
+}
+
 
 .main-first {
   width: 100% !important;
   position: relative;
-  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end !important;
-  /* overflow-y: scroll;
-    overflow-x: hidden; */
-    margin-left: 10px;
+  overflow-y: scroll;
+  margin: 0 10px;
+  max-width: 1200px;
+  -ms-overflow-style: none;
+  scrollbar-width: none
+  ;
 }
+
+.main-first::-webkit-scrollbar {
+  display: none;
+}
+
 .scroll-main {
   height: 90vh;
   /* overflow-y: scroll; */

@@ -9,6 +9,13 @@
   align-items: center;
   padding-top: 10px;
 }
+.loader-screen {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .driver-profile-image {
   margin-right: 10px;
   display: flex;

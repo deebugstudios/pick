@@ -10,6 +10,7 @@ import "./pendingdeliverypickup.css";
 import { useNavigate } from "react-router-dom";
 import { PendingDeliveryScheduled } from "../Details info/PendingDeliveryList";
 import "../../css/toggle.css";
+import { ClipLoader } from "react-spinners";
 
 export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
@@ -52,74 +53,83 @@ export default function PendingDeliveryPickup(props) {
     setToggle(false);
   };
 
-  return (
-    <section className="user-dashboard pending-delivery no-max">
-      <div className="pending-delivery-pickup-wrapper">
-        <div className="pending-delivery-pickup-slides">
-          <br />
-          <br />
-          <div>
-            <div className="toggle-div">
-              <div
-                className="first-toggle"
-                onClick={firstClick}
-                id={toggle ? "active" : "inactive2"}
-              >
-                Pending Instant Delivery
-              </div>
-              <div
-                className="second-toggle"
-                onClick={secondClick}
-                id={toggle ? "inactive" : "active2"}
-              >
-                Pending Scheduled Delivery
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Getting Data</p>
+      </div>
+    );
+  } else
+    return (
+      <section className="user-dashboard pending-delivery no-max">
+        <div className="pending-delivery-pickup-wrapper">
+          <div className="pending-delivery-pickup-slides">
+            <br />
+            <br />
+            <div>
+              <div className="toggle-div">
+                <div
+                  className="first-toggle"
+                  onClick={firstClick}
+                  id={toggle ? "active" : "inactive2"}
+                >
+                  Pending Instant Delivery
+                </div>
+                <div
+                  className="second-toggle"
+                  onClick={secondClick}
+                  id={toggle ? "inactive" : "active2"}
+                >
+                  Pending Scheduled Delivery
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <br />
+          <br />
 
-        {pendingDeliveries.length > 0 ? (
-          pendingDeliveries.map((item) =>
-            toggle === true && item.delivery_type === "instant" ? (
-              <PendingDeliveryList
-                click={() => {
-                  navigate("/user/pending-instant", {
-                    state: { id: item._id },
-                  });
-                }}
-                parcelname={item.parcel_name}
-                parcelcode={item.parcel_code}
-                deliveryimage={item.imgs[0]}
-              />
-            ) : toggle === false && item.delivery_type === "scheduled" ? (
-              <PendingDeliveryScheduled
-                click2={() => {
-                  navigate("/user/pending-scheduled", {
-                    state: { id: item._id },
-                  });
-                }}
-                parcelname={item.parcel_name}
-                parcelcode={item.parcel_code}
-                deliveryimage={item.imgs[0]}
-              />
-            ) : null
-          )
-        ) : (
-          <h1 className="h1-center">No Deliveries Yet</h1>
-        )}
-        <br />
-        <div className="pending-delivery-pickup-entries">
-          <h6>
-            Showing <span>1</span> to <span>10</span> of <span>30</span> entries
-          </h6>
-          <div>
-            <FontAwesomeIcon icon={faAngleLeft} className="icon-space" />{" "}
-            <h6>View more</h6>
-            <FontAwesomeIcon icon={faAngleRight} className="icon-space" />
+          {pendingDeliveries.length > 0 ? (
+            pendingDeliveries.map((item) =>
+              toggle === true && item.delivery_type === "instant" ? (
+                <PendingDeliveryList
+                  click={() => {
+                    navigate("/user/pending-instant", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliveryimage={item.imgs[0]}
+                />
+              ) : toggle === false && item.delivery_type === "scheduled" ? (
+                <PendingDeliveryScheduled
+                  click2={() => {
+                    navigate("/user/pending-scheduled", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliveryimage={item.imgs[0]}
+                />
+              ) : null
+            )
+          ) : (
+            <h1 className="h1-center">No Deliveries Yet</h1>
+          )}
+          <br />
+          <div className="pending-delivery-pickup-entries">
+            <h6>
+              Showing <span>1</span> to <span>10</span> of <span>30</span>{" "}
+              entries
+            </h6>
+            <div>
+              <FontAwesomeIcon icon={faAngleLeft} className="icon-space" />{" "}
+              <h6>View more</h6>
+              <FontAwesomeIcon icon={faAngleRight} className="icon-space" />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

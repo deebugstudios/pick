@@ -35,7 +35,6 @@ export default function WelcomeUser(props) {
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
-    const number = "+234" + [phone_no];
 
     try {
       window.recaptchaVerifier = new RecaptchaVerifier(
@@ -91,6 +90,14 @@ export default function WelcomeUser(props) {
 
       if (res.status === 200) {
         setLoadOtp(true);
+        const number = "+234" + [phone_no];
+
+        const interval = setInterval(() => {
+          setCountDown((countDown) => countDown - 1);
+        }, 1000);
+        if (countDown === 0) {
+          clearInterval(interval);
+        }
         signInWithPhoneNumber(auth, number, appVerifier)
           .then((confirmationResult) => {
             window.confirmationResult = confirmationResult;
@@ -120,6 +127,47 @@ export default function WelcomeUser(props) {
 
   const handleClick = () => {
     navigate("/forgot");
+  };
+
+  const resend = () => {
+    setCountDown(60);
+    // try {
+    //   window.recaptchaVerifier = new RecaptchaVerifier(
+    //     "recaptcha-container",
+    //     {
+    //       size: "invisible",
+    //       callback: (response) => {
+    //         // console.log(response);
+    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //         handleLoginSubmit();
+    //       },
+    //     },
+    //     auth
+    //   );
+    // } catch (err) {
+    //   console.log("can't send Otp");
+    //   console.log(err);
+    // }
+
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
+    const number = "+234" + [phone_no];
+
+    const interval = setInterval(() => {
+      setCountDown((countDown) => countDown - 1);
+    }, 1000);
+    if (countDown === 0) {
+      clearInterval(interval);
+    }
+    signInWithPhoneNumber(auth, number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   const handleFinalSubmit = () => {
@@ -288,14 +336,20 @@ export default function WelcomeUser(props) {
 
                   <br />
                   <br />
-                  <p id="another-code">
-                    We would send you another code in{" "}
-                    <span id="otpTimer">00:{countDown}</span>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </p>
+                  {countDown >= 0 ? (
+                    <p id="another-code">
+                      We would send you another code in{" "}
+                      <span id="otpTimer">00:{countDown}</span>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                    </p>
+                  ) : (
+                    <button onClick={resend} id="another-code">
+                      Resend Otp
+                    </button>
+                  )}
 
                   <Button name="DONE" click={handleFinalSubmit} />
                 </div>
@@ -335,6 +389,7 @@ export function WelcomeAgent() {
     dataError,
     loadOtp,
     setLoadOtp,
+    setLoading,
   } = value;
 
   const handleFinalSubmit = () => {
@@ -407,6 +462,46 @@ export function WelcomeAgent() {
     navigate("/forgot");
   };
 
+  const resend = () => {
+    setCountDown(60);
+    // try {
+    //   window.recaptchaVerifier = new RecaptchaVerifier(
+    //     "recaptcha-container",
+    //     {
+    //       size: "invisible",
+    //       callback: (response) => {
+    //         // console.log(response);
+    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //         handleLoginSubmit();
+    //       },
+    //     },
+    //     auth
+    //   );
+    // } catch (err) {
+    //   console.log("can't send Otp");
+    //   console.log(err);
+    // }
+
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
+    const number = "+234" + [phone_no];
+
+    const interval = setInterval(() => {
+      setCountDown((countDown) => countDown - 1);
+    }, 1000);
+    if (countDown === 0) {
+      clearInterval(interval);
+    }
+    signInWithPhoneNumber(auth, number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
   return (
     <>
       <Head />
@@ -445,7 +540,6 @@ export function WelcomeAgent() {
                 // maxLength={10}
               />
             </div>
-            <span>{message}</span>
             <p className="error-style">{formErrors}</p>
             <p className="error-style">{dataError}</p>
 
@@ -549,14 +643,20 @@ export function WelcomeAgent() {
 
                   <br />
                   <br />
-                  <p id="another-code">
-                    We would send you another code in{" "}
-                    <span id="otpTimer">00:{countDown}</span>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </p>
+                  {countDown >= 0 ? (
+                    <p id="another-code">
+                      We would send you another code in{" "}
+                      <span id="otpTimer">00:{countDown}</span>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                    </p>
+                  ) : (
+                    <button onClick={resend} id="another-code">
+                      Resend Otp
+                    </button>
+                  )}
 
                   <Button name="DONE" click={handleFinalSubmit} />
                 </div>

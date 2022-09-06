@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
 import { DateConverter } from "../../../DateAndTimeConverter";
+import { useRef } from "react";
 
 export default function UserChatAdmin() {
   const location = useLocation();
@@ -31,7 +32,7 @@ export default function UserChatAdmin() {
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const [userId, setUserId] = useState("");
-
+  const bottomRef = useRef(null);
   const [convId, setConvId] = useState("");
   const [content, setContent] = useState("");
   const [conversations, setConversations] = useState([]);
@@ -205,26 +206,31 @@ export default function UserChatAdmin() {
     } catch (error) {}
   };
 
-  // useEffect(() => {
-  const q = query(collection(db, "messages_collection", convId, convId));
-  const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-    const list = [];
-    QuerySnapshot.forEach((doc) => {
-      list.push(doc?.data());
-      setMessageList(list);
+  useEffect(() => {
+    const q = query(collection(db, "messages_collection", convId, convId));
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const list = [];
+      QuerySnapshot.forEach((doc) => {
+        list.push(doc?.data());
+        setMessageList(list);
+      });
     });
-  });
-  // console.log(messageList);
-  if (isLoaded === false) {
-    unsubscribe();
-  }
-  // }, [isLoaded === true]);
+    // console.log(messageList);
+    if (isLoaded === false) {
+      unsubscribe();
+    }
+  }, [isLoaded === true]);
 
   useEffect(() => {
     handleCheck();
     fetchUserDetails();
     fetchConversations();
   }, []);
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messageList]);
 
   if (convId === "a") {
     return (
@@ -237,9 +243,9 @@ export default function UserChatAdmin() {
                 ? conversations?.map((item) => (
                     <div
                       className="Chat-profile active-chat"
-                      // onClick={() => {
-                      //   setConvId(item._id);
-                      // }}
+                      onClick={() => {
+                        setConvId(item._id);
+                      }}
                     >
                       <ProfilePix
                         profileimage={item.other_user_img}
@@ -293,7 +299,7 @@ export default function UserChatAdmin() {
         </div>
       </section>
     );
-  } else if (convId.length != 0)
+  } else if (convId.length > 1)
     return (
       <section className="user-dashboard chat-admin">
         <div className="chat-wrapper">
@@ -304,9 +310,9 @@ export default function UserChatAdmin() {
                 ? conversations?.map((item) => (
                     <div
                       className="Chat-profile active-chat"
-                      // onClick={() => {
-                      //   setConvId(item._id);
-                      // }}
+                      onClick={() => {
+                        setConvId(item._id);
+                      }}
                     >
                       <ProfilePix
                         profileimage={item.other_user_img}
@@ -357,7 +363,7 @@ export default function UserChatAdmin() {
                   </div>
                 )
               )}
-
+              <div ref={bottomRef} />
               <form className="chat-section" onSubmit={handleSubmit}>
                 <div className="typing-bar">
                   <textarea
@@ -396,7 +402,7 @@ export const ChatAdmin = () => {
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const [userId, setUserId] = useState("");
-
+  const bottomRef = useRef(null);
   const [convId, setConvId] = useState("");
   const [content, setContent] = useState("");
   const [conversations, setConversations] = useState([]);
@@ -420,17 +426,19 @@ export const ChatAdmin = () => {
       );
       const data = await res.json();
       console.log(data);
-      if (data.msg === "Success") {
+      if (data.msg === "Old conversation") {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
       } else if (data.msg === "No conversation found") {
         setConvId("a");
         setNew_conv(true);
-        // setIsLoaded(true);
+        setIsLoaded(true);
         // setIsLoaded(true);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleContent = (e) => {
@@ -487,10 +495,10 @@ export const ChatAdmin = () => {
     if (new_conv === true || convId === "a") {
       const contentToDB = content;
       setContent("");
-      // console.log;
+      // console.log(userImg, userName, userId, contentToDB);
       try {
         const res = await fetch(
-          "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
+          "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
           {
             method: "POST",
             body: JSON.stringify({
@@ -499,9 +507,8 @@ export const ChatAdmin = () => {
               sender_name: userName,
               sender_img: userImg,
               new_conv: true,
-              content: content,
+              content: contentToDB,
               who_sent: "user",
-              user_id: userId,
               which_user: "user",
             }),
             headers: {
@@ -517,15 +524,16 @@ export const ChatAdmin = () => {
           setNew_conv(false);
         }
         await setDoc(
-          doc(db, "messages_collection", convId, convId, `${Date.now()}`),
+          doc(db, "hf_collection", convId, convId, `${Date.now()}`),
           {
             content: contentToDB,
-            conv_id: convId,
-            // receiver_id: agentId,
+            // conv_id: convId,
             sender_id: userId,
             sender_img: userImg,
             sender_name: userName,
             timestamp: Date.now(),
+            which_user: "user",
+            who_sent: "user",
           }
         );
       } catch (error) {
@@ -536,20 +544,18 @@ export const ChatAdmin = () => {
       const contentToDB = content;
       // const timestamp = Date.now()
       setContent("");
-      await setDoc(
-        doc(db, "messages_collection", convId, convId, `${Date.now()}`),
-        {
-          content: contentToDB,
-          conv_id: convId,
-          // receiver_id: agentId,
-          sender_id: userId,
-          sender_img: userImg,
-          sender_name: userName,
-          timestamp: Date.now(),
-        }
-      );
+      await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
+        content: contentToDB,
+        // conv_id: convId,
+        sender_id: userId,
+        sender_img: userImg,
+        sender_name: userName,
+        timestamp: Date.now(),
+        which_user: "user",
+        who_sent: "user",
+      });
       await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
+        "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
         {
           method: "POST",
           body: JSON.stringify({
@@ -574,10 +580,31 @@ export const ChatAdmin = () => {
   };
 
   useEffect(() => {
+    const q = query(collection(db, "hf_collection", convId, convId));
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const list = [];
+      QuerySnapshot.forEach((doc) => {
+        list.push(doc?.data());
+        setMessageList(list);
+      });
+    });
+    console.log(messageList);
+    if (isLoaded === false) {
+      unsubscribe();
+    }
+  }, [isLoaded === true]);
+
+  useEffect(() => {
     handleCheck();
     fetchUserDetails();
     fetchConversations();
+    // scrollToBottom();
   }, []);
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messageList]);
 
   if (convId === "a") {
     return (
@@ -606,7 +633,7 @@ export const ChatAdmin = () => {
                       </div>
                       <p>{item.latest_message.content}</p>
                       <p className="no-of-messages">
-                        {item.latest_message.sender_id != userId
+                        {item.latest_message.sender_id !== userId
                           ? "Agent"
                           : "You"}
                       </p>
@@ -623,7 +650,7 @@ export const ChatAdmin = () => {
               <h6>Conversations</h6>
             </div>
             <div className="messages-wrapper">No messages to display</div>
-            <form className="chat-section">
+            <form className="chat-section" onSubmit={handleSubmit}>
               <div className="typing-bar">
                 <textarea
                   type="text"
@@ -646,13 +673,13 @@ export const ChatAdmin = () => {
         </div>
       </section>
     );
-  } else if (convId.length != 0)
+  } else if (convId.length > 1)
     return (
       <section className="user-dashboard chat-admin">
         <div className="chat-wrapper">
-          <div className="chat-left-side">
-            <div className="chat-left-side-top">
-              <h5>Other Conversations</h5>
+          {/* <div className="chat-left-side"> */}
+          {/* <div className="chat-left-side-top"> */}
+          {/* <h5>Other Conversations</h5>
               {conversations.length > 0
                 ? conversations?.map((item) => (
                     <div
@@ -668,27 +695,27 @@ export const ChatAdmin = () => {
                       <div className="chat-report">
                         <p className="time-of-msg">
                           {<DateConverter value={item.timestamp} />}
-                        </p>
-                        {/* <img src={report} alt="report flag" /> */}
-                      </div>
+                        </p> */}
+          {/* <img src={report} alt="report flag" /> */}
+          {/* </div>
                       <p>{item.latest_message.content}</p>
                       <p className="no-of-messages">
-                        {item.latest_message.sender_id != userId
+                        {item.latest_message.sender_id !== userId
                           ? "Agent"
                           : "You"}
                       </p>
                     </div>
                   ))
-                : "No Conversations found"}
-            </div>
-            {/* <div className="chat-left-side-bottom">
+                : "No Conversations found"} */}
+          {/* </div> */}
+          {/* <div className="chat-left-side-bottom">
               <h5>RESOLVED (16)</h5>
               <div className="resovled-chat chat-margin">
                 <p>1:32 PM 04/20</p>
                 <ProfilePix />
               </div>
             </div> */}
-          </div>
+          {/* </div> */}
 
           <div className="chat-right-side">
             <div className="your-profile">
@@ -699,8 +726,8 @@ export const ChatAdmin = () => {
             </div>
             <div className="messages-wrapper">
               <p className="date-of-msg"></p>
-              {/* {messageList?.map((item) =>
-                item?.sender_id == agentId ? (
+              {messageList?.map((item) =>
+                item?.sender_id !== userId ? (
                   <div className="incoming-msgs">
                     <p>{item?.content}</p>
                   </div>
@@ -709,9 +736,10 @@ export const ChatAdmin = () => {
                     <p>{item?.content}</p>
                   </div>
                 )
-              )} */}
+              )}
+              <div ref={bottomRef} />
 
-              <form className="chat-section" /*onSubmit={handleSubmit}*/>
+              <form className="chat-section" onSubmit={handleSubmit}>
                 <div className="typing-bar">
                   <textarea
                     type="text"

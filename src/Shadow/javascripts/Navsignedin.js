@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import profileimage from "../images/profileimage.png";
 import "../css/navsignedin.css";
 import { Link } from "react-router-dom";
 import Pickload from "../../components/Images/pickload.png";
@@ -36,23 +34,27 @@ const Navsignedin = (props) => {
               </a>
               <div className="sub-menu">
                 <ul>
-                  <li>Pending deliveries</li>
+                  {/* <li>Pending deliveries</li> */}
+                  <Link to="/deliveryhistory">
                   <li>Delivery history</li>
+                  </Link>
                 </ul>
               </div>
             </li>
           </ul>
         </div>
         <div className="profile">
+        <Link to="/agent-profile">
         <div className="profile-img skeleton">
         {loading ?   <ClipLoader color={"#1AA803"} loading={loading} cssOverride={{margin:"5px 5px"}} size={25} /> : <img src={riderdata?.img_url}  /> }
           </div>
-          <div className="notification">
+          </Link>
+          {/* <div className="notification"> */}
             {/* <FontAwesomeIcon icon={faBell} className="notification-bell" /> */}
             {/* <li className="siderbar-small" onClick={props.siderBar}>X</li> */}
             <FontAwesomeIcon icon={faBars} className="siderbar-small" onClick={props.siderBar}/>
             {/* <span>3</span> */}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </nav>

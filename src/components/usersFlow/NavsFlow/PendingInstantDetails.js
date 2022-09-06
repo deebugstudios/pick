@@ -14,6 +14,7 @@ import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
+import { ClipLoader } from "react-spinners";
 
 export default function PendingInstantDetails() {
   const navigate = useNavigate();
@@ -62,7 +63,12 @@ export default function PendingInstantDetails() {
     fetchDeliveryDetails();
   }, []);
   if (loading === true) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Getting Data</p>
+      </div>
+    );
   } else
     return (
       <section className="user-dashboard pending-delivery specifics no-max">

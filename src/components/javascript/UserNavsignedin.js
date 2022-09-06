@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Pickload from "../Images/pickload.png";
 import "../css/usernavsignedin.css";
 import { NavLink, Link } from "react-router-dom";
+import { Notification } from "../../Shadow/Pages/Notifications/Notification";
 
 const Navsignedin = (props) => {
+  const [open, setOpen]= useState(false)
+
+const handlePopUp = () => {
+  setOpen(!open)
+}
+
+
   return (
     <nav className="user-nav">
       <div className="nav-wrapper-1">
@@ -48,7 +56,8 @@ const Navsignedin = (props) => {
           <Link to="/user/user-profile">
             <div className="profile-img-1">{props.profile}</div>
           </Link>
-          <FontAwesomeIcon icon={faBell} />
+          <FontAwesomeIcon icon={faBell} onClick={handlePopUp}/>
+      {open && <Notification />}    
         </div>
       </div>
     </nav>

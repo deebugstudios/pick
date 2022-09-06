@@ -7,6 +7,7 @@ import LoggedinMainPage from "./LoggedinMainPage";
 import { useNavigate } from "react-router-dom";
 import { HistoryList, InstantHistoryList } from "../Details info/HistoryList";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { ClipLoader } from "react-spinners";
 
 export default function CompletedDeliveries() {
   const [toggle, setToggle] = useState(true);
@@ -76,118 +77,127 @@ export default function CompletedDeliveries() {
     setToggle(false);
   };
 
-  return (
-    <section className="user-dashboard pending-delivery specifics no-max">
-      <div className="history-wrapper-2">
-        <div className="pending-delivery-pickup-slides">
-          <br />
-          <br />
-          <div className="toggle-div">
-            <div
-              className="first-toggle"
-              onClick={firstClick}
-              id={toggle ? "active" : "inactive2"}
-            >
-              Completed Deliveries
-            </div>
-            <div
-              className="second-toggle"
-              onClick={secondClick}
-              id={toggle ? "inactive" : "active2"}
-            >
-              Cancelled Deliveries
-            </div>
-          </div>
-        </div>
-
-        <div className="calender-container">
-          <input className="calendar" type="date" />
-
-          {/* </input> */}
-        </div>
-        <div className="search-box-container">
-          <input
-            type="text"
-            placeholder="Search"
-            className="search-box-1"
-            onChange={(e) => setSearchItems(e.target.value)}
-          />
-        </div>
-
-        {toggle === true
-          ? completedDeliveries
-              ?.filter((value) => {
-                if (value === "") {
-                  return value;
-                } else if (
-                  value.parcel_name
-                    .toLowerCase()
-                    .includes(searchItems.toLowerCase())
-                ) {
-                  return searchItems;
-                }
-              })
-              ?.map((pObj) => (
-                <InstantHistoryList
-                  // click={handleClick}
-                  click={
-                    pObj.delivery_type === "instant"
-                      ? () => {
-                          navigate("/user/user-instant", {
-                            state: { id: pObj._id },
-                          });
-                        }
-                      : pObj.delivery_type === "scheduled"
-                      ? () => {
-                          navigate("/user/user-schedule", {
-                            state: { id: pObj._id },
-                          });
-                        }
-                      : null
-                  }
-                  parcelname={pObj.parcel_name}
-                  parcelcode={pObj.parcel_code}
-                  deliverytype={pObj.delivery_type}
-                  deliveryimage={pObj.imgs[0]}
-                />
-              ))
-          : cancelledDeliveries
-              ?.filter((value) => {
-                if (value === "") {
-                  return value;
-                } else if (
-                  value.parcel_name
-                    .toLowerCase()
-                    .includes(searchItems.toLowerCase())
-                ) {
-                  return searchItems;
-                }
-              })
-              ?.map((item) => (
-                <InstantHistoryList
-                  click={() => {
-                    navigate("/user/cancelled-details", {
-                      state: { id: item._id },
-                    });
-                  }}
-                  parcelname={item.parcel_name}
-                  parcelcode={item.parcel_code}
-                  deliverytype={item.delivery_type}
-                  deliveryimage={item.imgs[0]}
-                />
-              ))}
-
-        <div className="pending-delivery-pickup-entries">
-          <h6>
-            Showing <span>1</span> to <span>10</span> of <span>30</span> entries
-          </h6>
-          <div>
-            <FontAwesomeIcon icon={faAngleLeft} className="icon-space" />{" "}
-            <h6>View more</h6>
-            <FontAwesomeIcon icon={faAngleRight} className="icon-space" />
-          </div>
-        </div>
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Getting Data</p>
       </div>
-    </section>
-  );
+    );
+  } else
+    return (
+      <section className="user-dashboard pending-delivery specifics no-max">
+        <div className="history-wrapper-2">
+          <div className="pending-delivery-pickup-slides">
+            <br />
+            <br />
+            <div className="toggle-div">
+              <div
+                className="first-toggle"
+                onClick={firstClick}
+                id={toggle ? "active" : "inactive2"}
+              >
+                Completed Deliveries
+              </div>
+              <div
+                className="second-toggle"
+                onClick={secondClick}
+                id={toggle ? "inactive" : "active2"}
+              >
+                Cancelled Deliveries
+              </div>
+            </div>
+          </div>
+
+          <div className="calender-container">
+            <input className="calendar" type="date" />
+
+            {/* </input> */}
+          </div>
+          <div className="search-box-container">
+            <input
+              type="text"
+              placeholder="Search"
+              className="search-box-1"
+              onChange={(e) => setSearchItems(e.target.value)}
+            />
+          </div>
+
+          {toggle === true
+            ? completedDeliveries
+                ?.filter((value) => {
+                  if (value === "") {
+                    return value;
+                  } else if (
+                    value.parcel_name
+                      .toLowerCase()
+                      .includes(searchItems.toLowerCase())
+                  ) {
+                    return searchItems;
+                  }
+                })
+                ?.map((pObj) => (
+                  <InstantHistoryList
+                    // click={handleClick}
+                    click={
+                      pObj.delivery_type === "instant"
+                        ? () => {
+                            navigate("/user/user-instant", {
+                              state: { id: pObj._id },
+                            });
+                          }
+                        : pObj.delivery_type === "scheduled"
+                        ? () => {
+                            navigate("/user/user-schedule", {
+                              state: { id: pObj._id },
+                            });
+                          }
+                        : null
+                    }
+                    parcelname={pObj.parcel_name}
+                    parcelcode={pObj.parcel_code}
+                    deliverytype={pObj.delivery_type}
+                    deliveryimage={pObj.imgs[0]}
+                  />
+                ))
+            : cancelledDeliveries
+                ?.filter((value) => {
+                  if (value === "") {
+                    return value;
+                  } else if (
+                    value.parcel_name
+                      .toLowerCase()
+                      .includes(searchItems.toLowerCase())
+                  ) {
+                    return searchItems;
+                  }
+                })
+                ?.map((item) => (
+                  <InstantHistoryList
+                    click={() => {
+                      navigate("/user/cancelled-details", {
+                        state: { id: item._id },
+                      });
+                    }}
+                    parcelname={item.parcel_name}
+                    parcelcode={item.parcel_code}
+                    deliverytype={item.delivery_type}
+                    deliveryimage={item.imgs[0]}
+                  />
+                ))}
+
+          <div className="pending-delivery-pickup-entries">
+            <h6>
+              Showing <span>1</span> to <span>10</span> of <span>30</span>{" "}
+              entries
+            </h6>
+            <div>
+              <FontAwesomeIcon icon={faAngleLeft} className="icon-space" />{" "}
+              <h6>View more</h6>
+              <FontAwesomeIcon icon={faAngleRight} className="icon-space" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
 }

@@ -136,7 +136,7 @@ export const UseRiderProvider = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const number = "+234" + [phone_no];
-
+    if (number === "") return
     try {
       window.recaptchaVerifier = new RecaptchaVerifier(
         "sign-in-button",
@@ -160,6 +160,7 @@ export const UseRiderProvider = (props) => {
 
     if (!phone_no) {
       setFormErrors("Phone Number must be filled!");
+      setLoadOtp(false)
     } else setFormErrors("");
 
     try {
@@ -180,9 +181,10 @@ export const UseRiderProvider = (props) => {
       );
       const data = await res.json();
       // console.log(data);
-      setLoadOtp(true);
+      
       if (data.msg == "Account not active or delivery agent does not exist") {
         setDataError(data.msg);
+        setLoadOtp(false)
         setTimeout(() => {
           setDataError("");
         }, 4000);
@@ -190,10 +192,10 @@ export const UseRiderProvider = (props) => {
 
       if (res.status === 200) {
         // console.log(data);
-
         signInWithPhoneNumber(auth, number, appVerifier)
-          .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          setLoadOtp(true);
             setLoading(false);
           })
           .catch((error) => {
@@ -205,17 +207,13 @@ export const UseRiderProvider = (props) => {
           "agentId",
           JSON.stringify(data?.delivery_agent._id)
         );
-        //  navigate("/deliveryhistory")
-        // console.log("sign in successfully");
-        // setMessage("User created successfully");
         setRiderData(data?.delivery_agent);
         setLoading(false);
-        // navigate("/deliveryhistory");
-        // window.location.reload(true)
       } else {
         setMessage("An Error occured");
         console.log("An Error occured");
         setLoading(false);
+        setLoadOtp(false)
       }
     } catch (error) {
       console.log(error);

@@ -3,10 +3,8 @@ import "./profilepage.css";
 import passportphoto from "../../images/profilepic3.jpg";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import camera from "../../images/camera.png"
-import addFile from '../../images/addfile.png'
-import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 const ProfilePage = () => {
   const value = useContext(RiderContext);
@@ -15,19 +13,17 @@ const ProfilePage = () => {
   const [success, setSuccess]= useState("")
   const [riderdata, setRiderData] = useState([])
   const [loading, setLoading]= useState(true)
-  const [disabled, setDisabled] = useState(true);
 
   // console.log(riderdata?.fullname)
   // console.log(JSON.parse(riderdata.phone_no) , riderdata.phone_no);
 
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     fullname: riderdata?.fullname,
     address: riderdata?.address,
-    // email: riderdata?.email,
     number: parseInt(riderdata?.phone_no),
     state: riderdata?.state,
     img: riderdata?.img_url,
-    // driverLicenseSelect: ""
   });
   const fullnameref = useRef(riderdata?.fullname)
 
@@ -65,24 +61,24 @@ useEffect(() => {
 
 
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setFormData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
-    console.log(formData)
-  };
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   setFormData((prev) => {
+  //     return {
+  //       ...prev,
+  //       [e.target.name]: e.target.value,
+  //     };
+  //   });
+  //   console.log(formData)
+  // };
   const handleChangeDisable = (e) => {
     e.preventDefault();
-    setDisabled(false);
+    // navigate("/")
   };
-  const handleCancel = (e) => {
-    e.preventDefault();
-    setDisabled(true);
-  };
+  // const handleCancel = (e) => {
+  //   e.preventDefault();
+  //   setDisabled(true);
+  // };
   const vehcileImages = riderdata?.vehicle_details?.img_urls?.map(
     (image, index) => {
       return (
@@ -94,58 +90,43 @@ useEffect(() => {
   );
 
 
-const handleSubmitChangeProfile = (e) => {
-  e.preventDefault()
-  // if(formData.address === formData.address || formData.fullname === formData.fullname || formData.state === formData.state) {
-  //   setDisabled(true)
-  //   return
-  // }else{
-    // console.log("fetching")
-    // console.log(token)
-    // console.log(JSON.parse(token))
-    // console.log(formData.state)
-    const bodyFormData = new FormData();
+// const handleSubmitChangeProfile = (e) => {
+//   e.preventDefault()
+//     const bodyFormData = new FormData();
     
-    bodyFormData.append("token", JSON.parse(token));
-    bodyFormData.append("fullname", formData.fullname);
-    bodyFormData.append("address", formData.address);
-    bodyFormData.append("state", formData.state);
+//     bodyFormData.append("token", JSON.parse(token));
+//     bodyFormData.append("fullname", formData.fullname);
+//     bodyFormData.append("address", formData.address);
+//     bodyFormData.append("state", formData.state);
     
   
-       axios.post("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_profile/edit_profile", 
-     bodyFormData,
-      {
-        headers: {
-          "content-Type": "application/json"
-        }
-        // body :  JSON.stringify(bodyFormData),
-      }
-      ).then(res=> {
-        if(res.status === 200){
-          setSuccess(res?.data?.msg)
-          setTimeout(() => {
-            setSuccess("")
-            window.location.reload()
-          }, 4000);
-        }else {
-          setError("some error occured")
-          setTimeout(() => {
-            setError("")
-          }, 4000);
-        }
-      })
-      // const formRes = await res.json()
-      //   console.log(formRes)
-      //   console.log(token)
-      // if (res.status === 200){
-      //   console.log(formRes)
-      // }else{
-      //   console.log('error occurred')
-      // }
-  
-  // }
+//        axios.post("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_profile/edit_profile", 
+//      bodyFormData,
+//       {
+//         headers: {
+//           "content-Type": "application/json"
+//         }
+//       }
+//       ).then(res=> {
+//         if(res.status === 200){
+//           setSuccess(res?.data?.msg)
+//           setTimeout(() => {
+//             setSuccess("")
+//             window.location.reload()
+//           }, 4000);
+//         }else {
+//           setError("some error occured")
+//           setTimeout(() => {
+//             setError("")
+//           }, 4000);
+//         }
+//       })
  
-  }
+//   }
+
+
+
+
   return (
     // <div className="white">
     <div className="iii">
@@ -162,7 +143,6 @@ const handleSubmitChangeProfile = (e) => {
       ):
       (
         <>
-        <p style={{textAlign:"center", marginTop:"10px"}}> <span className="red-message">{error}</span> <span className="green-message">{success}</span></p>
       {/* <div id="profile-picture-merge2">
             <div className="shadow-user-image">
               <img src={riderdata?.img_url} />
@@ -196,11 +176,10 @@ const handleSubmitChangeProfile = (e) => {
               name="fullname"
               id="fullname"
               ref={fullnameref}
-              value={riderdata?.fullname || formData?.fullname}
-              disabled={disabled}
-              required
+              value={riderdata?.fullname}
+              disabled
               className="shorter-form"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
             {/* <button className="change-btn" onClick={handleChangeDisable}>
               change
@@ -214,7 +193,7 @@ const handleSubmitChangeProfile = (e) => {
               id="email"
               disabled
               value={riderdata?.email}
-              onChange={handleChange}
+              // onChange={handleChange}
             />
             <br />
             <label htmlFor="number">Phone Number</label>
@@ -223,15 +202,14 @@ const handleSubmitChangeProfile = (e) => {
               type="number"
               name="number"
               id="number"
-              value={parseInt(riderdata?.phone_no) || formData?.number}
-              disabled={disabled}
-              onChange={handleChange}
-              required
+              value={parseInt(riderdata?.phone_no)}
+              disabled
+              // onChange={handleChange}
               className="shorter-form"
             />
-            {/* <button className="change-btn" onClick={handleChangeDisable}>
+            <button className="change-btn" onClick={handleChangeDisable}>
               change
-            </button> */}
+            </button>
             <br />
             <label htmlFor="address">Address</label>
             <br />
@@ -239,10 +217,9 @@ const handleSubmitChangeProfile = (e) => {
               type="text"
               name="address"
               id="address"
-              value={riderdata?.address || formData?.address}
-              onChange={handleChange}
-              disabled={disabled}
-              required
+              value={riderdata?.address }
+              // onChange={handleChange}
+              disabled
               className="shorter-form"
             />
             {/* <button className="change-btn" onClick={handleChangeDisable}>
@@ -254,8 +231,9 @@ const handleSubmitChangeProfile = (e) => {
             <select
               name="state"
               id="states"
-              value={riderdata?.state || formData?.state}
-              onChange={handleChange}
+              value={riderdata?.state}
+              // onChange={handleChange}
+              disabled
             >
               <option value="Abia">Abia</option>
               <option value="Adamawa">Adamawa</option>

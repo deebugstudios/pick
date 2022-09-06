@@ -12,10 +12,13 @@ import "../css/main.css";
 import Section2 from "./Section2";
 import { Link } from "react-router-dom";
 import { Autocomplete } from "@react-google-maps/api";
+import Footer from "./Footer";
 
 const Main = () => {
   return (
+    <>
     <div className="wrapper-main">
+      <div className="wrapper-main-container">
       <section className="main-first">
         <div className="scroll-main">
           <img src={reddots} alt="" className="red-dots" />
@@ -73,7 +76,23 @@ const Main = () => {
           <Section2 />
         </div>
       </section>
+      </div>
     </div>
+    <div style={{backgroundColor: "white", position: "absolute", bottom: "0", right: "0", left: "0"}}>
+    <div className="main-footer-rights">
+        <div>
+          <p>© Copyright 2022 | pickload.com | All rights reserved.</p>
+        </div>
+        <div>
+          <ul>
+            <li>Contact Us</li>
+            <li>Terms</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    {/* <Footer/> */}
+    </>
   );
 };
 
