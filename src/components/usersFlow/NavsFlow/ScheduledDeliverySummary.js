@@ -10,6 +10,7 @@ import Button from "../../javascript/Button";
 import FormProgress2 from "../../Images/FormProgress2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 // import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
@@ -21,6 +22,8 @@ export default function ScheduledDeliverySummary() {
   const name = location.state.name;
   const phone = location.state.number;
   const vehicle = location.state.deliveryMedium;
+  const userValues = userContext(userContext);
+  const { token } = userValues;
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -30,8 +33,7 @@ export default function ScheduledDeliverySummary() {
         {
           method: "POST",
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             fullname: name,
             delivery_id: deliveryID,
             deliivery_medium: vehicle,
@@ -97,7 +99,7 @@ export default function ScheduledDeliverySummary() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            JSON.parse(token),
           delivery_id: deliveryID,
         }),
       }

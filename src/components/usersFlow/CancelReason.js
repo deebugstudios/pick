@@ -1,6 +1,7 @@
 // import { async } from "@firebase/util";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 import "../css/reason.css";
 import Button from "../javascript/Button";
 
@@ -8,6 +9,8 @@ export default function CancelReason(props) {
   const navigate = useNavigate();
   const [reason, setReason] = useState("I changed my mind");
   const [explain, setExplain] = useState("");
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const handleCheck = (e) => {
     setReason(e.target.value);
@@ -24,8 +27,7 @@ export default function CancelReason(props) {
 
           body: JSON.stringify({
             delivery_id: props.delivery_id,
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             cancel_reason: reason,
           }),
           headers: {

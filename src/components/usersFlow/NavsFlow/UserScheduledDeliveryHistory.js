@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
 import "./deliveryhistorydetails.css";
@@ -12,9 +12,12 @@ import LeaveReview from "../LeaveReview";
 import { ClipLoader } from "react-spinners";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function UserScheduledDeliveryHistory() {
   const navigate = useNavigate();
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const location = useLocation();
 
@@ -35,8 +38,7 @@ export default function UserScheduledDeliveryHistory() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_id: Delivery_id,
         }),
       }
@@ -200,6 +202,7 @@ export default function UserScheduledDeliveryHistory() {
               delivery_agent_id={deliveryDetails.delivery_agent_id}
               delivery_agent_img={deliveryDetails.delivery_agent_img}
               delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
+              delivery_agent_email={deliveryDetails.delivery_agent_email}
             />
           </Popup>
           <Popup trigger={reviewButton} setTrigger={setReviewButton}>

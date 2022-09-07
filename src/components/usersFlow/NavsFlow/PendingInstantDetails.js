@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./pendingdeliveryspecifics.css";
 import map from "../../Images/map.png";
 import { DeliveryImages } from "../Details info/DeliveryImages";
@@ -15,10 +15,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function PendingInstantDetails() {
   const navigate = useNavigate();
   const location = useLocation();
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
@@ -37,8 +40,7 @@ export default function PendingInstantDetails() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_id: Delivery_id,
         }),
       }
@@ -49,15 +51,6 @@ export default function PendingInstantDetails() {
     setDeliveryDetails(data?.delivery);
     // console.log(data);
   };
-  // setPickDate(deliveryDetails?.pickup_time);
-  // // const dateField = new Date(deliveryDetails?.pickup_time);
-  // console.log(pickDate);
-  // const dateField = new Date(pickDate);
-  // const dateString = dateField.toDateString();
-  // const time = dateField.toTimeString();
-  // const timeString = time.slice(0, -40);
-
-  // console.log(deliveryDetails?.timestamp);
 
   useEffect(() => {
     fetchDeliveryDetails();

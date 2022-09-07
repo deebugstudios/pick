@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../javascript/Button";
 import ReviewThanks from "./ReviewThanks";
 import { Popup3 } from "../javascript/Popup";
 import { async } from "@firebase/util";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function LeaveReview(props) {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function LeaveReview(props) {
   const [reviewError, setReviewError] = useState("");
   const [ratingError, setRatingError] = useState("");
   const [userDetails, setUserDetails] = useState([]);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const handleChange = (e) => {
     setReview(e.target.value);
@@ -39,8 +42,7 @@ export default function LeaveReview(props) {
             review: review,
             delivery_agent_id: props.agentId,
             user_img: userDetails.img,
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             user_name: userDetails.fullname,
             stars: rating,
           }),
@@ -73,8 +75,7 @@ export default function LeaveReview(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );

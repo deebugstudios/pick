@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ProfilePix } from "../Details info/ProfilePix";
 import report from "../../images/reportflag.png";
 import attachmenticon from "../../images/attachfileicon.png";
@@ -21,6 +21,7 @@ import {
 import { db } from "../../../utils/firebase";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { useRef } from "react";
+import { userContext } from "../Contexts/RiderContext";
 
 export default function UserChatAdmin() {
   const location = useLocation();
@@ -37,6 +38,8 @@ export default function UserChatAdmin() {
   const [content, setContent] = useState("");
   const [conversations, setConversations] = useState([]);
   const [new_conv, setNew_conv] = useState(undefined);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const fetchUserDetails = async () => {
     const res = await fetch(
@@ -47,8 +50,7 @@ export default function UserChatAdmin() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -69,8 +71,7 @@ export default function UserChatAdmin() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -95,8 +96,7 @@ export default function UserChatAdmin() {
           {
             method: "POST",
             body: JSON.stringify({
-              token:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+              token: JSON.parse(token),
               receiver_id: agentId,
               sender_name: userName,
               new_conv: true,
@@ -152,8 +152,7 @@ export default function UserChatAdmin() {
         {
           method: "POST",
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             receiver_id: agentId,
             sender_name: userName,
             new_conv: false,
@@ -181,8 +180,7 @@ export default function UserChatAdmin() {
         {
           method: "POST",
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             receiver_id: agentId,
           }),
           headers: {
@@ -407,6 +405,8 @@ export const ChatAdmin = () => {
   const [content, setContent] = useState("");
   const [conversations, setConversations] = useState([]);
   const [new_conv, setNew_conv] = useState(undefined);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const handleCheck = async () => {
     try {
@@ -415,8 +415,7 @@ export const ChatAdmin = () => {
         {
           method: "POST",
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
           }),
           headers: {
             "Content-Type": "application/json",
@@ -454,8 +453,7 @@ export const ChatAdmin = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -476,8 +474,7 @@ export const ChatAdmin = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -502,8 +499,7 @@ export const ChatAdmin = () => {
           {
             method: "POST",
             body: JSON.stringify({
-              token:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+              token: JSON.parse(token),
               sender_name: userName,
               sender_img: userImg,
               new_conv: true,
@@ -559,8 +555,7 @@ export const ChatAdmin = () => {
         {
           method: "POST",
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             sender_name: userName,
             sender_img: userImg,
             new_conv: true,
@@ -610,38 +605,6 @@ export const ChatAdmin = () => {
     return (
       <section className="user-dashboard chat-admin">
         <div className="chat-wrapper">
-          <div className="chat-left-side">
-            <div className="chat-left-side-top">
-              <h5>New</h5>
-              {conversations.length > 0
-                ? conversations?.map((item) => (
-                    <div
-                      className="Chat-profile active-chat"
-                      // onClick={() => {
-                      //   setConvId(item._id);
-                      // }}
-                    >
-                      <ProfilePix
-                        profileimage={item.other_user_img}
-                        name={item.other_username}
-                      />
-                      <div className="chat-report">
-                        <p className="time-of-msg">
-                          {<DateConverter value={item.timestamp} />}
-                        </p>
-                        {/* <img src={report} alt="report flag" /> */}
-                      </div>
-                      <p>{item.latest_message.content}</p>
-                      <p className="no-of-messages">
-                        {item.latest_message.sender_id !== userId
-                          ? "Agent"
-                          : "You"}
-                      </p>
-                    </div>
-                  ))
-                : "No Conversations found"}
-            </div>
-          </div>
           <div className="chat-right-side">
             <div className="your-profile">
               <h3>Admin</h3>
@@ -677,49 +640,9 @@ export const ChatAdmin = () => {
     return (
       <section className="user-dashboard chat-admin">
         <div className="chat-wrapper">
-          {/* <div className="chat-left-side"> */}
-          {/* <div className="chat-left-side-top"> */}
-          {/* <h5>Other Conversations</h5>
-              {conversations.length > 0
-                ? conversations?.map((item) => (
-                    <div
-                      className="Chat-profile active-chat"
-                      // onClick={() => {
-                      //   setConvId(item._id);
-                      // }}
-                    >
-                      <ProfilePix
-                        profileimage={item.other_user_img}
-                        name={item.other_username}
-                      />
-                      <div className="chat-report">
-                        <p className="time-of-msg">
-                          {<DateConverter value={item.timestamp} />}
-                        </p> */}
-          {/* <img src={report} alt="report flag" /> */}
-          {/* </div>
-                      <p>{item.latest_message.content}</p>
-                      <p className="no-of-messages">
-                        {item.latest_message.sender_id !== userId
-                          ? "Agent"
-                          : "You"}
-                      </p>
-                    </div>
-                  ))
-                : "No Conversations found"} */}
-          {/* </div> */}
-          {/* <div className="chat-left-side-bottom">
-              <h5>RESOLVED (16)</h5>
-              <div className="resovled-chat chat-margin">
-                <p>1:32 PM 04/20</p>
-                <ProfilePix />
-              </div>
-            </div> */}
-          {/* </div> */}
-
           <div className="chat-right-side">
             <div className="your-profile">
-              <h3>Admin</h3>
+              <h3>Help and Support</h3>
             </div>
             <div className="message-header">
               <h6>Conversations</h6>

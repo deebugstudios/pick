@@ -49,9 +49,7 @@ import ScheduledDeliverySummary from "./components/usersFlow/NavsFlow/ScheduledD
 import RequestSuccess from "./components/usersFlow/RequestSuccess";
 import RequestLocation from "./Shadow/Pages/DeliveryRequest/Request_pickup_Location/RequestLocation";
 import RequestPickupDetails from "./Shadow/Pages/DeliveryRequest/Request_pickup_Details/RequestPickupDetails";
-import PendingDeliveryPickupAgent from "./Shadow/Pages/Pending_deliveries/Pending_delivery_pickup/PendingDeliveryPickup";
 import PendingDeliveryspecificsAgent from "./Shadow/Pages/Pending_deliveries/Delivery_Specifics/PendingDeliveryspecificsAgent";
-import CompletedDeliveriesAgent from "./components/usersFlow/NavsFlow/CompletedDeliveriesAgent";
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
@@ -84,7 +82,6 @@ import Privacy from "./Shadow/javascripts/Privacy";
 import Change_Number from "./components/Pages/Change_Number";
 import SpecificAgent from "./components/usersFlow/NavsFlow/SpecificAgent";
 import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDetails";
-import ChatPage from "./components/usersFlow/NavsFlow/ChatPage";
 
 export default function App() {
   return (
@@ -217,15 +214,6 @@ export default function App() {
                 element={
                   <LoggedinMainPage
                     name={<RequestPickupDetails />}
-                    logged={true}
-                  />
-                }
-              />
-              <Route
-                path="pendingdeliveries"
-                element={
-                  <LoggedinMainPage
-                    name={<PendingDeliveryPickupAgent />}
                     logged={true}
                   />
                 }

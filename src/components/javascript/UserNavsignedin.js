@@ -8,12 +8,11 @@ import { NavLink, Link } from "react-router-dom";
 import { Notification } from "../../Shadow/Pages/Notifications/Notification";
 
 const Navsignedin = (props) => {
-  const [open, setOpen]= useState(false)
+  const [open, setOpen] = useState(false);
 
-const handlePopUp = () => {
-  setOpen(!open)
-}
-
+  const handlePopUp = () => {
+    setOpen(!open);
+  };
 
   return (
     <nav className="user-nav">
@@ -56,8 +55,10 @@ const handlePopUp = () => {
           <Link to="/user/user-profile">
             <div className="profile-img-1">{props.profile}</div>
           </Link>
-          <FontAwesomeIcon icon={faBell} onClick={handlePopUp}/>
-      {open && <Notification />}    
+          <div className="bell-span">
+            <FontAwesomeIcon icon={faBell} onClick={handlePopUp} />
+            {open && <Notification />}
+          </div>
         </div>
       </div>
     </nav>

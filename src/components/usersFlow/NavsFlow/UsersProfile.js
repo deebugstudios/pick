@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Instant from "../../Images/instant.png";
 import Schedule from "../../Images/scheduled.png";
 import Cancel from "../../Images/cancel.png";
@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
 import { useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function UsersProfile() {
   const navigate = useNavigate();
@@ -17,6 +18,9 @@ export default function UsersProfile() {
   const [userDetails, setUserDetails] = useState([]);
   const [changeActive, setChangeActive] = useState(true);
   const [userName, setUserName] = useState("");
+  const userValues = useContext(userContext);
+  const { token } = userValues;
+
   const inputRef = useRef();
 
   const fetchUserStats = async () => {
@@ -28,8 +32,7 @@ export default function UsersProfile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -48,8 +51,7 @@ export default function UsersProfile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -84,8 +86,7 @@ export default function UsersProfile() {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             fullname: userName,
             image: "",
           }),

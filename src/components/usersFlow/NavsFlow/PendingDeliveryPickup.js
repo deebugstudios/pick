@@ -4,19 +4,22 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { PendingDeliveryList } from "../Details info/PendingDeliveryList";
 import "./pendingdeliverypickup.css";
 import { useNavigate } from "react-router-dom";
 import { PendingDeliveryScheduled } from "../Details info/PendingDeliveryList";
 import "../../css/toggle.css";
 import { ClipLoader } from "react-spinners";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
   const [loading, setLoading] = useState(true);
   const [pendingDeliveries, setPendingDeliveries] = useState([]);
   const navigate = useNavigate();
+  const userValues = useContext(userContext);
+  const { token, userId } = userValues;
 
   const fetchPendingDeliveries = async () => {
     const res = await fetch(
@@ -28,9 +31,8 @@ export default function PendingDeliveryPickup(props) {
         },
         body: JSON.stringify({
           pagec: 1,
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
-          user_id: "62d6fed8e58a29217b404b22",
+          token: JSON.parse(token),
+          user_id: JSON.parse(userId),
         }),
       }
     );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../../javascript/Button";
 import "../../css/Personal.css";
 import Vector from "../../Images/Vector.png";
@@ -23,6 +23,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
 import dayjs from "dayjs";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function ScheduleForm() {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ export default function ScheduleForm() {
   const senderName = location.state.senderName;
   const phone_no = location.state.phone_no;
   const email = location.state.email;
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const [message, setMessage] = useState("");
   const [time, setTime] = useState("");
@@ -167,10 +170,7 @@ export default function ScheduleForm() {
     setFormErrors(validate(formData));
 
     const bodyFormData = new FormData();
-    bodyFormData.append(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis"
-    );
+    bodyFormData.append("token", JSON.parse(token));
     bodyFormData.append("distance", distance);
     bodyFormData.append("fullname", formData.fullname);
     bodyFormData.append("phone_no", formData.phone_no);
@@ -185,7 +185,7 @@ export default function ScheduleForm() {
       "reciever_phone_no",
       `+234${formData.reciever_phone_no}`
     );
-    bodyFormData.append("email", "nanagwonye@gmail.com");
+    bodyFormData.append("email", email);
     bodyFormData.append("parcel_name", formData.parcel_name);
     bodyFormData.append(
       "parcel_description",

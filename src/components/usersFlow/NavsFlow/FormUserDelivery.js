@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "../../javascript/Button";
 import "../../css/Personal.css";
 import Vector from "../../Images/Vector.png";
@@ -17,6 +17,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function FormUserDelivery() {
   const navigate = useNavigate();
@@ -60,6 +61,8 @@ export default function FormUserDelivery() {
   const member = location.state.member;
   const pickup_address = location.state.pickup_address;
   const drop_off_address = location.state.drop_off_address;
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const handleVehicleImage = (files) => {
     const picUploaded = [...deliveryFiles];
@@ -122,12 +125,9 @@ export default function FormUserDelivery() {
     setFormErrors(validate(formData));
 
     const bodyFormData = new FormData();
-    bodyFormData.append(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis"
-    );
+    bodyFormData.append("token", JSON.parse(token));
     bodyFormData.append("distance", distance);
-    bodyFormData.append("email", "nanagwonye@gmail.com");
+    bodyFormData.append("email", email);
     bodyFormData.append("fullname", formData.fullname);
     bodyFormData.append("phone_no", `0${formData.phone_no}`);
     bodyFormData.append("delivery_type", member);

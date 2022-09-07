@@ -20,6 +20,9 @@ export default function UserRequestPickup() {
   const [dropLocation, setDropLocation] = useState("");
   const [userDetails, setUserDetails] = useState([]);
   const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+  const userValues = useContext(userContext);
+  const { token } = userValues;
   // console.log(new Date().getTime());
   // console.log(Date.now());
 
@@ -38,8 +41,7 @@ export default function UserRequestPickup() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -120,8 +122,7 @@ export default function UserRequestPickup() {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             pickup_location: pickupRef.current.value,
             drop_off_location: destinationRef.current.value,
             distance: realDistance,

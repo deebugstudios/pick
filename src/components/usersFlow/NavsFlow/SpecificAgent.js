@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Arrow from "../../Images/Arrow.png";
 import FormProgress from "../../Images/FormProgress2.png";
 import Starr from "../../Images/Star.png";
@@ -11,6 +11,7 @@ import {
 import Button from "../../javascript/Button";
 import MainStar from "../../Images/MainStar.png";
 import Stars from "react-stars-display";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function SpecificAgent() {
   const Star = <img src={Starr} alt="" />;
@@ -18,6 +19,8 @@ export default function SpecificAgent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [reviews, setReviews] = useState([]);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const name = location.state.name;
   const profile = location.state.profile;
@@ -53,8 +56,7 @@ export default function SpecificAgent() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_agent_id: agentId,
         }),
       }

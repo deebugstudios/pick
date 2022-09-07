@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navsignedin from "../../javascript/UserNavsignedin";
 import SideBar from "../../javascript/SideBar";
@@ -6,9 +6,12 @@ import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
 import { Outlet, useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 const LoggedinMainPageUser = (props) => {
   const [userDetails, setUserDetails] = useState([]);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const fetchUserDetails = async () => {
     const res = await fetch(
@@ -19,8 +22,7 @@ const LoggedinMainPageUser = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );

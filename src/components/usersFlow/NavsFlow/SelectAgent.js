@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FormProgress from "../../Images/FormProgress.png";
 import "../../css/selectagent.css";
 import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function SelectAgent() {
   const location = useLocation();
@@ -20,6 +21,8 @@ export default function SelectAgent() {
   const senderName = location.state.senderName;
   const number = location.state.number;
   const email = location.state.email;
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const [agent, setAgent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,8 +37,7 @@ export default function SelectAgent() {
         },
         body: JSON.stringify({
           pagec: 1,
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_medium: vehicle,
           state: pickupState,
         }),

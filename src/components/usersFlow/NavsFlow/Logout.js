@@ -9,6 +9,14 @@ import { RiderContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function Logout() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const handleLogout = async () => {
+    setLoading(true);
+    localStorage.clear();
+    navigate("/");
+    window.location.reload(true);
+    setLoading(false);
+  };
 
   return (
     <>
@@ -33,12 +41,7 @@ export default function Logout() {
                 navigate(-1);
               }}
             />{" "}
-            <Button
-              name="Yes"
-              click={() => {
-                navigate("/");
-              }}
-            />
+            <Button name="Yes" click={handleLogout} />
           </div>
         </div>
       </div>
@@ -69,7 +72,7 @@ export function Logout2() {
     // if(res.status === 200){
     // console.log(data)
     localStorage.clear();
-    navigate("/main1");
+    navigate("/");
     window.location.reload(true);
     setLoading(false);
     // }else {

@@ -1,55 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./notification.css";
 import bell from "../../images/notificationbell.png";
 import { useState } from "react";
-import ReactTimeAgo from 'react-time-ago'
+import ReactTimeAgo from "react-time-ago";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { userContext } from "../Contexts/RiderContext";
 
 export const Notification = () => {
   // console.log(popUpNotifi)
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [pageCount, setPageCount] = useState(1)
-
-  // const fetchData = async () => {
-  //     const res = await fetch( "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_notification/view_notifications",
-  //         {
-  //         method: "POST",
-  //         headers: {
-  //             "Content-Type": "application/json",
-  //             Accept: "application/json, text/plain, */*",
-  //         },
-  //         body: JSON.stringify({
-  //             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmUyOWU1N2I2MzVjYWI4NDJiMjI5MGMiLCJwaG9uZV9ubyI6IisyMzQ5MDM3NzkxNjM3IiwiaWF0IjoxNjU5MDE4ODM5fQ.AdParFVgCDIKuHyD79zYVtLzT6Ny3Bbfa__AYs9bm-Q",
-  //             "pagec": 1
-  //         })
-  //     })
-  //     const resdata = res.json()
-  //     setLoading(false)
-  //     console.log(data)
-  //     if (res.status === 200) {
-  //         console.log('data fetched successfully');
-  //         setData(resdata.notifications)
-  //         console.log(data)
-  //         // console.log(idU);
-  //       } else {
-  //         console.log('some error occurred')
-  //       }
-  //     }
-  // https://ancient-wildwood-73926.herokuapp.com/delivery_agent_notification/view_notifications
+  const [pageCount, setPageCount] = useState(1);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_notification/view_notifications",
+        "https://ancient-wildwood-73926.herokuapp.com/user_notification/notifications",
         {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             pagec: pageCount,
           }),
 
@@ -60,7 +35,6 @@ export const Notification = () => {
       );
       const data = await res.json();
 
-      
       if (res.status === 200) {
         console.log("User created successfully");
         // console.log(data);
@@ -82,39 +56,44 @@ export const Notification = () => {
   const msg = data?.map((obj, index) => (
     <div className="notification-message not-read-messages" key={index}>
       <p>{obj?.content}</p>
-      <p className="notification-message-time"><ReactTimeAgo date={obj?.timestamp} locale="en-US"/></p>
+      <p className="notification-message-time">
+        <ReactTimeAgo date={obj?.timestamp} locale="en-US" />
+      </p>
     </div>
   ));
 
-
-  const minusPagec =()=> {
-    if(pageCount <= 1){
-      return
-    }else {
-      setPageCount(prev => prev - 1)
+  const minusPagec = () => {
+    if (pageCount <= 1) {
+      return;
+    } else {
+      setPageCount((prev) => prev - 1);
     }
-  }
-  const addPagec =()=> {
-    if(!data?.length) return
-    setPageCount(prev => prev + 1)
-  }
-  
-console.log(pageCount, data)
+  };
+  const addPagec = () => {
+    if (!data?.length) return;
+    setPageCount((prev) => prev + 1);
+  };
+
+  console.log(pageCount, data);
 
   return (
     <div className="notification-main-wrapper">
-    <section className="notification">
-      <div className="notification-wrapper">
-        {/* <p className="cancel-notification">X</p> */}
-        <h3>Notifications</h3>
-        <div className="notifcation-messages-container">
-          <div className="notfication-date">
-            <h5>{data?.length ? "recent" : pageCount > 1 ? "Older" :""}</h5>
-            <h5 className="clear-all">{data?.length ? "clear all" : ""}</h5>
-          </div>
+      <section className="notification">
+        <div className="notification-wrapper">
+          {/* <p className="cancel-notification">X</p> */}
+          <h3>Notifications</h3>
+          <div className="notifcation-messages-container">
+            <div className="notfication-date">
+              <h5>{data?.length ? "recent" : pageCount > 1 ? "Older" : ""}</h5>
+              <h5 className="clear-all">{data?.length ? "clear all" : ""}</h5>
+            </div>
 
-          {loading ? <h1 style={{textAlign:"center"}}>loading...</h1> : msg}
-          {/* <div className="notification-message not-read-messages">
+            {loading ? (
+              <h1 style={{ textAlign: "center" }}>loading...</h1>
+            ) : (
+              msg
+            )}
+            {/* <div className="notification-message not-read-messages">
                     <p>Mira Sarah has arrived the drop off location</p>
                     <p className='notification-message-time'>Now</p>
                 </div>
@@ -129,14 +108,31 @@ console.log(pageCount, data)
                     <p>light shadow has arrived the pick up location</p>
                     <p className='notification-message-time'>5 mins</p>
                 </div> */}
-                <div style={{display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "20px", position:"absolute", bottom: "3%"}}>
-            <FontAwesomeIcon icon={faAngleLeft} className={pageCount <= 1 ? "icon-space-less" : "icon-space"} onClick={minusPagec} />{" "}
-            {/* <h6>View more</h6> */}
-            <FontAwesomeIcon icon={faAngleRight} className={!data?.length ? "icon-space-less" : "icon-space"} onClick={addPagec}/>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "20px",
+                position: "absolute",
+                bottom: "3%",
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faAngleLeft}
+                className={pageCount <= 1 ? "icon-space-less" : "icon-space"}
+                onClick={minusPagec}
+              />{" "}
+              {/* <h6>View more</h6> */}
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                className={!data?.length ? "icon-space-less" : "icon-space"}
+                onClick={addPagec}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   );
 };

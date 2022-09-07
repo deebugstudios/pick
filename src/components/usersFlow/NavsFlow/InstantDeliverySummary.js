@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   DeliveryImages,
   DeliveryImages2,
@@ -13,6 +13,7 @@ import FormProgress2 from "../../Images/FormProgress2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoggedinMainPage from "./LoggedinMainPage";
 import { PaystackButton } from "react-paystack";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function InstantDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -25,6 +26,8 @@ export default function InstantDeliverySummary() {
   const phone = location.state.number;
   const vehicle = location.state.deliveryMedium;
   const navigate = useNavigate();
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const amount = price * 100;
 
@@ -36,8 +39,7 @@ export default function InstantDeliverySummary() {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             fullname: name,
             delivery_id: deliveryID,
             deliivery_medium: vehicle,
@@ -103,8 +105,7 @@ export default function InstantDeliverySummary() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_id: deliveryID,
         }),
       }

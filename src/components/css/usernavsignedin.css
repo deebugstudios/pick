@@ -1,3 +1,6 @@
+.bell-span {
+  cursor: pointer !important;
+}
 .user-nav {
   /* box-shadow: 1px 1px 5px black; */
   z-index: 1;
@@ -14,6 +17,7 @@
   align-items: center;
   font-weight: 700;
 }
+
 /* .logo {
   width: 100px !important;
   height: auto;

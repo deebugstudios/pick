@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/reason.css";
 import Button from "../javascript/Button";
 import ReportThanks from "./ReportThanks";
 import Popup, { Popup2, Popup3 } from "../javascript/Popup";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function ReportReason(props) {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ export default function ReportReason(props) {
   const [message, setMessage] = useState("");
   const [popupButton, setPopupButton] = useState(false);
   const [explain, setExplain] = useState("");
+  const userValues = useContext(userContext);
+  const { token } = userValues;
+
   const [userDetails, setUserDetails] = useState([]);
   /**@type React.MutableRefObject<HTMLInputElement> */
   const othersRef = useRef();
@@ -25,8 +29,7 @@ export default function ReportReason(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -56,8 +59,7 @@ export default function ReportReason(props) {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             body: reason,
             delivery_id: props.delivery_id,
             parcel_code: props.parcel_code,
@@ -72,8 +74,8 @@ export default function ReportReason(props) {
             delivery_agent_img_url: props.delivery_agent_img,
             delivery_agent_img_id: props.delivery_agent_img_id,
             reporter: "user",
-            delivery_agent_email: "shadow@gmail.com",
-            user_email: "nanagwonye@gmail.com",
+            delivery_agent_email: props.delivery_agent_email,
+            user_email: userDetails.email,
           }),
           headers: {
             "Content-Type": "application/json",

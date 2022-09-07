@@ -52,17 +52,45 @@ export const userContext = createContext();
 export const UseTokenProviderUser = (props) => {
   const [phone_no, setPhone_no] = useState("");
   const [message, setMessage] = useState("");
-  const [token, setToken] = useState("");
-  // const userToken = useMemo(() => ({ token, setToken }), [token, setToken]);
-  const [id, setId] = useState("");
-  // const userId = useMemo(() => ({ id, setId }), [id, setId]);
+  const [formErrors, setFormErrors] = useState("");
+  const [dataError, setDataError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [otp, setOtp] = useState("");
+  // const navigate = useNavigate();
+  const [loadOtp, setLoadOtp] = useState(false);
+  const [countDown, setCountDown] = useState(60);
+  const token = localStorage.getItem("input");
+  const userId = localStorage.getItem("userId");
 
-  // let token;
-  let idU;
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
     try {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // console.log(response);
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            handleLoginSubmit();
+          },
+        },
+        auth
+      );
+    } catch (err) {
+      console.log("can't send Otp");
+      console.log(err);
+    }
+
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
+
+    if (!phone_no) {
+      setFormErrors("Phone Number must be filled!");
+    } else setFormErrors("");
+    try {
+      setLoading(true);
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/user_auth/login",
         {
@@ -78,35 +106,69 @@ export const UseTokenProviderUser = (props) => {
         }
       );
       const data = await res.json();
-      // setId();
-      // setToken(data.token);
-      // idU = data.token;
 
-      // console.log(data);
+      console.log(data);
+      if (data.msg === `No user with phone no: ${phone_no} found`) {
+        setLoading(false);
+        setDataError(data.msg);
+
+        setTimeout(() => {
+          setDataError("");
+        }, 4000);
+      }
 
       if (res.status === 200) {
-        setMessage("User created successfully");
-        setToken(data.token);
-        setId(data.user._id);
-        localStorage.setItem("id", data.user._id);
+        setLoadOtp(true);
+        const number = "+234" + [phone_no];
+
+        const interval = setInterval(() => {
+          setCountDown((countDown) => countDown - 1);
+        }, 1000);
+        if (countDown === 0) {
+          clearInterval(interval);
+        }
+        signInWithPhoneNumber(auth, number, appVerifier)
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
+
+        localStorage.setItem("input", JSON.stringify(data?.token));
+        localStorage.setItem("userId", JSON.stringify(data?.user._id));
+        setLoading(false);
+
         // console.log(idU);
       } else {
-        setMessage("Error occured");
+        setLoading(false);
+        setMessage("An Error occured");
       }
     } catch (error) {
       console.log(error);
     }
   };
-  // const userToken = token;
-  // const userId = id;
-  // console.log(token)
+
   const userValues = {
     handleLoginSubmit,
     message,
     phone_no,
     setPhone_no,
     setMessage,
+    setLoadOtp,
+    setFormErrors,
+    setDataError,
+    setLoading,
+    loadOtp,
+    loading,
+    dataError,
+    formErrors,
+    countDown,
+    setCountDown,
     token,
+    userId,
   };
   return (
     <userContext.Provider value={userValues}>
@@ -129,6 +191,7 @@ export const UseRiderProvider = (props) => {
   const [otp, setOtp] = useState("");
   const [isOtp, setIsOtp] = useState(false);
   const [loadOtp, setLoadOtp] = useState(false);
+  const [countDown, setCountDown] = useState(60);
 
   const token = localStorage.getItem("rubbish");
   const agentId = localStorage.getItem("agentId");
@@ -136,7 +199,7 @@ export const UseRiderProvider = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const number = "+234" + [phone_no];
-    if (number === "") return
+    if (number === "") return;
     try {
       window.recaptchaVerifier = new RecaptchaVerifier(
         "sign-in-button",
@@ -160,7 +223,7 @@ export const UseRiderProvider = (props) => {
 
     if (!phone_no) {
       setFormErrors("Phone Number must be filled!");
-      setLoadOtp(false)
+      setLoadOtp(false);
     } else setFormErrors("");
 
     try {
@@ -181,21 +244,27 @@ export const UseRiderProvider = (props) => {
       );
       const data = await res.json();
       // console.log(data);
-      
+
       if (data.msg == "Account not active or delivery agent does not exist") {
         setDataError(data.msg);
-        setLoadOtp(false)
+        setLoadOtp(false);
         setTimeout(() => {
           setDataError("");
         }, 4000);
       }
 
       if (res.status === 200) {
+        setLoadOtp(true);
+        const interval = setInterval(() => {
+          setCountDown((countDown) => countDown - 1);
+        }, 1000);
+        if (countDown === 0) {
+          clearInterval(interval);
+        }
         // console.log(data);
         signInWithPhoneNumber(auth, number, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setLoadOtp(true);
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
             setLoading(false);
           })
           .catch((error) => {
@@ -213,7 +282,7 @@ export const UseRiderProvider = (props) => {
         setMessage("An Error occured");
         console.log("An Error occured");
         setLoading(false);
-        setLoadOtp(false)
+        setLoadOtp(false);
       }
     } catch (error) {
       console.log(error);
@@ -259,7 +328,7 @@ export const UseRiderProvider = (props) => {
         }),
       });
       const data = await res.json();
-      const finalData = await data.delivery_agent;
+      const finalData = await data?.delivery_agent;
       setLoading(false);
       setRiderData(finalData);
     }
@@ -297,6 +366,8 @@ export const UseRiderProvider = (props) => {
     agentId,
     loadOtp,
     setLoadOtp,
+    countDown,
+    setCountDown,
   };
 
   return (

@@ -6,7 +6,10 @@ import Head from "../javascript/Head";
 import "../css/WelcomeUser.css";
 import Footer from "../javascript/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { RiderContext } from "../../Shadow/Pages/Contexts/RiderContext";
+import {
+  RiderContext,
+  userContext,
+} from "../../Shadow/Pages/Contexts/RiderContext";
 import Flag from "../Images/Nigerian_flag.png";
 import { auth } from "../../utils/firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
@@ -15,14 +18,7 @@ import { Popup2 } from "../javascript/Popup";
 export default function WelcomeUser(props) {
   const asterik = <span id="asterik">*</span>;
 
-  const [phone_no, setPhone_no] = useState("");
-  const [message, setMessage] = useState("");
-  const [formErrors, setFormErrors] = useState("");
-  const [dataError, setDataError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [loadOtp, setLoadOtp] = useState(false);
   const [otpValues, setOtpValues] = useState({
     one: "",
     two: "",
@@ -31,96 +27,26 @@ export default function WelcomeUser(props) {
     five: "",
     six: "",
   });
-  const [countDown, setCountDown] = useState(60);
+  // const [countDown, setCountDown] = useState(60);
+  const userValues = useContext(userContext);
+  const {
+    handleLoginSubmit,
+    message,
+    phone_no,
+    setPhone_no,
+    setMessage,
+    setLoadOtp,
+    setFormErrors,
+    setDataError,
+    setLoading,
+    loadOtp,
+    loading,
+    dataError,
+    formErrors,
+    countDown,
+    setCountDown,
+  } = userValues;
 
-  const handleLoginSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // console.log(response);
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            handleLoginSubmit();
-          },
-        },
-        auth
-      );
-    } catch (err) {
-      console.log("can't send Otp");
-      console.log(err);
-    }
-
-    const appVerifier = window.recaptchaVerifier;
-    console.log(appVerifier);
-
-    if (!phone_no) {
-      setFormErrors("Phone Number must be filled!");
-    } else setFormErrors("");
-    try {
-      setLoading(true);
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_auth/login",
-        {
-          method: "POST",
-
-          body: JSON.stringify({
-            phone_no: phone_no,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
-      const data = await res.json();
-
-      console.log(data);
-      if (data.msg === `No user with phone no: ${phone_no} found`) {
-        setLoading(false);
-        setDataError(data.msg);
-
-        setTimeout(() => {
-          setDataError("");
-        }, 4000);
-      }
-
-      if (res.status === 200) {
-        setLoadOtp(true);
-        const number = "+234" + [phone_no];
-
-        const interval = setInterval(() => {
-          setCountDown((countDown) => countDown - 1);
-        }, 1000);
-        if (countDown === 0) {
-          clearInterval(interval);
-        }
-        signInWithPhoneNumber(auth, number, appVerifier)
-          .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.log(error);
-            setLoading(false);
-          });
-
-        localStorage.setItem("input", JSON.stringify(data?.token));
-        setLoading(false);
-
-        // console.log(idU);
-      } else {
-        setLoading(false);
-        setMessage("An Error occured");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // window.
   const onChange = (e) => {
     setPhone_no(e.target.value);
   };
@@ -364,7 +290,6 @@ export default function WelcomeUser(props) {
 
 export function WelcomeAgent() {
   const asterik = <span id="asterik">*</span>;
-  const [countDown, setCountDown] = useState(60);
   const [otpValues, setOtpValues] = useState({
     one: "",
     two: "",
@@ -390,6 +315,8 @@ export function WelcomeAgent() {
     loadOtp,
     setLoadOtp,
     setLoading,
+    countDown,
+    setCountDown,
   } = value;
 
   const handleFinalSubmit = () => {
@@ -431,56 +358,12 @@ export function WelcomeAgent() {
     setOtpValues({ ...otpValues, [name]: value });
   };
 
-  //   const generate = () => {
-  //     try {
-  //       window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
-  //         'size': 'invisible',
-  //         'callback': (response) => {
-  //           console.log(response)
-  //           // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //           handleSubmit();
-  //         }
-  //       }, auth);
-
-  //     } catch (err) {
-  //       console.log("can't send Otp")
-  //       console.log(err)
-  //     }
-
-  //   }
-
-  // useEffect(()=> {
-  //     generate()
-  //     return ()=> generate()
-  //   },[])
-
-  //   const appVerifier = window.recaptchaVerifier;
-
-  // console.log(appVerifier)
-
   const handleClick = (e) => {
     navigate("/forgot");
   };
 
   const resend = () => {
     setCountDown(60);
-    // try {
-    //   window.recaptchaVerifier = new RecaptchaVerifier(
-    //     "recaptcha-container",
-    //     {
-    //       size: "invisible",
-    //       callback: (response) => {
-    //         // console.log(response);
-    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
-    //         handleLoginSubmit();
-    //       },
-    //     },
-    //     auth
-    //   );
-    // } catch (err) {
-    //   console.log("can't send Otp");
-    //   console.log(err);
-    // }
 
     const appVerifier = window.recaptchaVerifier;
     console.log(appVerifier);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import "./deliveryhistorydetails.css";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ClipLoader } from "react-spinners";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function PendingScheduledDetails() {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ export default function PendingScheduledDetails() {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
   const [cancelButton, setCancelButton] = useState(false);
+  const userValues = useContext(userContext);
+  const {token} = userValues
 
   const Delivery_id = location.state.id;
 
@@ -37,7 +40,7 @@ export default function PendingScheduledDetails() {
         },
         body: JSON.stringify({
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            JSON.parse(token),
           delivery_id: Delivery_id,
         }),
       }

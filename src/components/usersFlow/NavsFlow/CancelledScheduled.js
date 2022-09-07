@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import "./deliveryhistorydetails.css";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
@@ -12,6 +12,7 @@ import ReportReason from "../ReportReason";
 import LeaveReview from "../LeaveReview";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function CancelledScheduled() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export default function CancelledScheduled() {
   const [popupButton, setPopupButton] = useState(false);
   const [reviewButton, setReviewButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const Delivery_id = location.state.id;
 
@@ -34,8 +37,7 @@ export default function CancelledScheduled() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
           delivery_id: Delivery_id,
         }),
       }
