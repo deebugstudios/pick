@@ -13,6 +13,7 @@ import LeaveReview from "../LeaveReview";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { ClipLoader } from "react-spinners";
 
 export default function CancelledScheduled() {
   const navigate = useNavigate();
@@ -54,10 +55,15 @@ export default function CancelledScheduled() {
   }, []);
 
   if (loading === true) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Getting Data</p>
+      </div>
+    );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics">
+      <section className="user-dashboard pending-delivery specifics no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
             <div
