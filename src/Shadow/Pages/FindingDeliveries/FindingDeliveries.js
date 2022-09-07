@@ -23,7 +23,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 //   );
 // };
 
-export const FindingDeliveriesUser = () => {
+export const FindingDeliveriesUser = (props) => {
   return (
     <section className="loading-state">
       <div className="loading-state-wrapper">
@@ -32,8 +32,8 @@ export const FindingDeliveriesUser = () => {
         </div>
         <div className="loading-state-text-container">
           <h4>
-            Please wait while pickload pairs you with the closest available
-            Delivery Agent...
+            Please wait while pickload pairs you with the closest available{" "}
+            {props.medium} Delivery Agent...
           </h4>
         </div>
       </div>

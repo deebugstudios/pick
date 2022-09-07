@@ -6,6 +6,21 @@
   padding: 0px 30px 0px 30px !important;
   /* height: 80vh; */
 }
+.empty-box {
+  max-width: 600px;
+  max-height: 600px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.empty-box img {
+  margin-bottom: 0px !important;
+}
 .history-wrapper-2 {
   background: #fefefe !important;
   width: 100% !important;

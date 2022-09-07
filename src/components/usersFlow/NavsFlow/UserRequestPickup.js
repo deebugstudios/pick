@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
+import { parse } from "@fortawesome/fontawesome-svg-core";
 
 export default function UserRequestPickup() {
   const [distance, setDistance] = useState("");
@@ -110,10 +111,15 @@ export default function UserRequestPickup() {
 
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
+    // const timeTaken = parseInt(results.routes[0].legs[0].duration.text);
+
     // console.log(results.routes[0].legs[0]);
 
     const userDistance = results.routes[0].legs[0].distance.text;
-    const realDistance = parseFloat(userDistance);
+    //  parseFloat(userDistance);
+    const realDistance = parseFloat(userDistance.replace(",", ""));
+    console.log(realDistance);
+
     // console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
     try {
       const res = await fetch(
@@ -164,7 +170,7 @@ export default function UserRequestPickup() {
   console.log(duration);
 
   const handleNavigate = () => {
-    const realDistance = parseFloat(distance);
+    const realDistance = parseFloat(distance.replace(",", ""));
     const deliveryState = pickupState;
     const pickLocation = pickupLocation;
     const dropOffLocation = dropLocation;

@@ -366,6 +366,7 @@ export default function ScheduleForm() {
             name="parcel_description"
             value={formData.parcel_description}
             onChange={handleChange}
+            min={1}
           />
           <p className="error-style">{formErrors.parcel_description}</p>
           <br />

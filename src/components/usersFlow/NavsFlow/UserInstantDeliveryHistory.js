@@ -56,7 +56,8 @@ export default function DeliveryHistoryDetails() {
 
   const img_ids = deliveryDetails.img_ids;
   const imgs = deliveryDetails.imgs;
-  console.log(imgs);
+  const urls = imgs.join(", ");
+  // console.log(urls);
   if (loading === true) {
     return (
       <div className="loader-screen">
@@ -199,7 +200,7 @@ export default function DeliveryHistoryDetails() {
               delivery_id={Delivery_id}
               parcel_code={deliveryDetails.parcel_code}
               img_ids={img_ids}
-              imgs={imgs}
+              // imgs={urls}
               agentName={deliveryDetails.delivery_agent_name}
               delivery_agent_code={deliveryDetails.delivery_agent_code}
               delivery_agent_id={deliveryDetails.delivery_agent_id}

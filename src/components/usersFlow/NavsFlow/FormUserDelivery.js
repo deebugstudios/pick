@@ -211,7 +211,7 @@ export default function FormUserDelivery() {
 
   const asterik = <span id="asterik">*</span>;
   if (loading == true) {
-    return <FindingDeliveriesUser />;
+    return <FindingDeliveriesUser medium={vehicle} />;
   } else
     return (
       <div className="white-div">
@@ -315,6 +315,7 @@ export default function FormUserDelivery() {
             name="parcel_description"
             value={formData.parcel_description}
             onChange={handleChange}
+            min={1}
           />
           <p className="error-style">{formErrors.parcel_description}</p>
           <br />

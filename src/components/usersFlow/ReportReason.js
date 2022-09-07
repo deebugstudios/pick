@@ -63,7 +63,7 @@ export default function ReportReason(props) {
             body: reason,
             delivery_id: props.delivery_id,
             parcel_code: props.parcel_code,
-            delivery_img_urls: "",
+            delivery_img_urls: props.imgs,
             user_id: userDetails._id,
             user_name: userDetails.fullname,
             user_img_id: userDetails.img_id,
