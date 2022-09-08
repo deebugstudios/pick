@@ -82,6 +82,7 @@ import Privacy from "./Shadow/javascripts/Privacy";
 import Change_Number from "./components/Pages/Change_Number";
 import SpecificAgent from "./components/usersFlow/NavsFlow/SpecificAgent";
 import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDetails";
+import ChangePhoneNumber from "./Shadow/Pages/ChangeNumber/ChangePhoneNumber";
 
 export default function App() {
   return (
@@ -353,6 +354,15 @@ export default function App() {
                 path="paymentrecord"
                 element={
                   <LoggedinMainPage name={<Payment_record />} logged={true} />
+                }
+              />
+              <Route
+                path="change-phone-number"
+                element={
+                  <LoggedinMainPage
+                    name={<ChangePhoneNumber />}
+                    logged={true}
+                  />
                 }
               />
             </Routes>
