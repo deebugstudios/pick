@@ -11,6 +11,9 @@
   max-width: fit-content;
   padding: 50px;
 }
+.Selected-file-div {
+  max-width: 60px;
+}
 .container {
   display: flex;
   align-items: flex-start;

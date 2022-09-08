@@ -21,6 +21,7 @@ export default function JoinAgent(props) {
 
   const [loadOtp, setLoadOtp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedSrc, setSelectedSrc] = useState("");
   const [otpValues, setOtpValues] = useState({
     one: "",
     two: "",
@@ -123,9 +124,17 @@ export default function JoinAgent(props) {
   };
 
   const onFileChange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState == 2) {
+        setSelectedSrc(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
     setSelectedFile(e.target.files[0]);
     setIsSelected(true);
-    console.log(selectedFile);
+    // console.log(selectedFile);
   };
 
   const navigate = useNavigate();
@@ -527,6 +536,7 @@ export default function JoinAgent(props) {
                 <label>
                   <img src={Vector} alt="Vector" />
                   <input
+                    required
                     onChange={onFileChange}
                     type="file"
                     accept=".png, .jpg, .jpeg, .gif"
@@ -536,7 +546,9 @@ export default function JoinAgent(props) {
                 </label>
               </div>
 
-              {isSelected ? <p>{selectedFile.name}</p> : null}
+              <div className="Selected-file-div">
+                {isSelected ? <img src={selectedSrc} /> : null}
+              </div>
             </section>
             <p className="error-style">{fileError}</p>
           </div>
@@ -603,7 +615,7 @@ export default function JoinAgent(props) {
                   />
                   <input
                     type="text"
-                    maxLength="1"
+                    maxLength={1}
                     name="five"
                     value={otpValues.five}
                     onChange={OtpChange}
