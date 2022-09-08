@@ -81,10 +81,11 @@ export default function WelcomeUser(props) {
 
     const interval = setInterval(() => {
       setCountDown((countDown) => countDown - 1);
+      if (countDown === 0) {
+        clearInterval(interval);
+      }
     }, 1000);
-    if (countDown === 0) {
-      clearInterval(interval);
-    }
+
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
@@ -189,8 +190,13 @@ export default function WelcomeUser(props) {
       </div>
       <p id="agree-p">
         By clicking Login, you agree to our{" "}
-        <span className="policy">Terms of Use </span>and our{" "}
-        <span className="policy">Privacy Policy</span>.
+        <Link to="/Termsandconditions" target="_blank">
+          <span className="policy">Terms of Use </span>
+        </Link>
+        and our{" "}
+        <Link to="/privacy" target="_blank">
+          <span className="policy">Privacy Policy</span>.
+        </Link>
       </p>
       <div id="recaptcha-container"></div>
       <Footer />

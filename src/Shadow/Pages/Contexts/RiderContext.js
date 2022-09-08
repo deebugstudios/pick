@@ -123,10 +123,11 @@ export const UseTokenProviderUser = (props) => {
 
         const interval = setInterval(() => {
           setCountDown((countDown) => countDown - 1);
+          if (countDown === 0) {
+            clearInterval(interval);
+          }
         }, 1000);
-        if (countDown === 0) {
-          clearInterval(interval);
-        }
+
         signInWithPhoneNumber(auth, number, appVerifier)
           .then((confirmationResult) => {
             window.confirmationResult = confirmationResult;

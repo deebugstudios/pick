@@ -433,7 +433,6 @@ export const ChatAdmin = () => {
         setConvId("a");
         setNew_conv(true);
         setIsLoaded(true);
-        // setIsLoaded(true);
       }
     } catch (error) {
       console.log(error);

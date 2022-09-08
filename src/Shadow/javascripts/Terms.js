@@ -10,7 +10,7 @@ export const Terms = () => {
         </div>
         <div className="terms-container">
           <div className="terms-wrapper">
-            <h2>TERMS AND CONDITIONS FOR PICKLOAD PARCELS</h2>
+            <h2>TERMS AND CONDITIONS FOR PICKLOAD PARCEL</h2>
             <p>
               By accepting the following terms and conditions for PICKLOAD
               PARCEL, you (THE CUSTOMER) are agreeing to all the following terms
@@ -165,7 +165,7 @@ export const Terms = () => {
             </p>
           </div>
           <div className="terms-wrapper">
-            <h2>TERMS AND CONDITIONS FOR PICKLOAD PARCELS</h2>
+            <h2>TERMS AND CONDITIONS FOR PICKLOAD PARCEL</h2>
             <p>
               By accepting the following terms and conditions for PICKLOAD
               PARCEL, you (the RIDER/DRIVER/FLEET MANAGER) are agreeing to all
@@ -322,8 +322,8 @@ export const Terms = () => {
               radioactive materials. In addition, the Rider/Driver/Fleet Manager
               will not carry any items which are prohibited by the laws of the
               Land. The Rider/Driver/Fleet Manager and PickLoad reserves the
-              right to refuse to carry any parcels which are neither the
-              property of, nor sent on behalf of, you.
+              right to refuse to carry any items which are neither the property
+              of, nor sent on behalf of, you.
             </p>
             <p>It is understood that you agree that:</p>
             <p>
