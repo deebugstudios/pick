@@ -56,7 +56,7 @@ export default function DeliveryHistoryDetails() {
 
   const img_ids = deliveryDetails.img_ids;
   const imgs = deliveryDetails.imgs;
-  const urls = imgs.join(", ");
+  // const urls = imgs.join(", ");
   // console.log(urls);
   if (loading === true) {
     return (

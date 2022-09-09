@@ -55,7 +55,7 @@ export default function UserScheduledDeliveryHistory() {
   }, []);
 
   const imgs = deliveryDetails.imgs;
-  const urls = imgs.join(", ");
+  // const urls = imgs.join(", ");
 
   if (loading === true) {
     return (
@@ -199,7 +199,7 @@ export default function UserScheduledDeliveryHistory() {
               delivery_id={Delivery_id}
               parcel_code={deliveryDetails.parcel_code}
               img_ids={deliveryDetails.img_ids}
-              imgs={urls}
+              // imgs={urls}
               agentName={deliveryDetails.delivery_agent_name}
               delivery_agent_code={deliveryDetails.delivery_agent_code}
               delivery_agent_id={deliveryDetails.delivery_agent_id}
