@@ -45,6 +45,8 @@ export default function ScheduleForm() {
   const { token } = userValues;
 
   const [message, setMessage] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+  const [profileImage, setProfileImage] = useState([]);
   const [time, setTime] = useState("");
   const [expiry, setExpiry] = useState("");
   const [loading, setLoading] = useState(false);
@@ -89,11 +91,26 @@ export default function ScheduleForm() {
       }
     });
     if (!limitExceeded) setDeliveryFiles(picUploaded);
+
+    const reader = new FileReader();
+    let file;
+    const images = [];
+    for (let i = 0; i < picUploaded.length; i++) {
+      (function (file) {
+        const reader = new FileReader();
+        reader.onload = (file) => {
+          images.push(reader.result);
+          setProfileImage(images);
+        };
+        reader.readAsDataURL(file);
+      })(picUploaded[i]);
+    }
   };
 
   const uploadMultipleFiles = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleVehicleImage(chosenFiles);
+    setIsSelected(true);
   };
 
   const handleChange = (e) => {
@@ -417,7 +434,7 @@ export default function ScheduleForm() {
             </legend>
             <br />
 
-            <section>
+            <section id="vector-sec">
               <div className="Upload" id="vector">
                 <label>
                   <img src={Vector} alt="Vector" />
@@ -431,23 +448,23 @@ export default function ScheduleForm() {
                   />
                 </label>
               </div>
-              <div>
-                {deliveryFiles
-                  ? deliveryFiles.map((file, index) => (
-                      <li key={index} className="img_name">
-                        {file.name}
-                      </li>
+              <div className="Selected-file-div">
+                {isSelected === true
+                  ? profileImage.map((file, index) => (
+                      <div className="removal-button">
+                        <img src={file} key={index} alt="" />
+                        <sub>remove</sub>
+                      </div>
                     ))
                   : null}
               </div>
               <p className="error-style">{fileError}</p>
-
-              <div className="Upload" id="uploadText">
-                N/B: The Assigned agent will receive and confirm your delivery
-                request if
-                <br /> they're available on the specified date and time.
-              </div>
             </section>
+            <div className="Upload" id="uploadText">
+              N/B: The Assigned agent will receive and confirm your delivery
+              request if
+              <br /> they're available on the specified date and time.
+            </div>
           </div>
 
           <Button name="Next" type="submit" />

@@ -31,10 +31,12 @@ export default function FormUserDelivery() {
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
   const [fireData, setFireData] = useState({});
+  const [profileImage, setProfileImage] = useState([]);
   // const [userDetails, setUserDetails] = useState([]);
   const [parcelType, setParcelType] = useState("fragile");
   const [status, setStatus] = useState(null);
   const [name, setName] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
   // const [fileLimit, setFileLimit] = useState(false);
   const [deliveryFiles, setDeliveryFiles] = useState([]);
   const [instructions, setInstructions] = useState("");
@@ -79,11 +81,27 @@ export default function FormUserDelivery() {
       }
     });
     if (!limitExceeded) setDeliveryFiles(picUploaded);
+
+    const reader = new FileReader();
+    let file;
+    const images = [];
+    for (let i = 0; i < picUploaded.length; i++) {
+      (function (file) {
+        const reader = new FileReader();
+        reader.onload = (file) => {
+          images.push(reader.result);
+          setProfileImage(images);
+        };
+        reader.readAsDataURL(file);
+      })(picUploaded[i]);
+    }
   };
 
+  // console.log(profileImage);
   const uploadMultipleFiles = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleVehicleImage(chosenFiles);
+    setIsSelected(true);
   };
 
   const handleChange = (e) => {
@@ -349,12 +367,13 @@ export default function FormUserDelivery() {
                   />
                 </label>
               </div>
-              <div>
-                {deliveryFiles
-                  ? deliveryFiles.map((file, index) => (
-                      <li key={index} className="img_name">
-                        {file.name}
-                      </li>
+              <div className="Selected-file-div">
+                {isSelected === true
+                  ? profileImage.map((file, index) => (
+                      <div className="removal-button">
+                        <img src={file} key={index} alt="" />
+                        <sub>remove</sub>
+                      </div>
                     ))
                   : null}
               </div>

@@ -30,6 +30,9 @@ export default function IndividualVehicle() {
   const [expiry, setExpiry] = useState("");
   const [fullPicture, setFullPicture] = useState([]);
   const [license, setLicense] = useState([]);
+  const [isSelected, setIsSelected] = useState(false);
+  const [mainImage, setMainImage] = useState([]);
+  const [profileImage, setProfileImage] = useState([]);
   const [fileLimit, setFileLimit] = useState(false);
   const [fileLimit2, setFileLimit2] = useState(false);
   const [fileLimit3, setFileLimit3] = useState(false);
@@ -79,11 +82,26 @@ export default function IndividualVehicle() {
       }
     });
     if (!limitExceeded) setLicense(picUploaded);
+
+    const reader = new FileReader();
+    let file;
+    const images = [];
+    for (let i = 0; i < picUploaded.length; i++) {
+      (function (file) {
+        const reader = new FileReader();
+        reader.onload = (file) => {
+          images.push(reader.result);
+          setProfileImage(images);
+        };
+        reader.readAsDataURL(file);
+      })(picUploaded[i]);
+    }
   };
 
   const handleLicenseE = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleLicense(chosenFiles);
+    setIsSelected(true);
   };
 
   const handleVehicleImage = (files) => {
@@ -101,11 +119,25 @@ export default function IndividualVehicle() {
       }
     });
     if (!limitExceeded) setVehicleImage(picUploaded);
+    const reader = new FileReader();
+    let file;
+    const images = [];
+    for (let i = 0; i < picUploaded.length; i++) {
+      (function (file) {
+        const reader = new FileReader();
+        reader.onload = (file) => {
+          images.push(reader.result);
+          setMainImage(images);
+        };
+        reader.readAsDataURL(file);
+      })(picUploaded[i]);
+    }
   };
 
   const handleVehicleImageE = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleVehicleImage(chosenFiles);
+    setIsSelected(true);
   };
 
   const handleDate = (e) => {
@@ -388,10 +420,15 @@ export default function IndividualVehicle() {
                     />
                   </label>
                 </div>
-                <div>
-                  {license.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
+                <div className="Selected-file-div">
+                  {isSelected === true
+                    ? profileImage.map((file, index) => (
+                        <div className="removal-button">
+                          <img src={file} key={index} alt="" />
+                          <sub>remove</sub>
+                        </div>
+                      ))
+                    : null}
                 </div>
                 <p className="error-style">{image2Errors}</p>
               </section>
@@ -423,10 +460,15 @@ export default function IndividualVehicle() {
                     />
                   </label>
                 </div>
-                <div>
-                  {vehicleImage.map((file) => (
-                    <div className="img_name">{file.name}</div>
-                  ))}
+                <div className="Selected-file-div">
+                  {isSelected === true
+                    ? mainImage.map((file, index) => (
+                        <div className="removal-button">
+                          <img src={file} key={index} alt="" />
+                          <sub>remove</sub>
+                        </div>
+                      ))
+                    : null}
                 </div>
                 <p className="error-style">{image3Errors}</p>
               </section>

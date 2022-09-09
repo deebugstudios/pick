@@ -11,8 +11,26 @@
   max-width: fit-content;
   padding: 50px;
 }
+.removal-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 20px;
+}
+.removal-button {
+  cursor: pointer;
+}
 .Selected-file-div {
-  max-width: 60px;
+  display: flex;
+  flex-direction: row;
+}
+.Selected-file-div img {
+  max-width: 70px;
+
+  height: fit-content;
+  max-height: 100px;
 }
 .container {
   display: flex;

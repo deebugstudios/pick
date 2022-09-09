@@ -134,9 +134,9 @@ export default function JoinAgent(props) {
     reader.readAsDataURL(e.target.files[0]);
     setSelectedFile(e.target.files[0]);
     setIsSelected(true);
-    // console.log(selectedFile);
   };
 
+  console.log(selectedSrc);
   const navigate = useNavigate();
 
   const agent = props.agent;
