@@ -31,7 +31,7 @@ export const AboutUs = () => {
         <div className="contact-us-left-side">
           <div className="text-container">
             <h3>
-              Our services are designed to offer a reliable solution to logistic
+              Our services are designed to offer reliable solutions to logistic
               problems. We do this, in an affordable, safe, and sustainable way.
             </h3>
           </div>

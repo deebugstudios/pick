@@ -26,7 +26,7 @@ export default function PendingScheduledDetails() {
   const [date, setDate] = useState(new Date());
   const [cancelButton, setCancelButton] = useState(false);
   const userValues = useContext(userContext);
-  const {token} = userValues
+  const { token } = userValues;
 
   const Delivery_id = location.state.id;
 
@@ -39,8 +39,7 @@ export default function PendingScheduledDetails() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            JSON.parse(token),
+          token: JSON.parse(token),
           delivery_id: Delivery_id,
         }),
       }
@@ -61,7 +60,7 @@ export default function PendingScheduledDetails() {
     return (
       <div className="loader-screen">
         <ClipLoader color={"#1AA803"} loading={loading} size={100} />
-        <p>Getting Data</p>
+        <p>Loading...</p>
       </div>
     );
   } else

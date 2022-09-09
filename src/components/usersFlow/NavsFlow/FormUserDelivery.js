@@ -370,6 +370,7 @@ export default function FormUserDelivery() {
               <div className="Selected-file-div">
                 {isSelected === true
                   ? profileImage.map((file, index) => (
+                    
                       <div className="removal-button">
                         <img src={file} key={index} alt="" />
                         <sub>remove</sub>

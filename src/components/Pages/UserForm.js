@@ -278,7 +278,7 @@ export default function UserForm() {
               </h2>
               <div id="otp-div">
                 <p id="otp-paragraph">
-                  Enter the OTP sent by SMS to 08067654532
+                  Enter the OTP sent by SMS to 0{formData.phone_no}
                 </p>
                 <div id="otpField">
                   <input

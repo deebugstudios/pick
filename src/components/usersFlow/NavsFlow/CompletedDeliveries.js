@@ -86,7 +86,7 @@ export default function CompletedDeliveries() {
     return (
       <div className="loader-screen">
         <ClipLoader color={"#1AA803"} loading={loading} size={100} />
-        <p>Getting Data</p>
+        <p>Loading...</p>
       </div>
     );
   } else
