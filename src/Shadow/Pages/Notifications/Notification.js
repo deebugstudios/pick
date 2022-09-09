@@ -40,7 +40,7 @@ export const Notification = () => {
         // console.log(data);
         setData(data?.notifications);
         setLoading(false);
-        // console.log(data)
+        //
       } else {
         console.log("Error occured");
       }
@@ -49,16 +49,22 @@ export const Notification = () => {
     }
   };
 
+  console.log(data);
   useEffect(() => {
     fetchData();
   }, [pageCount]);
 
   const msg = data?.map((obj, index) => (
-    <div className="notification-message not-read-messages" key={index}>
-      <p>{obj?.content}</p>
-      <p className="notification-message-time">
-        <ReactTimeAgo date={obj?.timestamp} locale="en-US" />
-      </p>
+    <div className="not-read-messages" key={index}>
+      {obj?.noti_type === "system_message" ? (
+        <h5 className="system-message">System Message</h5>
+      ) : null}
+      <div className="notification-message">
+        <p>{obj?.content}</p>
+        <p className="notification-message-time">
+          <ReactTimeAgo date={obj?.timestamp} locale="en-US" />
+        </p>
+      </div>
     </div>
   ));
 
@@ -85,7 +91,29 @@ export const Notification = () => {
           <div className="notifcation-messages-container">
             <div className="notfication-date">
               <h5>{data?.length ? "recent" : pageCount > 1 ? "Older" : ""}</h5>
-              <h5 className="clear-all">{data?.length ? "clear all" : ""}</h5>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  // justifyContent: "flex-end",
+                  gap: "20px",
+                  // position: "absolute",
+                  // bottom: "3%",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  className={pageCount <= 1 ? "icon-space-less" : "icon-space"}
+                  onClick={minusPagec}
+                />{" "}
+                {/* <h6>View more</h6> */}
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  className={!data?.length ? "icon-space-less" : "icon-space"}
+                  onClick={addPagec}
+                />
+              </div>
+              {/* <h5 className="clear-all">{data?.length ? "clear all" : ""}</h5> */}
             </div>
 
             {loading ? (
@@ -108,28 +136,6 @@ export const Notification = () => {
                     <p>light shadow has arrived the pick up location</p>
                     <p className='notification-message-time'>5 mins</p>
                 </div> */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: "20px",
-                position: "absolute",
-                bottom: "3%",
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faAngleLeft}
-                className={pageCount <= 1 ? "icon-space-less" : "icon-space"}
-                onClick={minusPagec}
-              />{" "}
-              {/* <h6>View more</h6> */}
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                className={!data?.length ? "icon-space-less" : "icon-space"}
-                onClick={addPagec}
-              />
-            </div>
           </div>
         </div>
       </section>

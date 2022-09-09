@@ -100,7 +100,7 @@ export default function DeliveryHistoryDetails() {
                   {<TimeConverter value={deliveryDetails?.timestamp} />} on{" "}
                   {<DateConverter value={deliveryDetails?.timestamp} />}
                 </p>
-                <h3>Item Received by User at the Drop off loaction </h3>
+                <h3>Item Received by User at the Drop off location </h3>
                 <p>
                   {" "}
                   {

@@ -98,8 +98,7 @@ export default function ScheduledDeliverySummary() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            JSON.parse(token),
+          token: JSON.parse(token),
           delivery_id: deliveryID,
         }),
       }
@@ -201,7 +200,7 @@ export default function ScheduledDeliverySummary() {
               </div>
               <h3>Pickup Location </h3>
               <p>{deliveryDetails.pickup_address}</p>
-              <h3>Delivery loaction </h3>
+              <h3>Delivery location </h3>
               <p>{deliveryDetails.drop_off_address}</p>
             </div>
           </div>
