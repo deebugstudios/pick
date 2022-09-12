@@ -19,7 +19,7 @@ const Navsignedin = (props) => {
       <div className="nav-wrapper-1">
         <div id="pick-div">
           <div>
-            <Link to="/main">
+            <Link to="/user/home">
               <img src={Pickload} alt="" />
             </Link>
           </div>

@@ -136,16 +136,18 @@ export default function UsersProfile() {
                 />{" "}
               </div>
             </div>
-            <label>
-              Change Profile Image
-              <input
-                // onChange={onFileChange}
-                type="file"
-                accept=".png, .jpg, .jpeg, .gif"
-                name="selectedFile"
-                className="change-image-pro"
-              />
-            </label>
+            <button style={{ border: "none" }}>
+              <label>
+                Change Profile Image
+                <input
+                  // onChange={onFileChange}
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .gif"
+                  name="selectedFile"
+                  className="change-image-pro"
+                />
+              </label>
+            </button>
             <div id="img-flex">
               <div className="img-border">
                 <div className="img-size-div">
