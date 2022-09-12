@@ -18,34 +18,12 @@ export default function FleetVehicle() {
     company_name: "",
     cac_reg_no: "",
   });
-  const [type, setType] = useState("bike");
-  const [expiry, setExpiry] = useState("");
-  const [fullPicture, setFullPicture] = useState([]);
-  const [license, setLicense] = useState([]);
-  const [fileLimit, setFileLimit] = useState(false);
-  const [fileLimit2, setFileLimit2] = useState(false);
-  const [fileLimit3, setFileLimit3] = useState(false);
-  const [vehicleImage, setVehicleImage] = useState([]);
   const [formErrors, setFormErrors] = useState("");
-  const [noDate, setNoDate] = useState("");
-  const [image1Errors, setImage1Errors] = useState("");
-  const [image2Errors, setImage2Errors] = useState("");
-  const [image3Errors, setImage3Errors] = useState("");
-  const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const token = location.state.token;
   const id = location.state.id;
   const agent = location.state.agent;
-
-  const handleDate = (e) => {
-    const newDate = dayjs(e.target.value).format("YYYY-MM-DD");
-    setExpiry(newDate);
-  };
-  let expiry_date = dayjs(expiry).format("DD-MM-YYYY").toString();
-
-  const handleRadio = (e) => {
-    setType(e.target.value);
-  };
 
   const handleChange = (e) => {
     const target = e.target;
@@ -53,26 +31,12 @@ export default function FleetVehicle() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const formImages = [fullPicture, license, vehicleImage];
-
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     // navigate("/account");
-    if (fullPicture.length === 0) {
-      setImage1Errors(`Upload Your Photo/Passport`);
-    } else setImage1Errors("");
-    if (license.length === 0) {
-      setImage2Errors(`Upload Photo of Your Driver's License`);
-    } else setImage2Errors("");
-    if (vehicleImage.length === 0) {
-      setImage3Errors(`Upload Image(s) of Your Vehicle`);
-    } else setImage3Errors("");
-
-    if (!expiry) {
-      setNoDate(`Select Your Driver's License Expiry Date`);
-    } else setNoDate("");
 
     const validate = (data) => {
       const errors = {};
@@ -90,38 +54,41 @@ export default function FleetVehicle() {
     };
     setFormErrors(validate(formData));
 
-    const bodyFormData = new FormData();
-    bodyFormData.append("_id", id);
-    bodyFormData.append("token", token);
-    bodyFormData.append("fleet_name", formData.fleet_name);
-    bodyFormData.append("company_name", formData.company_name);
-    bodyFormData.append("cac_reg_no", formData.cac_reg_no);
-
-    axios
-      .post(
+    try {
+      const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_three",
-        bodyFormData,
         {
+          method: "POST",
+
+          body: JSON.stringify({
+            _id: id,
+            token: token,
+            fleet_name: formData.fleet_name,
+            company_name: formData.company_name,
+            cac_reg_no: formData.cac_reg_no,
+          }),
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
           },
         }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          navigate("/account", {
-            state: { id: id, token: token },
-          });
-          // navigate(props.link);
-        } else {
-          setMessage("Error occured");
-        }
+      );
+      const data = await res.json();
+      // console.log(data);
 
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      if (res.status === 200) {
+        // setMessage("User created successfully");
+        navigate("/account", {
+          state: { id: id, token: token },
+        });
+      } else {
+        setMessage("Error occured");
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      // console.log(error);
+    }
   };
 
   return (
@@ -149,8 +116,8 @@ export default function FleetVehicle() {
             onChange={handleChange}
           />
 
-          <p className="error-style">{formErrors.fleet_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.fleet_name}</p>
+          {/* <br /> */}
 
           <label htmlFor="company_name">
             <span className="requiredText">Company Name{asterik}</span>
@@ -164,8 +131,8 @@ export default function FleetVehicle() {
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.company_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.company_name}</p>
+          {/* <br /> */}
 
           <label htmlFor="cac_reg_no">
             <span className="requiredText">CAC Number{asterik}</span>
@@ -179,11 +146,11 @@ export default function FleetVehicle() {
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.cac_reg_no}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.cac_reg_no}</p>
+          {/* <br /> */}
 
           <div id="center-button">
-            <Button name="Submit" />
+            <Button name="Submit" loading={loading} />
           </div>
         </form>
       </div>

@@ -31,6 +31,7 @@ export default function FormUserDelivery() {
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
   const [fireData, setFireData] = useState({});
+  const [loadButton, setLoadButton] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
   // const [userDetails, setUserDetails] = useState([]);
   const [parcelType, setParcelType] = useState("fragile");
@@ -41,6 +42,7 @@ export default function FormUserDelivery() {
   const [deliveryFiles, setDeliveryFiles] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [fileLimit, setFileLimit] = useState(false);
+  const [loadMessage, setLoadMessage] = useState("");
   const [formData, setFormData] = useState({
     fullname: senderName,
     phone_no: number,
@@ -66,6 +68,7 @@ export default function FormUserDelivery() {
   const userValues = useContext(userContext);
   const { token } = userValues;
 
+  const images = [];
   const handleVehicleImage = (files) => {
     const picUploaded = [...deliveryFiles];
     let limitExceeded = false;
@@ -84,18 +87,26 @@ export default function FormUserDelivery() {
 
     const reader = new FileReader();
     let file;
-    const images = [];
+
     for (let i = 0; i < picUploaded.length; i++) {
-      (function (file) {
-        const reader = new FileReader();
-        reader.onload = (file) => {
-          images.push(reader.result);
-          setProfileImage(images);
-        };
-        reader.readAsDataURL(file);
-      })(picUploaded[i]);
+      images.push(URL.createObjectURL(picUploaded[i]));
+      setProfileImage(images);
     }
+
+    // for (let i = 0; i < picUploaded.length; i++) {
+    //   (function (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = (file) => {
+    //       images.push(reader.result);
+    //       setProfileImage(images);
+    //     };
+
+    //     reader.readAsDataURL(file);
+    //   })(picUploaded[i]);
+    // }
   };
+
+  // const imageRemove = (file) => {};
 
   // console.log(profileImage);
   const uploadMultipleFiles = (e) => {
@@ -116,15 +127,16 @@ export default function FormUserDelivery() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoadButton(true);
+    let realInstructions = instructions;
+    if (instructions === "") {
+      realInstructions = "No delivery instructions set";
+    }
+    if (deliveryFiles == []) {
+      setFileError("Please Upload a Picture");
+    }
 
     const validate = (data) => {
-      if (deliveryFiles == []) {
-        setFileError("Please Upload a Picture");
-      }
-
-      if (!instructions) {
-        setInstructions("No delivery instructions set");
-      }
       const errors = {};
       if (!data.reciever_name) {
         errors.reciever_name = "Receiver name must be filled!";
@@ -161,7 +173,7 @@ export default function FormUserDelivery() {
       "parcel_description",
       formData.parcel_description.toString()
     );
-    bodyFormData.append("delivery_instructions", instructions);
+    bodyFormData.append("delivery_instructions", realInstructions);
     bodyFormData.append("parcel_type", parcelType);
     bodyFormData.append("delivery_cost", delivery_cost);
     bodyFormData.append("state", pickupState);
@@ -180,9 +192,9 @@ export default function FormUserDelivery() {
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           let data = response.data;
           setLoading(true);
           const deliveryID = data.delivery._id;
@@ -223,7 +235,9 @@ export default function FormUserDelivery() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        setLoadButton(false);
+        setLoadMessage("An Error Occured, Please Try Again");
       });
   };
 
@@ -242,16 +256,17 @@ export default function FormUserDelivery() {
         <br />
 
         <form className="sign-form" onSubmit={handleSubmit}>
+          {/* <div></div> */}
           <label className="requiredText">Sender's Full name{asterik}</label>
           <input
             type="text"
-            className="form-fields phone-input3"
+            className="form-fields phone-input3 bottom-marg"
             placeholder="Enter your full name"
             name="fullname"
             value={formData.fullname}
             onChange={handleChange}
           />
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Sender's Phone Number{asterik}</label>
           <div className="delivery-location-input">
@@ -259,7 +274,7 @@ export default function FormUserDelivery() {
             <span className="text-icon">+234</span>
             <input
               type="text"
-              className="form-fields phone-input"
+              className="form-fields phone-input bottom-marg"
               placeholder="Enter your Phone Number"
               name="phone_no"
               maxLength={10}
@@ -267,7 +282,7 @@ export default function FormUserDelivery() {
               onChange={handleChange}
             />
           </div>
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Receiver's Full name{asterik}</label>
           <input
@@ -278,8 +293,8 @@ export default function FormUserDelivery() {
             value={formData.reciever_name}
             onChange={handleChange}
           />
-          <p className="error-style">{formErrors.reciever_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.reciever_name}</p>
+          {/* <br /> */}
 
           <label className="requiredText">
             Receiver's Phone Number{asterik}
@@ -297,8 +312,10 @@ export default function FormUserDelivery() {
               maxLength={10}
             />
           </div>
-          <p className="error-style">{formErrors.reciever_phone_no}</p>
-          <br />
+          <p className="error-style bottom-marg">
+            {formErrors.reciever_phone_no}
+          </p>
+          {/* <br /> */}
 
           <label className="requiredText">Item Name{asterik}</label>
           <input
@@ -309,13 +326,13 @@ export default function FormUserDelivery() {
             value={formData.parcel_name}
             onChange={handleChange}
           />
-          <p className="error-style">{formErrors.parcel_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.parcel_name}</p>
+          {/* <br /> */}
 
           <label className="requiredText">Item Type{asterik}</label>
           <select
             defaultValue={parcelType}
-            className="form-fields phone-input3"
+            className="form-fields phone-input3 bottom-marg"
             name="ParcelType"
             onChange={handleType}
             // value={parcelType}
@@ -323,7 +340,7 @@ export default function FormUserDelivery() {
             <option value="fragile">Fragile</option>
             <option value="non-fragile">Non-Fragile</option>
           </select>
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Quantity of Items{asterik}</label>
           <input
@@ -335,22 +352,27 @@ export default function FormUserDelivery() {
             onChange={handleChange}
             min={1}
           />
-          <p className="error-style">{formErrors.parcel_description}</p>
-          <br />
+          <p className="error-style bottom-marg">
+            {formErrors.parcel_description}
+          </p>
+          {/* <br /> */}
 
           <label className="requiredText">Delivery Instructions</label>
           <textarea
             type="text"
-            className="form-field-Instructions phone-input3 textarea"
+            className="form-field-Instructions phone-input3 textarea bottom-marg"
             placeholder="Enter any specific Instruction for the delivery agent to note"
             name="delivery_instructions"
             value={instructions}
             onChange={handleInstructions}
           />
-          <br />
+          {/* <br /> */}
 
           <div className="field">
-            <legend className="requiredText">Item Images {asterik}</legend>
+            <legend className="requiredText">
+              Item Images {asterik}{" "}
+              <span id="image-upload">(Max of 5 images)</span>
+            </legend>
             <br />
 
             <section id="vector-sec">
@@ -369,16 +391,24 @@ export default function FormUserDelivery() {
               </div>
               <div className="Selected-file-div">
                 {isSelected === true
-                  ? profileImage.map((file, index) => (
-                    
-                      <div className="removal-button">
-                        <img src={file} key={index} alt="" />
-                        <sub>remove</sub>
+                  ? profileImage.map((item, index) => (
+                      <div className="removal-button" key={index}>
+                        <img src={item} alt="" />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // setIsSelected(false);
+                            images.splice(images.indexOf(item), 1);
+                            profileImage.splice(profileImage.indexOf(item), 1);
+                          }}
+                        >
+                          remove
+                        </button>
                       </div>
                     ))
-                  : null}
+                  : ""}
               </div>
-              <p className="error-style">{fileError}</p>
+              <p className="error-style bottom-marg">{fileError}</p>
             </section>
 
             <div className="Upload" id="uploadText">
@@ -390,7 +420,8 @@ export default function FormUserDelivery() {
           </div>
 
           <div id="center-button">
-            <Button name="Next" type="submit" />
+            <Button name="Next" type="submit" loading={loadButton} />
+            <p className="error-style bottom-marg">{loadMessage}</p>
           </div>
         </form>
       </div>

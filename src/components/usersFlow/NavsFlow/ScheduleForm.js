@@ -47,6 +47,7 @@ export default function ScheduleForm() {
   const [message, setMessage] = useState("");
   const [isSelected, setIsSelected] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
+  const [loadButton, setLoadButton] = useState(false);
   const [time, setTime] = useState("");
   const [expiry, setExpiry] = useState("");
   const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ export default function ScheduleForm() {
   const [parcelType, setParcelType] = useState("fragile");
   const [status, setStatus] = useState(null);
   const [name, setName] = useState("");
+  const [loadMessage, setLoadMessage] = useState("");
   // const [fileLimit, setFileLimit] = useState(false);
   const [deliveryFiles, setDeliveryFiles] = useState([]);
   const [instructions, setInstructions] = useState("");
@@ -96,14 +98,8 @@ export default function ScheduleForm() {
     let file;
     const images = [];
     for (let i = 0; i < picUploaded.length; i++) {
-      (function (file) {
-        const reader = new FileReader();
-        reader.onload = (file) => {
-          images.push(reader.result);
-          setProfileImage(images);
-        };
-        reader.readAsDataURL(file);
-      })(picUploaded[i]);
+      images.push(URL.createObjectURL(picUploaded[i]));
+      setProfileImage(images);
     }
   };
 
@@ -160,12 +156,13 @@ export default function ScheduleForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setLoadButton(true);
+    let realInstructions = instructions;
+    if (instructions === "") {
+      realInstructions = "No delivery instructions set";
+    }
     if (deliveryFiles == []) {
       setFileError("Please Upload a Picture");
-    } else setFileError("");
-
-    if (instructions == "") {
-      setInstructions("No delivery instructions set");
     }
 
     const validate = (data) => {
@@ -208,7 +205,7 @@ export default function ScheduleForm() {
       "parcel_description",
       formData.parcel_description.toString()
     );
-    bodyFormData.append("delivery_instructions", instructions);
+    bodyFormData.append("delivery_instructions", realInstructions);
     bodyFormData.append("parcel_type", parcelType);
     bodyFormData.append("delivery_cost", price);
     bodyFormData.append("state", pickupState);
@@ -231,7 +228,7 @@ export default function ScheduleForm() {
       )
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           let data = response.data;
           setLoading(true);
           const deliveryID = data.delivery._id;
@@ -272,7 +269,8 @@ export default function ScheduleForm() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        setLoadButton(false);
+        setLoadMessage("An Error Occured, Please Try Again");
       });
   };
 
@@ -295,13 +293,13 @@ export default function ScheduleForm() {
           <label className="requiredText">Sender's Full name{asterik}</label>
           <input
             type="text"
-            className="form-fields phone-input3"
+            className="form-fields phone-input3 bottom-marg"
             placeholder="Enter your full name"
             name="fullname"
             value={formData.fullname}
             onChange={handleChange}
           />
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Sender's Phone Number{asterik}</label>
           <div className="delivery-location-input">
@@ -309,7 +307,7 @@ export default function ScheduleForm() {
             <span className="text-icon">+234</span>
             <input
               type="text"
-              className="form-fields phone-input"
+              className="form-fields phone-input bottom-marg"
               placeholder="Enter your Phone Number"
               name="phone_no"
               maxLength={10}
@@ -317,7 +315,7 @@ export default function ScheduleForm() {
               onChange={handleChange}
             />
           </div>
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Receiver's Full name{asterik}</label>
           <input
@@ -328,8 +326,8 @@ export default function ScheduleForm() {
             value={formData.reciever_name}
             onChange={handleChange}
           />
-          <p className="error-style">{formErrors.reciever_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.reciever_name}</p>
+          {/* <br /> */}
 
           <label className="requiredText">
             Receiver's Phone Number{asterik}
@@ -347,8 +345,10 @@ export default function ScheduleForm() {
               maxLength={10}
             />
           </div>
-          <p className="error-style">{formErrors.reciever_phone_no}</p>
-          <br />
+          <p className="error-style bottom-marg">
+            {formErrors.reciever_phone_no}
+          </p>
+          {/* <br /> */}
 
           <label className="requiredText">Item Name{asterik}</label>
           <input
@@ -359,13 +359,13 @@ export default function ScheduleForm() {
             value={formData.parcel_name}
             onChange={handleChange}
           />
-          <p className="error-style">{formErrors.parcel_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.parcel_name}</p>
+          {/* <br /> */}
 
           <label className="requiredText">Item Type{asterik}</label>
           <select
             defaultValue={parcelType}
-            className="form-fields phone-input3"
+            className="form-fields phone-input3 bottom-marg"
             name="ParcelType"
             onChange={handleType}
             // value={parcelType}
@@ -373,7 +373,7 @@ export default function ScheduleForm() {
             <option value="fragile">Fragile</option>
             <option value="non-fragile">Non-Fragile</option>
           </select>
-          <br />
+          {/* <br /> */}
 
           <label className="requiredText">Quantity of Items{asterik}</label>
           <input
@@ -385,34 +385,36 @@ export default function ScheduleForm() {
             onChange={handleChange}
             min={1}
           />
-          <p className="error-style">{formErrors.parcel_description}</p>
-          <br />
+          <p className="error-style bottom-marg">
+            {formErrors.parcel_description}
+          </p>
+          {/* <br /> */}
 
           <label className="requiredText">Delivery Instructions</label>
           <textarea
             type="text"
-            className="form-field-Instructions phone-input3 textarea"
+            className="form-field-Instructions phone-input3 textarea bottom-marg"
             placeholder="Enter any specific Instruction for the delivery agent to note"
             name="delivery_instructions"
             value={instructions}
             onChange={handleInstructions}
           />
-          <br />
+          {/* <br /> */}
 
-          <div id="time-factor">
+          <div id="time-factor" className="bottom-marg">
             <p>
               Scheduled Delivery Pickup Date {asterik}{" "}
               <input
                 value={expiry}
                 type="date"
-                className="date-field"
+                className="date-field bottom-marg"
                 placeholder="Pick Date"
                 name="license-expiry"
                 onChange={handleDate}
               />
             </p>
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             <p>
               Scheduled Delivery Pickup Time {asterik}{" "}
               <input
@@ -425,7 +427,7 @@ export default function ScheduleForm() {
               />
             </p>
           </div>
-          <br />
+          {/* <br /> */}
 
           <div className="field">
             <legend className="requiredText">
@@ -467,7 +469,10 @@ export default function ScheduleForm() {
             </div>
           </div>
 
-          <Button name="Next" type="submit" />
+          <div id="center-button">
+            <Button name="Next" type="submit" loading={loadButton} />
+            <p className="error-style bottom-marg">{loadMessage}</p>
+          </div>
         </form>
       </div>
     );

@@ -62,7 +62,7 @@ export default function Change_Number() {
         <div className="change_no-text">Change Phone Number</div>
         <form id="user-info-form" onSubmit={handleSubmit}>
           <label htmlFor="phonenumber">Exisiting phone number</label>
-          <div className="user-info-div-1">
+          <div className="user-info-div-1 bottom-marg">
             <div className="delivery-location-input">
               <img src={Flag} alt="" className="flag-icon" />
               <span className="text-icon">+234</span>
@@ -76,7 +76,7 @@ export default function Change_Number() {
           </div>
 
           <label htmlFor="phonenumber">New phone number</label>
-          <div className="user-info-div-1">
+          <div className="user-info-div-1 bottom-marg">
             <div className="delivery-location-input">
               <div>
                 <img src={Flag} alt="" className="flag-icon" />

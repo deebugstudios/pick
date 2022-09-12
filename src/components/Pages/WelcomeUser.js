@@ -28,6 +28,8 @@ export default function WelcomeUser(props) {
     six: "",
   });
   // const [countDown, setCountDown] = useState(60);
+  const [loadButton, setLoadButton] = useState(false);
+  const [loadMessage, setLoadMessage] = useState("");
   const userValues = useContext(userContext);
   const {
     handleLoginSubmit,
@@ -79,12 +81,12 @@ export default function WelcomeUser(props) {
     console.log(appVerifier);
     const number = "+234" + [phone_no];
 
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-      if (countDown === 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   setCountDown((countDown) => countDown - 1);
+    //   if (countDown === 0) {
+    //     clearInterval(interval);
+    //   }
+    // }, 1000);
 
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
@@ -92,12 +94,13 @@ export default function WelcomeUser(props) {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setLoading(false);
       });
   };
 
   const handleFinalSubmit = () => {
+    setLoadButton(true);
     const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
 
     try {
@@ -109,13 +112,18 @@ export default function WelcomeUser(props) {
           // ...
           console.log("worked");
           navigate("/user/type");
-          console.log(user);
+          // console.log(user);
+          setLoadOtp(false);
         })
         .catch((error) => {
-          console.log("error");
+          // console.log("error");
+          setLoadButton(false);
+          setLoadMessage("Incorrect OTP");
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setLoadButton(false);
+      setLoadMessage("An Error Occured");
     }
   };
 
@@ -283,7 +291,12 @@ export default function WelcomeUser(props) {
                     </button>
                   )}
 
-                  <Button name="DONE" click={handleFinalSubmit} />
+                  <Button
+                    name="DONE"
+                    click={handleFinalSubmit}
+                    loading={loadButton}
+                  />
+                  <p className="error-style bottom-marg">{loadMessage}</p>
                 </div>
               </div>
             </div>
@@ -306,6 +319,8 @@ export function WelcomeAgent() {
   });
 
   const value = useContext(RiderContext);
+  const [loadButton, setLoadButton] = useState(false);
+  const [loadMessage, setLoadMessage] = useState("");
   const {
     token,
     setOtp,
@@ -326,6 +341,7 @@ export function WelcomeAgent() {
   } = value;
 
   const handleFinalSubmit = () => {
+    setLoadButton(true);
     const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
 
     try {
@@ -338,12 +354,17 @@ export function WelcomeAgent() {
           console.log("worked");
           navigate("/deliveryhistory");
           // console.log(user);
+          setLoadOtp(false);
         })
         .catch((error) => {
-          console.log("error");
+          // console.log("error");
+          setLoadButton(false);
+          setLoadMessage("Incorrect OTP");
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setLoadButton(false);
+      setLoadMessage("An Error Occured");
     }
   };
 
@@ -375,12 +396,12 @@ export function WelcomeAgent() {
     console.log(appVerifier);
     const number = "+234" + [phone_no];
 
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-    }, 1000);
-    if (countDown === 0) {
-      clearInterval(interval);
-    }
+    // const interval = setInterval(() => {
+    //   setCountDown((countDown) => countDown - 1);
+    // }, 1000);
+    // if (countDown === 0) {
+    //   clearInterval(interval);
+    // }
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
@@ -547,7 +568,12 @@ export function WelcomeAgent() {
                     </button>
                   )}
 
-                  <Button name="DONE" click={handleFinalSubmit} />
+                  <Button
+                    name="DONE"
+                    click={handleFinalSubmit}
+                    loading={loadButton}
+                  />
+                  <p className="error-style bottom-marg">{loadMessage}</p>
                 </div>
               </div>
             </div>

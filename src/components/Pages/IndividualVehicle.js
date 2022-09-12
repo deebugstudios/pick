@@ -28,44 +28,20 @@ export default function IndividualVehicle() {
   });
   const [type, setType] = useState("bike");
   const [expiry, setExpiry] = useState("");
-  const [fullPicture, setFullPicture] = useState([]);
   const [license, setLicense] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [mainImage, setMainImage] = useState([]);
   const [profileImage, setProfileImage] = useState([]);
-  const [fileLimit, setFileLimit] = useState(false);
   const [fileLimit2, setFileLimit2] = useState(false);
   const [fileLimit3, setFileLimit3] = useState(false);
   const [vehicleImage, setVehicleImage] = useState([]);
   const [formErrors, setFormErrors] = useState("");
   const [noDate, setNoDate] = useState("");
-  const [image1Errors, setImage1Errors] = useState("");
+  const [loading, setLoading] = useState(false);
   const [image2Errors, setImage2Errors] = useState("");
   const [image3Errors, setImage3Errors] = useState("");
   const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
-
-  const handleFullPicture = (files) => {
-    const picUploaded = [...fullPicture];
-    let limitExceeded = false;
-    files.some((file) => {
-      if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
-        picUploaded.push(file);
-        if (picUploaded.length === 1) setFileLimit(true);
-        if (picUploaded.length > 1) {
-          setFileLimit(false);
-          limitExceeded = true;
-          return true;
-        }
-      }
-    });
-    if (!limitExceeded) setFullPicture(picUploaded);
-  };
-
-  const handleFullPictureE = (e) => {
-    const chosenFiles = Array.prototype.slice.call(e.target.files);
-    handleFullPicture(chosenFiles);
-  };
 
   const handleLicense = (files) => {
     const picUploaded = [...license];
@@ -87,14 +63,8 @@ export default function IndividualVehicle() {
     let file;
     const images = [];
     for (let i = 0; i < picUploaded.length; i++) {
-      (function (file) {
-        const reader = new FileReader();
-        reader.onload = (file) => {
-          images.push(reader.result);
-          setProfileImage(images);
-        };
-        reader.readAsDataURL(file);
-      })(picUploaded[i]);
+      images.push(URL.createObjectURL(picUploaded[i]));
+      setProfileImage(images);
     }
   };
 
@@ -123,14 +93,8 @@ export default function IndividualVehicle() {
     let file;
     const images = [];
     for (let i = 0; i < picUploaded.length; i++) {
-      (function (file) {
-        const reader = new FileReader();
-        reader.onload = (file) => {
-          images.push(reader.result);
-          setMainImage(images);
-        };
-        reader.readAsDataURL(file);
-      })(picUploaded[i]);
+      images.push(URL.createObjectURL(picUploaded[i]));
+      setMainImage(images);
     }
   };
 
@@ -160,7 +124,7 @@ export default function IndividualVehicle() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formImage = [license, vehicleImage];
+    setLoading(true);
     // navigate("/account");
 
     if (license.length === 0) {
@@ -229,11 +193,13 @@ export default function IndividualVehicle() {
           });
         } else {
           setMessage("Error occured");
+          setLoading(false);
         }
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        setLoading(false);
       });
   };
   return (
@@ -261,19 +227,19 @@ export default function IndividualVehicle() {
           <input
             value={formData.fleet_id}
             type="text"
-            className="form-field edit-field phone-input3"
+            className="form-field edit-field phone-input3 bottom-marg"
             placeholder="Enter Your Fleet ID"
             name="fleet_id"
             onChange={handleChange}
           />
-          <br />
+          {/* <br /> */}
 
-          <p className="requiredText">
+          <p className="requiredText bottom-marg">
             {asterik} Please select the delivery medium you want to register
-            <br />
+            {/* <br /> */}
           </p>
 
-          <section className="Radio" id="Radio-1">
+          <section className="Radio bottom-marg" id="Radio-1">
             <input
               type="radio"
               value="bike"
@@ -300,9 +266,9 @@ export default function IndividualVehicle() {
               <span className="vehicle-text">Van</span>
             </label>
           </section>
-          <br />
+          {/* <br /> */}
 
-          <section className="Radio" id="Radio-2">
+          <section className="Radio bottom-marg" id="Radio-2">
             <input
               type="radio"
               value="car"
@@ -329,10 +295,10 @@ export default function IndividualVehicle() {
               <span className="vehicle-text">Truck</span>
             </label>
           </section>
-          <br />
+          {/* <br /> */}
 
-          <p>{type.toLocaleUpperCase()}</p>
-          <br />
+          <p className="bottom-marg">{type.toLocaleUpperCase()}</p>
+          {/* <br /> */}
 
           <label htmlFor="Manufacturer">
             <span className="requiredText">
@@ -348,8 +314,8 @@ export default function IndividualVehicle() {
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.vehicle_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.vehicle_name}</p>
+          {/* <br /> */}
 
           <label htmlFor="Color">
             <span className="requiredText">Vehicle color</span>
@@ -363,8 +329,8 @@ export default function IndividualVehicle() {
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.color}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.color}</p>
+          {/* <br /> */}
 
           <label htmlFor="Vehicle Plate Number">
             <span className="requiredText">Vehicle Plate Number</span>
@@ -378,8 +344,8 @@ export default function IndividualVehicle() {
               onChange={handleChange}
             />
           </label>
-          <p className="error-style">{formErrors.plate_no}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.plate_no}</p>
+          {/* <br /> */}
 
           <label htmlFor="license-expiry">
             <span className="requiredText">Drivers license expiry date</span>
@@ -393,11 +359,11 @@ export default function IndividualVehicle() {
               onChange={handleDate}
             />
           </label>
-          <p className="error-style">{noDate}</p>
-          <br />
+          <p className="error-style bottom-marg">{noDate}</p>
+          {/* <br /> */}
 
           <div className="uploadFlex">
-            <div className="uploadPad">
+            <div className="uploadPad bottom-marg">
               <legend className="requiredText">
                 {asterik} Upload Your Driver's License{" "}
                 <span className="Upload" id="uploadText">
@@ -432,10 +398,10 @@ export default function IndividualVehicle() {
                 </div>
                 <p className="error-style">{image2Errors}</p>
               </section>
-              <br />
+              {/* <br /> */}
             </div>
 
-            <div className="uploadPad" id="pad-vec">
+            <div className="uploadPad bottom-marg" id="pad-vec">
               <legend className="requiredText">
                 {asterik} Upload an image of your Vehicle showing your plate
                 number
@@ -476,7 +442,7 @@ export default function IndividualVehicle() {
           </div>
 
           <div id="center-button">
-            <Button name="Submit" />
+            <Button name="Submit" loading={loading} />
           </div>
         </form>
       </div>

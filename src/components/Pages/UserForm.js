@@ -37,6 +37,8 @@ export default function UserForm() {
   const [formErrors, setFormErrors] = useState({});
   const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
+  const [loadButton, setLoadButton] = useState(false);
+  const [loadMessage, setLoadMessage] = useState("");
 
   const handleChange = (e) => {
     const target = e.target;
@@ -45,6 +47,7 @@ export default function UserForm() {
   };
 
   const handleFinalSubmit = async () => {
+    setLoadButton(true);
     const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
 
     try {
@@ -91,7 +94,7 @@ export default function UserForm() {
               }
             );
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
             if (
               data.msg === "An account with this phone number already exists"
             ) {
@@ -108,16 +111,21 @@ export default function UserForm() {
               setLoadOtp(false);
             }
           } catch (error) {
+            setLoadButton(false);
+            setLoadOtp(false);
             // console.log(error);
             // const err = error
           }
-          console.log(user);
+          // console.log(user);
         })
         .catch((error) => {
-          console.log("error");
+          setLoadButton(false);
+          setLoadMessage("Incorrect OTP");
+          // console.log("error");
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setLoadMessage("An Error Occured");
     }
   };
 
@@ -129,6 +137,7 @@ export default function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const number = "+234" + [formData.phone_no];
 
     try {
@@ -145,21 +154,27 @@ export default function UserForm() {
         auth
       );
     } catch (err) {
-      console.log("can't send Otp");
-      console.log(err);
+      setMessage("An error occured, please try again");
+      // console.log(err);
     }
 
     const appVerifier = window.recaptchaVerifier;
-    console.log(appVerifier);
+    // console.log(appVerifier);
 
     setLoadOtp(true);
+    const interval = setInterval(() => {
+      setCountDown((countDown) => countDown - 1);
+    }, 1000);
+    if (countDown === 0) {
+      clearInterval(interval);
+    }
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        setLoadMessage("An Error Occured");
         setLoading(false);
       });
   };
@@ -240,7 +255,8 @@ export default function UserForm() {
             <br />
 
             <div id="center-button">
-              <Button name="Next" />
+              <Button name="Next" loading={loading} />
+              {/* <p className="error-style">{message}</p> */}
             </div>
           </form>
 
@@ -287,6 +303,7 @@ export default function UserForm() {
                     name="one"
                     value={otpValues.one}
                     onChange={OtpChange}
+                    // autoFocus
                   />
                   <input
                     type="text"
@@ -335,7 +352,12 @@ export default function UserForm() {
                     <br />
                   </p>
 
-                  <Button name="DONE" click={handleFinalSubmit} />
+                  <Button
+                    name="DONE"
+                    click={handleFinalSubmit}
+                    loading={loadButton}
+                  />
+                  <p className="error-style">{loadMessage}</p>
                 </div>
               </div>
             </div>

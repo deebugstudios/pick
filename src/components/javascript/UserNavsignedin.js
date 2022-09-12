@@ -27,14 +27,14 @@ const Navsignedin = (props) => {
         <div className="nav-links">
           <ul>
             <li>
-              <Link to="/main">Home</Link>
+              <Link to="/user/home">Home</Link>
             </li>
 
             <li>
-              <Link to="/aboutUS1"> About Us </Link>
+              <Link to="/user/about"> About Us </Link>
             </li>
             <li>
-              <Link to="/contactUS1"> Contact Us </Link>
+              <Link to="/user/contact"> Contact Us </Link>
             </li>
             <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />

@@ -10,6 +10,7 @@ import UserIcon from "../../Images/user-regular.svg";
 import { useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { ClipLoader } from "react-spinners";
 
 export default function UsersProfile() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function UsersProfile() {
   const [userDetails, setUserDetails] = useState([]);
   const [changeActive, setChangeActive] = useState(true);
   const [userName, setUserName] = useState("");
+  const [loadButton, setLoadButton] = useState(false);
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -56,7 +58,7 @@ export default function UsersProfile() {
       }
     );
     const data = await res.json();
-    // setLoading(false);
+    setLoading(false);
 
     // console.log(data);
     setUserDetails(data?.user);
@@ -78,7 +80,7 @@ export default function UsersProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoadButton(true);
     try {
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
@@ -101,124 +103,148 @@ export default function UsersProfile() {
 
       if (res.status === 200) {
         // setPopupButton(true);
-        navigate("/user/user-profile");
+        // navigate("/user/user-profile");
+        alert("Profile Updated Successfully");
+        setLoadButton(false);
       } else {
+        setLoadButton(false);
         // setMessage("Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      setLoadButton(false);
     }
   };
 
-  return (
-    <>
-      <div id="user-info-back">
-        <div id="profile-wrapper">
-          <p>My profile</p>
-          <div id="profile-picture-merge">
-            <div className="user-image">
-              <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />{" "}
-            </div>
-          </div>
-          <div id="img-flex">
-            <div className="img-border">
-              <div className="img-size-div">
-                <img src={Instant} alt="" className="img-size" />
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Loading...</p>
+      </div>
+    );
+  } else
+    return (
+      <>
+        <div id="user-info-back">
+          <div id="profile-wrapper">
+            <p>My profile</p>
+            <div id="profile-picture-merge">
+              <div className="user-image bottom-marg">
+                <img
+                  src={userDetails.img !== "" ? userDetails.img : UserIcon}
+                />{" "}
               </div>
-              <p>
-                {userStats.total_instant_deliveries} Instant
-                <br /> Deliveries
-              </p>
             </div>
-
-            <div className="img-border">
-              <div className="img-size-div">
-                <img src={Schedule} alt="" className="img-size" />
-              </div>
-              <p>
-                {userStats.total_scheduled_deliveries} Scheduled
-                <br /> Deliveries
-              </p>
-            </div>
-
-            <div className="img-border">
-              <div className="img-size-div">
-                <img src={Cancel} alt="" className="img-size" />
-              </div>
-              <p>
-                {userStats.total_cancelled_deliveries} Cancelled
-                <br /> Deliveries
-              </p>
-            </div>
-          </div>
-
-          <form id="user-info-form" onSubmit={handleSubmit}>
-            <label htmlFor="fullname">Full name</label>
-            <div className="user-info-div">
+            <label>
+              Change Profile Image
               <input
-                name="fullname"
-                value={userName}
-                onChange={handleChange}
-                style={{
-                  backgroundColor: changeActive ? "#ececec" : "white",
-                  border: changeActive ? "none" : "1px solid black",
-                }}
-                disabled={changeActive}
-
-                // autoFocus
+                // onChange={onFileChange}
+                type="file"
+                accept=".png, .jpg, .jpeg, .gif"
+                name="selectedFile"
+                className="change-image-pro"
               />
-              <span
-                className="change-prof"
-                onClick={() => {
-                  setChangeActive(false);
-                }}
-              >
-                change
-              </span>
-            </div>
-            <br />
+            </label>
+            <div id="img-flex">
+              <div className="img-border">
+                <div className="img-size-div">
+                  <img src={Instant} alt="" className="img-size" />
+                </div>
+                <p>
+                  {userStats.total_instant_deliveries} Instant
+                  <br /> Deliveries
+                </p>
+              </div>
 
-            <label htmlFor="email">Email</label>
-            <div className="user-info-div">
-              <input
-                name="email"
-                value={userDetails.email}
-                className="user-info"
-                disabled={true}
-              />
-            </div>
-            <br />
+              <div className="img-border">
+                <div className="img-size-div">
+                  <img src={Schedule} alt="" className="img-size" />
+                </div>
+                <p>
+                  {userStats.total_scheduled_deliveries} Scheduled
+                  <br /> Deliveries
+                </p>
+              </div>
 
-            <label htmlFor="phonenumber">Phone number</label>
-            <div className="user-info-div">
-              <div className="delivery-location-input">
-                <img src={Flag} alt="" className="flag-icon" />
-                <span className="text-icon">+234</span>
+              <div className="img-border">
+                <div className="img-size-div">
+                  <img src={Cancel} alt="" className="img-size" />
+                </div>
+                <p>
+                  {userStats.total_cancelled_deliveries} Cancelled
+                  <br /> Deliveries
+                </p>
+              </div>
+            </div>
+
+            <form id="user-info-form" onSubmit={handleSubmit}>
+              <label htmlFor="fullname">Full name</label>
+              <div className="user-info-div bottom-marg">
                 <input
-                  name="phonenumber"
-                  value={userDetails.phone_no}
-                  className="user-info phone-input"
+                  name="fullname"
+                  value={userName}
+                  onChange={handleChange}
+                  style={{
+                    backgroundColor: changeActive ? "#ececec" : "white",
+                    border: changeActive ? "none" : "1px solid black",
+                  }}
+                  disabled={changeActive}
+
+                  // autoFocus
+                />
+                <span
+                  className="change-prof"
+                  onClick={() => {
+                    setChangeActive(false);
+                  }}
+                >
+                  change
+                </span>
+              </div>
+              {/* <br /> */}
+
+              <label htmlFor="email">Email</label>
+              <div className="user-info-div bottom-marg">
+                <input
+                  name="email"
+                  value={userDetails.email}
+                  className="user-info"
                   disabled={true}
                 />
               </div>
-              <span
-                className="change-prof"
-                onClick={() => {
-                  navigate("/user/change", {
-                    state: { phone: userDetails.phone_no },
-                  });
-                }}
-              >
-                change
-              </span>
-            </div>
-            <br />
+              {/* <br /> */}
 
-            <Button name="Save and Update" />
-          </form>
-          <br />
+              <label htmlFor="phonenumber">Phone number</label>
+              <div className="user-info-div bottom-marg">
+                <div className="delivery-location-input">
+                  <img src={Flag} alt="" className="flag-icon" />
+                  <span className="text-icon">+234</span>
+                  <input
+                    name="phonenumber"
+                    value={userDetails.phone_no}
+                    className="user-info phone-input"
+                    disabled={true}
+                  />
+                </div>
+                <span
+                  className="change-prof"
+                  onClick={() => {
+                    navigate("/user/change", {
+                      state: { phone: userDetails.phone_no },
+                    });
+                  }}
+                >
+                  change
+                </span>
+              </div>
+              {/* <br /> */}
+
+              <Button name="Save and Update" loading={loadButton} />
+            </form>
+            <br />
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }

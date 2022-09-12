@@ -7,6 +7,12 @@
 .ratings-info {
   margin: 10px auto;
 }
+#review-div-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 #specific-table {
   display: flex;
   flex-direction: column;

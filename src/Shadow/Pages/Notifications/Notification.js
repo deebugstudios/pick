@@ -33,13 +33,15 @@ export const Notification = () => {
           },
         }
       );
-      const data = await res.json();
+      const result = await res.json();
+      // console.log(res);
 
       if (res.status === 200) {
-        console.log("User created successfully");
+        // console.log("User created successfully");
         // console.log(data);
-        setData(data?.notifications);
+        setData(result?.notifications);
         setLoading(false);
+
         //
       } else {
         console.log("Error occured");
@@ -49,7 +51,7 @@ export const Notification = () => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     fetchData();
   }, [pageCount]);
@@ -76,11 +78,14 @@ export const Notification = () => {
     }
   };
   const addPagec = () => {
-    if (!data?.length) return;
-    setPageCount((prev) => prev + 1);
+    if (data?.length !== 10) {
+      return;
+    } else {
+      setPageCount((prev) => prev + 1);
+    }
   };
 
-  console.log(pageCount, data);
+  // console.log(pageCount, data);
 
   return (
     <div className="notification-main-wrapper">
@@ -90,7 +95,9 @@ export const Notification = () => {
           <h3>Notifications</h3>
           <div className="notifcation-messages-container">
             <div className="notfication-date">
-              <h5>{data?.length ? "recent" : pageCount > 1 ? "Older" : ""}</h5>
+              <h5>
+                {pageCount === 1 ? "recent" : pageCount > 1 ? "Older" : ""}
+              </h5>
               <div
                 style={{
                   display: "flex",
@@ -106,10 +113,14 @@ export const Notification = () => {
                   className={pageCount <= 1 ? "icon-space-less" : "icon-space"}
                   onClick={minusPagec}
                 />{" "}
-                {/* <h6>View more</h6> */}
+                <h6>
+                  1 to {data?.length} of {pageCount}
+                </h6>
                 <FontAwesomeIcon
                   icon={faAngleRight}
-                  className={!data?.length ? "icon-space-less" : "icon-space"}
+                  className={
+                    data?.length !== 10 ? "icon-space-less" : "icon-space"
+                  }
                   onClick={addPagec}
                 />
               </div>

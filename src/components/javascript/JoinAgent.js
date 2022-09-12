@@ -52,6 +52,8 @@ export default function JoinAgent(props) {
   const [genderError, setGenderError] = useState("");
   const [fileError, setFileError] = useState("");
   const [residentState, setResidentState] = useState("Abia");
+  const [loadButton, setLoadButton] = useState(false);
+  const [loadMessage, setLoadMessage] = useState("");
 
   const handleChange = (e) => {
     const target = e.target;
@@ -68,6 +70,7 @@ export default function JoinAgent(props) {
   };
 
   const handleFinalSubmit = async () => {
+    setLoadButton(true);
     const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
 
     try {
@@ -109,17 +112,24 @@ export default function JoinAgent(props) {
               );
             } else {
               // setMessage("Error occured");
-              console.log("error");
+              // console.log("error");
+              setLoadButton(false);
             }
           } catch (error) {
-            console.log(error);
+            // console.log(error);
+            setLoadButton(false);
+            setLoadMessage("An Error Occured");
           }
         })
         .catch((error) => {
-          console.log("error");
+          // console.log("error");
+          setLoadButton(false);
+          setLoadMessage("Incorrect OTP");
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setLoadButton(false);
+      setLoadMessage("An Error Occured");
     }
   };
 
@@ -149,6 +159,7 @@ export default function JoinAgent(props) {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
 
     if (!gender) {
@@ -212,6 +223,7 @@ export default function JoinAgent(props) {
       .then(async (response) => {
         if (response.status === 200) {
           console.log(response);
+          setLoading(false);
           let data = response.data;
           const userToken = data.token;
           const userId = data.delivery_agent._id;
@@ -275,7 +287,8 @@ export default function JoinAgent(props) {
         // console.log(selectedFile);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        setLoading(false);
       });
   };
 
@@ -303,12 +316,12 @@ export default function JoinAgent(props) {
     console.log(appVerifier);
     const number = "+234" + [formData.phone_no];
 
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-    }, 1000);
-    if (countDown === 0) {
-      clearInterval(interval);
-    }
+    // const interval = setInterval(() => {
+    //   setCountDown((countDown) => countDown - 1);
+    // }, 1000);
+    // if (countDown === 0) {
+    //   clearInterval(interval);
+    // }
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
@@ -351,8 +364,8 @@ export default function JoinAgent(props) {
               // required={true}
             />
           </div>
-          <p className="error-style">{formErrors.fullname}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.fullname}</p>
+          {/* <br /> */}
 
           <label className="requiredText">Email{asterik}</label>
           <div className="delivery-location-input">
@@ -366,8 +379,8 @@ export default function JoinAgent(props) {
               name="email"
             />
           </div>
-          <p className="error-style">{formErrors.email}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.email}</p>
+          {/* <br /> */}
 
           <label className="requiredText">Phone Number{asterik}</label>
           <div className="delivery-location-input">
@@ -384,8 +397,8 @@ export default function JoinAgent(props) {
               // required={true}
             />
           </div>
-          <p className="error-style">{formErrors.phone_no}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.phone_no}</p>
+          {/* <br /> */}
 
           <label className="requiredText">
             National Identification Number (NIN){asterik}
@@ -399,8 +412,8 @@ export default function JoinAgent(props) {
             name="nin"
             maxLength={11}
           />
-          <p className="error-style">{formErrors.nin}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.nin}</p>
+          {/* <br /> */}
 
           <label className="requiredText">Address{asterik}</label>
           <div className="delivery-location-input">
@@ -414,10 +427,10 @@ export default function JoinAgent(props) {
               name="address"
             />
           </div>
-          <p className="error-style">{formErrors.address}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.address}</p>
+          {/* <br /> */}
 
-          <div className="field" id="second">
+          <div className="field bottom-marg" id="second">
             <label htmlFor="city">
               <span className="requiredText">City of Operation{asterik}</span>{" "}
               <br />
@@ -490,7 +503,7 @@ export default function JoinAgent(props) {
             </label>
           </div>
 
-          <div className="field">
+          <div className="field bottom-marg">
             <legend className="requiredText">Gender{asterik}</legend>
             <section id="check">
               <label className="check" htmlFor="gender">
@@ -520,7 +533,7 @@ export default function JoinAgent(props) {
             <p className="error-style">{genderError}</p>
           </div>
 
-          <div className="field">
+          <div className="field bottom-marg">
             <legend className="requiredText">
               Upload your passport or selfie{asterik}{" "}
               <span className="Upload" id="uploadText">
@@ -554,7 +567,7 @@ export default function JoinAgent(props) {
           </div>
 
           <div id="center-button">
-            <Button name="Next" type="submit" />
+            <Button name="Next" type="submit" loading={loading} />
           </div>
 
           <div className="message">{message ? <p>{message}</p> : null}</div>
@@ -627,7 +640,6 @@ export default function JoinAgent(props) {
                     value={otpValues.six}
                     onChange={OtpChange}
                   />
-
                   <br />
                   <br />
                   {countDown >= 0 ? (
@@ -644,7 +656,12 @@ export default function JoinAgent(props) {
                       Resend Otp
                     </button>
                   )}
-                  <Button name="DONE" click={handleFinalSubmit} />
+                  <Button
+                    name="DONE"
+                    click={handleFinalSubmit}
+                    loading={loadButton}
+                  />
+                  <p className="error-style">{loadMessage}</p>
                 </div>
               </div>
             </div>

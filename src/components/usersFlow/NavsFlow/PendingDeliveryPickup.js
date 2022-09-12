@@ -108,9 +108,7 @@ export default function PendingDeliveryPickup(props) {
                 ) : (
                   <div className="empty-box">
                     <img src={EmptyBox} alt="" />
-                    <p>
-                      No Pending Instant Deliveries Available, Check Scheduled
-                    </p>
+                    <p>No Pending Instant Deliveries Available.</p>
                   </div>
                 )
               ) : toggle === false ? (
@@ -128,9 +126,7 @@ export default function PendingDeliveryPickup(props) {
                 ) : (
                   <div className="empty-box">
                     <img src={EmptyBox} alt="" />
-                    <p>
-                      No Pending Scheduled Deliveries Available, Check Instant
-                    </p>
+                    <p>No Pending Scheduled Deliveries Available.</p>
                   </div>
                 )
               ) : null

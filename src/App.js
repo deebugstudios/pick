@@ -147,6 +147,9 @@ export default function App() {
               <Route path="success" element={<Success />} />
               <Route path="user" element={<LoggedinMainPageUser />}>
                 <Route path="type" element={<DeliveryType />} />
+                <Route path="contact" element={<ContactUs />} />
+                <Route path="about" element={<AboutUs />} />
+                <Route path="home" element={<Main />} />
                 <Route path="userflow" element={<UserRequestPickup />} />
                 <Route path="formuser" element={<FormUserDelivery />} />
                 <Route path="select-a" element={<SelectAgent />} />

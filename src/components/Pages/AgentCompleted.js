@@ -21,6 +21,7 @@ export default function AgentCompleted() {
   const [dataError, setDataError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [typeError, setTypeError] = useState("");
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   const token = location.state.token;
@@ -36,6 +37,7 @@ export default function AgentCompleted() {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const validate = (data) => {
@@ -92,11 +94,13 @@ export default function AgentCompleted() {
         navigate("/success");
       } else {
         setMessage("Error occured");
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      // console.log(error);
     }
-    console.log(formData);
+    // console.log(formData);
   };
 
   return (
@@ -123,8 +127,8 @@ export default function AgentCompleted() {
               value={formData.bank_name}
             />
           </label>
-          <p className="error-style">{formErrors.bank_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.bank_name}</p>
+          {/* <br /> */}
 
           <label htmlFor="account_name">
             <span className="requiredText">Bank account holder's name</span>
@@ -137,8 +141,8 @@ export default function AgentCompleted() {
               value={formData.account_name}
             />
           </label>
-          <p className="error-style">{formErrors.account_name}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.account_name}</p>
+          {/* <br /> */}
 
           <label htmlFor="account_no">
             <span className="requiredText">Bank account number</span>
@@ -151,8 +155,8 @@ export default function AgentCompleted() {
               value={formData.account_no}
             />
           </label>
-          <p className="error-style">{formErrors.account_no}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.account_no}</p>
+          {/* <br /> */}
 
           <label htmlFor="confirm_account_no">
             <span className="requiredText">Confirm Bank account number</span>
@@ -165,8 +169,10 @@ export default function AgentCompleted() {
               value={formData.confirm_account_no}
             />
           </label>
-          <p className="error-style">{formErrors.confirm_account_no}</p>
-          <br />
+          <p className="error-style bottom-marg">
+            {formErrors.confirm_account_no}
+          </p>
+          {/* <br /> */}
 
           <label htmlFor="bvn">
             <span className="requiredText">BVN</span>
@@ -179,10 +185,10 @@ export default function AgentCompleted() {
               value={formData.bvn}
             />
           </label>
-          <p className="error-style">{formErrors.bvn}</p>
-          <br />
+          <p className="error-style bottom-marg">{formErrors.bvn}</p>
+          {/* <br /> */}
 
-          <div className="field">
+          <div className="field bottom-marg">
             <legend className="requiredText">Account Type</legend>
             <section id="check">
               <label className="check" htmlFor="accType">
@@ -211,10 +217,10 @@ export default function AgentCompleted() {
             </section>
             <p className="error-style">{typeError}</p>
           </div>
-          <br />
+          {/* <br /> */}
 
           <div id="center-button">
-            <Button name="Submit" type="Submit" />
+            <Button name="Submit" type="Submit" loading={loading} />
           </div>
         </form>
       </div>

@@ -19,6 +19,9 @@
   text-align: center;
   margin-right: 20px;
 }
+.bottom-marg {
+  margin-bottom: 25px;
+}
 .removal-button {
   cursor: pointer;
 }
@@ -105,6 +108,9 @@ form section {
 .check {
   padding: 10px;
   font-size: medium;
+}
+.change-image-pro {
+  display: none;
 }
 #maleCheck {
   margin-right: 10px;

@@ -13,14 +13,22 @@
   --maincolor: #1ca905;
   --width: 100%;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 .skeleton {
   animation: skeleton-loading 1s linear infinite alternate;
 }
 @keyframes skeleton-loading {
-0% {
-  background-color: hsl(200, 20%, 70%);
-}
-100% {
-  background-color: hsl(200, 20%, 95%);
-}
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
 }
