@@ -24,6 +24,7 @@ import {
 import { db } from "../../../utils/firebase";
 import dayjs from "dayjs";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { useEffect } from "react";
 
 export default function ScheduleForm() {
   const navigate = useNavigate();
@@ -73,13 +74,37 @@ export default function ScheduleForm() {
     parcel_name: "",
     parcel_description: 1,
   });
+  const [fire, setFire] = useState(false);
+
+  useEffect(() => {
+    handleDelete();
+    setFire(false);
+  }, [fire === true]);
+
+  const handleDelete = (url) => {
+    // e.preventDefault();
+    if (deliveryFiles.length === 5) {
+      // setFileMax(4);
+      setFileLimit(false);
+      // setLimitExceeded(false);
+    }
+    let i = -1;
+    const found = deliveryFiles.some((element) => {
+      i++;
+      return element === url;
+    });
+    if (found) {
+      deliveryFiles.splice(i, 1);
+      setFire(true);
+    }
+  };
 
   const handleInstructions = (e) => {
     setInstructions(e.target.value);
   };
 
+  const picUploaded = [...deliveryFiles];
   const handleVehicleImage = (files) => {
-    const picUploaded = [...deliveryFiles];
     let limitExceeded = false;
     files.some((file) => {
       if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
@@ -93,14 +118,6 @@ export default function ScheduleForm() {
       }
     });
     if (!limitExceeded) setDeliveryFiles(picUploaded);
-
-    const reader = new FileReader();
-    let file;
-    const images = [];
-    for (let i = 0; i < picUploaded.length; i++) {
-      images.push(URL.createObjectURL(picUploaded[i]));
-      setProfileImage(images);
-    }
   };
 
   const uploadMultipleFiles = (e) => {
@@ -452,13 +469,24 @@ export default function ScheduleForm() {
               </div>
               <div className="Selected-file-div">
                 {isSelected === true
-                  ? profileImage.map((file, index) => (
-                      <div className="removal-button">
-                        <img src={file} key={index} alt="" />
-                        <sub>remove</sub>
+                  ? deliveryFiles.map((item, index) => (
+                      <div className="removal-button" key={index}>
+                        <img src={URL.createObjectURL(item)} alt="" />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDelete(item);
+                            // e.preventDefault();
+                            // setIsSelected(false);
+                            // images.splice(images.indexOf(item), 1);
+                            // picUploaded.splice(picUploaded.indexOf(item), 1);
+                          }}
+                        >
+                          remove
+                        </button>
                       </div>
                     ))
-                  : null}
+                  : ""}
               </div>
               <p className="error-style">{fileError}</p>
             </section>

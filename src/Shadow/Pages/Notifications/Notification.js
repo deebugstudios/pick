@@ -6,6 +6,7 @@ import ReactTimeAgo from "react-time-ago";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { userContext } from "../Contexts/RiderContext";
+import { ClipLoader } from "react-spinners";
 
 export const Notification = () => {
   // console.log(popUpNotifi)
@@ -128,7 +129,10 @@ export const Notification = () => {
             </div>
 
             {loading ? (
-              <h1 style={{ textAlign: "center" }}>loading...</h1>
+              <div className="loader-screen">
+                <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+                <p>Loading...</p>
+              </div>
             ) : (
               msg
             )}

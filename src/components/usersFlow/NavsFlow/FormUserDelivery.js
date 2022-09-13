@@ -30,7 +30,7 @@ export default function FormUserDelivery() {
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
-  const [fireData, setFireData] = useState({});
+  const [fileMax, setFileMax] = useState(5);
   const [loadButton, setLoadButton] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
   // const [userDetails, setUserDetails] = useState([]);
@@ -43,6 +43,7 @@ export default function FormUserDelivery() {
   const [instructions, setInstructions] = useState("");
   const [fileLimit, setFileLimit] = useState(false);
   const [loadMessage, setLoadMessage] = useState("");
+  const [limitExceeded, setLimitExceeded] = useState(false);
   const [formData, setFormData] = useState({
     fullname: senderName,
     phone_no: number,
@@ -51,6 +52,30 @@ export default function FormUserDelivery() {
     parcel_name: "",
     parcel_description: 1,
   });
+  const [fire, setFire] = useState(false);
+
+  useEffect(() => {
+    handleDelete();
+    setFire(false);
+  }, [fire === true]);
+
+  const handleDelete = (url) => {
+    // e.preventDefault();
+    if (deliveryFiles.length === 5) {
+      // setFileMax(4);
+      setFileLimit(false);
+      // setLimitExceeded(false);
+    }
+    let i = -1;
+    const found = deliveryFiles.some((element) => {
+      i++;
+      return element === url;
+    });
+    if (found) {
+      deliveryFiles.splice(i, 1);
+      setFire(true);
+    }
+  };
 
   const handleInstructions = (e) => {
     setInstructions(e.target.value);
@@ -69,8 +94,9 @@ export default function FormUserDelivery() {
   const { token } = userValues;
 
   const images = [];
+  const picUploaded = [...deliveryFiles];
+
   const handleVehicleImage = (files) => {
-    const picUploaded = [...deliveryFiles];
     let limitExceeded = false;
     files.some((file) => {
       if (picUploaded.findIndex((f) => f.name === file.name) === -1) {
@@ -85,13 +111,11 @@ export default function FormUserDelivery() {
     });
     if (!limitExceeded) setDeliveryFiles(picUploaded);
 
-    const reader = new FileReader();
-    let file;
-
-    for (let i = 0; i < picUploaded.length; i++) {
-      images.push(URL.createObjectURL(picUploaded[i]));
-      setProfileImage(images);
-    }
+    // for (let i = 0; i < picUploaded.length; i++) {
+    //   images.push(URL.createObjectURL(picUploaded[i]));
+    //   setProfileImage(images);
+    // }
+    // console.log(picUploaded);
 
     // for (let i = 0; i < picUploaded.length; i++) {
     //   (function (file) {
@@ -391,15 +415,17 @@ export default function FormUserDelivery() {
               </div>
               <div className="Selected-file-div">
                 {isSelected === true
-                  ? profileImage.map((item, index) => (
+                  ? deliveryFiles.map((item, index) => (
                       <div className="removal-button" key={index}>
-                        <img src={item} alt="" />
+                        <img src={URL.createObjectURL(item)} alt="" />
                         <button
                           onClick={(e) => {
                             e.preventDefault();
+                            handleDelete(item);
+                            // e.preventDefault();
                             // setIsSelected(false);
-                            images.splice(images.indexOf(item), 1);
-                            profileImage.splice(profileImage.indexOf(item), 1);
+                            // images.splice(images.indexOf(item), 1);
+                            // picUploaded.splice(picUploaded.indexOf(item), 1);
                           }}
                         >
                           remove

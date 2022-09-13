@@ -12,6 +12,7 @@ import Button from "../../javascript/Button";
 import MainStar from "../../Images/MainStar.png";
 import Stars from "react-stars-display";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import UserIcon from "../../Images/user-regular.svg";
 
 export default function SpecificAgent() {
   const Star = <img src={Starr} alt="" />;
@@ -149,11 +150,15 @@ export default function SpecificAgent() {
       </div>
 
       <div className="delivery-details-pictures-1 specifics-images">
-        {vehicle_image.map((item, index) => (
-          <li key={index}>
-            <DeliveryImages rectangle={item} />
-          </li>
-        ))}
+        {vehicle_image[2] ? (
+          <DeliveryImages rectangle={vehicle_image[2]} />
+        ) : null}
+        {vehicle_image[3] ? (
+          <DeliveryImages rectangle={vehicle_image[3]} />
+        ) : null}
+        {vehicle_image[4] ? (
+          <DeliveryImages rectangle={vehicle_image[4]} />
+        ) : null}
       </div>
 
       <br />
@@ -201,7 +206,10 @@ export default function SpecificAgent() {
         {reviews.map((item) => (
           <div id="review-div">
             <div className="review-profile">
-              <img src={item.user_img} alt="" />
+              <img
+                src={item.user_img !== "" ? item.user_img : UserIcon}
+                alt=""
+              />
             </div>
             <div id="text-review">
               <p id="reviewer">{item.user_name}</p>

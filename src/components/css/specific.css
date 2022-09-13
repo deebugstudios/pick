@@ -62,7 +62,7 @@
 }
 .review-profile {
   border-radius: 50%;
-  background-color: green;
+  /* background-color: green; */
   height: 90px;
   width: 90px;
   margin-right: 20px;

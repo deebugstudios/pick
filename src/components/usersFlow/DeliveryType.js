@@ -57,7 +57,7 @@ export default function DeliveryType() {
       <div className="typeFlex">
         <form id="typeFlex" onSubmit={handleSubmit}>
           <h2>Select a Delivery Type</h2>
-          <div id="signFlex">
+          <div id="signFlex" className="bottom-marg">
             <label htmlFor="select">
               <div
                 className="sign type"
@@ -105,9 +105,9 @@ export default function DeliveryType() {
             </label>
           </div>
 
-          <h2>Select a Delivery Medium</h2>
-          <br />
-          <div id="Radio-div">
+          <h2 className="bottom-marg">Select a Delivery Medium</h2>
+          {/* <br /> */}
+          <div id="Radio-div" className="bottom-marg">
             <input
               type="radio"
               value="bike"
@@ -161,7 +161,7 @@ export default function DeliveryType() {
               <span className="vehicle-text">Car</span>
             </label>
           </div>
-          <br />
+          {/* <br /> */}
 
           <Button name="Next" />
         </form>

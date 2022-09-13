@@ -1,19 +1,21 @@
 .notification {
-  width: 100%;
+  width: 80%;
   height: 88%;
   left: 0;
   bottom: 0;
-  position: fixed;
+  /* position: fixed; */
   background-color: white;
-  z-index: 10000;
+  /* z-index: 10000; */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 .notification-main-wrapper {
-  width: 100%;
+  width: 80%;
   background-color: white;
-  z-index: 10000000000000;
+  /* z-index: 10000000000000; */
+  margin: 0 auto;
 }
 
 .cancel-notification {
@@ -27,6 +29,7 @@
   height: 90%;
   max-width: 800px !important;
   position: relative;
+  margin: 0 auto;
 }
 .notification-wrapper h3 {
   text-align: center;
@@ -66,6 +69,7 @@
 .notfication-date h5 {
   font-size: 14px;
   font-weight: 500;
+  color: #1aa803;
 }
 .clear-all {
   cursor: pointer;

@@ -19,14 +19,15 @@ export default function WelcomeUser(props) {
   const asterik = <span id="asterik">*</span>;
 
   const navigate = useNavigate();
-  const [otpValues, setOtpValues] = useState({
-    one: "",
-    two: "",
-    three: "",
-    four: "",
-    five: "",
-    six: "",
-  });
+  // const [otpValues, setOtpValues] = useState({
+  //   one: "",
+  //   two: "",
+  //   three: "",
+  //   four: "",
+  //   five: "",
+  //   six: "",
+  // });
+  const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   // const [countDown, setCountDown] = useState(60);
   const [loadButton, setLoadButton] = useState(false);
   const [loadMessage, setLoadMessage] = useState("");
@@ -127,10 +128,17 @@ export default function WelcomeUser(props) {
     }
   };
 
-  const OtpChange = (e) => {
-    const target = e.target;
-    const { name, value } = target;
-    setOtpValues({ ...otpValues, [name]: value });
+  const OtpChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    setOtpValues([
+      ...otpValues.map((d, idx) => (idx === index ? element.value : d)),
+    ]);
+
+    //Focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
   };
 
   return (
@@ -228,17 +236,23 @@ export default function WelcomeUser(props) {
               </h2>
               <div id="otp-div">
                 <p id="otp-paragraph">
-                  Enter the OTP sent by SMS to {phone_no}
+                  Enter the OTP sent by SMS to 0{phone_no}
                 </p>
                 <div id="otpField">
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="one"
-                    value={otpValues.one}
-                    onChange={OtpChange}
-                  />
-                  <input
+                  {otpValues.map((data, index) => {
+                    return (
+                      <input
+                        type="text"
+                        maxLength={1}
+                        name="otpValues"
+                        key={index}
+                        value={data}
+                        onChange={(e) => OtpChange(e.target, index)}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    );
+                  })}
+                  {/* <input
                     type="text"
                     maxLength={1}
                     name="two"
@@ -272,7 +286,7 @@ export default function WelcomeUser(props) {
                     name="six"
                     value={otpValues.six}
                     onChange={OtpChange}
-                  />
+                  /> */}
 
                   <br />
                   <br />
@@ -309,15 +323,16 @@ export default function WelcomeUser(props) {
 
 export function WelcomeAgent() {
   const asterik = <span id="asterik">*</span>;
-  const [otpValues, setOtpValues] = useState({
-    one: "",
-    two: "",
-    three: "",
-    four: "",
-    five: "",
-    six: "",
-  });
+  // const [otpValues, setOtpValues] = useState({
+  //   one: "",
+  //   two: "",
+  //   three: "",
+  //   four: "",
+  //   five: "",
+  //   six: "",
+  // });
 
+  const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const value = useContext(RiderContext);
   const [loadButton, setLoadButton] = useState(false);
   const [loadMessage, setLoadMessage] = useState("");
@@ -342,7 +357,7 @@ export function WelcomeAgent() {
 
   const handleFinalSubmit = () => {
     setLoadButton(true);
-    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+    const computedNum = otpValues.join("");
 
     try {
       let confirmationResult = window.confirmationResult;
@@ -379,10 +394,17 @@ export function WelcomeAgent() {
     setPhone_no(e.target.value);
   };
 
-  const OtpChange = (e) => {
-    const target = e.target;
-    const { name, value } = target;
-    setOtpValues({ ...otpValues, [name]: value });
+  const OtpChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    setOtpValues([
+      ...otpValues.map((d, idx) => (idx === index ? element.value : d)),
+    ]);
+
+    //Focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
   };
 
   const handleClick = (e) => {
@@ -508,14 +530,21 @@ export function WelcomeAgent() {
                   Enter the OTP sent by SMS to {phone_no}
                 </p>
                 <div id="otpField">
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="one"
-                    value={otpValues.one}
-                    onChange={OtpChange}
-                  />
-                  <input
+                  {otpValues.map((data, index) => {
+                    return (
+                      <input
+                        type="text"
+                        maxLength={1}
+                        name="otpValues"
+                        key={index}
+                        value={data}
+                        onChange={(e) => OtpChange(e.target, index)}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    );
+                  })}
+                  {/* <p>OTP Entered - {otpValues}</p> */}
+                  {/* <input
                     type="text"
                     maxLength={1}
                     name="two"
@@ -549,7 +578,7 @@ export function WelcomeAgent() {
                     name="six"
                     value={otpValues.six}
                     onChange={OtpChange}
-                  />
+                  /> */}
 
                   <br />
                   <br />
