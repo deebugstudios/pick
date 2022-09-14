@@ -13,8 +13,16 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import Millisecond from "./Millisecond";
 
 export default function DeliveryHistoryDetails() {
+  const getMinutes = (milliseconds) => {
+    const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, milliseconds));
+    return [
+      d.getUTCHours() > 0 ? d.getUTCHours() : null,
+      d.getUTCMinutes() > 0 ? d.getUTCMinutes() : null,
+    ];
+  };
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -23,6 +31,8 @@ export default function DeliveryHistoryDetails() {
   const [reviewButton, setReviewButton] = useState(false);
   const [popupButton, setPopupButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [deliveryImages, setDeliveryImages] = useState([]);
+  const [milli, setMilli] = useState("");
   const userValues = useContext(userContext);
   const { token } = userValues;
   // const [pickDate, setPickDate] = useState(Number);
@@ -48,14 +58,16 @@ export default function DeliveryHistoryDetails() {
     setLoading(false);
     console.log(results);
     setDeliveryDetails(results?.delivery);
+    setDeliveryImages(results?.delivery.imgs);
+    setMilli(results?.delivery.delivered_in);
   };
 
   useEffect(() => {
     fetchDeliveryDetails();
   }, []);
 
-  const img_ids = deliveryDetails.img_ids;
-  const imgs = deliveryDetails.imgs;
+  // const img_ids = deliveryDetails.img_ids;
+  // const imgs = deliveryDetails.imgs;
   // const urls = imgs.join(", ");
   // console.log(urls);
   if (loading === true) {
@@ -118,7 +130,10 @@ export default function DeliveryHistoryDetails() {
               </div>
             </div>
             <div className="estimatedtime">
-              <h2>Your Item arrived at your Location in 60 minutes</h2>
+              <h2>
+                Your Item arrived at your Location in {getMinutes(milli)}{" "}
+                minute(s)
+              </h2>
             </div>
             <br />
             <br />
@@ -199,14 +214,18 @@ export default function DeliveryHistoryDetails() {
             <ReportReason
               delivery_id={Delivery_id}
               parcel_code={deliveryDetails.parcel_code}
-              img_ids={img_ids}
-              // imgs={urls}
+              img_ids={deliveryDetails.img_ids}
+              imgs={deliveryImages.join(", ")}
               agentName={deliveryDetails.delivery_agent_name}
               delivery_agent_code={deliveryDetails.delivery_agent_code}
               delivery_agent_id={deliveryDetails.delivery_agent_id}
               delivery_agent_img={deliveryDetails.delivery_agent_img}
               delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
               delivery_agent_email={deliveryDetails.delivery_agent_email}
+              user_email={deliveryDetails.sender_email}
+              delivery_type={deliveryDetails.delivery_type}
+              sender_fullname={deliveryDetails.sender_fullname}
+              sender_id={deliveryDetails.sender_id}
             />
           </Popup>
           <Popup trigger={reviewButton} setTrigger={setReviewButton}>

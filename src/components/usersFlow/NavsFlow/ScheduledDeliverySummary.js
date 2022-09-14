@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   DeliveryImages,
   DeliveryImages2,
@@ -11,6 +11,8 @@ import FormProgress2 from "../../Images/FormProgress2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { TimeConverter } from "../../../DateAndTimeConverter";
+import { DateConverter } from "../../../DateAndTimeConverter";
 // import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
@@ -22,7 +24,7 @@ export default function ScheduledDeliverySummary() {
   const name = location.state.name;
   const phone = location.state.number;
   const vehicle = location.state.deliveryMedium;
-  const userValues = userContext(userContext);
+  const userValues = useContext(userContext);
   const { token } = userValues;
   const navigate = useNavigate();
 
@@ -168,15 +170,29 @@ export default function ScheduledDeliverySummary() {
           <div className="delivery-history-info">
             <DeliverInfo
               sender={deliveryDetails.sender_fullname}
-              sender_no={deliveryDetails.sender_phone_no}
+              sender_no={`0${deliveryDetails.sender_phone_no}`}
               receiver={deliveryDetails.reciever_name}
-              receiver_no={deliveryDetails.reciever_phone_no}
+              receiver_no={`0${deliveryDetails.reciever_phone_no}`}
               parcel_name={deliveryDetails.parcel_name}
               parcel_type={deliveryDetails.parcel_type}
               description={deliveryDetails.parcel_description}
               instruction={deliveryDetails.delivery_instructions}
-              date=""
-              time=""
+              date={
+                <DateConverter
+                  value={
+                    deliveryDetails?.delivery_status
+                      .scheduled_delivery_pickup_timestamp
+                  }
+                />
+              }
+              time={
+                <TimeConverter
+                  value={
+                    deliveryDetails?.delivery_status
+                      .scheduled_delivery_pickup_timestamp
+                  }
+                />
+              }
             />
           </div>
           <br />

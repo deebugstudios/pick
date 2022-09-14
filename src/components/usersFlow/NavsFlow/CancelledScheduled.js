@@ -24,6 +24,7 @@ export default function CancelledScheduled() {
   const [popupButton, setPopupButton] = useState(false);
   const [reviewButton, setReviewButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [deliveryImages, setDeliveryImages] = useState([]);
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -46,8 +47,9 @@ export default function CancelledScheduled() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    console.log(data);
+    // console.log(data);
     setDeliveryDetails(results?.delivery);
+    setDeliveryImages(results?.delivery.imgs);
   };
 
   useEffect(() => {
@@ -226,7 +228,22 @@ export default function CancelledScheduled() {
             <br />
           </div>
           <Popup trigger={popupButton} setTrigger={setPopupButton}>
-            <ReportReason />
+            <ReportReason
+              delivery_id={Delivery_id}
+              parcel_code={deliveryDetails.parcel_code}
+              img_ids={deliveryDetails.img_ids}
+              imgs={deliveryImages.join(", ")}
+              agentName={deliveryDetails.delivery_agent_name}
+              delivery_agent_code={deliveryDetails.delivery_agent_code}
+              delivery_agent_id={deliveryDetails.delivery_agent_id}
+              delivery_agent_img={deliveryDetails.delivery_agent_img}
+              delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
+              delivery_agent_email={deliveryDetails.delivery_agent_email}
+              user_email={deliveryDetails.sender_email}
+              delivery_type={deliveryDetails.delivery_type}
+              sender_fullname={deliveryDetails.sender_fullname}
+              sender_id={deliveryDetails.sender_id}
+            />
           </Popup>
           <Popup trigger={reviewButton} setTrigger={setReviewButton}>
             <LeaveReview agentId={deliveryDetails.delivery_agent_id} />

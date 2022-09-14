@@ -163,9 +163,9 @@ export default function PendingScheduledDetails() {
             <div className="delivery-history-info">
               <DeliverInfo2
                 sender={deliveryDetails.sender_fullname}
-                sender_no={deliveryDetails.sender_phone_no}
+                sender_no={`0${deliveryDetails.sender_phone_no}`}
                 receiver={deliveryDetails.reciever_name}
-                receiver_no={deliveryDetails.reciever_phone_no}
+                receiver_no={`0${deliveryDetails.reciever_phone_no}`}
                 parcel_name={deliveryDetails.parcel_name}
                 parcel_type={deliveryDetails.parcel_type}
                 description={deliveryDetails.parcel_description}

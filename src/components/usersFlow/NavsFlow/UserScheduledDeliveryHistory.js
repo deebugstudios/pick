@@ -25,6 +25,7 @@ export default function UserScheduledDeliveryHistory() {
   const [popupButton, setPopupButton] = useState(false);
   const [reviewButton, setReviewButton] = useState(false);
   const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [deliveryImages, setDeliveryImages] = useState([]);
   // const [pickDate, setPickDate] = useState(Number);
 
   const Delivery_id = location.state.id;
@@ -47,14 +48,15 @@ export default function UserScheduledDeliveryHistory() {
     const results = await data;
     setLoading(false);
     setDeliveryDetails(results?.delivery);
-    console.log(deliveryDetails);
+    setDeliveryImages(results?.delivery.imgs);
+    // console.log(deliveryDetails);
   };
 
   useEffect(() => {
     fetchDeliveryDetails();
   }, []);
 
-  const imgs = deliveryDetails.imgs;
+  // const imgs = deliveryDetails.imgs;
   // const urls = imgs.join(", ");
 
   if (loading === true) {
@@ -162,9 +164,9 @@ export default function UserScheduledDeliveryHistory() {
             <div className="delivery-history-info">
               <DeliverInfo2
                 sender={deliveryDetails.sender_fullname}
-                sender_no={deliveryDetails.sender_phone_no}
+                sender_no={`0${deliveryDetails.sender_phone_no}`}
                 receiver={deliveryDetails.reciever_name}
-                receiver_no={deliveryDetails.reciever_phone_no}
+                receiver_no={`0${deliveryDetails.reciever_phone_no}`}
                 parcel_name={deliveryDetails.parcel_name}
                 parcel_type={deliveryDetails.parcel_type}
                 description={deliveryDetails.parcel_description}
@@ -199,13 +201,17 @@ export default function UserScheduledDeliveryHistory() {
               delivery_id={Delivery_id}
               parcel_code={deliveryDetails.parcel_code}
               img_ids={deliveryDetails.img_ids}
-              // imgs={urls}
+              imgs={deliveryImages.join(", ")}
               agentName={deliveryDetails.delivery_agent_name}
               delivery_agent_code={deliveryDetails.delivery_agent_code}
               delivery_agent_id={deliveryDetails.delivery_agent_id}
               delivery_agent_img={deliveryDetails.delivery_agent_img}
               delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
               delivery_agent_email={deliveryDetails.delivery_agent_email}
+              user_email={deliveryDetails.sender_email}
+              delivery_type={deliveryDetails.delivery_type}
+              sender_fullname={deliveryDetails.sender_fullname}
+              sender_id={deliveryDetails.sender_id}
             />
           </Popup>
           <Popup trigger={reviewButton} setTrigger={setReviewButton}>

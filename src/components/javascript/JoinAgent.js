@@ -112,22 +112,22 @@ export default function JoinAgent(props) {
               );
             } else {
               // setMessage("Error occured");
-              // console.log("error");
+              console.log("error");
               setLoadButton(false);
             }
           } catch (error) {
-            // console.log(error);
+            console.log(error);
             setLoadButton(false);
             setLoadMessage("An Error Occured");
           }
         })
         .catch((error) => {
-          // console.log("error");
+          console.log("error");
           setLoadButton(false);
           setLoadMessage("Incorrect OTP");
         });
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       setLoadButton(false);
       setLoadMessage("An Error Occured");
     }
@@ -146,7 +146,7 @@ export default function JoinAgent(props) {
     setIsSelected(true);
   };
 
-  console.log(selectedSrc);
+  // console.log(selectedSrc);
   const navigate = useNavigate();
 
   const agent = props.agent;
