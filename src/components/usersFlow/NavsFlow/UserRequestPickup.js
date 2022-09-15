@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
+import { ClipLoader } from "react-spinners";
 import { parse } from "@fortawesome/fontawesome-svg-core";
 
 export default function UserRequestPickup() {
@@ -22,6 +23,8 @@ export default function UserRequestPickup() {
   const [userDetails, setUserDetails] = useState([]);
   const [senderName, setSenderName] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [loadButton, setLoadButton] = useState(false);
   const userValues = useContext(userContext);
   const { token } = userValues;
   // console.log(new Date().getTime());
@@ -50,6 +53,7 @@ export default function UserRequestPickup() {
     // console.log(results);
     setUserDetails(data?.user);
     // console.log(data);
+    setLoading(false);
   };
   const name = userDetails.fullname;
   const number = userDetails.phone_no;
@@ -68,6 +72,7 @@ export default function UserRequestPickup() {
     if (pickupRef.current.value === "" || destinationRef.current.value === "") {
       return;
     }
+    setLoadButton(true);
     const directionService = new google.maps.DirectionsService(); // eslint-disable-line
     const results = await directionService.route({
       origin: pickupRef.current.value,
@@ -111,14 +116,20 @@ export default function UserRequestPickup() {
 
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    // const timeTaken = parseInt(results.routes[0].legs[0].duration.text);
+    const timeTaken = results.routes[0].legs[0].duration.text.replace(
+      /\D/g,
+      ""
+    );
+    console.log(timeTaken);
+    const dura = results.routes[0].legs[0].duration.text;
+    console.log(dura);
 
     // console.log(results.routes[0].legs[0]);
 
     const userDistance = results.routes[0].legs[0].distance.text;
     //  parseFloat(userDistance);
     const realDistance = parseFloat(userDistance.replace(",", ""));
-    console.log(realDistance);
+    // console.log(realDistance);
 
     // console.log(destinationRef.current.value, pickupRef.current.value, vehicle);
     try {
@@ -144,6 +155,7 @@ export default function UserRequestPickup() {
 
       const data = await res.json();
       if (res.status === 200) {
+        setLoadButton(false);
         // console.log(data.price);
         setPrice(parseInt(data.price));
         // console.log(pickupLocation);
@@ -152,13 +164,13 @@ export default function UserRequestPickup() {
         setMessage("Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     setButtonName("Clear Route");
   };
 
   const clearRoute = () => {
-    console.log(pickupState);
+    // console.log(pickupState);
     setDirection(null);
     setDistance("");
     setDuration("");
@@ -211,6 +223,8 @@ export default function UserRequestPickup() {
               email: email,
             },
           });
+    } else {
+      return;
     }
   };
 
@@ -218,80 +232,98 @@ export default function UserRequestPickup() {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();
   };
 
-  return (
-    <section className="user-dashboard">
-      <div className="user-right-side-1">
-        <div className="map-container-1">
-          <Map
-            direct={direction}
-            // {...marker.map()}
-            // eslint-disable-next-line
-            // mark={new google.maps.LatLng(6, 5)}
-          />
-        </div>
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Loading...</p>
       </div>
-      <div className="set-location-pickup-1">
-        <div className="location-form">
-          <div className="location-form-input" id="location-form-input-1">
-            <label htmlFor="Pickup Location">Pickup Location</label>
-            <div className="delivery-location-input">
-              <img src={Locate} alt="" className="locate-icon" />
-              <Autocomplete
-                options={{
-                  componentRestrictions: { country: "ng" },
-                }}
-              >
-                <input
-                  name="Pickup Location"
-                  placeholder="5 Noma Street GRA Edo State "
-                  className="phone-input2"
-                  ref={pickupRef}
-                />
-              </Autocomplete>
-            </div>
+    );
+  } else
+    return (
+      <section className="user-dashboard">
+        <div className="user-right-side-1">
+          <div className="map-container-1">
+            <Map
+              direct={direction}
+              // {...marker.map()}
+              // eslint-disable-next-line
+              // mark={new google.maps.LatLng(6, 5)}
+            />
           </div>
-
-          <Autocomplete
-            options={{
-              componentRestrictions: { country: "ng" },
-            }}
-          >
-            <div className="location-form-input" id="location-form-input-2">
-              <label htmlFor="Delivery Location">Delivery Location</label>
+        </div>
+        <div className="set-location-pickup-1">
+          <div className="location-form">
+            <div className="location-form-input" id="location-form-input-1">
+              <label htmlFor="Pickup Location">Pickup Location</label>
               <div className="delivery-location-input">
                 <img src={Locate} alt="" className="locate-icon" />
-                <input
-                  name="Delivery Location"
-                  placeholder="19 Akpakpava Road Benin City Ed.."
-                  className="phone-input2"
-                  ref={destinationRef}
-                />
+                <Autocomplete
+                  options={{
+                    componentRestrictions: { country: "ng" },
+                  }}
+                >
+                  <input
+                    name="Pickup Location"
+                    placeholder="5 Noma Street GRA Edo State "
+                    className="phone-input2"
+                    ref={pickupRef}
+                  />
+                </Autocomplete>
               </div>
             </div>
-          </Autocomplete>
-        </div>
-        <div id="price-div">
-          <p>Delivery Fee </p>
-          <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
-        </div>
 
-        <div id="div-button">
-          <button className="set-location-btn-1" onClick={handleRoute}>
-            {buttonName}
-          </button>
+            <Autocomplete
+              options={{
+                componentRestrictions: { country: "ng" },
+              }}
+            >
+              <div className="location-form-input" id="location-form-input-2">
+                <label htmlFor="Delivery Location">Delivery Location</label>
+                <div className="delivery-location-input">
+                  <img src={Locate} alt="" className="locate-icon" />
+                  <input
+                    name="Delivery Location"
+                    placeholder="19 Akpakpava Road Benin City Ed.."
+                    className="phone-input2"
+                    ref={destinationRef}
+                  />
+                </div>
+              </div>
+            </Autocomplete>
+          </div>
+          <div id="price-div">
+            <p>Delivery Fee </p>
+            <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
+          </div>
 
-          <button
-            className={
-              buttonName === "Calculate Route"
-                ? "set-location-btn-2"
-                : "set-location-btn-1"
-            }
-            onClick={handleNavigate}
-          >
-            Next
-          </button>
+          <div id="div-button">
+            <button
+              className="set-location-btn-1"
+              onClick={handleRoute}
+              disabled={loadButton}
+            >
+              <span>
+                {loadButton ? (
+                  <ClipLoader color={"black"} loading={loadButton} size={30} />
+                ) : (
+                  buttonName
+                )}
+              </span>
+            </button>
+
+            <button
+              className={
+                buttonName === "Calculate Route"
+                  ? "set-location-btn-2"
+                  : "set-location-btn-1"
+              }
+              onClick={handleNavigate}
+            >
+              Next
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

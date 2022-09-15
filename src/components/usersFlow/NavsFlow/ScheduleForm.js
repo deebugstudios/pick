@@ -246,6 +246,7 @@ export default function ScheduleForm() {
           let data = response.data;
           setLoading(true);
           const deliveryID = data.delivery._id;
+          const notifId = data.notification_id;
 
           const accepted = onSnapshot(
             doc(db, "delivery_requests", deliveryID),
@@ -276,6 +277,59 @@ export default function ScheduleForm() {
                   },
                 });
               }
+              setTimeout(async () => {
+                accepted();
+                setLoading(false);
+                if (doc.data().delivery_status_is_accepted === false) {
+                  try {
+                    const res = await fetch(
+                      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
+                      {
+                        method: "POST",
+
+                        body: JSON.stringify({
+                          token: JSON.parse(token),
+                          delivery_id: deliveryID,
+                          notification_id: notifId,
+                        }),
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json, text/plain, */*",
+                        },
+                      }
+                    );
+                    const data = await res.json();
+                    console.log(data);
+
+                    if (res.status === 200) {
+                      //
+                    } else {
+                      //
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }
+                  alert(
+                    "Your pickup request wasn't accepted. Please try again"
+                  );
+                  navigate("/user/select-a", {
+                    state: {
+                      vehicle: vehicle,
+                      distance: distance,
+                      pickupLocation: pickupLocation,
+                      pickupState: pickupState,
+                      dropOffLocation: dropOffLocation,
+                      delivery_cost: price,
+                      member: type,
+                      pickup_address: pickup_address,
+                      drop_off_address: drop_off_address,
+                      senderName: senderName,
+                      number: phone_no,
+                      email: email,
+                    },
+                  });
+                }
+              }, 120000);
             }
           );
         } else {

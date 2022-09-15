@@ -13,10 +13,15 @@ import { PaystackButton } from "react-paystack";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
+import { ClipLoader } from "react-spinners";
 // import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [scheduledDate, setScheduledDate] = useState("");
+  const [scheduledTime, setScheduledTime] = useState("");
+
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
   const price = location.state.price;
@@ -105,8 +110,23 @@ export default function ScheduledDeliverySummary() {
         }),
       }
     );
+    setLoading(false);
     const data = await res.json();
     setDeliveryDetails(data?.delivery);
+    setScheduledDate(
+      <DateConverter
+        value={
+          data?.delivery.delivery_status.scheduled_delivery_pickup_timestamp
+        }
+      />
+    );
+    setScheduledTime(
+      <TimeConverter
+        value={
+          data?.delivery.delivery_status.scheduled_delivery_pickup_timestamp
+        }
+      />
+    );
   };
 
   console.log(deliveryDetails);
@@ -114,118 +134,112 @@ export default function ScheduledDeliverySummary() {
     fetchDeliveryDetails();
   }, []);
 
-  return (
-    <section className="user-dashboard pending-delivery specifics no-max">
-      <div className="history-wrapper-1">
-        <div className="specific-details-section">
-          <div id="btn-proceed">
-            <h2>Delivery Summary</h2>
-            <div>
-              <img src={FormProgress2} alt="" />
-            </div>
-          </div>
-          <br />
-          <br />
-          <br />
-
-          <h3>Delivery Request Accepted by:</h3>
-          <br />
-          <br />
-
-          <div className="delivery-profile">
-            <div className="driver-profile-image">
-              <div className="image2">
-                <img src={deliveryDetails.delivery_agent_img} />
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Loading...</p>
+      </div>
+    );
+  } else
+    return (
+      <section className="user-dashboard pending-delivery specifics no-max">
+        <div className="history-wrapper-1">
+          <div className="specific-details-section">
+            <div id="btn-proceed">
+              <h2>Delivery Summary</h2>
+              <div>
+                <img src={FormProgress2} alt="" />
               </div>
             </div>
-            <div className="delivery-profile-details">
-              <table>
-                <tr>
-                  <th>Delivery Agent :</th>
-                  <td>{deliveryDetails.delivery_agent_name}</td>
-                </tr>
-                <tr>
-                  <th>Vehicle Type :</th>
-                  <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
-                </tr>
-                <tr>
-                  <th>Vehicle Color :</th>
-                  <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                </tr>
-                <tr>
-                  <th>Agent ID :</th>
-                  <td>{deliveryDetails.delivery_agent_id}</td>
-                </tr>
-                <tr>
-                  <th>Plate Number :</th>
-                  <td>{deliveryDetails.delivery_agent_plate_no}</td>
-                </tr>
-                <tr>
-                  <th>Phone Number :</th>
-                  <td>{deliveryDetails.delivery_agent_phone_no}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div className="delivery-history-info">
-            <DeliverInfo
-              sender={deliveryDetails.sender_fullname}
-              sender_no={`0${deliveryDetails.sender_phone_no}`}
-              receiver={deliveryDetails.reciever_name}
-              receiver_no={`0${deliveryDetails.reciever_phone_no}`}
-              parcel_name={deliveryDetails.parcel_name}
-              parcel_type={deliveryDetails.parcel_type}
-              description={deliveryDetails.parcel_description}
-              instruction={deliveryDetails.delivery_instructions}
-              date={
-                <DateConverter
-                  value={
-                    deliveryDetails?.delivery_status
-                      .scheduled_delivery_pickup_timestamp
-                  }
-                />
-              }
-              time={
-                <TimeConverter
-                  value={
-                    deliveryDetails?.delivery_status
-                      .scheduled_delivery_pickup_timestamp
-                  }
-                />
-              }
-            />
-          </div>
-          <br />
-          <br />
-          <br />
+            <br />
+            <br />
+            <br />
 
-          <h3>Image: </h3>
-          <div className="delivery-details-pictures specifics-images images-border">
-            {deliveryDetails.imgs?.map((item, index) => (
-              <li key={index}>
-                <DeliveryImages rectangle={item} />
-              </li>
-            ))}
-          </div>
-          <br />
+            <h3>Delivery Request Accepted by:</h3>
+            <br />
+            <br />
 
-          <div className="delivery-details-location">
-            <div className="delivery-deatails-location-pickup">
-              <div className="location-img">
-                <img src={Checkout} alt="" />
+            <div className="delivery-profile">
+              <div className="driver-profile-image">
+                <div className="image2">
+                  <img src={deliveryDetails.delivery_agent_img} />
+                </div>
               </div>
-              <h3>Pickup Location </h3>
-              <p>{deliveryDetails.pickup_address}</p>
-              <h3>Delivery location </h3>
-              <p>{deliveryDetails.drop_off_address}</p>
+              <div className="delivery-profile-details">
+                <table>
+                  <tr>
+                    <th>Delivery Agent :</th>
+                    <td>{deliveryDetails.delivery_agent_name}</td>
+                  </tr>
+                  <tr>
+                    <th>Vehicle Type :</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                  </tr>
+                  <tr>
+                    <th>Vehicle Color :</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                  </tr>
+                  <tr>
+                    <th>Agent ID :</th>
+                    <td>{deliveryDetails.delivery_agent_id}</td>
+                  </tr>
+                  <tr>
+                    <th>Plate Number :</th>
+                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                  </tr>
+                  <tr>
+                    <th>Phone Number :</th>
+                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </div>
+            <div className="delivery-history-info">
+              <DeliverInfo
+                sender={deliveryDetails.sender_fullname}
+                sender_no={`0${deliveryDetails.sender_phone_no}`}
+                receiver={deliveryDetails.reciever_name}
+                receiver_no={`0${deliveryDetails.reciever_phone_no}`}
+                parcel_name={deliveryDetails.parcel_name}
+                parcel_type={deliveryDetails.parcel_type}
+                description={deliveryDetails.parcel_description}
+                instruction={deliveryDetails.delivery_instructions}
+                date={scheduledDate}
+                time={scheduledTime}
+              />
+            </div>
+            <br />
+            <br />
+            <br />
 
-          <div id="btn-proceed">
-            <PaystackButton {...componentProps} />
+            <h3>Image: </h3>
+            <div className="delivery-details-pictures specifics-images images-border">
+              {deliveryDetails.imgs?.map((item, index) => (
+                <li key={index}>
+                  <DeliveryImages rectangle={item} />
+                </li>
+              ))}
+            </div>
+            <br />
+
+            <div className="delivery-details-location">
+              <div className="delivery-deatails-location-pickup">
+                <div className="location-img">
+                  <img src={Checkout} alt="" />
+                </div>
+                <h3>Pickup Location </h3>
+                <p>{deliveryDetails.pickup_address}</p>
+                <h3>Delivery location </h3>
+                <p>{deliveryDetails.drop_off_address}</p>
+              </div>
+            </div>
+
+            <div id="btn-proceed">
+              <PaystackButton {...componentProps} />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

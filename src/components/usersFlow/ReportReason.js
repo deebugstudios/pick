@@ -16,7 +16,7 @@ export default function ReportReason(props) {
   const userValues = useContext(userContext);
   const { token } = userValues;
 
-  const [userDetails, setUserDetails] = useState([]);
+  const [userImg, setUserImg] = useState([]);
   /**@type React.MutableRefObject<HTMLInputElement> */
   const othersRef = useRef();
 
@@ -35,7 +35,7 @@ export default function ReportReason(props) {
     );
     const data = await res.json();
     const results = await data;
-    setUserDetails(results?.user);
+    results?.user.img ? setUserImg(results?.user.img) : setUserImg("a");
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function ReportReason(props) {
             delivery_img_urls: props.imgs,
             user_id: props.sender_id,
             user_name: props.sender_fullname,
-            user_img_url: userDetails.img,
+            user_img_url: userImg,
             delivery_agent_name: props.agentName,
             delivery_agent_code: props.delivery_agent_code,
             delivery_agent_id: props.delivery_agent_id,

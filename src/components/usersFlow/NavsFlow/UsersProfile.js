@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { ClipLoader } from "react-spinners";
+import axios from "axios";
 
 export default function UsersProfile() {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ export default function UsersProfile() {
   const [changeActive, setChangeActive] = useState(true);
   const [userName, setUserName] = useState("");
   const [loadButton, setLoadButton] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedSrc, setSelectedSrc] = useState("");
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -81,39 +85,84 @@ export default function UsersProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadButton(true);
-    try {
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
-        {
-          method: "POST",
 
-          body: JSON.stringify({
-            token: JSON.parse(token),
-            fullname: userName,
-            image: "",
-          }),
+    const bodyFormData = new FormData();
+    bodyFormData.append("fullname", userName);
+    bodyFormData.append("image", selectedFile);
+    bodyFormData.append("token", JSON.parse(token));
+
+    axios
+      .post(
+        "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
+        bodyFormData,
+        {
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
+            "Content-Type": "multipart/form-data",
           },
         }
-      );
-      const data = await res.json();
-      console.log(data);
+      )
 
-      if (res.status === 200) {
-        // setPopupButton(true);
-        // navigate("/user/user-profile");
-        alert("Profile Updated Successfully");
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Profile Updated Successfully");
+          setLoadButton(false);
+          setChangeActive(true);
+        } else {
+          setLoadButton(false);
+        }
+        // console.log(response);
+      })
+      .catch((error) => {
+        // console.log(error);
         setLoadButton(false);
-      } else {
-        setLoadButton(false);
-        // setMessage("Error occured");
+      });
+
+    // try {
+    //   const res = await fetch(
+    //     "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
+    //     {
+    //       method: "POST",
+
+    //       body: JSON.stringify({
+    //         token: JSON.parse(token),
+    //         fullname: userName,
+    //         image: selectedFile,
+    //       }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json, text/plain, */*",
+    //       },
+    //     }
+    //   );
+    //   const data = await res.json();
+    //   console.log(data);
+
+    //   if (res.status === 200) {
+    //     // setPopupButton(true);
+    //     // navigate("/user/user-profile");
+    //     alert("Profile Updated Successfully");
+    //     setLoadButton(false);
+    //   } else {
+    //     setLoadButton(false);
+    //     // setMessage("Error occured");
+    //   }
+    // } catch (error) {
+    //   // console.log(error);
+    //   setLoadButton(false);
+    // }
+  };
+
+  const onFileChange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState == 2) {
+        setSelectedSrc(reader.result);
       }
-    } catch (error) {
-      // console.log(error);
-      setLoadButton(false);
-    }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+    setIsSelected(true);
   };
 
   if (loading === true) {
@@ -132,7 +181,13 @@ export default function UsersProfile() {
             <div id="profile-picture-merge">
               <div className="user-image bottom-marg">
                 <img
-                  src={userDetails.img !== "" ? userDetails.img : UserIcon}
+                  src={
+                    isSelected
+                      ? selectedSrc
+                      : userDetails.img !== ""
+                      ? userDetails.img
+                      : UserIcon
+                  }
                 />{" "}
               </div>
             </div>
@@ -140,7 +195,7 @@ export default function UsersProfile() {
               <label>
                 Change Profile Image
                 <input
-                  // onChange={onFileChange}
+                  onChange={onFileChange}
                   type="file"
                   accept=".png, .jpg, .jpeg, .gif"
                   name="selectedFile"

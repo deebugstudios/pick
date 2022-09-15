@@ -30,7 +30,7 @@ export default function FormUserDelivery() {
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
-  const [fileMax, setFileMax] = useState(5);
+  const [fireData, setFireData] = useState({});
   const [loadButton, setLoadButton] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
   // const [userDetails, setUserDetails] = useState([]);
@@ -220,12 +220,15 @@ export default function FormUserDelivery() {
         if (response.status === 200) {
           // console.log(response);
           let data = response.data;
+          console.log(data);
           setLoading(true);
           const deliveryID = data.delivery._id;
+          const notifId = data.notification_id;
 
           const accepted = onSnapshot(
             doc(db, "delivery_requests", deliveryID),
             async (doc) => {
+              setFireData(doc.data());
               if (doc.data().delivery_status_is_accepted === true) {
                 accepted();
                 setLoading(false);
@@ -252,8 +255,51 @@ export default function FormUserDelivery() {
                   },
                 });
               }
+
+              setTimeout(async () => {
+                accepted();
+                setLoading(false);
+                if (doc.data().delivery_status_is_accepted === false) {
+                  try {
+                    const res = await fetch(
+                      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
+                      {
+                        method: "POST",
+
+                        body: JSON.stringify({
+                          token: JSON.parse(token),
+                          delivery_id: deliveryID,
+                          notification_id: notifId,
+                        }),
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json, text/plain, */*",
+                        },
+                      }
+                    );
+                    const data = await res.json();
+                    console.log(data);
+
+                    if (res.status === 200) {
+                      //
+                    } else {
+                      //
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }
+                  alert(
+                    "Your pickup request wasn't accepted by any Delivery Agent. Please try again"
+                  );
+                  setLoadButton(false);
+                }
+              }, 120000);
             }
           );
+
+          const fireStoreData = fireData;
+          console.log(fireStoreData);
+          console.log(fireData);
         } else {
           setMessage("An Error occured");
         }

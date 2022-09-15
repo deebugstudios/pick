@@ -5,6 +5,7 @@ import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { ClipLoader } from "react-spinners";
 
 export default function SelectAgent() {
   const location = useLocation();
@@ -57,75 +58,84 @@ export default function SelectAgent() {
   }, []);
 
   const Stars = <img src={Star} alt="" />;
-  return (
-    <>
-      <div id="select-agent-wrap">
-        <div id="select-agent-content">
-          <h3>Choose Your Preferred Delivery Agent</h3>
-          <div>
-            <img src={FormProgress} alt="" />
-          </div>
 
-          <div id="agent-profiles-div">
-            {agent?.map((item) => (
-              <div
-                className="agent-profiles"
-                id="agent-profiles"
-                onClick={() => {
-                  navigate("/user/specific-a", {
-                    state: {
-                      name: item?.fullname,
-                      profile: item?.img_url,
-                      rating: item?.rating.total_rating,
-                      deliveries: item?.no_successful_deliveries,
-                      phone: item?.phone_no,
-                      agentId: item?._id,
-                      color: item?.vehicle_details.color,
-                      plate: item?.vehicle_details.plate_no,
-                      vehicle_name: item?.vehicle_details.name,
-                      vehicle_image: item?.vehicle_details.img_urls,
-                      vehicle: vehicle,
-                      distance: distance,
-                      pickupLocation: pickupLocation,
-                      pickupState: pickupState,
-                      dropOffLocation: dropOffLocation,
-                      price: delivery_cost,
-                      type: member,
-                      pickup_address: pickup_address,
-                      drop_off_address: drop_off_address,
-                      senderName: senderName,
-                      phone_no: number,
-                      email: email,
-                    },
-                  });
-                }}
-              >
-                <div className="agent-profiles-image">
-                  <img src={item?.img_url} />
-                </div>
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Loading...</p>
+      </div>
+    );
+  } else
+    return (
+      <>
+        <div id="select-agent-wrap">
+          <div id="select-agent-content">
+            <h3>Choose Your Preferred Delivery Agent</h3>
+            <div>
+              <img src={FormProgress} alt="" />
+            </div>
 
-                <div className="agent-profiles-rating">
-                  <p className="agent-info-name">{item?.fullname}</p>
-                  <div className="ratings-info">
-                    <div className="ratings-star">
-                      <p>Rating</p>
-                      <p>
-                        {item?.rating.total_rating}.0 {Stars}
-                      </p>
-                    </div>
-                    <div className="ratings-star">
-                      <p>Deliveries</p>
-                      <p>{item?.no_successful_deliveries}</p>
+            <div id="agent-profiles-div">
+              {agent?.map((item) => (
+                <div
+                  className="agent-profiles"
+                  id="agent-profiles"
+                  onClick={() => {
+                    navigate("/user/specific-a", {
+                      state: {
+                        name: item?.fullname,
+                        profile: item?.img_url,
+                        rating: item?.rating.total_rating,
+                        deliveries: item?.no_successful_deliveries,
+                        phone: item?.phone_no,
+                        agentId: item?._id,
+                        color: item?.vehicle_details.color,
+                        plate: item?.vehicle_details.plate_no,
+                        vehicle_name: item?.vehicle_details.name,
+                        vehicle_image: item?.vehicle_details.img_urls,
+                        vehicle: vehicle,
+                        distance: distance,
+                        pickupLocation: pickupLocation,
+                        pickupState: pickupState,
+                        dropOffLocation: dropOffLocation,
+                        price: delivery_cost,
+                        type: member,
+                        pickup_address: pickup_address,
+                        drop_off_address: drop_off_address,
+                        senderName: senderName,
+                        phone_no: number,
+                        email: email,
+                      },
+                    });
+                  }}
+                >
+                  <div className="agent-profiles-image">
+                    <img src={item?.img_url} />
+                  </div>
+
+                  <div className="agent-profiles-rating">
+                    <p className="agent-info-name">{item?.fullname}</p>
+                    <div className="ratings-info">
+                      <div className="ratings-star">
+                        <p>Rating</p>
+                        <p>
+                          {item?.rating.total_rating}.0 {Stars}
+                        </p>
+                      </div>
+                      <div className="ratings-star">
+                        <p>Deliveries</p>
+                        <p>{item?.no_successful_deliveries}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }
 // </Link>;
 // function AgentProfile() {
