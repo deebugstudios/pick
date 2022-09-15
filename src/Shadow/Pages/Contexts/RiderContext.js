@@ -258,10 +258,11 @@ export const UseRiderProvider = (props) => {
         setLoadOtp(true);
         const interval = setInterval(() => {
           setCountDown((countDown) => countDown - 1);
+          if (countDown === 0) {
+            clearInterval(interval);
+          }
         }, 1000);
-        if (countDown === 0) {
-          clearInterval(interval);
-        }
+
         // console.log(data);
         signInWithPhoneNumber(auth, number, appVerifier)
           .then((confirmationResult) => {
@@ -302,15 +303,14 @@ export const UseRiderProvider = (props) => {
           const user = result.user;
           // ...
           // navigate("/deliveryhistory")
-          console.log("worked");
-          console.log(user);
+          // console.log("worked");
+          // console.log(user);
         })
         .catch((error) => {
           // User couldn't sign in (bad verification code?)
           // ...
-
-          console.log("error");
-          console.log(error);
+          // console.log("error");
+          // console.log(error);
         });
     }
   };

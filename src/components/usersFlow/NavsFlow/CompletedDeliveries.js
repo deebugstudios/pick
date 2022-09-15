@@ -114,11 +114,11 @@ export default function CompletedDeliveries() {
             </div>
           </div>
 
-          <div className="calender-container">
+          {/* <div className="calender-container">
             <input className="calendar" type="date" />
 
-            {/* </input> */}
-          </div>
+            
+          </div> */}
           <div className="search-box-container">
             <input
               type="text"

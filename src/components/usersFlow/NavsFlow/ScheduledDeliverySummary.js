@@ -14,7 +14,6 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
-// import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);

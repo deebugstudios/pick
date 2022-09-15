@@ -8,7 +8,6 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 import { ClipLoader } from "react-spinners";
-import { parse } from "@fortawesome/fontawesome-svg-core";
 
 export default function UserRequestPickup() {
   const [distance, setDistance] = useState("");
@@ -49,11 +48,11 @@ export default function UserRequestPickup() {
         }),
       }
     );
+    setLoading(false);
     const data = await res.json();
     // console.log(results);
     setUserDetails(data?.user);
     // console.log(data);
-    setLoading(false);
   };
   const name = userDetails.fullname;
   const number = userDetails.phone_no;
@@ -179,7 +178,7 @@ export default function UserRequestPickup() {
     setButtonName("Calculate Route");
     setPrice("");
   };
-  console.log(duration);
+  // console.log(duration);
 
   const handleNavigate = () => {
     const realDistance = parseFloat(distance.replace(",", ""));

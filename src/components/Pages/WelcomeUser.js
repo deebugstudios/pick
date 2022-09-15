@@ -102,7 +102,7 @@ export default function WelcomeUser(props) {
 
   const handleFinalSubmit = () => {
     setLoadButton(true);
-    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+    const computedNum = otpValues.join("");
 
     try {
       let confirmationResult = window.confirmationResult;
