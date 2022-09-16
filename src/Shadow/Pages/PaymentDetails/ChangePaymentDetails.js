@@ -2,6 +2,9 @@
 import React, { useContext, useState } from "react";
 import { RiderContext } from "../Contexts/RiderContext";
 import "./paymentdetails.css";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from "react-router-dom";
+
 const ChangePaymentDetails = () => {
     const value = useContext(RiderContext);
     const { riderdata, token } = value;
@@ -19,6 +22,8 @@ const ChangePaymentDetails = () => {
         accountType:'',
         bvn:'',
     })
+
+    const navigate = useNavigate()
     // console.log(riderdata?.fullname.toLowerCase() === formData.bankName.toLowerCase())
 
   const handleChange =(e)=> {
@@ -69,7 +74,14 @@ const changeDetails = async(e)=>{
             }, 4000);
           setLoading(false);
           setFinalData(finalData?.request)
-        
+          setFormData ({
+                bankName: '',
+                accountName: '',
+                accountNumber:'',
+                accountType:'',
+                bvn:''
+            })
+        navigate("/agent-profile")
     }catch (err){
         console.log(err)
     }
@@ -132,8 +144,8 @@ const changeDetails = async(e)=>{
             {/* <div className={finalData?.status === "pending" ? "hidden" : "shown"}>
 
             </div> */}
-        <button type="submit" className="payment-btn margin-top" disabled={loading}>
-            Save and update
+            <button type="submit" className="payment-btn margin-top" disabled={loading}>
+                {loading ? <ClipLoader color={"black"} loading={loading} size={30} /> : "Save and update" }    
             </button>
           </form>
         </div>

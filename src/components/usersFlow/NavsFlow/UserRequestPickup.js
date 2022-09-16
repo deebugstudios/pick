@@ -114,14 +114,14 @@ export default function UserRequestPickup() {
     );
 
     setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
+    // setDuration(results.routes[0].legs[0].duration.text);
     const timeTaken = results.routes[0].legs[0].duration.text.replace(
       /\D/g,
       ""
     );
     console.log(timeTaken);
-    const dura = results.routes[0].legs[0].duration.text;
-    console.log(dura);
+    const dura = Math.round(results.routes[0].legs[0].duration.value / 60);
+    // console.log(dura);
 
     // console.log(results.routes[0].legs[0]);
 
@@ -143,7 +143,7 @@ export default function UserRequestPickup() {
             drop_off_location: destinationRef.current.value,
             distance: realDistance,
             delivery_medium: vehicle,
-            delivery_duration: 23,
+            delivery_duration: dura,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -160,7 +160,7 @@ export default function UserRequestPickup() {
         // console.log(pickupLocation);
         // console.log(dropLocation);
       } else {
-        setMessage("Error occured");
+        setPrice("Error occured");
       }
     } catch (error) {
       // console.log(error);

@@ -8,22 +8,24 @@ import { useNavigate } from 'react-router-dom';
 const EditProfile = () => {
     const navigate = useNavigate()
     const value = useContext(RiderContext);
-    const {  token } = value;
+    const {  token, riderdata } = value;
     const [error, setError]= useState("")
     const [success, setSuccess]= useState("")
     const [loading, setLoading]= useState(false)
     const [profileImage, setProfileImage] = useState("")
-    const [file, setFile] =useState("")
+    const [file, setFile] =useState(riderdata?.img_url)
     const [formData, setFormData] = useState({
         fullname: "",
         address: "",
-        state: "",
+        state: "Edo",
         city: "",
         img: "",
         driver_license_expiry_date : "",
         plate_no : "",
         profile_img: ""
       });
+
+console.log(formData)
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -83,7 +85,7 @@ const EditProfile = () => {
                 setLoading(false)
                 setTimeout(() => {
                   setSuccess("")
-                  navigate(-1)
+                  navigate("/agent-profile")
                   window.location.reload()
                 }, 4000);
               }else {
@@ -104,7 +106,6 @@ const EditProfile = () => {
             // }
         
         // }
-       
         }
 
         const onImageChange = (e) => {
@@ -162,7 +163,8 @@ const EditProfile = () => {
               name="state"
               id="states"
               onChange={handleChange}
-            defaultValue={"Edo"}
+              defaultChecked={"Edo"}
+              defaultValue={"Edo"}
             >
               <option value="Abia">Abia</option>
               <option value="Adamawa">Adamawa</option>
@@ -175,7 +177,7 @@ const EditProfile = () => {
               <option value="Cross River">Cross River</option>
               <option value="Delta">Delta</option>
               <option value="Ebonyi">Ebonyi</option>
-              <option value="Edo" selected>Edo</option>
+              <option value="Edo">Edo</option>
               <option value="Ekiti">Ekiti</option>
               <option value="Enugu">Enugu</option>
               <option value="Gombe">Gombe</option>

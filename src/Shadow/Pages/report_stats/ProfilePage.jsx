@@ -74,7 +74,7 @@ useEffect(() => {
   const handleChangeDisable = (e) => {
     e.preventDefault();
     navigate("/change-phone-number",
-     { state: { oldPhoneNumber : riderdata?.phone_no} })
+     { state: { oldPhoneNumber : riderdata?.phone_no , token: token } })
   };
 
 

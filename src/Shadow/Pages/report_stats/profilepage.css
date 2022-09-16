@@ -25,6 +25,11 @@
   margin-right: 15px;
   overflow-x: hidden !important;
 }
+
+.profile-page-bottom::-webkit-scrollbar{
+  display: none;
+}
+
 .bottom-wrapper {
   padding: 10px 20px;
   position: relative;
@@ -153,7 +158,8 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 .profile-confirm-btns button {
-  width: 37%;
+  width: 48%;
+  max-width: 280px;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;

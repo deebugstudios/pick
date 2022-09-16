@@ -85,6 +85,8 @@ button:disabled {
   transform: translateX(-50%);
   margin-top: 25px;
   cursor: pointer;
+  width: 33%;
+  max-width: 150px;
 }
 @media screen and (max-width: 600px) {
   .payment-btn {

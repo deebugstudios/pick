@@ -17,6 +17,7 @@ export default function CompletedDeliveries() {
   const [completedDeliveries, setCompletedDeliveries] = useState([]);
   const [cancelledDeliveries, setCancelledDeliveries] = useState([]);
   const navigate = useNavigate();
+  const [pageCount, setPageCount] = useState(1);
   const [searchItems, setSearchItems] = useState("");
   const userValues = useContext(userContext);
   const { token, userId } = userValues;
@@ -94,8 +95,8 @@ export default function CompletedDeliveries() {
       <section className="user-dashboard pending-delivery specifics no-max">
         <div className="history-wrapper-2">
           <div className="pending-delivery-pickup-slides">
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             <div className="toggle-div">
               <div
                 className="first-toggle"
@@ -119,52 +120,56 @@ export default function CompletedDeliveries() {
 
             
           </div> */}
-          <div className="search-box-container">
+
+          {/* Local search box*/}
+          {/* <div className="search-box-container">
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Search Using Your Item Name"
               className="search-box-1"
               onChange={(e) => setSearchItems(e.target.value)}
             />
-          </div>
+          </div> */}
 
-          {/* ?.filter((value) => {
-                  if (value === "") {
+          {toggle === true ? (
+            completedDeliveries?.length > 0 ? (
+              completedDeliveries
+                ?.filter((value) => {
+                  if (value == "") {
                     return value;
                   } else if (
                     value.parcel_name
-                      .toLowerCase()
+                      ?.toLowerCase()
                       .includes(searchItems.toLowerCase())
                   ) {
-                    return searchItems;
+                    return value;
                   }
-                }) */}
-          {toggle === true ? (
-            completedDeliveries?.length > 0 ? (
-              completedDeliveries?.map((pObj) => (
-                <InstantHistoryList
-                  // click={handleClick}
-                  click={
-                    pObj.delivery_type === "instant"
-                      ? () => {
-                          navigate("/user/user-instant", {
-                            state: { id: pObj._id },
-                          });
-                        }
-                      : pObj.delivery_type === "scheduled"
-                      ? () => {
-                          navigate("/user/user-schedule", {
-                            state: { id: pObj._id },
-                          });
-                        }
-                      : null
-                  }
-                  parcelname={pObj.parcel_name}
-                  parcelcode={pObj.parcel_code}
-                  deliverytype={pObj.delivery_type}
-                  deliveryimage={pObj.imgs[0]}
-                />
-              ))
+                })
+                ?.map((pObj) => (
+                  <InstantHistoryList
+                    // click={handleClick}
+                    key={pObj?._id}
+                    click={
+                      pObj.delivery_type === "instant"
+                        ? () => {
+                            navigate("/user/user-instant", {
+                              state: { id: pObj._id },
+                            });
+                          }
+                        : pObj.delivery_type === "scheduled"
+                        ? () => {
+                            navigate("/user/user-schedule", {
+                              state: { id: pObj._id },
+                            });
+                          }
+                        : null
+                    }
+                    parcelname={pObj.parcel_name}
+                    parcelcode={pObj.parcel_code}
+                    deliverytype={pObj.delivery_type}
+                    deliveryimage={pObj.imgs[0]}
+                  />
+                ))
             ) : (
               <div className="empty-box">
                 <img src={EmptyBox} alt="" />
@@ -172,19 +177,31 @@ export default function CompletedDeliveries() {
               </div>
             )
           ) : cancelledDeliveries?.length > 0 ? (
-            cancelledDeliveries?.map((item) => (
-              <InstantHistoryList
-                click={() => {
-                  navigate("/user/cancelled-details", {
-                    state: { id: item._id },
-                  });
-                }}
-                parcelname={item.parcel_name}
-                parcelcode={item.parcel_code}
-                deliverytype={item.delivery_type}
-                deliveryimage={item.imgs[0]}
-              />
-            ))
+            cancelledDeliveries
+              ?.filter((value) => {
+                if (value == "") {
+                  return value;
+                } else if (
+                  value.parcel_name
+                    ?.toLowerCase()
+                    .includes(searchItems.toLowerCase())
+                ) {
+                  return value;
+                }
+              })
+              ?.map((item) => (
+                <InstantHistoryList
+                  click={() => {
+                    navigate("/user/cancelled-details", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliverytype={item.delivery_type}
+                  deliveryimage={item.imgs[0]}
+                />
+              ))
           ) : (
             <div className="empty-box">
               <img src={EmptyBox} alt="" />
