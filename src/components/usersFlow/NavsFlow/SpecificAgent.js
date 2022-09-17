@@ -12,7 +12,7 @@ import Button from "../../javascript/Button";
 import MainStar from "../../Images/MainStar.png";
 import Stars from "react-stars-display";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
-import UserIcon from "../../Images/user-regular.svg";
+import UserIcon from "../../Images/user.png";
 
 export default function SpecificAgent() {
   const Star = <img src={Starr} alt="" />;
@@ -182,6 +182,7 @@ export default function SpecificAgent() {
                 senderName: senderName,
                 phone_no: phone_no,
                 email: email,
+                AgentName: name,
               },
             });
           }}
@@ -207,7 +208,7 @@ export default function SpecificAgent() {
           <div id="review-div">
             <div className="review-profile">
               <img
-                src={item.user_img !== "" ? item.user_img : UserIcon}
+                src={item.user_img.length > 2 ? item.user_img : UserIcon}
                 alt=""
               />
             </div>

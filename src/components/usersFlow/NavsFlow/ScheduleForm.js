@@ -42,6 +42,7 @@ export default function ScheduleForm() {
   const senderName = location.state.senderName;
   const phone_no = location.state.phone_no;
   const email = location.state.email;
+  const AgentName = location.state.AgentName;
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -254,6 +255,7 @@ export default function ScheduleForm() {
               if (doc.data().delivery_status_is_accepted === true) {
                 accepted();
                 setLoading(false);
+                clearTimeout(timer);
 
                 navigate("/user/scheduled-summary", {
                   state: {
@@ -277,7 +279,7 @@ export default function ScheduleForm() {
                   },
                 });
               }
-              setTimeout(async () => {
+              const timer = setTimeout(async () => {
                 accepted();
                 setLoading(false);
                 if (doc.data().delivery_status_is_accepted === false) {
@@ -542,9 +544,9 @@ export default function ScheduleForm() {
               <p className="error-style">{fileError}</p>
             </section>
             <div className="Upload" id="uploadText">
-              N/B: The Assigned agent will receive and confirm your delivery
-              request if
-              <br /> they're available on the specified date and time.
+              N/B: <strong>{AgentName}</strong> will receive your delivery
+              request and confirm if
+              <br /> available on the chosen date and time.
             </div>
           </div>
 
