@@ -5,11 +5,13 @@ import SideBar from "../../javascript/SideBar";
 import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
 import { Outlet, useLocation } from "react-router-dom";
-import UserIcon from "../../Images/user-regular.svg";
+import UserIcon from "../../Images/user.png";
 
 const LoggedinMainPageUser = (props) => {
   const [userDetails, setUserDetails] = useState([]);
   const [sideBar, setSideBar] = useState(false);
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
   const fetchUserDetails = async () => {
     const res = await fetch(
@@ -20,8 +22,7 @@ const LoggedinMainPageUser = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+          token: JSON.parse(token),
         }),
       }
     );
@@ -39,12 +40,9 @@ const LoggedinMainPageUser = (props) => {
     fetchUserDetails();
   }, []);
 
-
   const toggleSideBar = () => {
     setSideBar(!sideBar);
   };
-
-
 
   return (
     <section className="user-dashboard-main">
@@ -58,7 +56,7 @@ const LoggedinMainPageUser = (props) => {
       </div>
       <div className="user-right-side-main">
         <div className="sider-group">
-        {/* <div className={sideBar ? "sider-group-active" : "sider-groups"}> */}
+          {/* <div className={sideBar ? "sider-group-active" : "sider-groups"}> */}
           <SideBar
             profile={
               <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
