@@ -194,7 +194,7 @@ export const UseRiderProvider = (props) => {
   const [loadOtp, setLoadOtp] = useState(false);
   const [countDown, setCountDown] = useState(60);
 
-  const token = localStorage.getItem("rubbish");
+  const token = localStorage.getItem("agent_rubbish");
   const agentId = localStorage.getItem("agentId");
 
   const handleSubmit = async (event) => {
@@ -273,7 +273,7 @@ export const UseRiderProvider = (props) => {
             console.log(error);
             setLoading(false);
           });
-        localStorage.setItem("rubbish", JSON.stringify(data?.token));
+        localStorage.setItem("agent_rubbish", JSON.stringify(data?.token));
         localStorage.setItem(
           "agentId",
           JSON.stringify(data?.delivery_agent._id)
