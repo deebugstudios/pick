@@ -10,13 +10,24 @@
 .space-icons-1 {
   margin-right: 5px;
 }
+
+.user-side-bar {
+  width: 210px;
+  max-width: 900px;
+  height: 88vh;
+  font-size: 62.5%;
+  overflow: hidden !important;
+  background-color: white;
+  z-index: 10000;
+}
+
 .side-bar-links-1 {
   height: 80vh;
   font-size: 1rem;
   font-weight: 400;
   padding: 10px 0;
   color: #666666 !important;
-  width: 190px;
+  /* width: 190px; */
 }
 .side-bar-links-1 ul {
   margin-top: 25px;

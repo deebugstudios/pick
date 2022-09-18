@@ -11,18 +11,19 @@ import {
 import { Link, NavLink } from "react-router-dom";
 
 const SideBar = (props) => {
-  const [sideBar, setSideBar] = useState(true);
-  const show = () => {
-    setSideBar(!sideBar);
-  };
+  // const [sideBar, setSideBar] = useState(true);
+  // const show = () => {
+  //   setSideBar(!sideBar);
+  // };
 
   return (
-    <section className={sideBar ? "side-bar-1" : "not-side-bar"}>
+    // <section className={sideBar ? "side-bar-1" : "not-side-bar"}>
+    <section className={props.toggle? "sider-group-active" :"user-side-bar"}>
       <div className="side-bar-links-1">
         <ul>
-          <li className="toggle-sidebar" onClick={show}>
+          {/* <li className="toggle-sidebar" onClick={show}>
             X
-          </li>
+          </li> */}
           <NavLink
             to="/user/type"
             style={({ isActive }) => {
@@ -31,10 +32,12 @@ const SideBar = (props) => {
                 marginBottom: "20px",
               };
             }}
+            onClick={props.toggler}
           >
             <li>
               <FontAwesomeIcon icon={faHome} className="space-icons-1" />
-              {sideBar ? "Request Pickup" : ""}
+              {/* {props.sideBar ? "Request Pickup" : ""} */}
+              Request Pickup
             </li>
           </NavLink>
 
@@ -46,10 +49,12 @@ const SideBar = (props) => {
                 marginBottom: "20px",
               };
             }}
+            onClick={props.toggler}
           >
             <li>
               <FontAwesomeIcon icon={faBiking} className="space-icons-1" />
-              {sideBar ? "Pending Deliveries" : ""}
+              {/* {props.sideBar ? "Pending Deliveries" : ""} */}
+              Pending Deliveries
             </li>
           </NavLink>
 
@@ -61,10 +66,12 @@ const SideBar = (props) => {
                 marginBottom: "20px",
               };
             }}
+            onClick={props.toggler}
           >
             <li>
               <FontAwesomeIcon icon={faTimesCircle} className="space-icons-1" />
-              {sideBar ? "Delivery History" : ""}
+              {/* {props.sideBar ? "Delivery History" : ""} */}
+              Delivery History
             </li>
           </NavLink>
 
@@ -76,10 +83,12 @@ const SideBar = (props) => {
                 marginBottom: "20px",
               };
             }}
+            onClick={props.toggler}
           >
             <li>
               <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
-              {sideBar ? "Chat With Admin" : ""}
+              {/* {props.sideBar ? "Chat With Admin" : ""} */}
+              Chat With Admin
             </li>
           </NavLink>
           {/* </ul> */}
@@ -91,11 +100,13 @@ const SideBar = (props) => {
               return {
                 background: isActive ? "#e8f4e3" : "",
                 marginBottom: "10px",
+                marginLeft: "10px"
               };
             }}
+            onClick={props.toggler}
           >
-            <li>
-              {sideBar ? (
+            {/* <li>
+              {props.sideBar ? (
                 <div className="side-bar-profile-detail-1">
                   <div className="side-bar-profile-img-1">{props.profile}</div>
                   <div className="side-bar-profile-name">
@@ -106,7 +117,14 @@ const SideBar = (props) => {
               ) : (
                 ""
               )}
-            </li>
+            </li> */}
+            <div className="side-bar-profile-detail-1">
+                  <div className="side-bar-profile-img-1">{props.profile}</div>
+                  <div className="side-bar-profile-name">
+                    <h5>{props.username}</h5>
+                    <p>View Profile</p>
+                  </div>
+                </div>
           </NavLink>
 
           <NavLink
@@ -117,10 +135,12 @@ const SideBar = (props) => {
                 marginBottom: "20px",
               };
             }}
+            onClick={props.toggler}
           >
             <li>
               <FontAwesomeIcon icon={faSignOut} className="space-icons-1" />
-              {sideBar ? "Log out" : ""}
+              {/* {props.sideBar ? "Log out" : ""} */}
+              Log out
             </li>
           </NavLink>
         </ul>

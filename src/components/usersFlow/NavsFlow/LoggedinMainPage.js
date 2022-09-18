@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navsignedin from "../../javascript/UserNavsignedin";
 import SideBar from "../../javascript/SideBar";
@@ -6,12 +6,10 @@ import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
 import { Outlet, useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user-regular.svg";
-import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 const LoggedinMainPageUser = (props) => {
   const [userDetails, setUserDetails] = useState([]);
-  const userValues = useContext(userContext);
-  const { token } = userValues;
+  const [sideBar, setSideBar] = useState(false);
 
   const fetchUserDetails = async () => {
     const res = await fetch(
@@ -22,7 +20,8 @@ const LoggedinMainPageUser = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: JSON.parse(token),
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
         }),
       }
     );
@@ -39,6 +38,14 @@ const LoggedinMainPageUser = (props) => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
+
+
+  const toggleSideBar = () => {
+    setSideBar(!sideBar);
+  };
+
+
+
   return (
     <section className="user-dashboard-main">
       <div className="user-left-side-main">
@@ -46,15 +53,19 @@ const LoggedinMainPageUser = (props) => {
           profile={
             <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
           }
+          siderBar={toggleSideBar}
         />
       </div>
       <div className="user-right-side-main">
         <div className="sider-group">
+        {/* <div className={sideBar ? "sider-group-active" : "sider-groups"}> */}
           <SideBar
             profile={
               <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
             }
             username={userDetails.fullname}
+            toggle={sideBar}
+            toggler={toggleSideBar}
           />
         </div>
         <div className="content-wrap">

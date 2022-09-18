@@ -255,7 +255,6 @@ export default function ScheduleForm() {
               if (doc.data().delivery_status_is_accepted === true) {
                 accepted();
                 setLoading(false);
-                clearTimeout(timer);
 
                 navigate("/user/scheduled-summary", {
                   state: {
@@ -278,6 +277,7 @@ export default function ScheduleForm() {
                     number: phone_no,
                   },
                 });
+                clearTimeout(timer);
               }
               const timer = setTimeout(async () => {
                 accepted();

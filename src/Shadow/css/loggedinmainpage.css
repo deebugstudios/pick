@@ -19,14 +19,21 @@
   display: none !important;
 }
 .sider-group-active {
-  width: 220px !important;
+  width: 210px !important;
   max-width: 900px;
 
 }
-@media screen and (max-width:678px) {
+@media screen and (max-width:1000px) {
   .sider-groups {
     width: 0% !important;
     z-index: -100000;
+  }
+  .user-side-bar {
+    width: 0% !important;
+    z-index: -100000;
+  }
+  .sider-group{
+    width: 0;
   }
   .sider-group-active {
     width: 100vw !important;

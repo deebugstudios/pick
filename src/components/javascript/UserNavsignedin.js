@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Pickload from "../Images/pickload.png";
 import "../css/usernavsignedin.css";
@@ -8,18 +8,19 @@ import { NavLink, Link } from "react-router-dom";
 import { Notification } from "../../Shadow/Pages/Notifications/Notification";
 
 const Navsignedin = (props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]= useState(false)
 
-  const handlePopUp = () => {
-    setOpen(!open);
-  };
+const handlePopUp = () => {
+  setOpen(!open)
+}
+
 
   return (
     <nav className="user-nav">
       <div className="nav-wrapper-1">
         <div id="pick-div">
           <div>
-            <Link to="/user/home">
+            <Link to="/main">
               <img src={Pickload} alt="" />
             </Link>
           </div>
@@ -27,14 +28,14 @@ const Navsignedin = (props) => {
         <div className="nav-links">
           <ul>
             <li>
-              <Link to="/user/home">Home</Link>
+              <Link to="/main">Home</Link>
             </li>
 
             <li>
-              <Link to="/user/about"> About Us </Link>
+              <Link to="/aboutUS1"> About Us </Link>
             </li>
             <li>
-              <Link to="/user/contact"> Contact Us </Link>
+              <Link to="/contactUS1"> Contact Us </Link>
             </li>
             <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />
@@ -55,11 +56,9 @@ const Navsignedin = (props) => {
           <Link to="/user/user-profile">
             <div className="profile-img-1">{props.profile}</div>
           </Link>
-          <Link to="/user/notifications">
-            <div className="bell-span">
-              <FontAwesomeIcon icon={faBell} />
-            </div>
-          </Link>
+          <FontAwesomeIcon icon={faBell} onClick={handlePopUp}/>
+          <FontAwesomeIcon icon={faBars} className="siderbar-small" onClick={props.siderBar}/>
+      {open && <Notification />}    
         </div>
       </div>
     </nav>
