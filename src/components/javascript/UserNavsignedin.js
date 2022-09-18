@@ -8,19 +8,18 @@ import { NavLink, Link } from "react-router-dom";
 import { Notification } from "../../Shadow/Pages/Notifications/Notification";
 
 const Navsignedin = (props) => {
-  const [open, setOpen]= useState(false)
+  const [open, setOpen] = useState(false);
 
-const handlePopUp = () => {
-  setOpen(!open)
-}
-
+  const handlePopUp = () => {
+    setOpen(!open);
+  };
 
   return (
     <nav className="user-nav">
       <div className="nav-wrapper-1">
         <div id="pick-div">
           <div>
-            <Link to="/main">
+            <Link to="/user/home">
               <img src={Pickload} alt="" />
             </Link>
           </div>
@@ -28,14 +27,14 @@ const handlePopUp = () => {
         <div className="nav-links">
           <ul>
             <li>
-              <Link to="/main">Home</Link>
+              <Link to="/user/home">Home</Link>
             </li>
 
             <li>
-              <Link to="/aboutUS1"> About Us </Link>
+              <Link to="/user/about"> About Us </Link>
             </li>
             <li>
-              <Link to="/contactUS1"> Contact Us </Link>
+              <Link to="/user/contact"> Contact Us </Link>
             </li>
             <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />
@@ -56,9 +55,16 @@ const handlePopUp = () => {
           <Link to="/user/user-profile">
             <div className="profile-img-1">{props.profile}</div>
           </Link>
-          <FontAwesomeIcon icon={faBell} onClick={handlePopUp}/>
-          <FontAwesomeIcon icon={faBars} className="siderbar-small" onClick={props.siderBar}/>
-      {open && <Notification />}    
+          <Link to="/user/notifications">
+            <div className="bell-span">
+              <FontAwesomeIcon icon={faBell} />
+            </div>
+          </Link>
+          <FontAwesomeIcon
+            icon={faBars}
+            className="siderbar-small"
+            onClick={props.siderBar}
+          />
         </div>
       </div>
     </nav>
