@@ -277,7 +277,7 @@ export default function ScheduleForm() {
                     number: phone_no,
                   },
                 });
-                clearTimeout(timer);
+                // clearTimeout(timer);
               }
               const timer = setTimeout(async () => {
                 accepted();
