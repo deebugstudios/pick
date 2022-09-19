@@ -25,7 +25,7 @@ export default function UserRequestPickup() {
   const [loading, setLoading] = useState(true);
   const [loadButton, setLoadButton] = useState(false);
   const userValues = useContext(userContext);
-  const { token } = userValues;
+  const { token, userName, email, userNumber, userImg } = userValues;
   // console.log(new Date().getTime());
   // console.log(Date.now());
 
@@ -35,32 +35,9 @@ export default function UserRequestPickup() {
 
   const navigate = useNavigate();
 
-  const fetchUserDetails = async () => {
-    const res = await fetch(
-      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: JSON.parse(token),
-        }),
-      }
-    );
-    setLoading(false);
-    const data = await res.json();
-    // console.log(results);
-    setUserDetails(data?.user);
-    // console.log(data);
-  };
-  const name = userDetails.fullname;
-  const number = userDetails.phone_no;
-  const email = userDetails.email;
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
+  const name = JSON.parse(userName);
+  const number = JSON.parse(userNumber);
+  const Useremail = JSON.parse(email);
 
   /**@type React.MutableRefObject<HTMLInputElement> */
   const pickupRef = useRef();
@@ -203,7 +180,7 @@ export default function UserRequestPickup() {
               drop_off_address: drop_off_address,
               senderName: name,
               number: number,
-              email: email,
+              email: Useremail,
             },
           })
         : navigate("/user/select-a", {
@@ -219,7 +196,7 @@ export default function UserRequestPickup() {
               drop_off_address: drop_off_address,
               senderName: name,
               number: number,
-              email: email,
+              email: Useremail,
             },
           });
     } else {
@@ -231,98 +208,90 @@ export default function UserRequestPickup() {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();
   };
 
-  if (loading === true) {
-    return (
-      <div className="loader-screen">
-        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
-        <p>Loading...</p>
-      </div>
-    );
-  } else
-    return (
-      <section className="user-dashboard">
-        <div className="user-right-side-1">
-          <div className="map-container-1">
-            <Map
-              direct={direction}
-              // {...marker.map()}
-              // eslint-disable-next-line
-              // mark={new google.maps.LatLng(6, 5)}
-            />
-          </div>
+  return (
+    <section className="user-dashboard">
+      <div className="user-right-side-1">
+        <div className="map-container-1">
+          <Map
+            direct={direction}
+            // {...marker.map()}
+            // eslint-disable-next-line
+            // mark={new google.maps.LatLng(6, 5)}
+          />
         </div>
-        <div className="set-location-pickup-1">
-          <div className="location-form">
-            <div className="location-form-input" id="location-form-input-1">
-              <label htmlFor="Pickup Location">Pickup Location</label>
+      </div>
+      <div className="set-location-pickup-1">
+        <div className="location-form">
+          <div className="location-form-input" id="location-form-input-1">
+            <label htmlFor="Pickup Location">Pickup Location</label>
+            <div className="delivery-location-input">
+              <img src={Locate} alt="" className="locate-icon" />
+              <Autocomplete
+                options={{
+                  componentRestrictions: { country: "ng" },
+                }}
+              >
+                <input
+                  name="Pickup Location"
+                  placeholder="5 Noma Street GRA Edo State "
+                  className="phone-input2"
+                  ref={pickupRef}
+                />
+              </Autocomplete>
+            </div>
+          </div>
+
+          <Autocomplete
+            options={{
+              componentRestrictions: { country: "ng" },
+            }}
+          >
+            <div className="location-form-input" id="location-form-input-2">
+              <label htmlFor="Delivery Location">Delivery Location</label>
               <div className="delivery-location-input">
                 <img src={Locate} alt="" className="locate-icon" />
-                <Autocomplete
-                  options={{
-                    componentRestrictions: { country: "ng" },
-                  }}
-                >
-                  <input
-                    name="Pickup Location"
-                    placeholder="5 Noma Street GRA Edo State "
-                    className="phone-input2"
-                    ref={pickupRef}
-                  />
-                </Autocomplete>
+                <input
+                  name="Delivery Location"
+                  placeholder="19 Akpakpava Road Benin City Ed.."
+                  className="phone-input2"
+                  ref={destinationRef}
+                />
               </div>
             </div>
-
-            <Autocomplete
-              options={{
-                componentRestrictions: { country: "ng" },
-              }}
-            >
-              <div className="location-form-input" id="location-form-input-2">
-                <label htmlFor="Delivery Location">Delivery Location</label>
-                <div className="delivery-location-input">
-                  <img src={Locate} alt="" className="locate-icon" />
-                  <input
-                    name="Delivery Location"
-                    placeholder="19 Akpakpava Road Benin City Ed.."
-                    className="phone-input2"
-                    ref={destinationRef}
-                  />
-                </div>
-              </div>
-            </Autocomplete>
-          </div>
-          <div id="price-div">
-            <p>Delivery Fee </p>
-            <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
-          </div>
-
-          <div id="div-button">
-            <button
-              className="set-location-btn-1"
-              onClick={handleRoute}
-              disabled={loadButton}
-            >
-              <span>
-                {loadButton ? (
-                  <ClipLoader color={"black"} loading={loadButton} size={30} />
-                ) : (
-                  buttonName
-                )}
-              </span>
-            </button>
-
-            <button
-              className={
-                buttonName === "Calculate Route"
-                  ? "set-location-btn-2"
-                  : "set-location-btn-1"
-              }
-              onClick={handleNavigate}
-            >
-              Next
-            </button>
-          </div>
+          </Autocomplete>
         </div>
-      </section>
-    );
+        <div id="price-div">
+          <p>Delivery Fee </p>
+          <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
+        </div>
+
+        <div id="div-button">
+          <button
+            className="set-location-btn-1"
+            onClick={handleRoute}
+            disabled={loadButton}
+          >
+            <span>
+              {loadButton ? (
+                <ClipLoader color={"black"} loading={loadButton} size={30} />
+              ) : (
+                buttonName
+              )}
+            </span>
+          </button>
+
+          <button
+            className={
+              buttonName === "Calculate Route"
+                ? "set-location-btn-2"
+                : "set-location-btn-1"
+            }
+            onClick={handleNavigate}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
+  );
 }

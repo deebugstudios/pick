@@ -10,6 +10,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import EmptyBox from "../../Images/pendingD.png";
+import { DeliveryHistoryList } from "../../../Shadow/Pages/Details info/DeliveryHistoryList";
 
 export default function CompletedDeliveries() {
   const [toggle, setToggle] = useState(true);
@@ -146,7 +147,7 @@ export default function CompletedDeliveries() {
                   }
                 })
                 ?.map((pObj) => (
-                  <InstantHistoryList
+                  <DeliveryHistoryList
                     // click={handleClick}
                     key={pObj?._id}
                     click={
@@ -190,7 +191,7 @@ export default function CompletedDeliveries() {
                 }
               })
               ?.map((item) => (
-                <InstantHistoryList
+                <DeliveryHistoryList
                   click={() => {
                     navigate("/user/cancelled-details", {
                       state: { id: item._id },

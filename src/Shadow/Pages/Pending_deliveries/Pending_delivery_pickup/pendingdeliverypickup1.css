@@ -19,7 +19,7 @@
 } */
 .pending-delivery-pickup-slides {
   margin: 0 auto;
-  width: 40%;
+  /* width: 40%; */
   display: grid;
   place-items: center;
   margin-bottom: 40px;

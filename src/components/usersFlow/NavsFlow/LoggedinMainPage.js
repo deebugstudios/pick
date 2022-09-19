@@ -12,34 +12,7 @@ const LoggedinMainPageUser = (props) => {
   const [userDetails, setUserDetails] = useState([]);
   const [sideBar, setSideBar] = useState(false);
   const userValues = useContext(userContext);
-  const { token } = userValues;
-
-  const fetchUserDetails = async () => {
-    const res = await fetch(
-      `https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: JSON.parse(token),
-        }),
-      }
-    );
-    const data = await res.json();
-    const results = await data;
-    // setLoading(false);
-
-    // console.log(results);
-    setUserDetails(results?.user);
-    // console.log(userDetails);
-    // pendingDeliveries.map((item) => console.log(item));
-  };
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
+  const { userName, email, userNumber, userImg } = userValues;
 
   const toggleSideBar = () => {
     setSideBar(!sideBar);
@@ -50,7 +23,9 @@ const LoggedinMainPageUser = (props) => {
       <div className="user-left-side-main">
         <Navsignedin
           profile={
-            <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
+            <img
+              src={JSON.parse(userImg) !== "" ? JSON.parse(userImg) : UserIcon}
+            />
           }
           siderBar={toggleSideBar}
         />
@@ -60,9 +35,13 @@ const LoggedinMainPageUser = (props) => {
           {/* <div className={sideBar ? "sider-group-active" : "sider-groups"}> */}
           <SideBar
             profile={
-              <img src={userDetails.img !== "" ? userDetails.img : UserIcon} />
+              <img
+                src={
+                  JSON.parse(userImg) !== "" ? JSON.parse(userImg) : UserIcon
+                }
+              />
             }
-            username={userDetails.fullname}
+            username={JSON.parse(userName)}
             toggle={sideBar}
             toggler={toggleSideBar}
           />

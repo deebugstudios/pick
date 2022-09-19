@@ -59,8 +59,12 @@ export const UseTokenProviderUser = (props) => {
   // const navigate = useNavigate();
   const [loadOtp, setLoadOtp] = useState(false);
   const [countDown, setCountDown] = useState(60);
-  const token = localStorage.getItem("input");
-  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("user_rubbish");
+  const userId = localStorage.getItem("pickload_userId");
+  const userName = localStorage.getItem("pickload_userName");
+  const email = localStorage.getItem("pickload_userEmail");
+  const userNumber = localStorage.getItem("pickload_userNumber");
+  const userImg = localStorage.getItem("pickload_userImg");
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -79,12 +83,12 @@ export const UseTokenProviderUser = (props) => {
         auth
       );
     } catch (err) {
-      console.log("can't send Otp");
-      console.log(err);
+      // console.log("can't send Otp");
+      // console.log(err);
     }
 
     const appVerifier = window.recaptchaVerifier;
-    console.log(appVerifier);
+    // console.log(appVerifier);
 
     if (!phone_no) {
       setFormErrors("Phone Number must be filled!");
@@ -134,12 +138,28 @@ export const UseTokenProviderUser = (props) => {
             setLoading(false);
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
           });
 
-        localStorage.setItem("input", JSON.stringify(data?.token));
-        localStorage.setItem("userId", JSON.stringify(data?.user._id));
+        localStorage.setItem("user_rubbish", JSON.stringify(data?.token));
+        localStorage.setItem("pickload_userId", JSON.stringify(data?.user._id));
+        localStorage.setItem(
+          "pickload_userName",
+          JSON.stringify(data?.user.fullname)
+        );
+        localStorage.setItem(
+          "pickload_userEmail",
+          JSON.stringify(data?.user.email)
+        );
+        localStorage.setItem(
+          "pickload_userNumber",
+          JSON.stringify(data?.user.phone_no)
+        );
+        localStorage.setItem(
+          "pickload_userImg",
+          JSON.stringify(data?.user.img)
+        );
         setLoading(false);
 
         // console.log(idU);
@@ -148,7 +168,7 @@ export const UseTokenProviderUser = (props) => {
         setMessage("An Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -170,6 +190,10 @@ export const UseTokenProviderUser = (props) => {
     setCountDown,
     token,
     userId,
+    userName,
+    email,
+    userNumber,
+    userImg,
   };
   return (
     <userContext.Provider value={userValues}>

@@ -9,6 +9,7 @@ import { PendingDeliveryList } from "../Details info/PendingDeliveryList";
 import "./pendingdeliverypickup.css";
 import { useNavigate } from "react-router-dom";
 import { PendingDeliveryScheduled } from "../Details info/PendingDeliveryList";
+import { DeliveryHistoryList } from "../../../Shadow/Pages/Details info/DeliveryHistoryList";
 import "../../css/toggle.css";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
@@ -93,7 +94,7 @@ export default function PendingDeliveryPickup(props) {
             pendingDeliveries.map((item) =>
               toggle === true ? (
                 item.delivery_type === "instant" ? (
-                  <PendingDeliveryList
+                  <DeliveryHistoryList
                     click={() => {
                       navigate("/user/pending-instant", {
                         state: { id: item._id },
@@ -111,8 +112,8 @@ export default function PendingDeliveryPickup(props) {
                 )
               ) : toggle === false ? (
                 item.delivery_type === "scheduled" ? (
-                  <PendingDeliveryScheduled
-                    click2={() => {
+                  <DeliveryHistoryList
+                    click={() => {
                       navigate("/user/pending-scheduled", {
                         state: { id: item._id },
                       });

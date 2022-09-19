@@ -14,33 +14,10 @@ export default function ReportReason(props) {
   const [popupButton, setPopupButton] = useState(false);
   const [explain, setExplain] = useState("");
   const userValues = useContext(userContext);
-  const { token } = userValues;
+  const { token, userImg } = userValues;
 
-  const [userImg, setUserImg] = useState([]);
   /**@type React.MutableRefObject<HTMLInputElement> */
   const othersRef = useRef();
-
-  const fetchUserDetails = async () => {
-    const res = await fetch(
-      "https://ancient-wildwood-73926.herokuapp.com/user_profile/user_profile",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: JSON.parse(token),
-        }),
-      }
-    );
-    const data = await res.json();
-    const results = await data;
-    results?.user.img ? setUserImg(results?.user.img) : setUserImg("a");
-  };
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
 
   const handleCheck = (e) => {
     setReason(e.target.value);
@@ -66,7 +43,7 @@ export default function ReportReason(props) {
             delivery_img_urls: props.imgs,
             user_id: props.sender_id,
             user_name: props.sender_fullname,
-            user_img_url: userImg,
+            user_img_url: JSON.parse(userImg),
             delivery_agent_name: props.agentName,
             delivery_agent_code: props.delivery_agent_code,
             delivery_agent_id: props.delivery_agent_id,
@@ -83,7 +60,7 @@ export default function ReportReason(props) {
         }
       );
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
 
       if (res.status === 200) {
         setPopupButton(true);
@@ -91,7 +68,7 @@ export default function ReportReason(props) {
         setMessage("Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -99,7 +76,7 @@ export default function ReportReason(props) {
   //   setReason(`Other reasons: ${othersRef.current.value}`);
   // }
 
-  console.log(reason);
+  // console.log(reason);
   return (
     <div className="reason-main-div">
       <form id="reason-form" onSubmit={handleSubmit}>
