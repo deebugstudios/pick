@@ -3,7 +3,7 @@
   flex-direction: row;
   text-align: center;
   justify-content: center;
-  margin: 40px 0 10px 0;
+  margin: 40px auto 10px auto;
 }
 .first-toggle,
 .second-toggle {
@@ -35,4 +35,24 @@
   margin-right: -20px;
   padding-right: 40px;
   color: #1aa803;
+}
+
+@media screen and (max-width: 700px) {
+  .first-toggle,
+  .second-toggle {
+    padding: 5px 10px;
+    font-size: small;
+  }
+  #inactive {
+    padding-left: 30px;
+  }
+  #inactive2 {
+    padding-right: 30px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .first-toggle,
+  .second-toggle {
+    font-size: x-small;
+  }
 }

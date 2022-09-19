@@ -59,12 +59,12 @@ export const UseTokenProviderUser = (props) => {
   // const navigate = useNavigate();
   const [loadOtp, setLoadOtp] = useState(false);
   const [countDown, setCountDown] = useState(60);
-  const token = localStorage.getItem("user_rubbish");
-  const userId = localStorage.getItem("pickload_userId");
-  const userName = localStorage.getItem("pickload_userName");
-  const email = localStorage.getItem("pickload_userEmail");
-  const userNumber = localStorage.getItem("pickload_userNumber");
-  const userImg = localStorage.getItem("pickload_userImg");
+  const token = sessionStorage.getItem("user_rubbish");
+  const userId = sessionStorage.getItem("pickload_userId");
+  const userName = sessionStorage.getItem("pickload_userName");
+  const email = sessionStorage.getItem("pickload_userEmail");
+  const userNumber = sessionStorage.getItem("pickload_userNumber");
+  const userImg = sessionStorage.getItem("pickload_userImg");
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -142,21 +142,24 @@ export const UseTokenProviderUser = (props) => {
             setLoading(false);
           });
 
-        localStorage.setItem("user_rubbish", JSON.stringify(data?.token));
-        localStorage.setItem("pickload_userId", JSON.stringify(data?.user._id));
-        localStorage.setItem(
+        sessionStorage.setItem("user_rubbish", JSON.stringify(data?.token));
+        sessionStorage.setItem(
+          "pickload_userId",
+          JSON.stringify(data?.user._id)
+        );
+        sessionStorage.setItem(
           "pickload_userName",
           JSON.stringify(data?.user.fullname)
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "pickload_userEmail",
           JSON.stringify(data?.user.email)
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "pickload_userNumber",
           JSON.stringify(data?.user.phone_no)
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "pickload_userImg",
           JSON.stringify(data?.user.img)
         );

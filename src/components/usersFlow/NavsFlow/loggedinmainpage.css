@@ -16,6 +16,11 @@
   /* overflow: scroll !important; */
   /* overflow-y: scroll; */
 }
+@media screen and (max-width: 700px) {
+  .content-wrap {
+    padding: 0px 5px;
+  }
+}
 /* .user-dashboard-main {
   background-color: #e8f4e3;
 } */
