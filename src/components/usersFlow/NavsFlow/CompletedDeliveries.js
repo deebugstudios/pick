@@ -93,7 +93,7 @@ export default function CompletedDeliveries() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-2">
           <div className="pending-delivery-pickup-slides">
             {/* <br />
