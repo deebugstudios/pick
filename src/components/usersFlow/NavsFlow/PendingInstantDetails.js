@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./pendingdeliveryspecifics.css";
+import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import map from "../../Images/map.png";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
@@ -10,6 +10,7 @@ import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 import { useNavigate, useLocation } from "react-router-dom";
 import Popup from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
+
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateConverter } from "../../../DateAndTimeConverter";
@@ -65,7 +66,7 @@ export default function PendingInstantDetails() {
   } else
     return (
       <section className="user-dashboard pending-delivery no-max">
-        <div className="pending-delivery-specifics-wrapper">
+        <div className="history-wrapper-1">
           <div className="pending-delivery-pickup-slide">
             <div
               id="arrow-div-instant"
@@ -121,29 +122,13 @@ export default function PendingInstantDetails() {
                 Your Item will arrive at your Location in Approximately 10
                 minutes{" "}
               </h2>
-              <p
-                id="message-agent"
-                onClick={() => {
-                  navigate("/user/chatwithagentuser", {
-                    state: {
-                      agentId: deliveryDetails.delivery_agent_id,
-                      agentName: deliveryDetails.delivery_agent_name,
-                    },
-                  });
-                }}
-              >
-                Message Agent
-                <span>
-                  <FontAwesomeIcon icon={faMessage} className="space-icons-1" />
-                </span>
-              </p>
             </div>
             <br />
             <br />
 
             <h3>Delivery Details</h3>
 
-            <div className="delivery-profile" style={{ width: "50%" }}>
+            <div className="delivery-profile1">
               <div className="driver-profile-image">
                 <div className="image">
                   <img src={deliveryDetails.delivery_agent_img} />{" "}
@@ -177,6 +162,22 @@ export default function PendingInstantDetails() {
                   </tr>
                 </table>
               </div>
+              <p
+                id="message-agent"
+                onClick={() => {
+                  navigate("/user/chatwithagentuser", {
+                    state: {
+                      agentId: deliveryDetails.delivery_agent_id,
+                      agentName: deliveryDetails.delivery_agent_name,
+                    },
+                  });
+                }}
+              >
+                Message Agent
+                <span>
+                  <FontAwesomeIcon icon={faMessage} className="space-icons-1" />
+                </span>
+              </p>
             </div>
 
             <div className="specific-info delivery-history-info">

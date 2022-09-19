@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
-import "./deliveryhistorydetails.css";
+// import "./deliveryhistorydetails.css";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
@@ -9,6 +9,7 @@ import Cancel from "../../Images/close.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import Popup, { Popup2, Popup3 } from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
+import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import CancelBooking from "../CancelBooking";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -65,7 +66,7 @@ export default function PendingScheduledDetails() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
             <div
@@ -108,7 +109,7 @@ export default function PendingScheduledDetails() {
             <br />
 
             <div className="estimate-div">
-              <div className="delivery-profile" style={{ width: "50%" }}>
+              <div className="delivery-profile1">
                 <div className="driver-profile-image">
                   <div className="image">
                     <img src={deliveryDetails.delivery_agent_img} />{" "}

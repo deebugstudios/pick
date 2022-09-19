@@ -132,7 +132,7 @@ export default function DeliveryHistoryDetails() {
             </div>
             <div className="estimatedtime">
               <h2>
-                Your Item arrived at your Location in {getMinutes(milli)}{" "}
+                Your item arrived at your location in {getMinutes(milli)}{" "}
                 minute(s)
               </h2>
             </div>

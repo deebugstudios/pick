@@ -119,7 +119,7 @@ export default function UserScheduledDeliveryHistory() {
               </div>
             </div>
             <div className="estimatedtime">
-              <h2>Your Item arrived at your location in 2 hours 14 minutes</h2>
+              <h2>Your item arrived at your location in 2 hours 14 minutes</h2>
             </div>
             <br />
             <br />

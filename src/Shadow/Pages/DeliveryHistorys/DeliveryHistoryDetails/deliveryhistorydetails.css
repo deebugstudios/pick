@@ -10,9 +10,6 @@
   overflow: scroll !important;
 } */
 
-
-
-
 /* .delivered-time {
   margin-left: 20%;
 } */
@@ -54,45 +51,49 @@
   padding-top: 10px;
   flex-direction: column;
 }
-@media screen and (min-width:500px) {
+@media screen and (min-width: 500px) {
   .delivery-profile1 {
     flex-direction: row !important;
   }
 }
-@media screen and (min-width:1000px) {
+@media screen and (min-width: 1000px) {
   .specifics-details-section-1 h3 {
     font-size: 16px !important;
   }
-  
+
   .specifics-details-section-1 p {
     font-size: 15px !important;
   }
   .estimatedtime h2 {
     font-size: 16px !important;
   }
-  .delivery-profile-details table th, .delivery-history-info table th {
+  .delivery-profile-details table th,
+  .delivery-history-info table th {
     font-size: 16px !important;
   }
-  .delivery-profile-details table td, .delivery-history-info table td {
+  .delivery-profile-details table td,
+  .delivery-history-info table td {
     font-size: 15px !important;
     padding-left: 15px !important;
   }
 }
-@media screen and (max-width:380px) {
+@media screen and (max-width: 380px) {
   .specifics-details-section-1 h3 {
     font-size: 12px !important;
   }
-  
+
   .specifics-details-section-1 p {
     font-size: 11px !important;
   }
   .estimatedtime h2 {
     font-size: 12px !important;
   }
-  .delivery-profile-details table th, .delivery-history-info table th {
+  .delivery-profile-details table th,
+  .delivery-history-info table th {
     font-size: 12px !important;
   }
-  .delivery-profile-details table td, .delivery-history-info table td {
+  .delivery-profile-details table td,
+  .delivery-history-info table td {
     font-size: 12px !important;
     padding-left: 7px !important;
   }
@@ -109,15 +110,18 @@
 .delivery-profile-details {
   width: 100%;
 }
-.delivery-profile-details table, .delivery-history-info table{
+.delivery-profile-details table,
+.delivery-history-info table {
   margin: 0 !important;
 }
-.delivery-profile-details table th, .delivery-history-info table th {
+.delivery-profile-details table th,
+.delivery-history-info table th {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.8;
 }
-.delivery-profile-details table td, .delivery-history-info table td {
+.delivery-profile-details table td,
+.delivery-history-info table td {
   font-size: 13px;
   font-weight: 500;
   line-height: 1.5;
@@ -128,7 +132,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 40%;
+  /* width: 40%; */
+  margin-right: 30px;
 }
 .driver-profile-image p {
   margin-bottom: 15px;
@@ -186,9 +191,9 @@
   margin-left: 20%;
 }
 
-.driver-profile-image {
+/* .driver-profile-image {
   margin-right: 10px;
-}
+} */
 .image {
   width: 100px;
   height: 100px;

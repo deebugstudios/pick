@@ -85,10 +85,10 @@
   height: 30px;
 }
 
-@media screen and (max-width: 508px) {
+/* @media screen and (max-width: 508px) {
   .location-img {
     height: 125px !important;
     width: 30px !important;
     margin-right: 10px !important;
   }
-}
+} */
