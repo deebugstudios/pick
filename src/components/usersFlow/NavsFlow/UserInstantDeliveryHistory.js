@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DeliveryImages } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
-import "./deliveryhistorydetails.css";
+// import "./deliveryhistorydetails.css";
+import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
@@ -79,7 +80,7 @@ export default function DeliveryHistoryDetails() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
             <div
@@ -140,7 +141,7 @@ export default function DeliveryHistoryDetails() {
 
             <h3>Delivery Details</h3>
 
-            <div className="delivery-profile">
+            <div className="delivery-profile1">
               <div className="driver-profile-image">
                 <div className="image">
                   <img src={deliveryDetails.delivery_agent_img} alt="" />{" "}

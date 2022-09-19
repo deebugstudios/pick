@@ -151,3 +151,10 @@
   -webkit-box-shadow: 4px 4px 40px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 4px 4px 40px -1px rgba(0, 0, 0, 0.75); */
 }
+
+@media screen and (max-width: 560px) {
+  .specific-details-section {
+    margin-left: 10px !important;
+    /* overflow-y: scroll !important; */
+  }
+}

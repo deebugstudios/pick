@@ -8,8 +8,8 @@ import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function LeaveReview(props) {
   const navigate = useNavigate();
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  const [rating, setRating] = useState(1);
+  const [hover, setHover] = useState(1);
   const [popupButton, setPopupButton] = useState(false);
   const [review, setReview] = useState("");
   const [reviewError, setReviewError] = useState("");
