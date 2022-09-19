@@ -88,3 +88,12 @@
   cursor: pointer;
   margin-left: 0px;
 }
+
+@media screen and (max-width: 649px) {
+  .report-user {
+    font-size: small;
+  }
+  .report-user button {
+    padding: 3px 10px;
+  }
+}

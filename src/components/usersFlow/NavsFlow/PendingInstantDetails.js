@@ -64,7 +64,7 @@ export default function PendingInstantDetails() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="pending-delivery-specifics-wrapper">
           <div className="pending-delivery-pickup-slide">
             <div
