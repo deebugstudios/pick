@@ -36,7 +36,7 @@ const Section2subsec3 = () => {
           </div>
         </div>
       </section>
-      <section className="footer">
+      {/* <section className="footer">
         <div className="footer-section1">
           <div className="footer-1">
             <h4>Your Ultimate Logistic Service</h4>
@@ -142,7 +142,7 @@ const Section2subsec3 = () => {
             </span>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <Footer/> */}
     </section>
   );

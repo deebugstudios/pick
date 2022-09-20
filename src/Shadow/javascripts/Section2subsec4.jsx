@@ -54,7 +54,15 @@ const Section2subsec4 = () => {
           </div>
           <div className="pickload-video-container">
             {/* <img src={pickloadvideo} alt="video on how to use pickload" /> */}
-            <iframe  src="https://www.youtube.com/embed/rwbeLBwExD8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe
+              src="https://www.youtube.com/embed/rwbeLBwExD8"
+              title="YouTube video player"
+              width="100%"
+              height="1005"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
       </div>
