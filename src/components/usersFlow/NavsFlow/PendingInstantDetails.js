@@ -128,39 +128,41 @@ export default function PendingInstantDetails() {
 
             <h3>Delivery Details</h3>
 
-            <div className="delivery-profile1">
-              <div className="driver-profile-image">
-                <div className="image">
-                  <img src={deliveryDetails.delivery_agent_img} />{" "}
+            <div className="estimate-div">
+              <div className="delivery-profile1">
+                <div className="driver-profile-image">
+                  <div className="image">
+                    <img src={deliveryDetails.delivery_agent_img} />{" "}
+                  </div>
                 </div>
-              </div>
-              <div className="delivery-profile-details">
-                <table>
-                  <tr>
-                    <th>Delivery Agent :</th>
-                    <td>{deliveryDetails?.delivery_agent_name}</td>
-                  </tr>
-                  <tr>
-                    <th>Vehicle Type :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
-                  </tr>
-                  <tr>
-                    <th>Vehicle Color :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                  </tr>
-                  <tr>
-                    <th>Agent ID :</th>
-                    <td>{deliveryDetails.delivery_agent_id}</td>
-                  </tr>
-                  <tr>
-                    <th>Plate Number :</th>
-                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
-                  </tr>
-                  <tr>
-                    <th>Phone Number :</th>
-                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
-                  </tr>
-                </table>
+                <div className="delivery-profile-details">
+                  <table>
+                    <tr>
+                      <th>Delivery Agent :</th>
+                      <td>{deliveryDetails?.delivery_agent_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Vehicle Type :</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                    </tr>
+                    <tr>
+                      <th>Vehicle Color :</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                    </tr>
+                    <tr>
+                      <th>Agent ID :</th>
+                      <td>{deliveryDetails.delivery_agent_id}</td>
+                    </tr>
+                    <tr>
+                      <th>Plate Number :</th>
+                      <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                    </tr>
+                    <tr>
+                      <th>Phone Number :</th>
+                      <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                    </tr>
+                  </table>
+                </div>
               </div>
               <p
                 id="message-agent"

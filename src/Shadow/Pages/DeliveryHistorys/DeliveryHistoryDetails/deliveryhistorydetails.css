@@ -50,6 +50,7 @@
   justify-content: space-around;
   padding-top: 10px;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 @media screen and (min-width: 500px) {
   .delivery-profile1 {

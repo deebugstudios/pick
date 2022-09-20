@@ -59,6 +59,8 @@
   color: black;
   font-size: medium;
   cursor: pointer;
+  color: #1aa803;
+
   /* align-self: flex-end;
   justify-self: flex-end; */
 }
