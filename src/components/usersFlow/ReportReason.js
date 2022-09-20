@@ -14,6 +14,7 @@ export default function ReportReason(props) {
   const [popupButton, setPopupButton] = useState(false);
   const [explain, setExplain] = useState("");
   const userValues = useContext(userContext);
+  const [realImage, setRealImage] = useState("");
   const { token, userImg } = userValues;
 
   /**@type React.MutableRefObject<HTMLInputElement> */
