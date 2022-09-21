@@ -124,6 +124,7 @@ export default function LeaveReview(props) {
           className="phone-input3 textarea"
           value={review}
           onChange={handleChange}
+          maxLength={100}
         />
         <p className="error-style">{reviewError}</p>
       </div>

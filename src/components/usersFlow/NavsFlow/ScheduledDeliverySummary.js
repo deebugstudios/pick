@@ -4,7 +4,7 @@ import {
   DeliveryImages2,
 } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
-import "./deliveryhistorydetails.css";
+import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import { DeliverInfo } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
 import FormProgress2 from "../../Images/FormProgress2.png";
@@ -142,7 +142,7 @@ export default function ScheduledDeliverySummary() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
             <div id="btn-proceed">
@@ -159,9 +159,9 @@ export default function ScheduledDeliverySummary() {
             <br />
             <br />
 
-            <div className="delivery-profile">
+            <div className="delivery-profile1">
               <div className="driver-profile-image">
-                <div className="image2">
+                <div className="image">
                   <img src={deliveryDetails.delivery_agent_img} />
                 </div>
               </div>

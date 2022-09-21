@@ -5,7 +5,8 @@ import Instant from "../Images/instant.png";
 import Scheduled from "../Images/scheduled.png";
 import "../css/deliverytype.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function DeliveryType() {
   const [member, setMember] = useState("instant");
@@ -13,7 +14,8 @@ export default function DeliveryType() {
   const [secBg, setSecBg] = useState("");
   const [vehicle, setVehicle] = useState("bike");
   const [user, setUser] = useState();
-
+  const userValues = useContext(userContext);
+  const { token } = userValues;
   const navigate = useNavigate();
 
   const handleCheck = (e) => {
@@ -30,6 +32,28 @@ export default function DeliveryType() {
       setSecBg("white");
     }
   };
+
+  // const fetchDeliveryDetails = async () => {
+  //   const res = await fetch(
+  //     "https://ancient-wildwood-73926.herokuapp.com/stats/get_refund_percent",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         token: JSON.parse(token),
+  //       }),
+  //     }
+  //   );
+  //   const data = await res.json();
+
+  //   console.log(data);
+  // };
+
+  // useEffect(() => {
+  //   fetchDeliveryDetails();
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -52,6 +52,7 @@
   flex-direction: column;
   margin-bottom: 20px;
 }
+
 @media screen and (min-width: 500px) {
   .delivery-profile1 {
     flex-direction: row !important;
@@ -206,4 +207,10 @@
   margin-top: 20px;
   padding-top: 20px;
   border-top: 2px solid #e0e0e0;
+}
+@media screen and (max-width: 600px) {
+  .image {
+    width: 100px !important;
+    height: 100px !important;
+  }
 }

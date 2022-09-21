@@ -22,7 +22,7 @@ export default function CancelBooking(props) {
           <p id="successText-1">
             Are you sure you want to cancel this delivery booking? You will be
             <br />
-            refunded only 20% of your initial payment after 21 working days.
+            refunded only {props.percent}% of your initial payment after 21 working days.
           </p>
         </div>
         <br />

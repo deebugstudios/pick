@@ -55,7 +55,7 @@ export default function ScheduleForm() {
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [fileError, setFileError] = useState("");
-  const [fireData, setFireData] = useState({});
+  // const [fireData, setFireData] = useState({});
   // const [userDetails, setUserDetails] = useState([]);
   const [parcelType, setParcelType] = useState("fragile");
   const [status, setStatus] = useState(null);
@@ -249,12 +249,15 @@ export default function ScheduleForm() {
           const deliveryID = data.delivery._id;
           const notifId = data.notification_id;
 
+          let fireData = {};
           const accepted = onSnapshot(
             doc(db, "delivery_requests", deliveryID),
             async (doc) => {
-              if (doc.data().delivery_status_is_accepted === true) {
+              fireData = doc.data();
+              if (fireData.delivery_status_is_accepted === true) {
                 accepted();
                 setLoading(false);
+                clearTimeout(timer);
                 navigate("/user/scheduled-summary", {
                   state: {
                     type: type,
@@ -276,14 +279,15 @@ export default function ScheduleForm() {
                     number: phone_no,
                   },
                 });
-                // clearTimeout(timer);
               }
             }
           );
           const timer = setTimeout(async () => {
+            // console.log(fireData);
             accepted();
+            alert("Your pickup request wasn't accepted. Please try again");
             setLoading(false);
-            if (doc.data().delivery_status_is_accepted === false) {
+            if (fireData.delivery_status_is_accepted === false) {
               try {
                 const res = await fetch(
                   "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
@@ -302,33 +306,31 @@ export default function ScheduleForm() {
                   }
                 );
                 const data = await res.json();
-                console.log(data);
+                // console.log(data);
 
                 if (res.status === 200) {
-                  //
+                  navigate("/user/select-a", {
+                    state: {
+                      vehicle: vehicle,
+                      distance: distance,
+                      pickupLocation: pickupLocation,
+                      pickupState: pickupState,
+                      dropOffLocation: dropOffLocation,
+                      price: price,
+                      member: type,
+                      pickup_address: pickup_address,
+                      drop_off_address: drop_off_address,
+                      senderName: senderName,
+                      number: phone_no,
+                      email: email,
+                    },
+                  });
                 } else {
                   //
                 }
               } catch (error) {
-                console.log(error);
+                // console.log(error);
               }
-              alert("Your pickup request wasn't accepted. Please try again");
-              navigate("/user/select-a", {
-                state: {
-                  vehicle: vehicle,
-                  distance: distance,
-                  pickupLocation: pickupLocation,
-                  pickupState: pickupState,
-                  dropOffLocation: dropOffLocation,
-                  delivery_cost: price,
-                  member: type,
-                  pickup_address: pickup_address,
-                  drop_off_address: drop_off_address,
-                  senderName: senderName,
-                  number: phone_no,
-                  email: email,
-                },
-              });
             }
           }, 120000);
         } else {

@@ -25,11 +25,36 @@ export default function PendingScheduledDetails() {
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
+  const [percent, setPercent] = useState("");
   const [cancelButton, setCancelButton] = useState(false);
   const userValues = useContext(userContext);
   const { token } = userValues;
 
   const Delivery_id = location.state.id;
+
+  const fetchPercentage = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/stats/get_refund_percent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: JSON.parse(token),
+        }),
+      }
+    );
+    const data = await res.json();
+    setPercent(data.refund_percent);
+
+    // console.log(data);
+  };
+
+  useEffect(() => {
+    fetchPercentage();
+    fetchDeliveryDetails();
+  }, []);
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
@@ -196,6 +221,7 @@ export default function PendingScheduledDetails() {
               click={() => {
                 setCancelButton(false);
               }}
+              percent={percent}
               delivery_id={Delivery_id}
             />
           </Popup3>

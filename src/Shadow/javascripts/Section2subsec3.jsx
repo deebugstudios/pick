@@ -11,12 +11,13 @@ import "../css/section2subsec3.css";
 import map from "../images/maps.png";
 import logo from "../images/pickloadlogo.png";
 import Footer from "./Footer";
+import Map from "./Map";
 const Section2subsec3 = () => {
   return (
     <section className="subsec3-wrapper">
       <section className="subsec3">
         <div className="subsec3-left">
-          <img src={map} alt="" />
+          <Map />
         </div>
         <div className="subsec3-right">
           <h3>

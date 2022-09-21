@@ -96,4 +96,7 @@
   .report-user button {
     padding: 3px 10px;
   }
+  .driver-profile-image {
+    margin-right: 0px;
+  }
 }

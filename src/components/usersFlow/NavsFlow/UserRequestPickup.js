@@ -69,10 +69,10 @@ export default function UserRequestPickup() {
             }
           });
 
-          // const pLoc = results[0].geometry.location.toString().slice(1, -1);
+          const pLoc = results[0].geometry.location.toString();
           const piLoc = results[0].geometry.location.lat();
           const piiLoc = results[0].geometry.location.lng();
-          // console.log(piLoc);
+          console.log(pLoc);
           setPickupLocation(`${piLoc},${piiLoc}`);
         }
       }

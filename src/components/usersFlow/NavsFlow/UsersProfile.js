@@ -67,6 +67,12 @@ export default function UsersProfile() {
     // console.log(data);
     setUserDetails(data?.user);
     setUserName(data?.user.fullname);
+
+    sessionStorage.setItem(
+      "pickload_userName",
+      JSON.stringify(data?.user.fullname)
+    );
+    sessionStorage.setItem("pickload_userImg", JSON.stringify(data?.user.img));
   };
 
   // ;
@@ -104,9 +110,12 @@ export default function UsersProfile() {
 
       .then((response) => {
         if (response.status === 200) {
+          fetchUserDetails();
           alert("Profile Updated Successfully");
           setLoadButton(false);
           setChangeActive(true);
+
+          window.location.reload(true);
         } else {
           setLoadButton(false);
         }
