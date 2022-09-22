@@ -128,6 +128,7 @@ export default function AgentList() {
   return (
     <section className="shadow-agentlist-wrapper">
       <div className="shadow-agentlist-container">
+        <h3>Messages</h3>
         {displayData}
       </div>
     </section>
