@@ -66,7 +66,7 @@ export default function SpecificAgent() {
     const results = await data;
     // setLoading(false);
 
-    console.log(results);
+    // console.log(results);
     setReviews(results?.reviews);
     // console.log(userDetails);
     // pendingDeliveries.map((item) => console.log(item));

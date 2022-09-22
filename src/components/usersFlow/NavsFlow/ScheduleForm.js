@@ -215,9 +215,10 @@ export default function ScheduleForm() {
         }
       );
       const data = await res.json();
-      const duration = data?.request_timeout_duration;
+      const duration = data?.request_timeout_duration * 60000;
+      // const realDuration = duration ;
 
-      console.log(duration);
+      // console.log(realDuration);
       if (res.status === 200) {
         const bodyFormData = new FormData();
         bodyFormData.append("token", JSON.parse(token));
@@ -350,7 +351,7 @@ export default function ScheduleForm() {
                     // console.log(error);
                   }
                 }
-              }, duration * 6000);
+              }, duration);
             } else {
               setMessage("An Error occured");
             }

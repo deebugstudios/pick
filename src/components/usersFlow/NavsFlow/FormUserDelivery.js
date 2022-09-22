@@ -194,7 +194,7 @@ export default function FormUserDelivery() {
         }
       );
       const data = await res.json();
-      const duration = data.request_timeout_duration;
+      const duration = data?.request_timeout_duration * 60000;
       if (res.status === 200) {
         const bodyFormData = new FormData();
         bodyFormData.append("token", JSON.parse(token));
@@ -314,11 +314,7 @@ export default function FormUserDelivery() {
 
                   setLoadButton(false);
                 }
-              }, duration * 6000);
-
-              // const fireStoreData = fireData;
-              // console.log(fireStoreData);
-              // console.log(fireData);
+              }, duration);
             } else {
               setMessage("An Error occured");
             }
