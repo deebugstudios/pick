@@ -462,7 +462,7 @@ export default function FormUserDelivery() {
               <input
                 type="number"
                 className="phone-input3 nedu-info-div"
-                placeholder="Describe your Item"
+                // placeholder="Describe your Item"
                 name="parcel_description"
                 value={formData.parcel_description}
                 onChange={handleChange}
@@ -479,7 +479,7 @@ export default function FormUserDelivery() {
               <textarea
                 type="text"
                 className="form-field-Instructions phone-input3 textarea nedu-info-div"
-                placeholder="Enter any specific Instruction for the delivery agent to note"
+                placeholder="Enter any specific instruction for the delivery agent to note"
                 name="delivery_instructions"
                 value={instructions}
                 onChange={handleInstructions}

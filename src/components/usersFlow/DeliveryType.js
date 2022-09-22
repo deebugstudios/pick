@@ -147,6 +147,19 @@ export default function DeliveryType() {
 
             <input
               type="radio"
+              value="car"
+              name="Vehicle"
+              className="RadioV"
+              checked={vehicle === "car"} //{true}
+              onChange={handleCheck}
+              // disabled={true}
+            />
+            <label htmlFor="Car">
+              <span className="vehicle-text">Car</span>
+            </label>
+
+            <input
+              type="radio"
               value="van"
               name="Vehicle"
               className="RadioV"
@@ -170,19 +183,6 @@ export default function DeliveryType() {
             <label htmlFor="Truck">
               {" "}
               <span className="vehicle-text">Truck</span>
-            </label>
-
-            <input
-              type="radio"
-              value="car"
-              name="Vehicle"
-              className="RadioV"
-              checked={vehicle === "car"} //{true}
-              onChange={handleCheck}
-              // disabled={true}
-            />
-            <label htmlFor="Car">
-              <span className="vehicle-text">Car</span>
             </label>
           </div>
           {/* <br /> */}

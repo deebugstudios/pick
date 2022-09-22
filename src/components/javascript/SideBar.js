@@ -18,7 +18,7 @@ const SideBar = (props) => {
 
   return (
     // <section className={sideBar ? "side-bar-1" : "not-side-bar"}>
-    <section className={props.toggle? "sider-group-active" :"user-side-bar"}>
+    <section className={props.toggle ? "sider-group-active" : "user-side-bar"}>
       <div className="side-bar-links-1">
         <ul>
           {/* <li className="toggle-sidebar" onClick={show}>
@@ -91,6 +91,23 @@ const SideBar = (props) => {
               Chat With Admin
             </li>
           </NavLink>
+
+          <NavLink
+            to="/user/agentlist"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+            onClick={props.toggler}
+          >
+            <li>
+              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
+              {/* {props.sideBar ? "Chat With Admin" : ""} */}
+              Agent List
+            </li>
+          </NavLink>
           {/* </ul> */}
 
           {/* <ul> */}
@@ -100,7 +117,7 @@ const SideBar = (props) => {
               return {
                 background: isActive ? "#e8f4e3" : "",
                 marginBottom: "10px",
-                marginLeft: "10px"
+                marginLeft: "10px",
               };
             }}
             onClick={props.toggler}
@@ -119,12 +136,12 @@ const SideBar = (props) => {
               )}
             </li> */}
             <div className="side-bar-profile-detail-1">
-                  <div className="side-bar-profile-img-1">{props.profile}</div>
-                  <div className="side-bar-profile-name">
-                    <h5>{props.username}</h5>
-                    <p>View Profile</p>
-                  </div>
-                </div>
+              <div className="side-bar-profile-img-1">{props.profile}</div>
+              <div className="side-bar-profile-name">
+                <h5>{props.username}</h5>
+                <p>View Profile</p>
+              </div>
+            </div>
           </NavLink>
 
           <NavLink

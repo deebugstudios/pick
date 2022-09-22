@@ -84,6 +84,7 @@ import SpecificAgent from "./components/usersFlow/NavsFlow/SpecificAgent";
 import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDetails";
 import ChangePhoneNumber from "./Shadow/Pages/ChangeNumber/ChangePhoneNumber";
 import { Notification } from "./Shadow/Pages/Notifications/Notification";
+import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 
 export default function App() {
   return (
@@ -147,6 +148,8 @@ export default function App() {
               <Route path="account" element={<AgentCompleted />} />
               <Route path="success" element={<Success />} />
               <Route path="user" element={<LoggedinMainPageUser />}>
+                {/* The Route*/}
+                <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />
                 <Route path="contact" element={<ContactUs />} />

@@ -3,9 +3,11 @@ import { Head2 } from "../javascript/Head";
 import Validated from "../Images/Validated.png";
 import "../css/Payment.css";
 import Button from "../javascript/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function PaymentSuccess() {
+  const location = useLocation();
+  const itemId = location.state.itemId;
   return (
     <>
       <Head2 />
@@ -16,7 +18,7 @@ export default function PaymentSuccess() {
           <img src={Validated} alt="validated" />
         </div>
         <p>
-          Item ID : <span id="parcel-id">678843</span>
+          Item ID : <span id="parcel-id">{itemId}</span>
         </p>
         <br />
         <p id="payment-p">

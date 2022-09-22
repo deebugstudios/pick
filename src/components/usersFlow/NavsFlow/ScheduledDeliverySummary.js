@@ -20,6 +20,7 @@ export default function ScheduledDeliverySummary() {
   const [loading, setLoading] = useState(true);
   const [scheduledDate, setScheduledDate] = useState("");
   const [scheduledTime, setScheduledTime] = useState("");
+  const [parcelCode, setParcelCode] = useState("");
 
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
@@ -63,7 +64,7 @@ export default function ScheduledDeliverySummary() {
       const data = await res.json();
       // console.log(data);
       if (res.status === 200) {
-        navigate("/paysuccess");
+        navigate("/paysuccess", { state: { itemId: parcelCode } });
       } else {
         // setMessage("An Error occured");
       }
@@ -112,6 +113,7 @@ export default function ScheduledDeliverySummary() {
     setLoading(false);
     const data = await res.json();
     setDeliveryDetails(data?.delivery);
+    setParcelCode(data?.delivery.parcel_code);
     setScheduledDate(
       <DateConverter
         value={
