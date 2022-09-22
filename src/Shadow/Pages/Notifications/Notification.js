@@ -60,7 +60,7 @@ export const Notification = () => {
   const msg = data?.map((obj, index) => (
     <div className="not-read-messages" key={index}>
       {obj?.noti_type === "system_message" ? (
-        <h5 className="system-message">System Message</h5>
+        <h5 className="system-message">SYSTEM MESSAGE</h5>
       ) : null}
       <div className="notification-message">
         <p>{obj?.content}</p>

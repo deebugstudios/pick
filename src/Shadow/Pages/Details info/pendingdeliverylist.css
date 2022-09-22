@@ -1,127 +1,125 @@
 .delivery-list-btn {
-    background-color: var(--maincolor);
-    border-radius: 5px;
-    border:none;
-    padding: 10px 18px;
-    color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 400;
+  background-color: var(--maincolor);
+  border-radius: 5px;
+  border: none;
+  padding: 10px 18px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
 }
-@media screen and (max-width:900px) {
-    .delivery-list-btn {
-        padding: 6px 12px !important;
-        font-size: 14px !important;
-    }
-    .pending-delivery-pickup-left table th {
-        font-size: 14px !important;
-    }
-    .pending-delivery-pickup-left table td {
-        font-size: 12px !important;
-    }
-    .pending-delivery-pickup-img {
-        width: 70px !important;
-        height: 70px;
-        /* margin-right: 5px; */
-    }
-    .pending-delivery-pickup-details-Container {
-       padding: 10px 15px !important;
-       border-radius: 4px !important;
-    }
+@media screen and (max-width: 900px) {
+  .delivery-list-btn {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
+  .pending-delivery-pickup-left table th {
+    font-size: 14px !important;
+  }
+  .pending-delivery-pickup-left table td {
+    font-size: 12px !important;
+  }
+  .pending-delivery-pickup-img {
+    width: 70px !important;
+    height: 70px !important;
+    /* margin-right: 5px; */
+  }
+  .pending-delivery-pickup-details-Container {
+    padding: 10px 15px !important;
+    border-radius: 4px !important;
+  }
 }
-@media screen and (max-width:700px) {
-    .delivery-list-btn {
-        padding: 4px 9px !important;
-        font-size: 11px !important;
-    }
-    .pending-delivery-pickup-left table th {
-        font-size: 12px !important;
-    }
-    .pending-delivery-pickup-left table td {
-        font-size: 11px !important;
-    }
-    .pending-delivery-pickup-img {
-        width: 50px !important;
-        height: 50px;
-        /* margin-right: 5px; */
-    }
-    .pending-delivery-pickup-details-Container {
-       padding: 5px 10px !important;
-    }
-    .pending-delivery-pickup-details-Container {
-        width: 100% !important;
-    }
-    
-}
-
-@media screen and (max-width:560px) {
-    .delivery-list-btn {
-        padding: 4px 6px !important;
-        font-size: 10px !important;
-    }
-    .pending-delivery-pickup-left table th {
-        font-size: 10px !important;
-    }
-    .pending-delivery-pickup-left table td {
-        font-size: 10px !important;
-    }
-    .pending-delivery-pickup-img {
-        width: 40px !important;
-        height: 40px;
-        /* margin-right: 5px; */
-    }
-    .pending-delivery-pickup-details-Container {
-       padding: 5px 3px !important;
-    }
-    .icon-img {
-        width: 20px !important;
-        margin-right: 2px !important;
-    }
-    .hide-this {
-        display: none;
-    }
+@media screen and (max-width: 700px) {
+  .delivery-list-btn {
+    padding: 4px 9px !important;
+    font-size: 11px !important;
+  }
+  .pending-delivery-pickup-left table th {
+    font-size: 12px !important;
+  }
+  .pending-delivery-pickup-left table td {
+    font-size: 11px !important;
+  }
+  .pending-delivery-pickup-img {
+    width: 50px !important;
+    height: 50px !important;
+    /* margin-right: 5px; */
+  }
+  .pending-delivery-pickup-details-Container {
+    padding: 5px 10px !important;
+  }
+  .pending-delivery-pickup-details-Container {
+    width: 100% !important;
+  }
 }
 
+@media screen and (max-width: 560px) {
+  .delivery-list-btn {
+    padding: 4px 6px !important;
+    font-size: 10px !important;
+  }
+  .pending-delivery-pickup-left table th {
+    font-size: 10px !important;
+  }
+  .pending-delivery-pickup-left table td {
+    font-size: 10px !important;
+  }
+  .pending-delivery-pickup-img {
+    width: 40px !important;
+    height: 40px !important;
+    /* margin-right: 5px; */
+  }
+  .pending-delivery-pickup-details-Container {
+    padding: 5px 3px !important;
+  }
+  .icon-img {
+    width: 20px !important;
+    margin-right: 2px !important;
+  }
+  .hide-this {
+    display: none;
+  }
+}
 
 .pending-delivery-pickup-left table th {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 .pending-delivery-pickup-left table td {
-    font-size: 13px;
-    font-weight: 400;
+  font-size: 13px;
+  font-weight: 400;
 }
 .pending-delivery-pickup-details-Container {
-    width: 100% ;
-    margin-top: 20px;
-    /* background-color: black; */
-    max-width: 1000px;
+  width: 100%;
+  margin-top: 20px;
+  /* background-color: black; */
+  max-width: 1000px;
 }
 
 .pending-delivery-pickup-img {
-    overflow: hidden !important;
-    width: 90px;
-    /* margin-right: 5px; */
-    background-color: none !important;
+  overflow: hidden !important;
+  width: 90px;
+  /* margin-right: 5px; */
+  background-color: none !important;
 }
 .pending-delivery-pickup-img img {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .icon-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    cursor: pointer;
-    margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  cursor: pointer;
+  margin-right: 5px;
 }
 .icon-img img {
-    width: 100%;
-    object-fit: contain;
+  width: 100%;
+  object-fit: contain;
 }
 .pending-delivery-pickup-action {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }

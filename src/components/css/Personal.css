@@ -48,6 +48,18 @@
   align-items: flex-start;
   text-align: start;
 }
+
+.sign-forms {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+.center-pos {
+  align-self: center;
+}
 label {
   font-size: small;
   cursor: pointer;
@@ -134,6 +146,7 @@ form section {
 .edit-field {
   width: 700px;
 }
+
 li {
   list-style-type: none;
 }
@@ -188,6 +201,9 @@ li {
   #mainsign h2 {
     font-size: medium;
   }
+  .bottom-marg {
+    margin-bottom: 20px;
+  }
   .mainsign-prog img {
     width: 70%;
   }
@@ -216,12 +232,18 @@ li {
     border: none !important;
     padding: 0px !important;
   }
-  .edit-field {
+  /* .edit-field  {
     width: 310px !important;
     max-width: 310px !important;
-  }
-  .secondField {
-    width: 145px !important;
-    /* max-width: 160px !important; */
+  } */
+  /* .secondField {
+    width: 145px !important; */
+  /* max-width: 160px !important; */
+  /* } */
+}
+
+@media screen and (max-width: 380px) {
+  .edit-field {
+    width: 320px;
   }
 }

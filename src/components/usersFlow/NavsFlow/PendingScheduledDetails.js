@@ -5,6 +5,7 @@ import { DeliverInfo2 } from "../Details info/DeliverInfo";
 import Flag from "../../Images/flag.png";
 import Arrow from "../../Images/Arrow.png";
 import Selected from "../../Images/SelectedTab.png";
+import "./pendingdeliveryspecifics.css";
 import Cancel from "../../Images/close.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import Popup, { Popup2, Popup3 } from "../../javascript/Popup";

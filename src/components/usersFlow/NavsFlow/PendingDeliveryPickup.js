@@ -19,6 +19,7 @@ export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
   const [loading, setLoading] = useState(true);
   const [pendingDeliveries, setPendingDeliveries] = useState([]);
+  const [pendingInstant, setPendingInstant] = useState([]);
   const navigate = useNavigate();
   const userValues = useContext(userContext);
   const { token, userId } = userValues;
@@ -41,8 +42,19 @@ export default function PendingDeliveryPickup(props) {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    setPendingDeliveries(results?.deliveries);
-    console.log(results);
+    const pDeliveries = results?.deliveries;
+    // setPendingDeliveries(results?.deliveries);
+    let pInstant = [];
+    let pScheduled = [];
+    pDeliveries.forEach((item) =>
+      item.delivery_type === "instant"
+        ? pInstant.push(item)
+        : item.delivery_type === "scheduled"
+        ? pScheduled.push(item)
+        : null
+    );
+    setPendingInstant(pInstant);
+    setPendingDeliveries(pScheduled);
   };
 
   useEffect(() => {
@@ -90,52 +102,49 @@ export default function PendingDeliveryPickup(props) {
           </div>
           <br />
 
-          {pendingDeliveries?.length > 0 ? (
-            pendingDeliveries.map((item) =>
-              toggle === true ? (
-                item.delivery_type === "instant" ? (
-                  <DeliveryHistoryList
-                    click={() => {
-                      navigate("/user/pending-instant", {
-                        state: { id: item._id },
-                      });
-                    }}
-                    parcelname={item.parcel_name}
-                    parcelcode={item.parcel_code}
-                    deliveryimage={item.imgs[0]}
-                  />
-                ) : (
-                  <div className="empty-box">
-                    <img src={EmptyBox} alt="" />
-                    <p>No Pending Instant Deliveries Available.</p>
-                  </div>
-                )
-              ) : toggle === false ? (
-                item.delivery_type === "scheduled" ? (
-                  <DeliveryHistoryList
-                    click={() => {
-                      navigate("/user/pending-scheduled", {
-                        state: { id: item._id },
-                      });
-                    }}
-                    parcelname={item.parcel_name}
-                    parcelcode={item.parcel_code}
-                    deliveryimage={item.imgs[0]}
-                  />
-                ) : (
-                  <div className="empty-box">
-                    <img src={EmptyBox} alt="" />
-                    <p>No Pending Scheduled Deliveries Available.</p>
-                  </div>
-                )
-              ) : null
+          {toggle === true ? (
+            pendingInstant?.length > 0 ? (
+              pendingInstant.map((item) => (
+                <DeliveryHistoryList
+                  click={() => {
+                    navigate("/user/pending-instant", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliveryimage={item.imgs[0]}
+                  deliverytype="instant"
+                />
+              ))
+            ) : (
+              <div className="empty-box">
+                <img src={EmptyBox} alt="" />
+                <p>No Pending Instant Deliveries Available.</p>
+              </div>
             )
-          ) : (
-            <div className="empty-box">
-              <img src={EmptyBox} alt="" />
-              <p>No Pending Deliveries Available</p>
-            </div>
-          )}
+          ) : toggle === false ? (
+            pendingDeliveries?.length > 0 ? (
+              pendingDeliveries.map((item) => (
+                <DeliveryHistoryList
+                  click={() => {
+                    navigate("/user/pending-scheduled", {
+                      state: { id: item._id },
+                    });
+                  }}
+                  parcelname={item.parcel_name}
+                  parcelcode={item.parcel_code}
+                  deliveryimage={item.imgs[0]}
+                  deliverytype="scheduled"
+                />
+              ))
+            ) : (
+              <div className="empty-box">
+                <img src={EmptyBox} alt="" />
+                <p>No Pending Scheduled Deliveries Available.</p>
+              </div>
+            )
+          ) : null}
           {/* ) : toggle === false && item.delivery_type === "scheduled" ? (
               <PendingDeliveryScheduled
                 click2={() => {

@@ -15,7 +15,7 @@ import { type } from "@testing-library/user-event/dist/type";
 const Map = (props) => {
   const [map, setMap] = useState(/** @type google.maps.map */ (null));
   const center = useMemo(
-    () => ({ lat: 6.3352433, lng: 5.625857700000001 }),
+    () => ({ lat: 6.3352435, lng: 5.625857700000001 }),
     []
   );
   const option = useMemo(

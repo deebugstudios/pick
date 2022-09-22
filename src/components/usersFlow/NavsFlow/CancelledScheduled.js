@@ -65,7 +65,7 @@ export default function CancelledScheduled() {
     );
   } else
     return (
-      <section className="user-dashboard pending-delivery specifics no-max">
+      <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
             <div
@@ -154,7 +154,7 @@ export default function CancelledScheduled() {
             <h3>Delivery Details</h3>
             <br />
 
-            <div className="delivery-profile">
+            <div className="delivery-profile1">
               <div className="driver-profile-image">
                 <div className="image">
                   {" "}

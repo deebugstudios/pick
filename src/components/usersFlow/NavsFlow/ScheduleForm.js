@@ -171,7 +171,7 @@ export default function ScheduleForm() {
     setParcelType(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoadButton(true);
@@ -201,146 +201,172 @@ export default function ScheduleForm() {
     };
     setFormErrors(validate(formData));
 
-    const bodyFormData = new FormData();
-    bodyFormData.append("token", JSON.parse(token));
-    bodyFormData.append("distance", distance);
-    bodyFormData.append("fullname", formData.fullname);
-    bodyFormData.append("phone_no", formData.phone_no);
-    bodyFormData.append("delivery_type", type);
-    bodyFormData.append("delivery_medium", vehicle);
-    bodyFormData.append("pickup_location", pickupLocation);
-    bodyFormData.append("pickup_address", pickup_address);
-    bodyFormData.append("drop_off_address", drop_off_address);
-    bodyFormData.append("drop_off_location", dropOffLocation);
-    bodyFormData.append("reciever_name", formData.reciever_name);
-    bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
-    bodyFormData.append("email", email);
-    bodyFormData.append("parcel_name", formData.parcel_name);
-    bodyFormData.append(
-      "parcel_description",
-      formData.parcel_description.toString()
-    );
-    bodyFormData.append("delivery_instructions", realInstructions);
-    bodyFormData.append("parcel_type", parcelType);
-    bodyFormData.append("delivery_cost", price);
-    bodyFormData.append("state", pickupState);
-    bodyFormData.append("delivery_agent_id", agentId);
-    bodyFormData.append("schParsedDateTime", dateTime);
-    bodyFormData.append("scheduled_delivery_pickup_timestamp", timeStamp);
-    for (let i = 0; i < deliveryFiles.length; i++) {
-      bodyFormData.append("delivery_files", deliveryFiles[i]);
-    }
-
-    axios
-      .post(
-        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
-        bodyFormData,
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/stats/get_request_timeout_duration",
         {
+          method: "POST",
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            token: JSON.parse(token),
+          }),
         }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log(response);
-          let data = response.data;
-          setLoading(true);
-          const deliveryID = data.delivery._id;
-          const notifId = data.notification_id;
+      );
+      const data = await res.json();
+      const duration = data?.request_timeout_duration;
 
-          let fireData = {};
-          const accepted = onSnapshot(
-            doc(db, "delivery_requests", deliveryID),
-            async (doc) => {
-              fireData = doc.data();
-              if (fireData.delivery_status_is_accepted === true) {
-                accepted();
-                setLoading(false);
-                clearTimeout(timer);
-                navigate("/user/scheduled-summary", {
-                  state: {
-                    type: type,
-                    price: price,
-                    pickup_address: pickup_address,
-                    drop_off_address: drop_off_address,
-                    senderName: formData.fullname,
-                    senderNumber: formData.phone_no,
-                    reciever_name: formData.reciever_name,
-                    reciever_phone_no: formData.reciever_phone_no,
-                    parcelName: formData.parcel_name,
-                    parcelType: parcelType,
-                    Quantity: formData.parcel_description,
-                    instructions: instructions,
-                    deliveryMedium: vehicle,
-                    deliveryID: deliveryID,
-                    email: email,
-                    name: senderName,
-                    number: phone_no,
-                  },
-                });
-              }
+      console.log(duration);
+      if (res.status === 200) {
+        const bodyFormData = new FormData();
+        bodyFormData.append("token", JSON.parse(token));
+        bodyFormData.append("distance", distance);
+        bodyFormData.append("fullname", formData.fullname);
+        bodyFormData.append("phone_no", formData.phone_no);
+        bodyFormData.append("delivery_type", type);
+        bodyFormData.append("delivery_medium", vehicle);
+        bodyFormData.append("pickup_location", pickupLocation);
+        bodyFormData.append("pickup_address", pickup_address);
+        bodyFormData.append("drop_off_address", drop_off_address);
+        bodyFormData.append("drop_off_location", dropOffLocation);
+        bodyFormData.append("reciever_name", formData.reciever_name);
+        bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
+        bodyFormData.append("email", email);
+        bodyFormData.append("parcel_name", formData.parcel_name);
+        bodyFormData.append(
+          "parcel_description",
+          formData.parcel_description.toString()
+        );
+        bodyFormData.append("delivery_instructions", realInstructions);
+        bodyFormData.append("parcel_type", parcelType);
+        bodyFormData.append("delivery_cost", price);
+        bodyFormData.append("state", pickupState);
+        bodyFormData.append("delivery_agent_id", agentId);
+        bodyFormData.append("schParsedDateTime", dateTime);
+        bodyFormData.append("scheduled_delivery_pickup_timestamp", timeStamp);
+        for (let i = 0; i < deliveryFiles.length; i++) {
+          bodyFormData.append("delivery_files", deliveryFiles[i]);
+        }
+
+        axios
+          .post(
+            "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
+            bodyFormData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
             }
-          );
-          const timer = setTimeout(async () => {
-            // console.log(fireData);
-            accepted();
-            alert("Your pickup request wasn't accepted. Please try again");
-            setLoading(false);
-            if (fireData.delivery_status_is_accepted === false) {
-              try {
-                const res = await fetch(
-                  "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
-                  {
-                    method: "POST",
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              // console.log(response);
+              let data = response.data;
+              setLoading(true);
+              const deliveryID = data.delivery._id;
+              const notifId = data.notification_id;
 
-                    body: JSON.stringify({
-                      token: JSON.parse(token),
-                      delivery_id: deliveryID,
-                      notification_id: notifId,
-                    }),
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json, text/plain, */*",
-                    },
+              let fireData = {};
+              const accepted = onSnapshot(
+                doc(db, "delivery_requests", deliveryID),
+                async (doc) => {
+                  fireData = doc.data();
+                  if (fireData.delivery_status_is_accepted === true) {
+                    accepted();
+                    setLoading(false);
+                    clearTimeout(timer);
+                    navigate("/user/scheduled-summary", {
+                      state: {
+                        type: type,
+                        price: price,
+                        pickup_address: pickup_address,
+                        drop_off_address: drop_off_address,
+                        senderName: formData.fullname,
+                        senderNumber: formData.phone_no,
+                        reciever_name: formData.reciever_name,
+                        reciever_phone_no: formData.reciever_phone_no,
+                        parcelName: formData.parcel_name,
+                        parcelType: parcelType,
+                        Quantity: formData.parcel_description,
+                        instructions: instructions,
+                        deliveryMedium: vehicle,
+                        deliveryID: deliveryID,
+                        email: email,
+                        name: senderName,
+                        number: phone_no,
+                      },
+                    });
                   }
-                );
-                const data = await res.json();
-                // console.log(data);
-
-                if (res.status === 200) {
-                  navigate("/user/select-a", {
-                    state: {
-                      vehicle: vehicle,
-                      distance: distance,
-                      pickupLocation: pickupLocation,
-                      pickupState: pickupState,
-                      dropOffLocation: dropOffLocation,
-                      price: price,
-                      member: type,
-                      pickup_address: pickup_address,
-                      drop_off_address: drop_off_address,
-                      senderName: senderName,
-                      number: phone_no,
-                      email: email,
-                    },
-                  });
-                } else {
-                  //
                 }
-              } catch (error) {
-                // console.log(error);
-              }
+              );
+              const timer = setTimeout(async () => {
+                // console.log(fireData);
+                accepted();
+                alert("Your pickup request wasn't accepted. Please try again");
+                setLoading(false);
+                if (fireData.delivery_status_is_accepted === false) {
+                  try {
+                    const res = await fetch(
+                      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
+                      {
+                        method: "POST",
+
+                        body: JSON.stringify({
+                          token: JSON.parse(token),
+                          delivery_id: deliveryID,
+                          notification_id: notifId,
+                        }),
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json, text/plain, */*",
+                        },
+                      }
+                    );
+                    const data = await res.json();
+                    // console.log(data);
+
+                    if (res.status === 200) {
+                      navigate("/user/select-a", {
+                        state: {
+                          vehicle: vehicle,
+                          distance: distance,
+                          pickupLocation: pickupLocation,
+                          pickupState: pickupState,
+                          dropOffLocation: dropOffLocation,
+                          price: price,
+                          member: type,
+                          pickup_address: pickup_address,
+                          drop_off_address: drop_off_address,
+                          senderName: senderName,
+                          number: phone_no,
+                          email: email,
+                        },
+                      });
+                    } else {
+                      //
+                    }
+                  } catch (error) {
+                    // console.log(error);
+                  }
+                }
+              }, duration * 6000);
+            } else {
+              setMessage("An Error occured");
             }
-          }, 120000);
-        } else {
-          setMessage("An Error occured");
-        }
-      })
-      .catch((error) => {
+          })
+          .catch((error) => {
+            setLoadButton(false);
+            setLoadMessage("An Error Occured, Please Try Again");
+          });
+      } else {
         setLoadButton(false);
         setLoadMessage("An Error Occured, Please Try Again");
-      });
+      }
+    } catch (error) {
+      setLoadButton(false);
+      setLoadMessage("An Error Occured, Please Try Again");
+    }
   };
 
   const asterik = <span id="asterik">*</span>;
@@ -358,202 +384,226 @@ export default function ScheduleForm() {
         <br />
         <br />
 
-        <form className="sign-form" onSubmit={handleSubmit}>
-          <label className="requiredText">Sender's Full name{asterik}</label>
-          <input
-            type="text"
-            className="form-fields phone-input3 bottom-marg"
-            placeholder="Enter your full name"
-            name="fullname"
-            value={formData.fullname}
-            onChange={handleChange}
-          />
-          {/* <br /> */}
-
-          <label className="requiredText">Sender's Phone Number{asterik}</label>
-          <div className="delivery-location-input">
-            <img src={Flag} alt="" className="flag-icon" />
-            <span className="text-icon">+234</span>
-            <input
-              type="text"
-              className="form-fields phone-input bottom-marg"
-              placeholder="Enter your Phone Number"
-              name="phone_no"
-              maxLength={10}
-              value={formData.phone_no}
-              onChange={handleChange}
-            />
-          </div>
-          {/* <br /> */}
-
-          <label className="requiredText">Receiver's Full name{asterik}</label>
-          <input
-            type="text"
-            className="form-fields phone-input3"
-            placeholder="Enter Receiver's full name"
-            name="reciever_name"
-            value={formData.reciever_name}
-            onChange={handleChange}
-          />
-          <p className="error-style bottom-marg">{formErrors.reciever_name}</p>
-          {/* <br /> */}
-
-          <label className="requiredText">
-            Receiver's Phone Number{asterik}
-          </label>
-          <div className="delivery-location-input">
-            <img src={Flag} alt="" className="flag-icon" />
-            <span className="text-icon">+234</span>
-            <input
-              type="text"
-              className="form-fields phone-input"
-              placeholder="Enter Receiver's Phone Number"
-              name="reciever_phone_no"
-              value={formData.reciever_phone_no}
-              onChange={handleChange}
-              maxLength={10}
-            />
-          </div>
-          <p className="error-style bottom-marg">
-            {formErrors.reciever_phone_no}
-          </p>
-          {/* <br /> */}
-
-          <label className="requiredText">Item Name{asterik}</label>
-          <input
-            type="text"
-            className="form-fields phone-input3"
-            placeholder="Enter A Name For Your Item"
-            name="parcel_name"
-            value={formData.parcel_name}
-            onChange={handleChange}
-          />
-          <p className="error-style bottom-marg">{formErrors.parcel_name}</p>
-          {/* <br /> */}
-
-          <label className="requiredText">Item Type{asterik}</label>
-          <select
-            defaultValue={parcelType}
-            className="form-fields phone-input3 bottom-marg"
-            name="ParcelType"
-            onChange={handleType}
-            // value={parcelType}
-          >
-            <option value="fragile">Fragile</option>
-            <option value="non-fragile">Non-Fragile</option>
-          </select>
-          {/* <br /> */}
-
-          <label className="requiredText">Quantity of Items{asterik}</label>
-          <input
-            type="number"
-            className="form-fields phone-input3"
-            placeholder="Describe your Item"
-            name="parcel_description"
-            value={formData.parcel_description}
-            onChange={handleChange}
-            min={1}
-          />
-          <p className="error-style bottom-marg">
-            {formErrors.parcel_description}
-          </p>
-          {/* <br /> */}
-
-          <label className="requiredText">Delivery Instructions</label>
-          <textarea
-            type="text"
-            className="form-field-Instructions phone-input3 textarea bottom-marg"
-            placeholder="Enter any specific Instruction for the delivery agent to note"
-            name="delivery_instructions"
-            value={instructions}
-            onChange={handleInstructions}
-          />
-          {/* <br /> */}
-
-          <div id="time-factor" className="bottom-marg">
-            <p>
-              Scheduled Delivery Pickup Date {asterik}{" "}
+        <div className="nedu-form">
+          <form className="nedu-sign-form" onSubmit={handleSubmit}>
+            <label className="requiredText">Sender's Full name{asterik}</label>
+            <div className="nedu-info-div bottom-marg">
               <input
-                value={expiry}
-                type="date"
-                className="date-field bottom-marg"
-                placeholder="Pick Date"
-                name="license-expiry"
-                onChange={handleDate}
+                type="text"
+                className="phone-input3 nedu-info-div"
+                placeholder="Enter your full name"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleChange}
               />
-            </p>
-            {/* <br />
-            <br /> */}
-            <p>
-              Scheduled Delivery Pickup Time {asterik}{" "}
-              <input
-                type="time"
-                className="date-field"
-                placeholder="Pick time"
-                name="license-expiry"
-                value={time}
-                onChange={handleTime}
-              />
-            </p>
-          </div>
-          {/* <br /> */}
-
-          <div className="field">
-            <legend className="requiredText">
-              Upload Images of Your Item {asterik}{" "}
-              <span id="image-upload">(Max of 5 images)</span>
-            </legend>
-            <br />
-
-            <section id="vector-sec">
-              <div className="Upload" id="vector">
-                <label>
-                  <img src={Vector} alt="Vector" />
-                  <input
-                    type="file"
-                    accept=".png, .jpg, .jpeg, .gif"
-                    name="selectedFile"
-                    disabled={fileLimit}
-                    onChange={uploadMultipleFiles}
-                    multiple
-                  />
-                </label>
-              </div>
-              <div className="Selected-file-div">
-                {isSelected === true
-                  ? deliveryFiles.map((item, index) => (
-                      <div className="removal-button" key={index}>
-                        <img src={URL.createObjectURL(item)} alt="" />
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleDelete(item);
-                            // e.preventDefault();
-                            // setIsSelected(false);
-                            // images.splice(images.indexOf(item), 1);
-                            // picUploaded.splice(picUploaded.indexOf(item), 1);
-                          }}
-                        >
-                          remove
-                        </button>
-                      </div>
-                    ))
-                  : ""}
-              </div>
-              <p className="error-style">{fileError}</p>
-            </section>
-            <div className="Upload" id="uploadText">
-              N/B: <strong>{AgentName}</strong> will receive your delivery
-              request and confirm if
-              <br /> available on the chosen date and time.
             </div>
-          </div>
+            {/* <br /> */}
 
-          <div id="center-button">
-            <Button name="Next" type="submit" loading={loadButton} />
-            <p className="error-style bottom-marg">{loadMessage}</p>
-          </div>
-        </form>
+            <label className="requiredText">
+              Sender's Phone Number{asterik}
+            </label>
+            <div className="nedu-info-div bottom-marg">
+              <div className="delivery-location-input">
+                <img src={Flag} alt="" className="flag-icon" />
+                <span className="text-icon">+234</span>
+                <input
+                  type="text"
+                  className="nedu-info-div phone-input"
+                  placeholder="Enter your Phone Number"
+                  name="phone_no"
+                  maxLength={10}
+                  value={formData.phone_no}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            {/* <br /> */}
+
+            <label className="requiredText">
+              Receiver's Full name{asterik}
+            </label>
+            <div className="nedu-info-div">
+              <input
+                type="text"
+                className="nedu-info-div phone-input3"
+                placeholder="Enter Receiver's full name"
+                name="reciever_name"
+                value={formData.reciever_name}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="error-style bottom-marg">
+              {formErrors.reciever_name}
+            </p>
+            {/* <br /> */}
+
+            <label className="requiredText">
+              Receiver's Phone Number{asterik}
+            </label>
+            <div className="nedu-info-div">
+              <div className="delivery-location-input">
+                <img src={Flag} alt="" className="flag-icon" />
+                <span className="text-icon">+234</span>
+                <input
+                  type="text"
+                  className="nedu-info-div phone-input"
+                  placeholder="Enter Receiver's Phone Number"
+                  name="reciever_phone_no"
+                  value={formData.reciever_phone_no}
+                  onChange={handleChange}
+                  maxLength={10}
+                />
+              </div>
+            </div>
+            <p className="error-style bottom-marg">
+              {formErrors.reciever_phone_no}
+            </p>
+            {/* <br /> */}
+
+            <label className="requiredText">Item Name{asterik}</label>
+            <div className="nedu-info-div">
+              <input
+                type="text"
+                className="nedu-info-div phone-input3"
+                placeholder="Enter A Name For Your Item"
+                name="parcel_name"
+                value={formData.parcel_name}
+                onChange={handleChange}
+              />
+            </div>
+            <p className="error-style bottom-marg">{formErrors.parcel_name}</p>
+            {/* <br /> */}
+
+            <label className="requiredText">Item Type{asterik}</label>
+            <div className="nedu-info-div bottom-marg">
+              <select
+                defaultValue={parcelType}
+                className="nedu-info-div phone-input3"
+                name="ParcelType"
+                onChange={handleType}
+                // value={parcelType}
+              >
+                <option value="fragile">Fragile</option>
+                <option value="non-fragile">Non-Fragile</option>
+              </select>
+            </div>
+            {/* <br /> */}
+
+            <label className="requiredText">Quantity of Items{asterik}</label>
+            <div className="nedu-info-div">
+              <input
+                type="number"
+                className="nedu-info-div phone-input3"
+                placeholder="Describe your Item"
+                name="parcel_description"
+                value={formData.parcel_description}
+                onChange={handleChange}
+                min={1}
+              />
+            </div>
+            <p className="error-style bottom-marg">
+              {formErrors.parcel_description}
+            </p>
+            {/* <br /> */}
+
+            <label className="requiredText">Delivery Instructions</label>
+            <div className="nedu-info-div bottom-marg">
+              <textarea
+                type="text"
+                className="form-field-Instructions phone-input3 textarea nedu-info-div"
+                placeholder="Enter any specific Instruction for the delivery agent to note"
+                name="delivery_instructions"
+                value={instructions}
+                onChange={handleInstructions}
+              />
+            </div>
+            {/* <br /> */}
+
+            <div id="time-factor" className="bottom-marg">
+              <p className="bottom-marg">
+                Scheduled Delivery Pickup Date {asterik}{" "}
+                <input
+                  value={expiry}
+                  type="date"
+                  className="date-field"
+                  placeholder="Pick Date"
+                  name="license-expiry"
+                  onChange={handleDate}
+                />
+              </p>
+              {/* <br />
+            <br /> */}
+              <p>
+                Scheduled Delivery Pickup Time {asterik}{" "}
+                <input
+                  type="time"
+                  className="date-field"
+                  placeholder="Pick time"
+                  name="license-expiry"
+                  value={time}
+                  onChange={handleTime}
+                />
+              </p>
+            </div>
+            {/* <br /> */}
+
+            <div className="field">
+              <legend className="requiredText">
+                Upload Images of Your Item {asterik}{" "}
+                <span id="image-upload">(Max of 5 images)</span>
+              </legend>
+              <br />
+
+              <section id="vector-sec">
+                <div className="Upload" id="vector">
+                  <label>
+                    <img src={Vector} alt="Vector" />
+                    <input
+                      type="file"
+                      accept=".png, .jpg, .jpeg, .gif"
+                      name="selectedFile"
+                      disabled={fileLimit}
+                      onChange={uploadMultipleFiles}
+                      multiple
+                    />
+                  </label>
+                </div>
+                <div className="Selected-file-div">
+                  {isSelected === true
+                    ? deliveryFiles.map((item, index) => (
+                        <div className="removal-button" key={index}>
+                          <img src={URL.createObjectURL(item)} alt="" />
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleDelete(item);
+                              // e.preventDefault();
+                              // setIsSelected(false);
+                              // images.splice(images.indexOf(item), 1);
+                              // picUploaded.splice(picUploaded.indexOf(item), 1);
+                            }}
+                          >
+                            remove
+                          </button>
+                        </div>
+                      ))
+                    : ""}
+                </div>
+                <p className="error-style">{fileError}</p>
+              </section>
+              <div className="Upload" id="uploadText">
+                N/B: <strong>{AgentName}</strong> will receive your delivery
+                request and confirm if
+                <br /> available on the chosen date and time.
+              </div>
+            </div>
+
+            <div id="center-button">
+              <Button name="Next" type="submit" loading={loadButton} />
+              <p className="error-style bottom-marg">{loadMessage}</p>
+            </div>
+          </form>
+        </div>
       </div>
     );
 }

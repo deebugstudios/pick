@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import "./pendingdeliveryspecifics.css";
 import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import map from "../../Images/map.png";
 import { DeliveryImages } from "../Details info/DeliveryImages";
@@ -10,7 +11,6 @@ import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 import { useNavigate, useLocation } from "react-router-dom";
 import Popup from "../../javascript/Popup";
 import ReportReason from "../ReportReason";
-
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateConverter } from "../../../DateAndTimeConverter";

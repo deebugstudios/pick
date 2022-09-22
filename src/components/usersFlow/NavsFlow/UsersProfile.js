@@ -125,40 +125,6 @@ export default function UsersProfile() {
         // console.log(error);
         setLoadButton(false);
       });
-
-    // try {
-    //   const res = await fetch(
-    //     "https://ancient-wildwood-73926.herokuapp.com/user_profile/edit",
-    //     {
-    //       method: "POST",
-
-    //       body: JSON.stringify({
-    //         token: JSON.parse(token),
-    //         fullname: userName,
-    //         image: selectedFile,
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json, text/plain, */*",
-    //       },
-    //     }
-    //   );
-    //   const data = await res.json();
-    //   console.log(data);
-
-    //   if (res.status === 200) {
-    //     // setPopupButton(true);
-    //     // navigate("/user/user-profile");
-    //     alert("Profile Updated Successfully");
-    //     setLoadButton(false);
-    //   } else {
-    //     setLoadButton(false);
-    //     // setMessage("Error occured");
-    //   }
-    // } catch (error) {
-    //   // console.log(error);
-    //   setLoadButton(false);
-    // }
   };
 
   const onFileChange = (e) => {
@@ -244,70 +210,80 @@ export default function UsersProfile() {
               </div>
             </div>
 
-            <form id="user-info-form" onSubmit={handleSubmit}>
-              <label htmlFor="fullname">Full name</label>
-              <div className="user-info-div bottom-marg">
-                <input
-                  name="fullname"
-                  value={userName}
-                  onChange={handleChange}
-                  style={{
-                    backgroundColor: changeActive ? "#ececec" : "white",
-                    border: changeActive ? "none" : "1px solid black",
-                  }}
-                  disabled={changeActive}
+            <div className="nedu-form-profile">
+              <form id="user-info-form" onSubmit={handleSubmit}>
+                <label htmlFor="fullname">Full name</label>
+                <div className="nedu-info-div">
+                  <div className="user-info-div bottom-marg">
+                    <input
+                      name="fullname"
+                      value={userName}
+                      className="nedu-info-div"
+                      onChange={handleChange}
+                      style={{
+                        backgroundColor: changeActive ? "#ececec" : "white",
+                        border: changeActive ? "none" : "1px solid black",
+                      }}
+                      disabled={changeActive}
 
-                  // autoFocus
-                />
-                <span
-                  className="change-prof"
-                  onClick={() => {
-                    setChangeActive(false);
-                  }}
-                >
-                  change
-                </span>
-              </div>
-              {/* <br /> */}
-
-              <label htmlFor="email">Email</label>
-              <div className="user-info-div bottom-marg">
-                <input
-                  name="email"
-                  value={userDetails.email}
-                  className="user-info"
-                  disabled={true}
-                />
-              </div>
-              {/* <br /> */}
-
-              <label htmlFor="phonenumber">Phone number</label>
-              <div className="user-info-div bottom-marg">
-                <div className="delivery-location-input">
-                  <img src={Flag} alt="" className="flag-icon" />
-                  <span className="text-icon">+234</span>
-                  <input
-                    name="phonenumber"
-                    value={userDetails.phone_no}
-                    className="user-info phone-input"
-                    disabled={true}
-                  />
+                      // autoFocus
+                    />
+                    <span
+                      className="change-prof"
+                      onClick={() => {
+                        setChangeActive(false);
+                      }}
+                    >
+                      change
+                    </span>
+                  </div>
                 </div>
-                <span
-                  className="change-prof"
-                  onClick={() => {
-                    navigate("/user/change", {
-                      state: { phone: userDetails.phone_no },
-                    });
-                  }}
-                >
-                  change
-                </span>
-              </div>
-              {/* <br /> */}
+                {/* <br /> */}
 
-              <Button name="Save and Update" loading={loadButton} />
-            </form>
+                <label htmlFor="email">Email</label>
+                <div className="nedu-info-div bottom-marg">
+                  <div className="user-info-div">
+                    <input
+                      name="email"
+                      value={userDetails.email}
+                      className="user-info nedu-info-div"
+                      disabled={true}
+                    />
+                    <span className="change-prof-hidden">change</span>
+                  </div>
+                </div>
+                {/* <br /> */}
+
+                <label htmlFor="phonenumber">Phone number</label>
+                <div className="nedu-info-div bottom-marg">
+                  <div className="delivery-location-input">
+                    <img src={Flag} alt="" className="flag-icon" />
+                    <span className="text-icon">+234</span>
+                    <div className="user-info-div">
+                      <input
+                        name="phonenumber"
+                        value={userDetails.phone_no}
+                        className="phone-input nedu-info-div"
+                        disabled={true}
+                      />
+                      <span
+                        className="change-prof"
+                        onClick={() => {
+                          navigate("/user/change", {
+                            state: { phone: userDetails.phone_no },
+                          });
+                        }}
+                      >
+                        change
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {/* <br /> */}
+
+                <Button name="Save and Update" loading={loadButton} />
+              </form>
+            </div>
             <br />
           </div>
         </div>

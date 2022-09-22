@@ -7,6 +7,7 @@
   margin: 30px auto 30px auto;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 #img-flex {
   display: flex;
@@ -40,6 +41,14 @@
   max-width: 40px;
   max-height: 40px;
 }
+.nedu-form-profile {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 30px; */
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
 .user-image {
   width: 100px;
   height: 100px;
@@ -59,6 +68,8 @@
 #user-info-form {
   display: flex;
   flex-direction: column;
+  width: 100% !important;
+  padding: 0 10px;
 }
 #user-info-form input {
   height: 45px;
@@ -69,7 +80,6 @@
   opacity: 1;
   padding-left: 20px;
   outline: none;
-  width: 800px;
 }
 #user-info-form label {
   font-size: small;
@@ -78,6 +88,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  width: 100%;
 }
 .user-info-div-1 {
   display: flex;
@@ -95,4 +106,16 @@
   font-size: small;
   margin-left: 5px;
   color: #959398;
+}
+.change-prof-hidden {
+  visibility: hidden;
+  cursor: pointer;
+  font-size: small;
+  margin-left: 5px;
+  color: #959398;
+}
+@media screen and (max-width: 400px) {
+  .img-border {
+    margin: 10px 10px 15px 10px;
+  }
 }

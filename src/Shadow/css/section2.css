@@ -131,15 +131,14 @@ img {
     padding-right: 0;
   }
   .section2-subsec1-wrapper > div > p {
-    padding: 0 .5em;
-    margin-top: .6em;
+    padding: 0 0.5em;
+    margin-top: 0.6em;
   }
 }
 
-
-@media screen and (max-width:1316px) {
+@media screen and (max-width: 1316px) {
   .section2-subsec1-wrapper > div > p {
     padding: 0 1.9em;
-    margin-top: .6em;
+    margin-top: 0.6em;
   }
 }

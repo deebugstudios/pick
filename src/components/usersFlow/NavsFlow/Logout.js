@@ -12,7 +12,7 @@ export default function Logout() {
   const [loading, setLoading] = useState(false);
   const handleLogout = async () => {
     setLoading(true);
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
     window.location.reload(true);
     setLoading(false);
