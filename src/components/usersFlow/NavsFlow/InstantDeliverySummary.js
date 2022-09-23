@@ -4,6 +4,7 @@ import {
   DeliveryImages2,
 } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
+import "./pendingdeliveryspecifics.css";
 import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import { DeliverInfo, DeliverInfo2 } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
@@ -116,7 +117,7 @@ export default function InstantDeliverySummary() {
       phone,
     },
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
-    className: { showButton },
+    className: showButton,
     text: "Proceed to Payment",
     onSuccess: () => {
       handleSubmit();

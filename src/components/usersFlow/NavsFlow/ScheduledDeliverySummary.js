@@ -120,7 +120,7 @@ export default function ScheduledDeliverySummary() {
       phone,
     },
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
-    className: { showButton },
+    className: showButton,
     text: "Proceed to Payment",
     // callback: function (response) {},
     onSuccess: () => {

@@ -286,7 +286,7 @@ export default function ScheduleForm() {
                 let fireData = {};
                 const accepted = onSnapshot(
                   doc(db, "delivery_requests", deliveryID),
-                  async (doc) => {
+                  (doc) => {
                     fireData = doc.data();
                     if (fireData.delivery_status_is_accepted === true) {
                       accepted();
@@ -395,7 +395,11 @@ export default function ScheduleForm() {
   const asterik = <span id="asterik">*</span>;
 
   if (loading == true) {
-    return <FindingDeliveriesUser />;
+    return (
+      <FindingDeliveriesUser
+        text={`N/B: ${AgentName} will receive your delivery request and confirm if available on the chosen date and time.`}
+      />
+    );
   } else
     return (
       <div className="white-div">

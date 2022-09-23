@@ -357,7 +357,12 @@ export default function FormUserDelivery() {
 
   const asterik = <span id="asterik">*</span>;
   if (loading == true) {
-    return <FindingDeliveriesUser medium={vehicle} />;
+    return (
+      <FindingDeliveriesUser
+        text={`Please wait while pickload pairs you with the closest available{" "}
+            ${vehicle} Delivery Agent...`}
+      />
+    );
   } else
     return (
       <div className="white-div">
