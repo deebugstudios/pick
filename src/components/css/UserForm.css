@@ -18,7 +18,7 @@
 } */
 .input-field {
   width: 400px;
-  height: 45px;
+  /* height: 45px; */
   /* max-width: auto; */
 }
 #asterik {
@@ -75,7 +75,7 @@
   left: 40px;
   font-size: small;
   border-right: 1px solid rgba(10, 16, 52, 0.7);
-  padding: 12px 5px 13px 0px;
+  padding: 17px 5px 16px 0px;
   text-align: center;
   opacity: 0.8;
 }

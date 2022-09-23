@@ -78,7 +78,7 @@ label {
 }
 .form-field {
   width: 500px;
-  height: 45px;
+  /* height: 45px; */
 }
 .secondField {
   width: 340px;

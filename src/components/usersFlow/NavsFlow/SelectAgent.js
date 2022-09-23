@@ -120,7 +120,13 @@ export default function SelectAgent() {
                       <div className="ratings-star">
                         <p>Rating</p>
                         <p>
-                          {item?.rating.total_rating}.0 {Stars}
+                          {item?.rating.rating_count > 0
+                            ? (
+                                item?.rating.total_rating /
+                                item?.rating.rating_count
+                              ).toFixed(1)
+                            : "0"}{" "}
+                          {Stars}
                         </p>
                       </div>
                       <div className="ratings-star">

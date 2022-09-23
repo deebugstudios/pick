@@ -4,6 +4,7 @@ import {
   DeliveryImages2,
 } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
+import "./pendingdeliveryspecifics.css";
 import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import { DeliverInfo } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
@@ -21,6 +22,7 @@ export default function ScheduledDeliverySummary() {
   const [scheduledDate, setScheduledDate] = useState("");
   const [scheduledTime, setScheduledTime] = useState("");
   const [parcelCode, setParcelCode] = useState("");
+  const [showButton, setShowButton] = useState("paystack-button");
 
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
@@ -29,9 +31,42 @@ export default function ScheduledDeliverySummary() {
   const name = location.state.name;
   const phone = location.state.number;
   const vehicle = location.state.deliveryMedium;
+  const payDuration = location.state.payDuration;
   const userValues = useContext(userContext);
   const { token } = userValues;
   const navigate = useNavigate();
+
+  const timer = setTimeout(async () => {
+    alert("Your payment time has expired, please make a new delivery");
+    setShowButton("payment-button");
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            delivery_id: deliveryID,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      // console.log(data);
+
+      if (res.status === 200) {
+        //
+      } else {
+        //
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  }, payDuration * 60000);
 
   const handleSubmit = async () => {
     try {
@@ -64,12 +99,13 @@ export default function ScheduledDeliverySummary() {
       const data = await res.json();
       // console.log(data);
       if (res.status === 200) {
+        clearTimeout(timer);
         navigate("/paysuccess", { state: { itemId: parcelCode } });
       } else {
         // setMessage("An Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // const err = error
     }
   };
@@ -84,7 +120,7 @@ export default function ScheduledDeliverySummary() {
       phone,
     },
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
-    className: "paystack-button",
+    className: { showButton },
     text: "Proceed to Payment",
     // callback: function (response) {},
     onSuccess: () => {

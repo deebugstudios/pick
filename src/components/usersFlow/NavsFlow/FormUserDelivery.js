@@ -193,138 +193,159 @@ export default function FormUserDelivery() {
           }),
         }
       );
+
       const data = await res.json();
       const duration = data?.request_timeout_duration * 60000;
-      if (res.status === 200) {
-        const bodyFormData = new FormData();
-        bodyFormData.append("token", JSON.parse(token));
-        bodyFormData.append("distance", distance);
-        bodyFormData.append("email", email);
-        bodyFormData.append("fullname", formData.fullname);
-        bodyFormData.append("phone_no", formData.phone_no);
-        bodyFormData.append("delivery_type", member);
-        bodyFormData.append("delivery_medium", vehicle);
-        bodyFormData.append("pickup_location", pickupLocation);
-        bodyFormData.append("pickup_address", pickup_address);
-        bodyFormData.append("drop_off_address", drop_off_address);
-        bodyFormData.append("drop_off_location", dropOffLocation);
-        bodyFormData.append("reciever_name", formData.reciever_name);
-        bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
-        bodyFormData.append("parcel_name", formData.parcel_name);
-        bodyFormData.append(
-          "parcel_description",
-          formData.parcel_description.toString()
+
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/stats/get_payment_timeout_duration",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              token: JSON.parse(token),
+            }),
+          }
         );
-        bodyFormData.append("delivery_instructions", realInstructions);
-        bodyFormData.append("parcel_type", parcelType);
-        bodyFormData.append("delivery_cost", delivery_cost);
-        bodyFormData.append("state", pickupState);
-        for (let i = 0; i < deliveryFiles.length; i++) {
-          bodyFormData.append("delivery_files", deliveryFiles[i]);
-        }
+        const result = await res.json();
+        const payDuration = result?.payment_timeout_duration;
+        if (res.status === 200) {
+          const bodyFormData = new FormData();
+          bodyFormData.append("token", JSON.parse(token));
+          bodyFormData.append("distance", distance);
+          bodyFormData.append("email", email);
+          bodyFormData.append("fullname", formData.fullname);
+          bodyFormData.append("phone_no", formData.phone_no);
+          bodyFormData.append("delivery_type", member);
+          bodyFormData.append("delivery_medium", vehicle);
+          bodyFormData.append("pickup_location", pickupLocation);
+          bodyFormData.append("pickup_address", pickup_address);
+          bodyFormData.append("drop_off_address", drop_off_address);
+          bodyFormData.append("drop_off_location", dropOffLocation);
+          bodyFormData.append("reciever_name", formData.reciever_name);
+          bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
+          bodyFormData.append("parcel_name", formData.parcel_name);
+          bodyFormData.append(
+            "parcel_description",
+            formData.parcel_description.toString()
+          );
+          bodyFormData.append("delivery_instructions", realInstructions);
+          bodyFormData.append("parcel_type", parcelType);
+          bodyFormData.append("delivery_cost", delivery_cost);
+          bodyFormData.append("state", pickupState);
+          for (let i = 0; i < deliveryFiles.length; i++) {
+            bodyFormData.append("delivery_files", deliveryFiles[i]);
+          }
 
-        axios
-          .post(
-            "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
-            bodyFormData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          )
-          .then((response) => {
-            // console.log(response);
-            if (response.status === 200) {
+          axios
+            .post(
+              "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
+              bodyFormData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
+            .then((response) => {
               // console.log(response);
-              let data = response.data;
-              console.log(data);
-              setLoading(true);
-              const deliveryID = data.delivery._id;
-              const notifId = data.notification_id;
+              if (response.status === 200) {
+                // console.log(response);
+                let data = response.data;
+                console.log(data);
+                setLoading(true);
+                const deliveryID = data.delivery._id;
+                const notifId = data.notification_id;
 
-              let fireData = {};
-              const accepted = onSnapshot(
-                doc(db, "delivery_requests", deliveryID),
-                async (doc) => {
-                  fireData = doc.data();
-                  if (fireData.delivery_status_is_accepted === true) {
-                    accepted();
-                    setLoading(false);
-                    clearTimeout(timer);
-                    navigate("/user/summary-i", {
-                      state: {
-                        type: member,
-                        price: delivery_cost,
-                        pickup_address: pickup_address,
-                        drop_off_address: drop_off_address,
-                        senderName: formData.fullname,
-                        senderNumber: formData.phone_no,
-                        reciever_name: formData.reciever_name,
-                        reciever_phone_no: formData.reciever_phone_no,
-                        parcelName: formData.parcel_name,
-                        parcelType: parcelType,
-                        Quantity: formData.parcel_description,
-                        instructions: instructions,
-                        deliveryMedium: vehicle,
-                        deliveryID: deliveryID,
-                        email: email,
-                        name: senderName,
-                        number: number,
-                      },
-                    });
-                  }
-                }
-              );
-              const timer = setTimeout(async () => {
-                accepted();
-                alert(
-                  "Your pickup request wasn't accepted by any Delivery Agent. Please try again"
-                );
-                setLoading(false);
-                if (fireData.delivery_status_is_accepted === false) {
-                  try {
-                    const res = await fetch(
-                      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
-                      {
-                        method: "POST",
-
-                        body: JSON.stringify({
-                          token: JSON.parse(token),
-                          delivery_id: deliveryID,
-                          notification_id: notifId,
-                        }),
-                        headers: {
-                          "Content-Type": "application/json",
-                          Accept: "application/json, text/plain, */*",
+                let fireData = {};
+                const accepted = onSnapshot(
+                  doc(db, "delivery_requests", deliveryID),
+                  async (doc) => {
+                    fireData = doc.data();
+                    if (fireData.delivery_status_is_accepted === true) {
+                      accepted();
+                      setLoading(false);
+                      clearTimeout(timer);
+                      navigate("/user/summary-i", {
+                        state: {
+                          type: member,
+                          price: delivery_cost,
+                          pickup_address: pickup_address,
+                          drop_off_address: drop_off_address,
+                          senderName: formData.fullname,
+                          senderNumber: formData.phone_no,
+                          reciever_name: formData.reciever_name,
+                          reciever_phone_no: formData.reciever_phone_no,
+                          parcelName: formData.parcel_name,
+                          parcelType: parcelType,
+                          Quantity: formData.parcel_description,
+                          instructions: instructions,
+                          deliveryMedium: vehicle,
+                          deliveryID: deliveryID,
+                          email: email,
+                          name: senderName,
+                          number: number,
+                          payDuration: payDuration,
                         },
-                      }
-                    );
-                    const data = await res.json();
-                    // console.log(data);
-
-                    if (res.status === 200) {
-                      //
-                    } else {
-                      //
+                      });
                     }
-                  } catch (error) {
-                    // console.log(error);
                   }
-
+                );
+                const timer = setTimeout(async () => {
+                  accepted();
+                  alert(
+                    "Your pickup request wasn't accepted by any Delivery Agent. Please try again"
+                  );
+                  setLoading(false);
                   setLoadButton(false);
-                }
-              }, duration);
-            } else {
-              setMessage("An Error occured");
-            }
-          })
-          .catch((error) => {
-            // console.log(error);
-            setLoadButton(false);
-            setLoadMessage("An Error Occured, Please Try Again");
-          });
-      } else {
+                  if (fireData.delivery_status_is_accepted === false) {
+                    try {
+                      const res = await fetch(
+                        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
+                        {
+                          method: "POST",
+
+                          body: JSON.stringify({
+                            token: JSON.parse(token),
+                            delivery_id: deliveryID,
+                            notification_id: notifId,
+                          }),
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json, text/plain, */*",
+                          },
+                        }
+                      );
+                      const data = await res.json();
+                      // console.log(data);
+
+                      if (res.status === 200) {
+                        //
+                      } else {
+                        //
+                      }
+                    } catch (error) {
+                      // console.log(error);
+                    }
+                  }
+                }, duration);
+              } else {
+                setMessage("An Error occured");
+              }
+            })
+            .catch((error) => {
+              // console.log(error);
+              setLoadButton(false);
+              setLoadMessage("An Error Occured, Please Try Again");
+            });
+        } else {
+          setLoadButton(false);
+          setLoadMessage("An Error Occured, Please Try Again");
+        }
+      } catch {
         setLoadButton(false);
         setLoadMessage("An Error Occured, Please Try Again");
       }
@@ -534,9 +555,8 @@ export default function FormUserDelivery() {
 
               <div className="Upload" id="uploadText">
                 N/B: The closest available <span>{vehicle.toUpperCase()}</span>{" "}
-                delivery agent would receive and confirm
-                <br /> your request after which you'll be directed to the
-                payment page.
+                delivery agent would receive and confirm your request after
+                which you'll be directed to the payment page.
               </div>
             </div>
 

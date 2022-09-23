@@ -148,7 +148,7 @@ export default function App() {
               <Route path="account" element={<AgentCompleted />} />
               <Route path="success" element={<Success />} />
               <Route path="user" element={<LoggedinMainPageUser />}>
-                {/* The Route*/}
+                {/* The Route */}
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />

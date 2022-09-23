@@ -10,7 +10,7 @@ export default function Signup() {
       <Sign
         title="Join PickLoad as a:"
         joinAs="User"
-        secondAs=" Delivery Agent"
+        secondAs="Delivery Agent"
         imageJoin={User}
         imageJoin2={Rider}
         name="Next"

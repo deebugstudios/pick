@@ -167,3 +167,7 @@
     margin-right: 10px !important;
   }
 } */
+
+.payment-button {
+  display: none;
+}

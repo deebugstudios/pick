@@ -217,150 +217,172 @@ export default function ScheduleForm() {
       const data = await res.json();
       const duration = data?.request_timeout_duration * 60000;
       // const realDuration = duration ;
-
-      // console.log(realDuration);
-      if (res.status === 200) {
-        const bodyFormData = new FormData();
-        bodyFormData.append("token", JSON.parse(token));
-        bodyFormData.append("distance", distance);
-        bodyFormData.append("fullname", formData.fullname);
-        bodyFormData.append("phone_no", formData.phone_no);
-        bodyFormData.append("delivery_type", type);
-        bodyFormData.append("delivery_medium", vehicle);
-        bodyFormData.append("pickup_location", pickupLocation);
-        bodyFormData.append("pickup_address", pickup_address);
-        bodyFormData.append("drop_off_address", drop_off_address);
-        bodyFormData.append("drop_off_location", dropOffLocation);
-        bodyFormData.append("reciever_name", formData.reciever_name);
-        bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
-        bodyFormData.append("email", email);
-        bodyFormData.append("parcel_name", formData.parcel_name);
-        bodyFormData.append(
-          "parcel_description",
-          formData.parcel_description.toString()
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/stats/get_payment_timeout_duration",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              token: JSON.parse(token),
+            }),
+          }
         );
-        bodyFormData.append("delivery_instructions", realInstructions);
-        bodyFormData.append("parcel_type", parcelType);
-        bodyFormData.append("delivery_cost", price);
-        bodyFormData.append("state", pickupState);
-        bodyFormData.append("delivery_agent_id", agentId);
-        bodyFormData.append("schParsedDateTime", dateTime);
-        bodyFormData.append("scheduled_delivery_pickup_timestamp", timeStamp);
-        for (let i = 0; i < deliveryFiles.length; i++) {
-          bodyFormData.append("delivery_files", deliveryFiles[i]);
-        }
+        const result = await res.json();
+        const payDuration = result?.payment_timeout_duration;
 
-        axios
-          .post(
-            "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
-            bodyFormData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              // console.log(response);
-              let data = response.data;
-              setLoading(true);
-              const deliveryID = data.delivery._id;
-              const notifId = data.notification_id;
+        // console.log(result);
+        if (res.status === 200) {
+          const bodyFormData = new FormData();
+          bodyFormData.append("token", JSON.parse(token));
+          bodyFormData.append("distance", distance);
+          bodyFormData.append("fullname", formData.fullname);
+          bodyFormData.append("phone_no", formData.phone_no);
+          bodyFormData.append("delivery_type", type);
+          bodyFormData.append("delivery_medium", vehicle);
+          bodyFormData.append("pickup_location", pickupLocation);
+          bodyFormData.append("pickup_address", pickup_address);
+          bodyFormData.append("drop_off_address", drop_off_address);
+          bodyFormData.append("drop_off_location", dropOffLocation);
+          bodyFormData.append("reciever_name", formData.reciever_name);
+          bodyFormData.append("reciever_phone_no", formData.reciever_phone_no);
+          bodyFormData.append("email", email);
+          bodyFormData.append("parcel_name", formData.parcel_name);
+          bodyFormData.append(
+            "parcel_description",
+            formData.parcel_description.toString()
+          );
+          bodyFormData.append("delivery_instructions", realInstructions);
+          bodyFormData.append("parcel_type", parcelType);
+          bodyFormData.append("delivery_cost", price);
+          bodyFormData.append("state", pickupState);
+          bodyFormData.append("delivery_agent_id", agentId);
+          bodyFormData.append("schParsedDateTime", dateTime);
+          bodyFormData.append("scheduled_delivery_pickup_timestamp", timeStamp);
+          for (let i = 0; i < deliveryFiles.length; i++) {
+            bodyFormData.append("delivery_files", deliveryFiles[i]);
+          }
 
-              let fireData = {};
-              const accepted = onSnapshot(
-                doc(db, "delivery_requests", deliveryID),
-                async (doc) => {
-                  fireData = doc.data();
-                  if (fireData.delivery_status_is_accepted === true) {
-                    accepted();
-                    setLoading(false);
-                    clearTimeout(timer);
-                    navigate("/user/scheduled-summary", {
-                      state: {
-                        type: type,
-                        price: price,
-                        pickup_address: pickup_address,
-                        drop_off_address: drop_off_address,
-                        senderName: formData.fullname,
-                        senderNumber: formData.phone_no,
-                        reciever_name: formData.reciever_name,
-                        reciever_phone_no: formData.reciever_phone_no,
-                        parcelName: formData.parcel_name,
-                        parcelType: parcelType,
-                        Quantity: formData.parcel_description,
-                        instructions: instructions,
-                        deliveryMedium: vehicle,
-                        deliveryID: deliveryID,
-                        email: email,
-                        name: senderName,
-                        number: phone_no,
-                      },
-                    });
-                  }
-                }
-              );
-              const timer = setTimeout(async () => {
-                // console.log(fireData);
-                accepted();
-                alert("Your pickup request wasn't accepted. Please try again");
-                setLoading(false);
-                if (fireData.delivery_status_is_accepted === false) {
-                  try {
-                    const res = await fetch(
-                      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
-                      {
-                        method: "POST",
+          axios
+            .post(
+              "https://ancient-wildwood-73926.herokuapp.com/user_delivery/new_delivery",
+              bodyFormData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
+            .then((response) => {
+              if (response.status === 200) {
+                // console.log(response);
+                let data = response.data;
+                setLoading(true);
+                const deliveryID = data.delivery._id;
+                const notifId = data.notification_id;
 
-                        body: JSON.stringify({
-                          token: JSON.parse(token),
-                          delivery_id: deliveryID,
-                          notification_id: notifId,
-                        }),
-                        headers: {
-                          "Content-Type": "application/json",
-                          Accept: "application/json, text/plain, */*",
-                        },
-                      }
-                    );
-                    const data = await res.json();
-                    // console.log(data);
-
-                    if (res.status === 200) {
-                      navigate("/user/select-a", {
+                let fireData = {};
+                const accepted = onSnapshot(
+                  doc(db, "delivery_requests", deliveryID),
+                  async (doc) => {
+                    fireData = doc.data();
+                    if (fireData.delivery_status_is_accepted === true) {
+                      accepted();
+                      setLoading(false);
+                      clearTimeout(timer);
+                      navigate("/user/scheduled-summary", {
                         state: {
-                          vehicle: vehicle,
-                          distance: distance,
-                          pickupLocation: pickupLocation,
-                          pickupState: pickupState,
-                          dropOffLocation: dropOffLocation,
+                          type: type,
                           price: price,
-                          member: type,
                           pickup_address: pickup_address,
                           drop_off_address: drop_off_address,
-                          senderName: senderName,
-                          number: phone_no,
+                          senderName: formData.fullname,
+                          senderNumber: formData.phone_no,
+                          reciever_name: formData.reciever_name,
+                          reciever_phone_no: formData.reciever_phone_no,
+                          parcelName: formData.parcel_name,
+                          parcelType: parcelType,
+                          Quantity: formData.parcel_description,
+                          instructions: instructions,
+                          deliveryMedium: vehicle,
+                          deliveryID: deliveryID,
                           email: email,
+                          name: senderName,
+                          number: phone_no,
+                          payDuration: payDuration,
                         },
                       });
-                    } else {
-                      //
                     }
-                  } catch (error) {
-                    // console.log(error);
                   }
-                }
-              }, duration);
-            } else {
-              setMessage("An Error occured");
-            }
-          })
-          .catch((error) => {
-            setLoadButton(false);
-            setLoadMessage("An Error Occured, Please Try Again");
-          });
-      } else {
+                );
+                const timer = setTimeout(async () => {
+                  // console.log(fireData);
+                  accepted();
+                  alert(
+                    "Your pickup request wasn't accepted. Please try again"
+                  );
+                  setLoading(false);
+                  if (fireData.delivery_status_is_accepted === false) {
+                    try {
+                      const res = await fetch(
+                        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout_before_acceptance",
+                        {
+                          method: "POST",
+
+                          body: JSON.stringify({
+                            token: JSON.parse(token),
+                            delivery_id: deliveryID,
+                            notification_id: notifId,
+                          }),
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json, text/plain, */*",
+                          },
+                        }
+                      );
+                      const data = await res.json();
+                      // console.log(data);
+
+                      if (res.status === 200) {
+                        navigate("/user/select-a", {
+                          state: {
+                            vehicle: vehicle,
+                            distance: distance,
+                            pickupLocation: pickupLocation,
+                            pickupState: pickupState,
+                            dropOffLocation: dropOffLocation,
+                            price: price,
+                            member: type,
+                            pickup_address: pickup_address,
+                            drop_off_address: drop_off_address,
+                            senderName: senderName,
+                            number: phone_no,
+                            email: email,
+                          },
+                        });
+                      } else {
+                        //
+                      }
+                    } catch (error) {
+                      // console.log(error);
+                    }
+                  }
+                }, duration);
+              } else {
+                setMessage("An Error occured");
+              }
+            })
+            .catch((error) => {
+              setLoadButton(false);
+              setLoadMessage("An Error Occured, Please Try Again");
+            });
+        } else {
+          setLoadButton(false);
+          setLoadMessage("An Error Occured, Please Try Again");
+        }
+      } catch {
         setLoadButton(false);
         setLoadMessage("An Error Occured, Please Try Again");
       }
@@ -594,8 +616,7 @@ export default function ScheduleForm() {
               </section>
               <div className="Upload" id="uploadText">
                 N/B: <strong>{AgentName}</strong> will receive your delivery
-                request and confirm if
-                <br /> available on the chosen date and time.
+                request and confirm if available on the chosen date and time.
               </div>
             </div>
 
