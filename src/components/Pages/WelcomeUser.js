@@ -469,7 +469,7 @@ export function WelcomeAgent() {
                 name="phone_no"
                 value={phone_no}
                 onChange={onChange}
-                // maxLength={10}
+                maxLength={10}
               />
             </div>
             <p className="error-style">{formErrors}</p>
