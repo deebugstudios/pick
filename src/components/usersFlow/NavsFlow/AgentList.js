@@ -1,129 +1,72 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./agentlist.css";
-import pickload from '../../Images/pickload.png'
+import pickload from "../../Images/pickload.png";
+import { useEffect } from "react";
+import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import { DateConverter } from "../../../DateAndTimeConverter";
+import { useNavigate } from "react-router-dom";
+
 export default function AgentList() {
+  const [conversations, setConversations] = useState([]);
+  const [timeSent, setTimeSent] = useState("");
+  const navigate = useNavigate();
+  const userValues = useContext(userContext);
+  const { token } = userValues;
 
-  const dataList = 
-  [
+  const fetchConversations = async () => {
+    const response = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_chat/get_conversations",
       {
-        profileImage : pickload,
-        profileName : "Shadow",
-        message: "testing",
-        sentAt: "2 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Chinedu",
-        message: "testing 1235",
-        sentAt: "4 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Light",
-        message: "test",
-        sentAt: "20 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mira",
-        message: "checing up on you fam",
-        sentAt: "29 mins ago"
-      },
-      {
-        profileImage : pickload,
-        profileName : "Mr Obinna",
-        message: "checing up on you fam checing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you famchecing up on you fam",
-        sentAt: "29 mins ago"
-      },
-  ]
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: JSON.parse(token),
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    setConversations(data?.conversations);
+    // setTimeSent(<DateConverter value={data?.conversations.timestamp} />);
+    //
+  };
 
-  function handleClick(){
-    alert("success")
-  }
+  useEffect(() => {
+    fetchConversations();
+  }, []);
 
-  const displayData = dataList.map((user, i)=> (
+  //   function handleClick() {
+  //     alert("success");
+  //   }
+
+  const displayData = conversations.map((user, i) => (
     <div className="shadow-agent-wrapper">
-      <div className="shadow-agent-container" onClick={handleClick}>
+      <div
+        className="shadow-agent-container"
+        onClick={() => {
+          navigate("/user/chatwithagentuser", {
+            state: {
+              agentId: user?.members[1],
+              agentName: user?.other_username,
+            },
+          });
+        }}
+      >
         <div className="shadow-agent-image">
-          <img src={pickload} />
+          <img src={user?.other_user_img} />
         </div>
         <div className="shadow-message-info-container">
-          <h3>{user?.profileName}</h3>
-          <p> {user?.message}</p>
+          <h3>{user?.other_username}</h3>
+          <p> {user?.latest_message.content}</p>
         </div>
-      <div className="shadow-time-of-message">
-        <p>{user?.sentAt}</p>
-      </div>
+        <div className="shadow-time-of-message">
+          <p>{<DateConverter value={user?.timestamp} />}</p>
+        </div>
       </div>
     </div>
-  ))
-
+  ));
 
   return (
     <section className="shadow-agentlist-wrapper">
@@ -132,5 +75,5 @@ export default function AgentList() {
         {displayData}
       </div>
     </section>
-    )
+  );
 }

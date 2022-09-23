@@ -148,6 +148,7 @@ export default function App() {
               <Route path="fleet-v" element={<FleetVehicle />} />
               <Route path="account" element={<AgentCompleted />} />
               <Route path="success" element={<Success />} />
+<<<<<<< HEAD
               <Route
                 path="user"
                 element={
@@ -156,6 +157,10 @@ export default function App() {
                 }
               >
                 {/* The Route*/}
+=======
+              <Route path="user" element={<LoggedinMainPageUser />}>
+                {/* The Route */}
+>>>>>>> 1e7f1a79d833a1a9523ff7bbd5fc7955dd657df1
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />

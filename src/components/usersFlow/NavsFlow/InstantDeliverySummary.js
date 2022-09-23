@@ -4,6 +4,7 @@ import {
   DeliveryImages2,
 } from "../Details info/DeliveryImages";
 import Checkout from "../../Images/checkoutprogress.png";
+import "./pendingdeliveryspecifics.css";
 import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
 import { DeliverInfo, DeliverInfo2 } from "../Details info/DeliverInfo";
 import Button from "../../javascript/Button";
@@ -15,6 +16,8 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 
 export default function InstantDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showButton, setShowButton] = useState("paystack-button");
+  const [parcelCode, setParcelCode] = useState("");
 
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
@@ -23,9 +26,42 @@ export default function InstantDeliverySummary() {
   const name = location.state.name;
   const phone = location.state.number;
   const vehicle = location.state.deliveryMedium;
+  const payDuration = location.state.payDuration;
   const navigate = useNavigate();
   const userValues = useContext(userContext);
   const { token } = userValues;
+
+  const timer = setTimeout(async () => {
+    alert("Your payment time has expired, please make a new delivery");
+    setShowButton("payment-button");
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            delivery_id: deliveryID,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      // console.log(data);
+
+      if (res.status === 200) {
+        //
+      } else {
+        //
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  }, payDuration * 60000);
 
   const amount = price * 100;
 
@@ -62,7 +98,7 @@ export default function InstantDeliverySummary() {
       // console.log(data);
 
       if (res.status === 200) {
-        navigate("/paysuccess");
+        navigate("/paysuccess", { state: { itemId: parcelCode } });
       } else {
         // setMessage("An Error occured");
       }
@@ -81,7 +117,7 @@ export default function InstantDeliverySummary() {
       phone,
     },
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
-    className: "paystack-button",
+    className: showButton,
     text: "Proceed to Payment",
     onSuccess: () => {
       handleSubmit();
@@ -110,6 +146,7 @@ export default function InstantDeliverySummary() {
     );
     const data = await res.json();
     setDeliveryDetails(data?.delivery);
+    setParcelCode(data?.delivery.parcel_code);
   };
 
   console.log(deliveryDetails);

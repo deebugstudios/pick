@@ -44,6 +44,33 @@ export default function UserRequestPickup() {
   /**@type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
 
+  function reverseString(str) {
+    return str.split("").reverse().join("");
+  }
+
+  /**
+   * @param {string | number}
+   */
+
+  function groupDigital(num) {
+    const emptyStr = "";
+    const group_regex = /\d{3}/g;
+
+    // delete extra comma by regex replace.
+    const trimComma = (str) => str.replace(/^[,]+|[,]+$/g, emptyStr);
+
+    const str = num + emptyStr;
+    const [integer, decimal] = str.split(".");
+
+    const conversed = reverseString(integer);
+
+    const grouped = trimComma(
+      reverseString(conversed.replace(/\d{3}/g, (match) => `${match},`))
+    );
+
+    return !decimal ? grouped : `${grouped}.${decimal}`;
+  }
+
   const calculateRoute = async () => {
     if (pickupRef.current.value === "" || destinationRef.current.value === "") {
       return;
@@ -262,7 +289,9 @@ export default function UserRequestPickup() {
         </div>
         <div id="price-div">
           <p>Delivery Fee </p>
-          <p id="price-p">&#8358;{price !== "" ? price : "0.00"}</p>
+          <p id="price-p">
+            &#8358;{price !== "" ? groupDigital(price) : "0.00"}
+          </p>
         </div>
 
         <div id="div-button">

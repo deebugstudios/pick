@@ -31,10 +31,7 @@ export const FindingDeliveriesUser = (props) => {
           <ClipLoader color={"grey"} size={100} />
         </div>
         <div className="loading-state-text-container">
-          <h4>
-            Please wait while pickload pairs you with the closest available{" "}
-            {props.medium} Delivery Agent...
-          </h4>
+          <h4>{props.text}</h4>
         </div>
       </div>
     </section>
