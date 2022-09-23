@@ -85,6 +85,7 @@ import ChangePaymentDetails from "./Shadow/Pages/PaymentDetails/ChangePaymentDet
 import ChangePhoneNumber from "./Shadow/Pages/ChangeNumber/ChangePhoneNumber";
 import { Notification } from "./Shadow/Pages/Notifications/Notification";
 import AgentList from "./components/usersFlow/NavsFlow/AgentList";
+import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 
 export default function App() {
   return (
@@ -147,7 +148,13 @@ export default function App() {
               <Route path="fleet-v" element={<FleetVehicle />} />
               <Route path="account" element={<AgentCompleted />} />
               <Route path="success" element={<Success />} />
-              <Route path="user" element={<LoggedinMainPageUser />}>
+              <Route
+                path="user"
+                element={
+                  // <ProtectedRoutes></ProtectedRoutes>
+                  <LoggedinMainPageUser />
+                }
+              >
                 {/* The Route*/}
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
@@ -194,12 +201,12 @@ export default function App() {
                 <Route path="change" element={<Change_Number />} />
               </Route>
 
-              <Route
+              {/* <Route
                 path="Deliveryrequest"
                 element={
                   <LoggedinMainPage name={<ResquestPickup />} logged={true} />
                 }
-              />
+              /> */}
 
               <Route path="paysuccess" element={<PaymentSuccess />} />
 
@@ -212,13 +219,13 @@ export default function App() {
               <Route path="review-thanks" element={<ReviewThanks />} />
 
               <Route path="request-success" element={<RequestSuccess />} />
-              <Route
+              {/* <Route
                 path="request-location"
                 element={
                   <LoggedinMainPage name={<RequestLocation />} logged={true} />
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="request-details"
                 element={
                   <LoggedinMainPage
@@ -226,7 +233,7 @@ export default function App() {
                     logged={true}
                   />
                 }
-              />
+              /> */}
 
               {/* <Route path="/pendingdeliveries" element={<LoggedinMainPage2 />}>
                 <Route
@@ -239,7 +246,11 @@ export default function App() {
                 path="Specificpickupdetails"
                 element={
                   <LoggedinMainPage
-                    name={<PendingDeliveryspecificsAgent />}
+                    name={
+                      <ProtectedRoutes>
+                        <PendingDeliveryspecificsAgent />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
@@ -247,19 +258,30 @@ export default function App() {
               <Route
                 path="deliveryhistory"
                 element={
-                  <LoggedinMainPage name={<DeliveryHistory />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <DeliveryHistory />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
               <Route
                 path="deliveryhistorydetails"
                 element={
                   <LoggedinMainPage
-                    name={<DeliveryHistoryDetailsAgent />}
+                    name={
+                      <ProtectedRoutes>
+                        <DeliveryHistoryDetailsAgent />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
               />
-              <Route
+              {/* <Route
                 path="scheduledhistorydetails"
                 element={
                   <LoggedinMainPage
@@ -267,7 +289,7 @@ export default function App() {
                     logged={true}
                   />
                 }
-              />
+              /> */}
               {/* <Route
                 path="Chatwithadmin"
                 element={
@@ -278,32 +300,66 @@ export default function App() {
               <Route
                 path="payment-details"
                 element={
-                  <LoggedinMainPage name={<PaymentDetails />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <PaymentDetails />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
               <Route
                 path="change-payment-details"
                 element={
                   <LoggedinMainPage
-                    name={<ChangePaymentDetails />}
+                    name={
+                      <ProtectedRoutes>
+                        <ChangePaymentDetails />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
               />
               <Route
                 path="agent-logout"
-                element={<LoggedinMainPage name={<Logout2 />} logged={true} />}
+                element={
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <Logout2 />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
+                }
               />
               <Route
                 path="agent-profile"
                 element={
-                  <LoggedinMainPage name={<ProfilePage />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <ProfilePage />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
               <Route
                 path="earnings"
                 element={
-                  <LoggedinMainPage name={<Payment_record />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <Payment_record />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
 
@@ -311,7 +367,11 @@ export default function App() {
                 path="my-earning"
                 element={
                   <LoggedinMainPage
-                    name={<DeliveryAgentEarningPage />}
+                    name={
+                      <ProtectedRoutes>
+                        <DeliveryAgentEarningPage />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
@@ -321,7 +381,11 @@ export default function App() {
                 path="my-statistics"
                 element={
                   <LoggedinMainPage
-                    name={<DeliveryAgentStatPage />}
+                    name={
+                      <ProtectedRoutes>
+                        <DeliveryAgentStatPage />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
@@ -331,7 +395,11 @@ export default function App() {
                 path="individual-payment"
                 element={
                   <LoggedinMainPage
-                    name={<Individual_records />}
+                    name={
+                      <ProtectedRoutes>
+                        <Individual_records />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
@@ -340,7 +408,14 @@ export default function App() {
               <Route
                 path="payment-stat"
                 element={
-                  <LoggedinMainPage name={<Payment_Stat />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <Payment_Stat />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
 
@@ -348,27 +423,52 @@ export default function App() {
                 index
                 path="fleet-stat"
                 element={
-                  <LoggedinMainPage name={<Payment_Bar_stat />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <Payment_Bar_stat />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
 
               <Route
                 path="transactions"
                 element={
-                  <LoggedinMainPage name={<MyEarnings />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <MyEarnings />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
               <Route
                 path="paymentrecord"
                 element={
-                  <LoggedinMainPage name={<Payment_record />} logged={true} />
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <Payment_record />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
                 }
               />
               <Route
                 path="change-phone-number"
                 element={
                   <LoggedinMainPage
-                    name={<ChangePhoneNumber />}
+                    name={
+                      <ProtectedRoutes>
+                        <ChangePhoneNumber />
+                      </ProtectedRoutes>
+                    }
                     logged={true}
                   />
                 }
