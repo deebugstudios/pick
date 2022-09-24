@@ -86,6 +86,8 @@ import ChangePhoneNumber from "./Shadow/Pages/ChangeNumber/ChangePhoneNumber";
 import { Notification } from "./Shadow/Pages/Notifications/Notification";
 import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
+import { UserProtectedRoutes } from "./UserProtectedRoutes";
+import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
 
 export default function App() {
   return (
@@ -148,7 +150,14 @@ export default function App() {
               <Route path="fleet-v" element={<FleetVehicle />} />
               <Route path="account" element={<AgentCompleted />} />
               <Route path="success" element={<Success />} />
-              <Route path="user" element={<LoggedinMainPageUser />}>
+              <Route
+                path="user"
+                element={
+                  <UserProtectedRoutes>
+                    <LoggedinMainPageUser />
+                  </UserProtectedRoutes>
+                }
+              >
                 {/* The Route */}
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
@@ -202,17 +211,73 @@ export default function App() {
                 }
               /> */}
 
-              <Route path="paysuccess" element={<PaymentSuccess />} />
+              <Route
+                path="paysuccess"
+                element={
+                  <UserProtectedRoutes>
+                    <PaymentSuccess />
+                  </UserProtectedRoutes>
+                }
+              />
 
-              <Route path="cancel-booking" element={<CancelBooking />} />
-              <Route path="cancel-reason" element={<CancelReason />} />
+              <Route
+                path="cancel-booking"
+                element={
+                  <UserProtectedRoutes>
+                    <CancelBooking />
+                  </UserProtectedRoutes>
+                }
+              />
+              <Route
+                path="cancel-reason"
+                element={
+                  <UserProtectedRoutes>
+                    <CancelReason />
+                  </UserProtectedRoutes>
+                }
+              />
 
-              <Route path="report" element={<ReportReason />} />
-              <Route path="report-thanks" element={<ReportThanks />} />
-              <Route path="review" element={<LeaveReview />} />
-              <Route path="review-thanks" element={<ReviewThanks />} />
+              <Route
+                path="report"
+                element={
+                  <UserProtectedRoutes>
+                    <ReportReason />
+                  </UserProtectedRoutes>
+                }
+              />
+              <Route
+                path="report-thanks"
+                element={
+                  <UserProtectedRoutes>
+                    <ReportThanks />
+                  </UserProtectedRoutes>
+                }
+              />
+              <Route
+                path="review"
+                element={
+                  <UserProtectedRoutes>
+                    <LeaveReview />
+                  </UserProtectedRoutes>
+                }
+              />
+              <Route
+                path="review-thanks"
+                element={
+                  <UserProtectedRoutes>
+                    <ReviewThanks />
+                  </UserProtectedRoutes>
+                }
+              />
 
-              <Route path="request-success" element={<RequestSuccess />} />
+              <Route
+                path="request-success"
+                element={
+                  <UserProtectedRoutes>
+                    <RequestSuccess />
+                  </UserProtectedRoutes>
+                }
+              />
               {/* <Route
                 path="request-location"
                 element={
@@ -448,6 +513,19 @@ export default function App() {
                     name={
                       <ProtectedRoutes>
                         <Payment_record />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
+                }
+              />
+              <Route
+                path="edit-profile"
+                element={
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <EditProfile />
                       </ProtectedRoutes>
                     }
                     logged={true}
