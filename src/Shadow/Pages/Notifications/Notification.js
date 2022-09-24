@@ -96,9 +96,7 @@ export const Notification = () => {
           <h3>Notifications</h3>
           <div className="notifcation-messages-container">
             <div className="notfication-date">
-              <h5>
-                {pageCount === 1 ? "recent" : pageCount > 1 ? "Older" : ""}
-              </h5>
+              <h5></h5>
               <div
                 style={{
                   display: "flex",

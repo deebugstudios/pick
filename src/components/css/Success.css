@@ -75,3 +75,11 @@
   color: white;
   padding-bottom: 20px;
 }
+
+@media screen and (max-width: 400px) {
+  #successText {
+    font-weight: 400;
+    opacity: 0.9;
+    font-size: small;
+  }
+}

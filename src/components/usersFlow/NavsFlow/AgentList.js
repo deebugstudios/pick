@@ -5,10 +5,12 @@ import { useEffect } from "react";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 export default function AgentList() {
   const [conversations, setConversations] = useState([]);
   const [timeSent, setTimeSent] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const userValues = useContext(userContext);
   const { token } = userValues;
@@ -28,6 +30,7 @@ export default function AgentList() {
     );
     const data = await response.json();
     console.log(data);
+    setLoading(false);
     setConversations(data?.conversations);
     // setTimeSent(<DateConverter value={data?.conversations.timestamp} />);
     //
@@ -68,12 +71,24 @@ export default function AgentList() {
     </div>
   ));
 
-  return (
-    <section className="shadow-agentlist-wrapper">
-      <div className="shadow-agentlist-container">
-        <h3>Messages</h3>
-        {displayData}
+  if (loading === true) {
+    return (
+      <div className="loader-screen">
+        <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+        <p>Loading...</p>
       </div>
-    </section>
-  );
+    );
+  } else
+    return (
+      <section className="shadow-agentlist-wrapper">
+        <div className="shadow-agentlist-container">
+          <h3>Messages</h3>
+          {displayData.length > 0 ? (
+            displayData
+          ) : (
+            <div className="loader-screen">No previous conversations</div>
+          )}
+        </div>
+      </section>
+    );
 }

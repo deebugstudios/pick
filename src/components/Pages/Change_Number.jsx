@@ -5,6 +5,7 @@ import "../css/change_number.css";
 import Nigerianflag from "../Images/Nigerian_flag.png";
 import Flag from "../Images/Nigerian_flag.png";
 import Button from "../javascript/Button";
+import Arrow from "../Images/Arrow.png";
 
 export default function Change_Number() {
   const location = useLocation();
@@ -59,44 +60,58 @@ export default function Change_Number() {
   return (
     <>
       <div className="change_no">
-        <div className="change_no-text">Change Phone Number</div>
-        <form id="user-info-form" onSubmit={handleSubmit}>
-          <label htmlFor="phonenumber">Exisiting phone number</label>
-          <div className="user-info-div-1 bottom-marg">
-            <div className="delivery-location-input">
-              <img src={Flag} alt="" className="flag-icon" />
-              <span className="text-icon">+234</span>
-              <input
-                name="phonenumber"
-                value={phone_no}
-                className="user-info phone-input-4"
-                disabled={true}
-              />
-            </div>
-          </div>
+        <div
+          id="number-arrow-div"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <img src={Arrow} alt="" />
+        </div>
 
-          <label htmlFor="phonenumber">New phone number</label>
-          <div className="user-info-div-1 bottom-marg">
-            <div className="delivery-location-input">
-              <div>
+        <div className="change_no-text">Change Phone Number</div>
+        <div className="nedu-form-profile">
+          <form id="user-info-form" onSubmit={handleSubmit}>
+            <label htmlFor="phonenumber">Exisiting phone number</label>
+            <div className="nedu-info-div bottom-marg">
+              <div className="delivery-location-input">
                 <img src={Flag} alt="" className="flag-icon" />
                 <span className="text-icon">+234</span>
-                <input
-                  name="phonenumber"
-                  value={newNo}
-                  onChange={handleChange}
-                  className="user-info phone-input-4"
-                  maxLength={10}
-                />
+                <div className="user-info-div">
+                  <input
+                    name="phonenumber"
+                    value={phone_no}
+                    className="phone-input nedu-info-div"
+                    disabled={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <label htmlFor="phonenumber">New phone number</label>
+            <div className="nedu-info-div bottom-marg">
+              <div className="delivery-location-input">
+                <img src={Flag} alt="" className="flag-icon" />
+                <span className="text-icon">+234</span>
+                <div className="user-info-div">
+                  <input
+                    name="phonenumber"
+                    value={newNo}
+                    onChange={handleChange}
+                    className="phone-input nedu-info-div"
+                    disabled={true}
+                    maxLength={10}
+                  />
+                </div>
               </div>
               <p className="error-style">{newNoError}</p>
             </div>
-          </div>
 
-          <div id="center-button-1">
-            <Button name="Save and update" />
-          </div>
-        </form>
+            <div id="center-button-1">
+              <Button name="Save and update" />
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

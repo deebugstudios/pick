@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faBars,
+  faMessage,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Pickload from "../Images/pickload.png";
 import "../css/usernavsignedin.css";
@@ -58,6 +62,11 @@ const Navsignedin = (props) => {
           <Link to="/user/notifications">
             <div className="bell-span">
               <FontAwesomeIcon icon={faBell} />
+            </div>
+          </Link>
+          <Link to="/user/agentlist">
+            <div className="bell-span2">
+              <FontAwesomeIcon icon={faMessage} />
             </div>
           </Link>
           <FontAwesomeIcon

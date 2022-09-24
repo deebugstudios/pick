@@ -192,7 +192,7 @@ export default function UserRequestPickup() {
     const pickup_address = pickupRef.current.value;
     const drop_off_address = destinationRef.current.value;
 
-    if (buttonName === "Clear Route") {
+    if (price !== "") {
       member === "instant"
         ? navigate("/user/formuser", {
             state: {
@@ -296,7 +296,11 @@ export default function UserRequestPickup() {
 
         <div id="div-button">
           <button
-            className="set-location-btn-1"
+            className={
+              buttonName === "Calculate Route"
+                ? "set-location-btn-1"
+                : "set-location-btn-3"
+            }
             onClick={handleRoute}
             disabled={loadButton}
           >
@@ -311,9 +315,7 @@ export default function UserRequestPickup() {
 
           <button
             className={
-              buttonName === "Calculate Route"
-                ? "set-location-btn-2"
-                : "set-location-btn-1"
+              price !== "" ? "set-location-btn-1" : "set-location-btn-2"
             }
             onClick={handleNavigate}
           >

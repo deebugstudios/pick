@@ -8,11 +8,14 @@ import {
   DeliveryImages,
   DeliveryImages2,
 } from "../Details info/DeliveryImages";
-import Button from "../../javascript/Button";
+import Button, { Button5 } from "../../javascript/Button";
 import MainStar from "../../Images/MainStar.png";
 import Stars from "react-stars-display";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import UserIcon from "../../Images/user.png";
+import "../../../Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/deliveryhistorydetails.css";
+import { DateConverter } from "../../../DateAndTimeConverter";
+import { ClipLoader } from "react-spinners";
 
 export default function SpecificAgent() {
   const Star = <img src={Starr} alt="" />;
@@ -20,6 +23,7 @@ export default function SpecificAgent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -64,10 +68,11 @@ export default function SpecificAgent() {
     );
     const data = await res.json();
     const results = await data;
-    // setLoading(false);
+    setLoading(false);
 
     // console.log(results);
     setReviews(results?.reviews);
+
     // console.log(userDetails);
     // pendingDeliveries.map((item) => console.log(item));
   };
@@ -97,9 +102,9 @@ export default function SpecificAgent() {
       </div>
 
       <div id="profile-ratings-section">
-        <div className="delivery-profile">
+        <div className="delivery-profile1">
           <div className="driver-profile-image">
-            <div className="image2">
+            <div className="image">
               <img src={profile} alt="" />
             </div>
           </div>
@@ -164,7 +169,7 @@ export default function SpecificAgent() {
       <br />
       <br />
       <div id="center-button-2">
-        <Button
+        <Button5
           name="Proceed with this Agent"
           click={() => {
             navigate("/user/schedule-form", {
@@ -204,39 +209,54 @@ export default function SpecificAgent() {
       <br />
 
       <div id="review-div-wrapper">
-        {reviews.map((item) => (
-          <div id="review-div">
-            <div className="review-profile">
-              <img
-                src={item.user_img.length > 2 ? item.user_img : UserIcon}
-                alt=""
-              />
-            </div>
-            <div id="text-review">
-              <p id="reviewer">{item.user_name}</p>
-              <p id="actual-review">{item.review}</p>
-            </div>
-            <div id="star-review">
-              <div id="split-star">
-                <div id="actual-star">
-                  <Stars
-                    stars={item.stars}
-                    size={35}
-                    spacing={2}
-                    fill="#ea9c46"
+        {loading ? (
+          <div className="loader-screen">
+            <ClipLoader color={"#1AA803"} loading={loading} size={100} />
+            <p>Loading...</p>
+          </div>
+        ) : reviews.length > 0 ? (
+          reviews.map((item) => (
+            <div id="flex-review">
+              <div id="review-div">
+                <div className="review-profile">
+                  <img
+                    src={item.user_img.length > 2 ? item.user_img : UserIcon}
+                    alt=""
                   />
                 </div>
-                <p>
-                  {Number.isInteger(item.stars)
-                    ? `${item.stars}.0`
-                    : item.stars}
-                </p>
+
+                <div id="text-review">
+                  <p id="reviewer">{item.user_name}</p>
+                </div>
+                <div id="star-review">
+                  <div id="split-star">
+                    <div id="actual-star">
+                      <Stars
+                        stars={item.stars}
+                        size={20}
+                        spacing={1}
+                        fill="#ea9c46"
+                      />
+                    </div>
+                    <p>
+                      {Number.isInteger(item.stars)
+                        ? `${item.stars}.0`
+                        : item.stars}
+                    </p>
+                  </div>
+                  <br />
+                  <p className="date-review">
+                    {" "}
+                    <DateConverter value={item.timestamp} />
+                  </p>
+                </div>
               </div>
-              <br />
-              <p className="date-review">11/06/21</p>
+              <p id="actual-review">{item.review}</p>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          "This agent has no reviews yet"
+        )}
       </div>
     </div>
   );

@@ -15,14 +15,21 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../utils/firebase";
+// import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [fleetId, setFleetId] = useState("");
   const [scheduledDate, setScheduledDate] = useState("");
   const [scheduledTime, setScheduledTime] = useState("");
   const [parcelCode, setParcelCode] = useState("");
   const [showButton, setShowButton] = useState("paystack-button");
+  const [timeoutState, setTimeoutState] = useState(false);
+  const [agentId, setAgentId] = useState("");
+  const [toFleet, setToFleet] = useState(null);
 
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
@@ -36,37 +43,45 @@ export default function ScheduledDeliverySummary() {
   const { token } = userValues;
   const navigate = useNavigate();
 
-  const timer = setTimeout(async () => {
-    alert("Your payment time has expired, please make a new delivery");
-    setShowButton("payment-button");
-    try {
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout",
-        {
-          method: "POST",
+  useEffect(() => {
+    let timer;
+    if (timeoutState === false) {
+      timer = setTimeout(async () => {
+        alert("Your payment time has expired, please make a new delivery");
+        setShowButton("payment-button");
+        try {
+          const res = await fetch(
+            "https://ancient-wildwood-73926.herokuapp.com/user_delivery/timeout",
+            {
+              method: "POST",
 
-          body: JSON.stringify({
-            token: JSON.parse(token),
-            delivery_id: deliveryID,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
+              body: JSON.stringify({
+                token: JSON.parse(token),
+                delivery_id: deliveryID,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json, text/plain, */*",
+              },
+            }
+          );
+          const data = await res.json();
+          // console.log(data);
+
+          if (res.status === 200) {
+            navigate("/user/type");
+          } else {
+            //
+          }
+        } catch (error) {
+          // console.log(error);
         }
-      );
-      const data = await res.json();
-      // console.log(data);
-
-      if (res.status === 200) {
-        //
-      } else {
-        //
-      }
-    } catch (error) {
-      // console.log(error);
+      }, payDuration * 60000);
+    } else if (timeoutState === true) {
+      clearTimeout(timer);
     }
-  }, payDuration * 60000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -83,10 +98,10 @@ export default function ScheduledDeliverySummary() {
             delivery_agent_name: deliveryDetails.delivery_agent_name,
             amt: price,
             ref: Date.now(),
-            to_fleet: false,
+            to_fleet: toFleet,
             method: "card",
             status: "Success",
-            fleet_manager_id: 0,
+            fleet_manager_id: fleetId,
             parcel_code: deliveryDetails.parcel_code,
             parcel_name: deliveryDetails.parcel_name,
           }),
@@ -97,9 +112,8 @@ export default function ScheduledDeliverySummary() {
         }
       );
       const data = await res.json();
-      // console.log(data);
+      setTimeoutState(true);
       if (res.status === 200) {
-        clearTimeout(timer);
         navigate("/paysuccess", { state: { itemId: parcelCode } });
       } else {
         // setMessage("An Error occured");
@@ -119,6 +133,7 @@ export default function ScheduledDeliverySummary() {
       name,
       phone,
     },
+    channels: ["card"],
     publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
     className: showButton,
     text: "Proceed to Payment",
@@ -146,9 +161,10 @@ export default function ScheduledDeliverySummary() {
         }),
       }
     );
-    setLoading(false);
     const data = await res.json();
     setDeliveryDetails(data?.delivery);
+    setAgentId(data?.delivery.delivery_agent_id);
+
     setParcelCode(data?.delivery.parcel_code);
     setScheduledDate(
       <DateConverter
@@ -164,12 +180,29 @@ export default function ScheduledDeliverySummary() {
         }
       />
     );
+    setLoading(false);
   };
 
-  console.log(deliveryDetails);
+  // console.log(deliveryDetails);
   useEffect(() => {
     fetchDeliveryDetails();
   }, []);
+
+  useEffect(() => {
+    // console.log(agentId);
+    const listen = async () => {
+      const docRef = doc(db, "delivery_agents", agentId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.data().fleet_manager_id === "") {
+        setToFleet(false);
+        setFleetId("0");
+      } else {
+        setToFleet(true);
+        setFleetId(docSnap.data().fleet_manager_id);
+      }
+    };
+    listen();
+  }, [loading === false]);
 
   if (loading === true) {
     return (

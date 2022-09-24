@@ -28,22 +28,33 @@
   flex-wrap: wrap;
 }
 .set-location-btn-1 {
-  padding: 0.5em 4em;
+  padding: 0.5em 40px;
   border-radius: 8px;
   color: white;
   background-color: var(--maincolor);
-  border: none;
+  border: 1px solid var(--maincolor);
+  outline: none;
+  cursor: pointer;
+  font-size: medium;
+  margin-top: 10px;
+}
+.set-location-btn-3 {
+  padding: 0.5em 40px;
+  border-radius: 8px;
+  color: var(--maincolor);
+  background-color: white;
+  border: 1px solid var(--maincolor);
   outline: none;
   cursor: pointer;
   font-size: medium;
   margin-top: 10px;
 }
 .set-location-btn-2 {
-  padding: 0.5em 4em;
+  padding: 0.5em 40px;
   border-radius: 8px;
   color: white;
   background-color: grey;
-  border: none;
+  border: 1px solid grey;
   outline: none;
   cursor: pointer;
   font-size: medium;
