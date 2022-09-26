@@ -29,7 +29,8 @@ export default function SpecificAgent() {
 
   const name = location.state.name;
   const profile = location.state.profile;
-  const rating = location.state.rating;
+  const rating = location.state.total_rating;
+  const rating_count = location.state.rating_count;
   const deliveries = location.state.deliveries;
   const phone = location.state.phone;
 
@@ -142,7 +143,8 @@ export default function SpecificAgent() {
               <div className="ratings-star">
                 <p className="important">Rating</p>
                 <p>
-                  {rating == null ? 0 : `${rating}.0`} {Star}
+                  {rating > 0 ? (rating / rating_count).toFixed(1) : "0.0"}{" "}
+                  {Star}
                 </p>
               </div>
               <div className="ratings-star">

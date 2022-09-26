@@ -135,7 +135,7 @@ const SideBar = (props) => {
           </NavLink>
 
           <NavLink
-            to="/user/chatwithadminuser"
+            to="/user/chat"
             style={({ isActive }) => {
               return {
                 background: isActive ? "#e8f4e3" : "",

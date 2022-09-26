@@ -4,8 +4,9 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  margin: 30px auto 30px auto;
-  height: 80vh;
+  margin: 30px auto;
+  /* height: 80vh; */
+  background-color: white;
 }
 #typeFlex {
   display: flex;
@@ -13,7 +14,10 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  margin: 30px auto 30px auto;
+  margin: 30px auto;
+  width: 100%;
+  /* background-color: white; */
+  /* overflow-y: scroll; */
 }
 .type {
   margin-left: 30px;
@@ -25,4 +29,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  flex-wrap: wrap;
+}
+#signFlex-type {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }

@@ -88,6 +88,7 @@ import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
+import Message_Delivery_Agent from "./components/usersFlow/Chat/Message_Delivery_Agent";
 
 export default function App() {
   return (
@@ -159,6 +160,7 @@ export default function App() {
                 }
               >
                 {/* The Route */}
+                <Route path="chat" element={<Message_Delivery_Agent />} />
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />
