@@ -392,8 +392,6 @@ export default function UserChatAdmin() {
 
 export const ChatAdmin = () => {
   const location = useLocation();
-  // const agentId = location.state.agentId;
-  // const agentName = location.state.agentName;
   const [isLoaded, setIsLoaded] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
@@ -424,13 +422,13 @@ export const ChatAdmin = () => {
         }
       );
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.msg === "Old conversation") {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
       } else if (data.msg === "No conversation found") {
-        setConvId("a");
+        // setConvId("a");
         setNew_conv(true);
         setIsLoaded(true);
       }
@@ -513,24 +511,26 @@ export const ChatAdmin = () => {
           }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
+
         if (data.msg === "Message sent") {
+          let conv_id = data.message.conversation_id;
           setConvId(data.message.conversation_id);
           setNew_conv(false);
+
+          await setDoc(
+            doc(db, "hf_collection", conv_id, conv_id, `${Date.now()}`),
+            {
+              content: contentToDB,
+              sender_id: userId,
+              sender_img: userImg,
+              sender_name: userName,
+              timestamp: Date.now(),
+              which_user: "user",
+              who_sent: "user",
+            }
+          );
         }
-        await setDoc(
-          doc(db, "hf_collection", convId, convId, `${Date.now()}`),
-          {
-            content: contentToDB,
-            // conv_id: convId,
-            sender_id: userId,
-            sender_img: userImg,
-            sender_name: userName,
-            timestamp: Date.now(),
-            which_user: "user",
-            who_sent: "user",
-          }
-        );
       } catch (error) {
         console.log(error);
         // const err = error
@@ -541,7 +541,6 @@ export const ChatAdmin = () => {
       setContent("");
       await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
         content: contentToDB,
-        // conv_id: convId,
         sender_id: userId,
         sender_img: userImg,
         sender_name: userName,
