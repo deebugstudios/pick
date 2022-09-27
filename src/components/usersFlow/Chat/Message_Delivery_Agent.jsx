@@ -268,6 +268,11 @@ export default function Message_Delivery_Agent() {
           await updateDoc(notifyRef, {
             messages_count: increment(1),
           });
+          const badgeDocRef = doc(db, "hf_collection", conv_id);
+          await setDoc(badgeDocRef, {
+            is_admin_in_chat: false,
+            unread_user_message_count: 1,
+          });
         } else {
           // console.log(" did not send message");
         }
@@ -313,6 +318,11 @@ export default function Message_Delivery_Agent() {
         const notifyRef = doc(db, "admin_notifiers", "hf_messages");
         await updateDoc(notifyRef, {
           messages_count: increment(1),
+        });
+
+        const badge = doc(db, "hf_collection", convId);
+        await updateDoc(badge, {
+          unread_user_message_count: increment(1),
         });
 
         const response = await fetch(
@@ -380,6 +390,11 @@ export default function Message_Delivery_Agent() {
         const notifyRef = doc(db, "admin_notifiers", "hf_messages");
         await updateDoc(notifyRef, {
           messages_count: increment(1),
+        });
+
+        const badge = doc(db, "hf_collection", convId);
+        await updateDoc(badge, {
+          unread_user_message_count: increment(1),
         });
         const response = await fetch(
           "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
