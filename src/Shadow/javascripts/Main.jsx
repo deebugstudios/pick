@@ -31,8 +31,8 @@ const Main = () => {
   const navigate = useNavigate();
 
   const goToChat = () => {
-    // userToken ? navigate("/user/chat") : navigate("/contactUS");
-    navigate("/guest");
+    userToken ? navigate("/user/chat") : navigate("/guest");
+    // navigate("/guest");
   };
   return (
     <>

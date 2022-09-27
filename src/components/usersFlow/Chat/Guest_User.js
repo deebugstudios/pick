@@ -186,7 +186,7 @@ export default function Guest_User() {
       setContent("");
       await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
         content: contentToDB,
-        sender_id: `guest_${convId}`,
+        guest_user_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
         timestamp: Date.now(),
@@ -211,7 +211,7 @@ export default function Guest_User() {
       setContent("");
       await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
         content: contentToDB,
-        sender_id: `guest_${convId}`,
+        guest_user_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
         timestamp: Date.now(),

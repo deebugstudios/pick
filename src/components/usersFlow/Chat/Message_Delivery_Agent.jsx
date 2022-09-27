@@ -322,7 +322,7 @@ export default function Message_Delivery_Agent() {
             body: JSON.stringify({
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
-              new_conv: true,
+              new_conv: false,
               sender_img: userImg ? JSON.parse(userImg) : "a",
               content: contentToDB ? contentToDB : img.name,
               who_sent: "user",
@@ -388,7 +388,7 @@ export default function Message_Delivery_Agent() {
             body: JSON.stringify({
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
-              new_conv: true,
+              new_conv: false,
               sender_img: userImg ? JSON.parse(userImg) : "a",
               content: contentToDB ? contentToDB : img.name,
               who_sent: "user",
