@@ -325,7 +325,8 @@ p {
   /* max-width: 70%; */
   /* background: rgba(218, 218, 218, 0.3); */
   background-color: transparent;
-  word-break: break-word;
+  /* word-break:break-all; */
+  /* break-after: ; */
 }
 .incoming-msgs {
   display: flex;

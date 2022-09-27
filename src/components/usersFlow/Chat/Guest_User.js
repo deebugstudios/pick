@@ -38,8 +38,6 @@ export default function Guest_User() {
   const [messageList, setMessageList] = useState([]);
   const bottomRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const userValues = useContext(userContext);
-  const { token, userName, email, userNumber, userImg, userId } = userValues;
   const [new_conv, setNew_conv] = useState(undefined);
   const [content, setContent] = useState("");
   const [img, setImg] = useState("");
@@ -49,7 +47,7 @@ export default function Guest_User() {
 
   const Messager = (item, i) => {
     // console.log(item?.content);
-    const user_id = JSON.parse(userId);
+    const user_id = `guest_${convId}`;
     let DATE = {};
     const TimeConverter = (props) => {
       // console.log(props)
@@ -127,10 +125,8 @@ export default function Guest_User() {
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const list = [];
       QuerySnapshot.forEach((doc) => {
-        if (doc.data().exits) {
-          list.push(doc?.data());
-          setMessageList(list);
-        }
+        list.push(doc?.data());
+        setMessageList(list);
       });
     });
     console.log(messageList);
@@ -147,11 +143,11 @@ export default function Guest_User() {
   useEffect(() => {
     let convo_id;
     if (conversations === null) {
-      convo_id = Date.now();
+      convo_id = Date.now().toString();
       sessionStorage.setItem("convo_id", JSON.stringify(convo_id));
       setConvId(convo_id);
       //   setIsLoaded(true);
-      //   console.log(convo_id);
+      console.log(convo_id);
     } else {
       setConvId(JSON.parse(conversations));
       //   setIsLoaded(true);
@@ -186,7 +182,7 @@ export default function Guest_User() {
       setContent("");
       await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
         content: contentToDB,
-        guest_user_id: `guest_${convId}`,
+        sender_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
         timestamp: Date.now(),
@@ -211,7 +207,7 @@ export default function Guest_User() {
       setContent("");
       await setDoc(doc(db, "hf_collection", convId, convId, `${Date.now()}`), {
         content: contentToDB,
-        guest_user_id: `guest_${convId}`,
+        sender_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
         timestamp: Date.now(),
