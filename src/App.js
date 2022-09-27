@@ -89,7 +89,7 @@ import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
 import Message_Delivery_Agent from "./components/usersFlow/Chat/Message_Delivery_Agent";
-
+import Guest_User from "../src/components/usersFlow/Chat/Guest_User";
 export default function App() {
   return (
     <>
@@ -120,6 +120,12 @@ export default function App() {
               /> */}
               {/* <Route path="aboutUS1" element={<AboutUs1 />} /> */}
               <Route path="Termsandconditions" element={<Terms />} />
+              <Route
+                path="guest"
+                element={
+                  <LoggedinMainPage1 name={<Guest_User />} logged={false} />
+                }
+              />
 
               <Route path="privacy" element={<Privacy />} />
               {/* <Route

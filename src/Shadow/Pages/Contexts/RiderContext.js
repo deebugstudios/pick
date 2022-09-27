@@ -342,7 +342,7 @@ export const UseRiderProvider = (props) => {
     }
   };
 
-  console.log(token);
+  // console.log(token);
   const fetchData = async () => {
     if (token) {
       const res = await fetch(url, {

@@ -9,18 +9,17 @@
 }
 .wrapper-main {
   width: 100%;
-    background: white;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: white;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrapper-main-container {
-  background-color: #E8F4E3;
+  background-color: #e8f4e3;
 }
-
 
 .main-first {
   width: 100% !important;
@@ -32,8 +31,7 @@
   margin: 0 10px;
   max-width: 1200px;
   -ms-overflow-style: none;
-  scrollbar-width: none
-  ;
+  scrollbar-width: none;
 }
 
 .main-first::-webkit-scrollbar {
@@ -70,6 +68,31 @@
   padding: 1em;
   background-color: white;
   z-index: 3;
+}
+.whats-app {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 15px;
+  background-color: #1faa08;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  cursor: pointer;
+}
+.help-text {
+  color: black;
+  font-size: small;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.my-float {
+  margin-top: 16px;
 }
 @media screen and (max-width: 864px) {
   .header-text {
@@ -145,9 +168,9 @@
     display: none;
   }
 
-.header-text h3 {
-  text-align: center;
-}  
+  .header-text h3 {
+    text-align: center;
+  }
   .big-img {
     display: none;
   }

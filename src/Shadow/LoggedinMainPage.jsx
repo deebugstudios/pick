@@ -37,14 +37,14 @@ const LoggedinMainPage = (props) => {
 
 export default LoggedinMainPage;
 
-export const LoggedinMainPage1 = () => {
+export const LoggedinMainPage1 = (props) => {
   return (
     <section className="user-dashboard-main">
       <div className="user-left-side-main">
         <NavigationBar />
       </div>
       <div className="user-right-side-main">
-        <div className="map-container">{<Main />}</div>
+        <div className="map-container">{props.name}</div>
       </div>
     </section>
   );
