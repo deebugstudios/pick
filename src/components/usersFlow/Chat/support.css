@@ -437,7 +437,7 @@ p {
 }
 
 .shadow-outgoing-msg-wrapper {
-  max-width: 350px;
+  max-width: 300px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -445,7 +445,7 @@ p {
   background-color: #1aa803;
   border-radius: 10px;
   margin: 5px 0;
-  padding: 8px 15px;
+  padding: 8px 10px;
 }
 
 .shadow-incoming-msg-wrapper {

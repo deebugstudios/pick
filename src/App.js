@@ -88,8 +88,9 @@ import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
-import Message_Delivery_Agent from "./components/usersFlow/Chat/Message_Delivery_Agent";
+import Message_Delivery_Agent from "./components/usersFlow/Chat/Chat_admin";
 import Guest_User from "../src/components/usersFlow/Chat/Guest_User";
+import Chat_admin from "./components/usersFlow/Chat/Chat_admin";
 export default function App() {
   return (
     <>
@@ -128,10 +129,6 @@ export default function App() {
               />
 
               <Route path="privacy" element={<Privacy />} />
-              {/* <Route
-                path="Termsandconditions2"
-                element={<LoggedinMainPage name={<Terms2 />} logged={true} />}
-              /> */}
               <Route
                 exact
                 path="/"
@@ -166,7 +163,7 @@ export default function App() {
                 }
               >
                 {/* The Route */}
-                <Route path="chat" element={<Message_Delivery_Agent />} />
+                <Route path="chat" element={<Chat_admin />} />
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />
@@ -212,68 +209,11 @@ export default function App() {
                 <Route path="change" element={<Change_Number />} />
               </Route>
 
-              {/* <Route
-                path="Deliveryrequest"
-                element={
-                  <LoggedinMainPage name={<ResquestPickup />} logged={true} />
-                }
-              /> */}
-
               <Route
                 path="paysuccess"
                 element={
                   <UserProtectedRoutes>
                     <PaymentSuccess />
-                  </UserProtectedRoutes>
-                }
-              />
-
-              <Route
-                path="cancel-booking"
-                element={
-                  <UserProtectedRoutes>
-                    <CancelBooking />
-                  </UserProtectedRoutes>
-                }
-              />
-              <Route
-                path="cancel-reason"
-                element={
-                  <UserProtectedRoutes>
-                    <CancelReason />
-                  </UserProtectedRoutes>
-                }
-              />
-
-              <Route
-                path="report"
-                element={
-                  <UserProtectedRoutes>
-                    <ReportReason />
-                  </UserProtectedRoutes>
-                }
-              />
-              <Route
-                path="report-thanks"
-                element={
-                  <UserProtectedRoutes>
-                    <ReportThanks />
-                  </UserProtectedRoutes>
-                }
-              />
-              <Route
-                path="review"
-                element={
-                  <UserProtectedRoutes>
-                    <LeaveReview />
-                  </UserProtectedRoutes>
-                }
-              />
-              <Route
-                path="review-thanks"
-                element={
-                  <UserProtectedRoutes>
-                    <ReviewThanks />
                   </UserProtectedRoutes>
                 }
               />

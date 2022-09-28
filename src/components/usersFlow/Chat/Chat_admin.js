@@ -32,7 +32,7 @@ import audioFile2 from "../../audio/beep2.wav";
 const audio = new Audio(audioFile);
 const audio2 = new Audio(audioFile2);
 
-export default function Message_Delivery_Agent() {
+export default function Chat_admin() {
   const navigate = useNavigate();
   const [convId, setConvId] = useState("");
   const [messageList, setMessageList] = useState([]);

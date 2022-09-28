@@ -128,8 +128,11 @@ export default function Guest_User() {
         list.push(doc?.data());
         setMessageList(list);
       });
+      if (list.length > 0) {
+        setNew_conv(false);
+      }
     });
-    console.log(messageList);
+
     if (isLoaded === false) {
       unsubscribe();
     }
@@ -146,11 +149,11 @@ export default function Guest_User() {
       convo_id = Date.now().toString();
       sessionStorage.setItem("convo_id", JSON.stringify(convo_id));
       setConvId(convo_id);
-      //   setIsLoaded(true);
-      console.log(convo_id);
+      setIsLoaded(true);
+      setNew_conv(true);
     } else {
       setConvId(JSON.parse(conversations));
-      //   setIsLoaded(true);
+      setIsLoaded(true);
       //   console.log(conversations);
       //   const q = query(collection(db, "hf_collection", convo_id, convo_id));
       //   const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
@@ -175,8 +178,6 @@ export default function Guest_User() {
 
     if (e.keyCode === 13 && e.shiftKey === false) {
       const contentToDB = content;
-      console.log(contentToDB);
-      console.log(convId);
       setLoading(true);
 
       setContent("");
@@ -192,15 +193,26 @@ export default function Guest_User() {
       });
 
       audio2.play();
-      setIsLoaded(true);
+      //   setIsLoaded(true);
+      setLoading(false);
 
       const notifyRef = doc(db, "admin_notifiers", "hf_messages");
       await updateDoc(notifyRef, {
         messages_count: increment(1),
       });
-      setContent("");
-      setDisplay("");
-      setLoading(false);
+      if (new_conv === true) {
+        setNew_conv(false);
+        const badgeDocRef = doc(db, "hf_collection", convId);
+        await setDoc(badgeDocRef, {
+          is_admin_in_chat: false,
+          unread_user_message_count: 1,
+        });
+      } else {
+        const badge = doc(db, "hf_collection", convId);
+        await updateDoc(badge, {
+          unread_user_message_count: increment(1),
+        });
+      }
     } else if (!e.code) {
       setLoading(true);
       const contentToDB = content;
@@ -217,15 +229,27 @@ export default function Guest_User() {
       });
 
       audio2.play();
-      setIsLoaded(true);
+      //   setIsLoaded(true);
+      setLoading(false);
 
       const notifyRef = doc(db, "admin_notifiers", "hf_messages");
       await updateDoc(notifyRef, {
         messages_count: increment(1),
       });
-      setContent("");
-      setDisplay("");
-      setLoading(false);
+
+      if (new_conv === true) {
+        setNew_conv(false);
+        const badgeDocRef = doc(db, "hf_collection", convId);
+        await setDoc(badgeDocRef, {
+          is_admin_in_chat: false,
+          unread_user_message_count: 1,
+        });
+      } else {
+        const badge = doc(db, "hf_collection", convId);
+        await updateDoc(badge, {
+          unread_user_message_count: increment(1),
+        });
+      }
     }
   };
 

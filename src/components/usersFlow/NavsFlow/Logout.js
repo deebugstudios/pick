@@ -13,7 +13,7 @@ export default function Logout() {
   const handleLogout = async () => {
     setLoading(true);
     sessionStorage.clear();
-    navigate("/");
+    navigate("/", { replace: true });
     window.location.reload(true);
     setLoading(false);
   };
