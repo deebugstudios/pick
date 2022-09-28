@@ -53,7 +53,7 @@ import PendingDeliveryspecificsAgent from "./Shadow/Pages/Pending_deliveries/Del
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
-import UserChatAdmin, { ChatAdmin } from "./Shadow/Pages/Chatpage/ChatAdmin";
+import UserChatAdmin from "./Shadow/Pages/Chatpage/ChatAdmin";
 import Navsignedin from "./Shadow/javascripts/Navsignedin";
 import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
@@ -88,7 +88,6 @@ import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
-import Message_Delivery_Agent from "./components/usersFlow/Chat/Chat_admin";
 import Guest_User from "../src/components/usersFlow/Chat/Guest_User";
 import Chat_admin from "./components/usersFlow/Chat/Chat_admin";
 export default function App() {
@@ -120,7 +119,7 @@ export default function App() {
                 element={<LoggedinMainPage name={<AboutUs2 />} logged={true} />}
               /> */}
               {/* <Route path="aboutUS1" element={<AboutUs1 />} /> */}
-              <Route path="Termsandconditions" element={<Terms />} />
+
               <Route
                 path="guest"
                 element={
@@ -128,7 +127,6 @@ export default function App() {
                 }
               />
 
-              <Route path="privacy" element={<Privacy />} />
               <Route
                 exact
                 path="/"
@@ -136,6 +134,8 @@ export default function App() {
               />
 
               {/* <Route exact path="main" element={<Main1 />} /> */}
+              <Route path="Termsandconditions" element={<Terms />} />
+              <Route path="privacy" element={<Privacy />} />
               <Route exact path="main1" element={<LoggedinMainPage1 />} />
               <Route path="join" element={<Signup />} />
               <Route path="userform" element={<UserForm />} />
@@ -143,13 +143,10 @@ export default function App() {
               <Route path="login-as" element={<LoginAs />} />
               <Route path="welcome-agent" element={<WelcomeAgent />} />
               <Route path="confirm" element={<PhoneConfirm />} />
-              <Route path="otp" element={<UserOtp />} />
               <Route path="welcome" element={<WelcomeUser />} />
               <Route path="forgot" element={<ForgotNumber />} />
               <Route path="sign" element={<SignupDelivery />} />
               <Route path="individual" element={<AsIndividual />} />
-              <Route path="otp3" element={<FleetOtp />} />
-              <Route path="otp2" element={<DeliveryOtp />} />
               <Route path="individual-v" element={<IndividualVehicle />} />
               <Route path="fleet-v" element={<FleetVehicle />} />
               <Route path="account" element={<AgentCompleted />} />
@@ -204,7 +201,6 @@ export default function App() {
                 />
                 <Route path="user-profile" element={<UsersProfile />} />
                 <Route path="user-logout" element={<Logout />} />
-                <Route path="chatwithadminuser" element={<ChatAdmin />} />
                 <Route path="chatwithagentuser" element={<UserChatAdmin />} />
                 <Route path="change" element={<Change_Number />} />
               </Route>
@@ -226,28 +222,6 @@ export default function App() {
                   </UserProtectedRoutes>
                 }
               />
-              {/* <Route
-                path="request-location"
-                element={
-                  <LoggedinMainPage name={<RequestLocation />} logged={true} />
-                }
-              /> */}
-              {/* <Route
-                path="request-details"
-                element={
-                  <LoggedinMainPage
-                    name={<RequestPickupDetails />}
-                    logged={true}
-                  />
-                }
-              /> */}
-
-              {/* <Route path="/pendingdeliveries" element={<LoggedinMainPage2 />}>
-                <Route
-                  path="user-instant"
-                  element={<InstantDeliverySummary1 />}
-                />
-              </Route> */}
 
               <Route
                 path="Specificpickupdetails"

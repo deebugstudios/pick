@@ -18,6 +18,7 @@ import { ClipLoader } from "react-spinners";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import Thousand_converter from "../../javascript/Thousand_converter";
 
 export default function PendingScheduledDetails() {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ export default function PendingScheduledDetails() {
     const results = await data;
     setLoading(false);
     setDeliveryDetails(results?.delivery);
-    console.log(deliveryDetails);
+    // console.log(deliveryDetails);
     setDate(deliveryDetails?.pickup_time);
   };
 
@@ -94,7 +95,7 @@ export default function PendingScheduledDetails() {
     return (
       <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
-          <div className="specific-details-section">
+          <div className="specific-details-section margin-bottom">
             <div
               id="arrow-div"
               onClick={() => {
@@ -104,6 +105,17 @@ export default function PendingScheduledDetails() {
               <img src={Arrow} alt="" />
             </div>
             <br />
+            <h3 className="margin-bottom">
+              Delivery cost:{" "}
+              <span>
+                &#8358;
+                {
+                  <Thousand_converter
+                    value={deliveryDetails?.delivery_cost_user}
+                  />
+                }
+              </span>
+            </h3>
             <h3>Scheduled Delivery ID: {deliveryDetails?.parcel_code} </h3>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
@@ -120,7 +132,7 @@ export default function PendingScheduledDetails() {
                   <img src={Selected} alt="" id="selected-img" />
                 </div>
                 <div id="selected-col">
-                  <h3>Scheduled Delivery Time and Date</h3>
+                  <h3>Scheduled delivery time and date</h3>
                   <p>
                     {<TimeConverter value={deliveryDetails?.timestamp} />} on{" "}
                     {<DateConverter value={deliveryDetails?.timestamp} />}
@@ -144,15 +156,15 @@ export default function PendingScheduledDetails() {
                 <div className="delivery-profile-details">
                   <table>
                     <tr>
-                      <th>Delivery Agent :</th>
+                      <th>Delivery agent :</th>
                       <td>{deliveryDetails.delivery_agent_name}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle Type :</th>
+                      <th>Vehicle type :</th>
                       <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle Color :</th>
+                      <th>Vehicle color :</th>
                       <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
                     </tr>
                     <tr>
@@ -160,11 +172,11 @@ export default function PendingScheduledDetails() {
                       <td>{deliveryDetails.delivery_agent_id}</td>
                     </tr>
                     <tr>
-                      <th>Plate Number :</th>
+                      <th>Plate no :</th>
                       <td>{deliveryDetails.delivery_agent_plate_no}</td>
                     </tr>
                     <tr>
-                      <th>Phone Number :</th>
+                      <th>Phone no :</th>
                       <td>{deliveryDetails.delivery_agent_phone_no}</td>
                     </tr>
                   </table>

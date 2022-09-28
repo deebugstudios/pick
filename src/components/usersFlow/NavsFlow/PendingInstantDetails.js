@@ -17,6 +17,7 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import Thousand_converter from "../../javascript/Thousand_converter";
 
 export default function PendingInstantDetails() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ export default function PendingInstantDetails() {
 
     setLoading(false);
     setDeliveryDetails(data?.delivery);
-    // console.log(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -84,6 +85,17 @@ export default function PendingInstantDetails() {
           <br />
 
           <div className="specific-details-section">
+            <h3 className="margin-bottom">
+              Delivery cost:{" "}
+              <span>
+                &#8358;
+                {
+                  <Thousand_converter
+                    value={deliveryDetails?.delivery_cost_user}
+                  />
+                }
+              </span>
+            </h3>
             <h3>
               Instant Delivery ID: <span>{deliveryDetails?.parcel_code}</span>
             </h3>
@@ -101,12 +113,12 @@ export default function PendingInstantDetails() {
                 <div className="location-img">
                   <img src={locationimg} alt="" />
                 </div>
-                <h3>Item Received by Delivery Agent </h3>
+                <h3>Item collected by delivery agent </h3>
                 <p>
                   {<TimeConverter value={deliveryDetails?.timestamp} />} on{" "}
                   {<DateConverter value={deliveryDetails?.timestamp} />}
                 </p>
-                <h3>Item in Transit </h3>
+                <h3>Item in transit </h3>
               </div>
               {/* <table>
                         <tr>
@@ -119,14 +131,14 @@ export default function PendingInstantDetails() {
             </div>
             <div className="estimatedtime estimate-div">
               <h2>
-                Your Item will arrive at your Location in Approximately 10
+                Your item will arrive at your location in approximately 10
                 minutes{" "}
               </h2>
             </div>
             <br />
             <br />
 
-            <h3>Delivery Details</h3>
+            <h3>Delivery details</h3>
 
             <div className="estimate-div">
               <div className="delivery-profile1">
@@ -138,15 +150,15 @@ export default function PendingInstantDetails() {
                 <div className="delivery-profile-details">
                   <table>
                     <tr>
-                      <th>Delivery Agent :</th>
+                      <th>Delivery agent :</th>
                       <td>{deliveryDetails?.delivery_agent_name}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle Type :</th>
+                      <th>Vehicle type :</th>
                       <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle Color :</th>
+                      <th>Vehicle color :</th>
                       <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
                     </tr>
                     <tr>
@@ -154,11 +166,11 @@ export default function PendingInstantDetails() {
                       <td>{deliveryDetails.delivery_agent_id}</td>
                     </tr>
                     <tr>
-                      <th>Plate Number :</th>
+                      <th>Plate number :</th>
                       <td>{deliveryDetails.delivery_agent_plate_no}</td>
                     </tr>
                     <tr>
-                      <th>Phone Number :</th>
+                      <th>Phone number :</th>
                       <td>{deliveryDetails.delivery_agent_phone_no}</td>
                     </tr>
                   </table>
