@@ -29,7 +29,6 @@ export default function UserChatAdmin() {
   const agentName = location.state.agentName;
   const [isLoaded, setIsLoaded] = useState(false);
   const [messageList, setMessageList] = useState([]);
-  const [userDetails, setUserDetails] = useState([]);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const [userId, setUserId] = useState("");

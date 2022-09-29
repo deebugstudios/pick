@@ -8,6 +8,7 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 import { ClipLoader } from "react-spinners";
+import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
 
 export default function UserRequestPickup() {
   const [distance, setDistance] = useState("");
@@ -240,7 +241,7 @@ export default function UserRequestPickup() {
       <div className="user-right-side-1">
         <div className="request-div">
           <div className="map-container-1">
-            <Map
+            <GoogleMap
               direct={direction}
               // {...marker.map()}
               // eslint-disable-next-line

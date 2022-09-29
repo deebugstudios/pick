@@ -154,19 +154,6 @@ export default function Guest_User() {
     } else {
       setConvId(JSON.parse(conversations));
       setIsLoaded(true);
-      //   console.log(conversations);
-      //   const q = query(collection(db, "hf_collection", convo_id, convo_id));
-      //   const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      //     const list = [];
-      //     QuerySnapshot.forEach((doc) => {
-      //       list.push(doc?.data());
-      //       setMessageList(list);
-      //     });
-      //   });
-      //   console.log(messageList);
-      //   if (isLoaded === false) {
-      //     unsubscribe();
-      //   }
     }
   }, []);
 
@@ -177,6 +164,7 @@ export default function Guest_User() {
     }
 
     if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
       const contentToDB = content;
       setLoading(true);
 

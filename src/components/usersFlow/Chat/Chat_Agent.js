@@ -33,7 +33,12 @@ const audio = new Audio(audioFile);
 const audio2 = new Audio(audioFile2);
 
 export default function Chat_Agent() {
+  const agentId = location.state.agentId;
+  const agentImg = location.state.agentImg;
+  const agentName = location.state.agentName;
+  const agentEmail = location.state.agentEmail;
   const navigate = useNavigate();
+  const location = useLocation();
   const [convId, setConvId] = useState("");
   const [messageList, setMessageList] = useState([]);
   const bottomRef = useRef(null);
@@ -55,11 +60,6 @@ export default function Chat_Agent() {
   // // const [profile_pic, setProfilePic] = useState('');
   // // const [sender_name, setSenderName] = useState('');
 
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  // const messagesEndRef = useRef(null);
-  // // console.log(location);
-
   // const receiver_id =
   //   location.state.details.id || location.state.details.delivery_agent_id;
   // const sender_name =
@@ -69,7 +69,6 @@ export default function Chat_Agent() {
   //   location.state.details.img || location.state.details.delivery_agent_img_url;
   // const email =
   //   location.state.details.email || location.state.details.delivery_agent_email;
-  // const [new_conv, setNewConv] = useState(false);
 
   const Messager = (item, i) => {
     // console.log(item?.content);
@@ -203,21 +202,10 @@ export default function Chat_Agent() {
 
   const SendMessage = async (e) => {
     e.preventDefault();
-    if (content === "" && img === "") {
+    if (content === "") {
       return;
     }
     if (new_conv === true || convId === "a") {
-      let url;
-      if (img) {
-        const imageRef = ref(
-          storage,
-          `messageAttachment/${new Date().getTime()}-${img.name}`
-        );
-        const snap = await uploadBytes(imageRef, img);
-        const durl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-        url = durl;
-      }
-
       const contentToDB = content;
       setContent("");
 
@@ -231,7 +219,7 @@ export default function Chat_Agent() {
               sender_name: JSON.parse(userName),
               new_conv: true,
               sender_img: userImg ? JSON.parse(userImg) : "a",
-              content: contentToDB ? contentToDB : img.name,
+              content: contentToDB,
               who_sent: "user",
               which_user: "user",
               user_id: JSON.parse(userId),

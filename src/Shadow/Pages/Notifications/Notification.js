@@ -39,16 +39,16 @@ export const Notification = () => {
 
       if (res.status === 200) {
         // console.log("User created successfully");
-        // console.log(data);
+        console.log(result);
         setData(result?.notifications);
         setLoading(false);
 
         //
       } else {
-        console.log("Error occured");
+        // console.log("Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

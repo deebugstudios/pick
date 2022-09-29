@@ -285,6 +285,7 @@ export default function Chat_admin() {
       setDisplay("");
     } else {
       if (e.keyCode === 13 && e.shiftKey === false) {
+        e.preventDefault();
         setLoading(true);
         let url;
         if (img) {
