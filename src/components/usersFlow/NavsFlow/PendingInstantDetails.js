@@ -18,6 +18,16 @@ import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import Thousand_converter from "../../javascript/Thousand_converter";
+import { doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  QuerySnapshot,
+} from "firebase/firestore";
+import { db } from "../../../utils/firebase";
+import { async } from "@firebase/util";
 
 export default function PendingInstantDetails() {
   const navigate = useNavigate();
@@ -32,6 +42,8 @@ export default function PendingInstantDetails() {
   // const [time, setTime] = useState({});
 
   const Delivery_id = location.state.id;
+  const agentId = location.state.agentId;
+  // console.log(agentId);
 
   const fetchDeliveryDetails = async () => {
     const res = await fetch(
@@ -53,6 +65,21 @@ export default function PendingInstantDetails() {
     setDeliveryDetails(data?.delivery);
     console.log(data);
   };
+  let lat;
+  let lng;
+  let agentLocation;
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      doc(db, "delivery_agents", agentId),
+      async (doc) => {
+        let fireData = doc.data();
+        lat = fireData.loca_lat;
+        lng = fireData.loca_long;
+        agentLocation = new google.maps.LatLng(lat, lng); // eslint-disable-line
+      }
+    );
+  }, []);
 
   useEffect(() => {
     fetchDeliveryDetails();
@@ -80,7 +107,7 @@ export default function PendingInstantDetails() {
           </div>
           <div className="specifics-map-container">
             {/* <img src={map} alt="" /> */}
-            <GoogleMap />
+            <GoogleMap mark={agentLocation} />
           </div>
           <br />
 

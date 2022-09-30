@@ -9,6 +9,20 @@ import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 import { ClipLoader } from "react-spinners";
 import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  getDoc,
+  doc,
+  getDocs,
+  QuerySnapshot,
+  setDoc,
+  updateDoc,
+  increment,
+} from "firebase/firestore";
+import { db } from "../../../utils/firebase";
 
 export default function UserRequestPickup() {
   const [distance, setDistance] = useState("");
@@ -259,6 +273,7 @@ export default function UserRequestPickup() {
                   options={{
                     componentRestrictions: { country: "ng" },
                   }}
+                  // onLoad
                 >
                   <input
                     name="Pickup Location"

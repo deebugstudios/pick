@@ -271,7 +271,7 @@ export default function Chat_admin() {
           const badgeDocRef = doc(db, "hf_collection", conv_id);
           await setDoc(badgeDocRef, {
             is_admin_in_chat: false,
-            unread_user_message_count: 1,
+            unread_msg_count: 1,
           });
         } else {
           // console.log(" did not send message");
@@ -321,9 +321,9 @@ export default function Chat_admin() {
           messages_count: increment(1),
         });
 
-        const badge = doc(db, "hf_collection", convId);
+        const badge = doc(db, "conversations", convId);
         await updateDoc(badge, {
-          unread_user_message_count: increment(1),
+          unread_msg_count: increment(1),
         });
 
         const response = await fetch(
@@ -393,9 +393,9 @@ export default function Chat_admin() {
           messages_count: increment(1),
         });
 
-        const badge = doc(db, "hf_collection", convId);
+        const badge = doc(db, "conversations", convId);
         await updateDoc(badge, {
-          unread_user_message_count: increment(1),
+          unread_msg_count: increment(1),
         });
         const response = await fetch(
           "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",

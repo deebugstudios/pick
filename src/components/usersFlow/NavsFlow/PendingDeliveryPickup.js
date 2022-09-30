@@ -42,7 +42,7 @@ export default function PendingDeliveryPickup(props) {
     );
     const data = await res.json();
     const results = await data;
-    // console.log(data);
+    console.log(data);
     setLoading(false);
     const pDeliveries = results?.deliveries;
     // setPendingDeliveries(results?.deliveries);
@@ -110,7 +110,7 @@ export default function PendingDeliveryPickup(props) {
                 <DeliveryHistoryList
                   click={() => {
                     navigate("/user/pending-instant", {
-                      state: { id: item._id },
+                      state: { id: item._id, agentId: item.delivery_agent_id },
                     });
                   }}
                   parcelname={item.parcel_name}
@@ -137,7 +137,7 @@ export default function PendingDeliveryPickup(props) {
                 <DeliveryHistoryList
                   click={() => {
                     navigate("/user/pending-scheduled", {
-                      state: { id: item._id },
+                      state: { id: item._id, agentId: item.delivery_agent_id },
                     });
                   }}
                   parcelname={item.parcel_name}
