@@ -14,11 +14,12 @@ import Footer from "./Footer";
 import GoogleMap from "./GoogleMap";
 // import Map from "./Map";
 const Section2subsec3 = () => {
+  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
   return (
     <section className="subsec3-wrapper">
       <section className="subsec3">
         <div className="subsec3-left">
-          <GoogleMap />
+          <GoogleMap juve={juve} />
         </div>
         <div className="subsec3-right">
           <h3>

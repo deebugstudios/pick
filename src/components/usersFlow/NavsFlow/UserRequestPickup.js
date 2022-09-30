@@ -250,12 +250,14 @@ export default function UserRequestPickup() {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();
   };
 
+  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
   return (
     <section className="user-dashboard">
       <div className="user-right-side-1">
         <div className="request-div">
           <div className="map-container-1">
             <GoogleMap
+              juve={juve}
               direct={direction}
               // {...marker.map()}
               // eslint-disable-next-line
