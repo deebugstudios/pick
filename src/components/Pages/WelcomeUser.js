@@ -112,7 +112,7 @@ export default function WelcomeUser(props) {
           const user = result.user;
           // ...
           console.log("worked");
-          navigate("/user/type");
+          navigate("/user/type", { replace: true });
           // console.log(user);
           setLoadOtp(false);
         })
@@ -367,7 +367,7 @@ export function WelcomeAgent() {
           const user = result.user;
           // ...
           console.log("worked");
-          navigate("/deliveryhistory");
+          navigate("/deliveryhistory", { replace: true });
           // console.log(user);
           setLoadOtp(false);
         })

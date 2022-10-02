@@ -32,3 +32,16 @@ input[type="number"] {
     background-color: hsl(200, 20%, 95%);
   }
 }
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  font-size: 16px;
+}
+
+select,
+input,
+textarea {
+  font-size: 16px;
+}
