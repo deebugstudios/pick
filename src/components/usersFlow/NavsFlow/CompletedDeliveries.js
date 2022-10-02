@@ -10,7 +10,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import EmptyBox from "../../Images/pendingD.png";
-import { DeliveryHistoryList } from "../../../Shadow/Pages/Details info/DeliveryHistoryList";
+import { UserHistoryList } from "../../../Shadow/Pages/Details info/DeliveryHistoryList";
+import Thousand_converter from "../../javascript/Thousand_converter";
 
 export default function CompletedDeliveries() {
   const [toggle, setToggle] = useState(true);
@@ -147,7 +148,7 @@ export default function CompletedDeliveries() {
                   }
                 })
                 ?.map((pObj) => (
-                  <DeliveryHistoryList
+                  <UserHistoryList
                     // click={handleClick}
                     key={pObj?._id}
                     click={
@@ -169,6 +170,12 @@ export default function CompletedDeliveries() {
                     parcelcode={pObj.parcel_code}
                     deliverytype={pObj.delivery_type}
                     deliveryimage={pObj.imgs[0]}
+                    price={
+                      <span>
+                        &#8358;
+                        {<Thousand_converter value={pObj.delivery_cost_user} />}
+                      </span>
+                    }
                   />
                 ))
             ) : (
@@ -191,7 +198,7 @@ export default function CompletedDeliveries() {
                 }
               })
               ?.map((item) => (
-                <DeliveryHistoryList
+                <UserHistoryList
                   click={() => {
                     navigate("/user/cancelled-details", {
                       state: { id: item._id },
@@ -201,6 +208,12 @@ export default function CompletedDeliveries() {
                   parcelcode={item.parcel_code}
                   deliverytype={item.delivery_type}
                   deliveryimage={item.imgs[0]}
+                  price={
+                    <span>
+                      &#8358;
+                      {<Thousand_converter value={item.delivery_cost_user} />}
+                    </span>
+                  }
                 />
               ))
           ) : (

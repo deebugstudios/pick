@@ -82,3 +82,12 @@
 .active {
   background-color: #e8f4e3;
 }
+.side-hide {
+  display: none;
+}
+
+@media screen and (max-width: 650px) {
+  .side-hide {
+    display: block;
+  }
+}

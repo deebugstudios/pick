@@ -176,3 +176,10 @@
     font-size: large;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .sign {
+    width: 200px;
+    height: 200px;
+  }
+}

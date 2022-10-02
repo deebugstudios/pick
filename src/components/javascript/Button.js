@@ -5,13 +5,24 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Button(props) {
   return (
-    <button id="compButton" type={props.type} onClick={props.click} disabled={props.loading}>
-      <span>{ props.loading ? <ClipLoader color={"black"} loading={props.loading} size={30} /> : props.name}</span>
+    <button
+      id="compButton"
+      type={props.type}
+      onClick={props.click}
+      disabled={props.loading}
+    >
+      <span>
+        {props.loading ? (
+          <ClipLoader color={"black"} loading={props.loading} size={30} />
+        ) : (
+          props.name
+        )}
+      </span>
     </button>
   );
 }
 
-// cssOverride={override} 
+// cssOverride={override}
 
 export function Button2(props) {
   return (
@@ -21,9 +32,22 @@ export function Button2(props) {
   );
 }
 
+export function Button5(props) {
+  return (
+    <button id="compButton5" type={props.type} disabled={props.loading}>
+      <span>{props.name}</span>
+    </button>
+  );
+}
+
 export function Button3(props) {
   return (
-    <button id="compButton3" type={props.type} onClick={props.click} disabled={props.loading}>
+    <button
+      id="compButton3"
+      type={props.type}
+      onClick={props.click}
+      disabled={props.loading}
+    >
       <span>{props.name}</span>
     </button>
   );

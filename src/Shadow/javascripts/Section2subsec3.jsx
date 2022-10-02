@@ -11,13 +11,15 @@ import "../css/section2subsec3.css";
 import map from "../images/maps.png";
 import logo from "../images/pickloadlogo.png";
 import Footer from "./Footer";
-import Map from "./Map";
+import GoogleMap from "./GoogleMap";
+// import Map from "./Map";
 const Section2subsec3 = () => {
+  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
   return (
     <section className="subsec3-wrapper">
       <section className="subsec3">
         <div className="subsec3-left">
-          <Map />
+          <GoogleMap juve={juve} />
         </div>
         <div className="subsec3-right">
           <h3>

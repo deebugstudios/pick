@@ -12,6 +12,20 @@
   margin: 5px 20px 10px 20px;
   cursor: pointer;
 }
+#compButton5 {
+  background: #1aa803;
+  border: 2.5px solid #1aa803;
+  border-radius: 5px;
+  color: white;
+  width: 250px;
+  height: 40px;
+  font-size: large;
+  text-align: center;
+  justify-self: center !important;
+  align-self: center !important;
+  margin: 5px 20px 10px 20px;
+  cursor: pointer;
+}
 #compButton2 {
   display: flex;
   background: #666666;
@@ -70,6 +84,21 @@
     padding: 3px 60px 3px 60px;
   }
 
+  #compButton5 {
+    background: #1aa803;
+    border: 2.5px solid #1aa803;
+    border-radius: 5px;
+    color: white;
+    width: max-content;
+    font-size: large;
+    text-align: center;
+    justify-self: center !important;
+    align-self: center !important;
+    margin: 5px 20px 10px 20px;
+    cursor: pointer;
+    padding: 3px 60px 3px 60px;
+  }
+
   #compButton2 {
     background: #666666;
     border: 2.5px solid #666666;
@@ -113,5 +142,10 @@
     margin: 5px 20px 10px 20px;
     cursor: pointer;
     padding: 3px 60px 3px 60px;
+  }
+}
+@media screen and (max-width: 400px) {
+  #compButton5 {
+    padding: 3px 10px 3px 10px;
   }
 }

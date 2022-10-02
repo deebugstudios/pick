@@ -121,7 +121,7 @@ export default function Sign(props) {
               <Button name={props.name} type="submit" />
 
               <p id="accountAlready">
-                Already Have an account?{" "}
+                {props.account}{" "}
                 <Link to={props.inLink}>
                   <span id="loginSpan">{props.in}</span>
                 </Link>

@@ -48,6 +48,7 @@
 #successText {
   font-weight: 400;
   opacity: 0.9;
+  color: white;
 }
 #successText-1 {
   font-weight: 400;
@@ -74,4 +75,12 @@
   width: 70vw;
   color: white;
   padding-bottom: 20px;
+}
+
+@media screen and (max-width: 400px) {
+  #successText {
+    font-weight: 400;
+    opacity: 0.9;
+    font-size: small;
+  }
 }

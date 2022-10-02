@@ -5,43 +5,43 @@ export const DeliverInfo = (props) => {
     <>
       <table>
         <tr>
-          <th>Sender's Name:</th>
+          <th>Sender's name:</th>
           <td>{props.sender}</td>
         </tr>
         <tr>
-          <th>Sender's Phone Number:</th>
+          <th>Sender's phone no:</th>
           <td>{props.sender_no}</td>
         </tr>
         <tr>
-          <th>Receiver's Name:</th>
+          <th>Receiver's name:</th>
           <td>{props.receiver}</td>
         </tr>
         <tr>
-          <th>Receiver's Phone Number: </th>
+          <th>Receiver's phone no: </th>
           <td>{props.receiver_no}</td>
         </tr>
         <tr>
-          <th>Item Name:</th>
+          <th>Item name:</th>
           <td>{props.parcel_name}</td>
         </tr>
         <tr>
-          <th>Item Type:</th>
+          <th>Item type:</th>
           <td> {props.parcel_type}</td>
         </tr>
         <tr>
-          <th>Quantity of Items: </th>
+          <th>Quantity of items: </th>
           <td> {props.description}</td>
         </tr>
         <tr>
-          <th>Delivery Instruction:</th>
+          <th>Delivery instruction:</th>
           <td>{props.instruction}</td>
         </tr>
         <tr>
-          <th>Scheduled Pickup Date :</th>
+          <th>Scheduled pickup date :</th>
           <td>{props.date}</td>
         </tr>
         <tr>
-          <th>Scheduled Pickup Time :</th>
+          <th>Scheduled pickup time :</th>
           <td>{props.time}</td>
         </tr>
       </table>
@@ -54,35 +54,35 @@ export const DeliverInfo2 = (props) => {
     <>
       <table>
         <tr>
-          <th>Sender's Name:</th>
+          <th>Sender's name:</th>
           <td>{props.sender}</td>
         </tr>
         <tr>
-          <th>Sender's Phone Number:</th>
+          <th>Sender's phone no:</th>
           <td>{props.sender_no}</td>
         </tr>
         <tr>
-          <th>Receiver's Name:</th>
+          <th>Receiver's name:</th>
           <td>{props.receiver}</td>
         </tr>
         <tr>
-          <th>Receiver's Phone Number: </th>
+          <th>Receiver's phone no: </th>
           <td>{props.receiver_no}</td>
         </tr>
         <tr>
-          <th>Item Name:</th>
+          <th>Item name:</th>
           <td>{props.parcel_name}</td>
         </tr>
         <tr>
-          <th>Item Type:</th>
+          <th>Item type:</th>
           <td> {props.parcel_type}</td>
         </tr>
         <tr>
-          <th>Quantity of Items: </th>
+          <th>Quantity of items: </th>
           <td> {props.description}</td>
         </tr>
         <tr>
-          <th>Delivery Instruction:</th>
+          <th>Delivery instruction:</th>
           <td>{props.instruction}</td>
         </tr>
       </table>

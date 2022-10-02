@@ -57,7 +57,7 @@ export default function DeliveryHistoryDetails() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    console.log(results);
+    // console.log(results);
     setDeliveryDetails(results?.delivery);
     setDeliveryImages(results?.delivery.imgs);
     setMilli(results?.delivery.delivered_in);

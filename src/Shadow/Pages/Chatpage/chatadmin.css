@@ -146,7 +146,7 @@
   font-size: 11px;
   line-height: 15px;
   text-align: center;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   color: rgba(0, 0, 0, 0.6);
 }
 .incoming-msgs p,
@@ -155,7 +155,7 @@
   font-size: 12px;
   line-height: 15px;
   padding: 0.9em 0.7em;
-  max-width: 70%;
+  /* max-width: 70%; */
 
   border-radius: 8px;
   margin-bottom: 10px;
@@ -202,7 +202,7 @@
 /* .typing-bar textarea::placeholder {
   
 } */
-.attachment,
+/* .attachment,
 .send-message {
   width: 25px;
 }
@@ -225,4 +225,4 @@
 }
 .typing-bar {
   flex: 1;
-}
+} */

@@ -359,8 +359,8 @@ export default function FormUserDelivery() {
   if (loading == true) {
     return (
       <FindingDeliveriesUser
-        text={`Please wait while pickload pairs you with the closest available{" "}
-            ${vehicle} Delivery Agent...`}
+        text={`Please wait while pickload pairs you with the closest available
+            ${vehicle.toUpperCase()} Delivery Agent...`}
       />
     );
   } else

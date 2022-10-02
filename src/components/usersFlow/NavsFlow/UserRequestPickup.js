@@ -8,6 +8,21 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { Autocomplete, Marker } from "@react-google-maps/api";
 import Locate from "../../Images/locate.png";
 import { ClipLoader } from "react-spinners";
+import GoogleMap from "../../../Shadow/javascripts/GoogleMap";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  getDoc,
+  doc,
+  getDocs,
+  QuerySnapshot,
+  setDoc,
+  updateDoc,
+  increment,
+} from "firebase/firestore";
+import { db } from "../../../utils/firebase";
 
 export default function UserRequestPickup() {
   const [distance, setDistance] = useState("");
@@ -192,7 +207,7 @@ export default function UserRequestPickup() {
     const pickup_address = pickupRef.current.value;
     const drop_off_address = destinationRef.current.value;
 
-    if (buttonName === "Clear Route") {
+    if (price !== "") {
       member === "instant"
         ? navigate("/user/formuser", {
             state: {
@@ -235,90 +250,97 @@ export default function UserRequestPickup() {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();
   };
 
+  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
   return (
     <section className="user-dashboard">
       <div className="user-right-side-1">
-        <div className="map-container-1">
-          <Map
-            direct={direction}
-            // {...marker.map()}
-            // eslint-disable-next-line
-            // mark={new google.maps.LatLng(6, 5)}
-          />
-        </div>
-      </div>
-      <div className="set-location-pickup-1">
-        <div className="location-form">
-          <div className="location-form-input" id="location-form-input-1">
-            <label htmlFor="Pickup Location">Pickup Location</label>
-            <div className="delivery-location-input">
-              <img src={Locate} alt="" className="locate-icon" />
-              <Autocomplete
-                options={{
-                  componentRestrictions: { country: "ng" },
-                }}
-              >
-                <input
-                  name="Pickup Location"
-                  placeholder="5 Noma Street GRA Edo State "
-                  className="phone-input2"
-                  ref={pickupRef}
-                />
-              </Autocomplete>
-            </div>
+        <div className="request-div">
+          <div className="map-container-1">
+            <GoogleMap
+              juve={juve}
+              direct={direction}
+              // {...marker.map()}
+              // eslint-disable-next-line
+              // mark={new google.maps.LatLng(6, 5)}
+            />
           </div>
-
-          <Autocomplete
-            options={{
-              componentRestrictions: { country: "ng" },
-            }}
-          >
-            <div className="location-form-input" id="location-form-input-2">
-              <label htmlFor="Delivery Location">Delivery Location</label>
+        </div>
+        <div className="set-location-pickup-1">
+          <div className="location-form">
+            <div className="location-form-input" id="location-form-input-1">
+              <label htmlFor="Pickup Location">Pickup Location</label>
               <div className="delivery-location-input">
                 <img src={Locate} alt="" className="locate-icon" />
-                <input
-                  name="Delivery Location"
-                  placeholder="19 Akpakpava Road Benin City Ed.."
-                  className="phone-input2"
-                  ref={destinationRef}
-                />
+                <Autocomplete
+                  options={{
+                    componentRestrictions: { country: "ng" },
+                  }}
+                  // onLoad
+                >
+                  <input
+                    name="Pickup Location"
+                    placeholder="5 Noma Street GRA Edo State "
+                    className="phone-input2"
+                    ref={pickupRef}
+                  />
+                </Autocomplete>
               </div>
             </div>
-          </Autocomplete>
-        </div>
-        <div id="price-div">
-          <p>Delivery Fee </p>
-          <p id="price-p">
-            &#8358;{price !== "" ? groupDigital(price) : "0.00"}
-          </p>
-        </div>
 
-        <div id="div-button">
-          <button
-            className="set-location-btn-1"
-            onClick={handleRoute}
-            disabled={loadButton}
-          >
-            <span>
-              {loadButton ? (
-                <ClipLoader color={"black"} loading={loadButton} size={30} />
-              ) : (
-                buttonName
-              )}
-            </span>
-          </button>
+            <Autocomplete
+              options={{
+                componentRestrictions: { country: "ng" },
+              }}
+            >
+              <div className="location-form-input" id="location-form-input-2">
+                <label htmlFor="Delivery Location">Delivery Location</label>
+                <div className="delivery-location-input">
+                  <img src={Locate} alt="" className="locate-icon" />
+                  <input
+                    name="Delivery Location"
+                    placeholder="19 Akpakpava Road Benin City Ed.."
+                    className="phone-input2"
+                    ref={destinationRef}
+                  />
+                </div>
+              </div>
+            </Autocomplete>
+          </div>
+          <div id="price-div">
+            <p>Delivery Fee </p>
+            <p id="price-p">
+              &#8358;{price !== "" ? groupDigital(price) : "0.00"}
+            </p>
+          </div>
 
-          <button
-            className={
-              buttonName === "Calculate Route"
-                ? "set-location-btn-2"
-                : "set-location-btn-1"
-            }
-            onClick={handleNavigate}
-          >
-            Next
-          </button>
+          <div id="div-button">
+            <button
+              className={
+                buttonName === "Calculate Route"
+                  ? "set-location-btn-1"
+                  : "set-location-btn-3"
+              }
+              onClick={handleRoute}
+              disabled={loadButton}
+            >
+              <span>
+                {loadButton ? (
+                  <ClipLoader color={"black"} loading={loadButton} size={30} />
+                ) : (
+                  buttonName
+                )}
+              </span>
+            </button>
+
+            <button
+              className={
+                price !== "" ? "set-location-btn-1" : "set-location-btn-2"
+              }
+              onClick={handleNavigate}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </section>

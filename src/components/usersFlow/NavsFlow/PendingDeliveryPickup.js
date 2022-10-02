@@ -14,6 +14,7 @@ import "../../css/toggle.css";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import EmptyBox from "../../Images/pendingD.png";
+import Thousand_converter from "../../javascript/Thousand_converter";
 
 export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
@@ -41,6 +42,7 @@ export default function PendingDeliveryPickup(props) {
     );
     const data = await res.json();
     const results = await data;
+    console.log(data);
     setLoading(false);
     const pDeliveries = results?.deliveries;
     // setPendingDeliveries(results?.deliveries);
@@ -108,13 +110,19 @@ export default function PendingDeliveryPickup(props) {
                 <DeliveryHistoryList
                   click={() => {
                     navigate("/user/pending-instant", {
-                      state: { id: item._id },
+                      state: { id: item._id, agentId: item.delivery_agent_id },
                     });
                   }}
                   parcelname={item.parcel_name}
                   parcelcode={item.parcel_code}
                   deliveryimage={item.imgs[0]}
                   deliverytype="instant"
+                  price={
+                    <span>
+                      &#8358;
+                      {<Thousand_converter value={item.delivery_cost_user} />}
+                    </span>
+                  }
                 />
               ))
             ) : (
@@ -129,13 +137,19 @@ export default function PendingDeliveryPickup(props) {
                 <DeliveryHistoryList
                   click={() => {
                     navigate("/user/pending-scheduled", {
-                      state: { id: item._id },
+                      state: { id: item._id, agentId: item.delivery_agent_id },
                     });
                   }}
                   parcelname={item.parcel_name}
                   parcelcode={item.parcel_code}
                   deliveryimage={item.imgs[0]}
                   deliverytype="scheduled"
+                  price={
+                    <span>
+                      &#8358;
+                      {<Thousand_converter value={item.delivery_cost_user} />}
+                    </span>
+                  }
                 />
               ))
             ) : (

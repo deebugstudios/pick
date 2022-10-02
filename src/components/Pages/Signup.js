@@ -21,6 +21,7 @@ export default function Signup() {
         link2="/sign"
         in="Login"
         inLink="/login-as"
+        account="Already Have an account?"
       />
     </>
   );

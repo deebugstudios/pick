@@ -21,6 +21,7 @@ export default function LoginAs() {
         link2="/welcome-agent"
         in="Sign Up"
         inLink="/join"
+        account="Don't have an account?"
       />
     </>
   );

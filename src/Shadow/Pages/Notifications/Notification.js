@@ -39,16 +39,16 @@ export const Notification = () => {
 
       if (res.status === 200) {
         // console.log("User created successfully");
-        // console.log(data);
+        console.log(result);
         setData(result?.notifications);
         setLoading(false);
 
         //
       } else {
-        console.log("Error occured");
+        // console.log("Error occured");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -96,9 +96,7 @@ export const Notification = () => {
           <h3>Notifications</h3>
           <div className="notifcation-messages-container">
             <div className="notfication-date">
-              <h5>
-                {pageCount === 1 ? "recent" : pageCount > 1 ? "Older" : ""}
-              </h5>
+              <h5></h5>
               <div
                 style={{
                   display: "flex",

@@ -27,6 +27,7 @@ export default function SelectAgent() {
 
   const [agent, setAgent] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState("");
 
   const fetchAgent = async () => {
     const res = await fetch(
@@ -50,7 +51,7 @@ export default function SelectAgent() {
     setLoading(false);
     // setAgent(results?.deliveries);
     setAgent(data?.delivery_agents);
-    console.log(data?.delivery_agents);
+    // console.log(data?.delivery_agents)
   };
 
   useEffect(() => {
@@ -86,7 +87,8 @@ export default function SelectAgent() {
                       state: {
                         name: item?.fullname,
                         profile: item?.img_url,
-                        rating: item?.rating.total_rating,
+                        total_rating: item?.rating.total_rating,
+                        rating_count: item?.rating.rating_count,
                         deliveries: item?.no_successful_deliveries,
                         phone: item?.phone_no,
                         agentId: item?._id,

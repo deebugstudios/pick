@@ -7,8 +7,12 @@ import {
   faTimesCircle,
   faNoteSticky,
   faSignOut,
+  faPhone,
+  faAddressCard,
+  faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink } from "react-router-dom";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
 
 const SideBar = (props) => {
   // const [sideBar, setSideBar] = useState(true);
@@ -24,6 +28,61 @@ const SideBar = (props) => {
           {/* <li className="toggle-sidebar" onClick={show}>
             X
           </li> */}
+
+          <NavLink
+            className="side-hide"
+            to="/user/home"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+            onClick={props.toggler}
+          >
+            <li>
+              <FontAwesomeIcon icon={faHome} className="space-icons-1" />
+              {/* {props.sideBar ? "Request Pickup" : ""} */}
+              Home
+            </li>
+          </NavLink>
+
+          <NavLink
+            className="side-hide"
+            to="/user/about"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+            onClick={props.toggler}
+          >
+            <li>
+              <FontAwesomeIcon icon={faAddressCard} className="space-icons-1" />
+              {/* {props.sideBar ? "Request Pickup" : ""} */}
+              About Us
+            </li>
+          </NavLink>
+
+          <NavLink
+            className="side-hide"
+            to="/user/contact"
+            style={({ isActive }) => {
+              return {
+                background: isActive ? "#e8f4e3" : "",
+                marginBottom: "20px",
+              };
+            }}
+            onClick={props.toggler}
+          >
+            <li>
+              <FontAwesomeIcon icon={faPhone} className="space-icons-1" />
+              {/* {props.sideBar ? "Request Pickup" : ""} */}
+              Contact Us
+            </li>
+          </NavLink>
+
           <NavLink
             to="/user/type"
             style={({ isActive }) => {
@@ -35,7 +94,7 @@ const SideBar = (props) => {
             onClick={props.toggler}
           >
             <li>
-              <FontAwesomeIcon icon={faHome} className="space-icons-1" />
+              <FontAwesomeIcon icon={faTruckFast} className="space-icons-1" />
               {/* {props.sideBar ? "Request Pickup" : ""} */}
               Request Pickup
             </li>
@@ -76,7 +135,7 @@ const SideBar = (props) => {
           </NavLink>
 
           <NavLink
-            to="/user/chatwithadminuser"
+            to="/user/chat"
             style={({ isActive }) => {
               return {
                 background: isActive ? "#e8f4e3" : "",
@@ -86,28 +145,12 @@ const SideBar = (props) => {
             onClick={props.toggler}
           >
             <li>
-              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
+              <FontAwesomeIcon icon={faMessage} className="space-icons-1" />
               {/* {props.sideBar ? "Chat With Admin" : ""} */}
               Chat With Admin
             </li>
           </NavLink>
 
-          <NavLink
-            to="/user/agentlist"
-            style={({ isActive }) => {
-              return {
-                background: isActive ? "#e8f4e3" : "",
-                marginBottom: "20px",
-              };
-            }}
-            onClick={props.toggler}
-          >
-            <li>
-              <FontAwesomeIcon icon={faNoteSticky} className="space-icons-1" />
-              {/* {props.sideBar ? "Chat With Admin" : ""} */}
-              Agent List
-            </li>
-          </NavLink>
           {/* </ul> */}
 
           {/* <ul> */}

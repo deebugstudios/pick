@@ -114,6 +114,13 @@
   margin-left: 5px;
   color: #959398;
 }
+#number-arrow-div {
+  width: 40px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 20px;
+  align-self: flex-start;
+}
 @media screen and (max-width: 400px) {
   .img-border {
     margin: 10px 10px 15px 10px;

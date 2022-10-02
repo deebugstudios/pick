@@ -1,6 +1,13 @@
 .bell-span {
   cursor: pointer !important;
   color: #1aa803;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.bell-span2 {
+  cursor: pointer !important;
+  color: #1aa803;
+  font-size: 20px;
 }
 .user-nav {
   /* box-shadow: 1px 1px 5px black; */
@@ -17,7 +24,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
-  padding: 0 20px;
+  padding: 0 35px;
 }
 
 /* .logo {
@@ -115,6 +122,10 @@
 }
 /* media at 920px which is for mobile view */
 @media screen and (max-width: 920px) {
+  .nav-wrapper-1 {
+    font-weight: 600;
+    font-size: 0.8em;
+  }
   nav {
     padding: 0 1em;
   }
@@ -154,20 +165,14 @@
     color: white;
   }
 }
-/* media for responsiveness */
-@media screen and (max-width: 677px) {
-  .nav-links {
-    display: none;
+@media screen and (max-width: 700px) {
+  .bell-span,
+  .bell-span2 {
+    font-size: 15px;
   }
-  .nav-wrapper {
-    justify-content: space-between;
-    /* padding: 0 1em; */
-  }
-}
-@media screen and (max-width: 500px) {
   .profile-img-1 {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     /* background-color: black; */
     margin-right: 1em;
@@ -177,8 +182,24 @@
     justify-content: center;
   }
   .profile-img-1 img {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
+  }
+}
+
+/* media for responsiveness */
+@media screen and (max-width: 650px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-wrapper {
+    justify-content: space-between;
+    /* padding: 0 1em; */
+  }
+}
+@media screen and (max-width: 500px) {
+  .nav-wrapper-1 {
+    height: 7vh;
   }
 }

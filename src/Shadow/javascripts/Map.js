@@ -14,10 +14,8 @@ import { type } from "@testing-library/user-event/dist/type";
 
 const Map = (props) => {
   const [map, setMap] = useState(/** @type google.maps.map */ (null));
-  const center = useMemo(
-    () => ({ lat: 6.3352435, lng: 5.625857700000001 }),
-    []
-  );
+  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
+  const center = useMemo(() => props.juve, []);
   const option = useMemo(
     () => ({
       disableDefaultUI: true,

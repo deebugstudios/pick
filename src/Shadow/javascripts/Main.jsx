@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import greendots from "../images/circlegreendesign.png";
 import reddots from "../images/circlereddesign.png";
 // import backgroundimg1 from '../images/rightsidebackground.png'
@@ -19,8 +19,21 @@ import Testimonials from "./Testimonials";
 import Section2subsec4 from "./Section2subsec4";
 import { Autocomplete } from "@react-google-maps/api";
 import Footer from "./Footer";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { userContext } from "../Pages/Contexts/RiderContext";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const userValues = useContext(userContext);
+  const { token } = userValues;
+  const userToken = token;
+  const navigate = useNavigate();
+
+  const goToChat = () => {
+    userToken ? navigate("/user/chat") : navigate("/guest");
+    // navigate("/guest");
+  };
   return (
     <>
       <div className="wrapper-main">
@@ -81,6 +94,13 @@ const Main = () => {
                   </div>
                   <img src={reddots} alt="" className="red-dots2 " />
                 </div>
+              </div>
+              <div className="whats-app" onClick={goToChat}>
+                <FontAwesomeIcon
+                  icon={faMessage}
+                  className="space-icons-1 my-float"
+                />
+                <p className="help-text">Say Hello</p>
               </div>
               <Section2 />
               <Section2subsec1 />
