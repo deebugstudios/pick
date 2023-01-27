@@ -9,7 +9,7 @@ export const TimeConverter = (props) => {
       date
         .toLocaleTimeString()
         .substring(0, date.toLocaleTimeString().length - 5) +
-      date.toLocaleTimeString().substring(date.toLocaleTimeString().length - 3),
+      date.toLocaleTimeString().substring(date.toLocaleTimeString().length - 2),
     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
   };
   return DATE.time;
