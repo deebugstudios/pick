@@ -119,7 +119,10 @@ const Footer = () => {
       </div>
       <div className="main-footer-rights">
         <div>
-          <p>© Copyright 2022 | pickload.ng | All rights reserved.</p>
+          <p>
+            © Copyright {new Date().getFullYear()} | pickload.ng | All rights
+            reserved.
+          </p>
         </div>
         <div>
           <ul>

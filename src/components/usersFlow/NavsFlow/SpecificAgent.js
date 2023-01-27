@@ -113,28 +113,28 @@ export default function SpecificAgent() {
             <table>
               <tbody>
                 <tr>
-                  <th>Delivery Agent :</th>
+                  <th>Delivery agent:</th>
                   <td>{name}</td>
                 </tr>
                 <tr>
-                  <th>Vehicle Type :</th>
-                  <td>{vehicle_name}</td>
+                  <th>Phone number:</th>
+                  <td>{phone}</td>
                 </tr>
                 <tr>
-                  <th>Vehicle Color :</th>
-                  <td>{color}</td>
-                </tr>
-                <tr>
-                  <th>Agent ID :</th>
+                  <th>Agent ID:</th>
                   <td>{agentId}</td>
                 </tr>
                 <tr>
-                  <th>Plate Number :</th>
-                  <td>{plate}</td>
+                  <th>Vehicle type:</th>
+                  <td>{vehicle_name}</td>
                 </tr>
                 <tr>
-                  <th>Phone Number :</th>
-                  <td>{phone}</td>
+                  <th>Vehicle color:</th>
+                  <td>{color}</td>
+                </tr>
+                <tr>
+                  <th>Plate number:</th>
+                  <td>{plate}</td>
                 </tr>
               </tbody>
             </table>

@@ -14,6 +14,7 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { ClipLoader } from "react-spinners";
+import ThousandConverter from "../../javascript/ThousandConverter";
 
 export default function CancelledScheduled() {
   const navigate = useNavigate();
@@ -47,26 +48,21 @@ export default function CancelledScheduled() {
     const data = await res.json();
     const results = await data;
     setLoading(false);
-    // console.log(data);
+    console.log(data);
     setDeliveryDetails(results?.delivery);
     setDeliveryImages(results?.delivery.imgs);
   };
 
   useEffect(() => {
     fetchDeliveryDetails();
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    // Remove the beforeunload event listener when the component is unmounted
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
   }, []);
 
-  function handleBeforeUnload(e) {
-    // This event is fired before the page is unloaded
-    var confirmationMessage = "Are you sure you want to leave this page?";
-    e.preventDefault();
-    e.returnValue = confirmationMessage;
-  }
+  // function handleBeforeUnload(e) {
+  //   // This event is fired before the page is unloaded
+  //   var confirmationMessage = "Are you sure you want to leave this page?";
+  //   e.preventDefault();
+  //   e.returnValue = confirmationMessage;
+  // }
 
   if (loading === true) {
     return (
@@ -90,10 +86,18 @@ export default function CancelledScheduled() {
             </div>
             <br />
             <br />
-            <p>
-              <strong>Scheduled Delivery ID:</strong>{" "}
-              {deliveryDetails?.parcel_code}
+            <p className="margin-bottom">
+              <strong>Delivery cost:</strong>{" "}
+              <span>
+                &#8358;
+                {
+                  <ThousandConverter
+                    value={deliveryDetails?.delivery_cost_user}
+                  />
+                }
+              </span>
             </p>
+            <h3>Delivery ID: {deliveryDetails?.parcel_code}</h3>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
                 <li key={index}>
@@ -109,7 +113,7 @@ export default function CancelledScheduled() {
                   <img src={Selected} alt="" id="selected-img" />
                 </div>
                 <div id="selected-col">
-                  <h3>Scheduled Delivery Time and Date</h3>
+                  <h3>Delivery Pickup time and date</h3>
                   <p>
                     {
                       <TimeConverter
@@ -179,28 +183,28 @@ export default function CancelledScheduled() {
               <div className="delivery-profile-details">
                 <table>
                   <tr>
-                    <th>Delivery Agent :</th>
+                    <th>Delivery agent:</th>
                     <td>{deliveryDetails?.delivery_agent_name}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Type :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                    <th>Phone no:</th>
+                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Color :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                  </tr>
-                  <tr>
-                    <th>Agent ID :</th>
+                    <th>Rider ID:</th>
                     <td>{deliveryDetails.delivery_agent_id}</td>
                   </tr>
                   <tr>
-                    <th>Plate Number :</th>
-                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                    <th>Vehicle type:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                   </tr>
                   <tr>
-                    <th>Phone Number :</th>
-                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                    <th>Vehicle color:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                  </tr>
+                  <tr>
+                    <th>Plate no:</th>
+                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
                   </tr>
                 </table>
               </div>
@@ -221,7 +225,7 @@ export default function CancelledScheduled() {
             <br />
             <br />
 
-            <div className="report-user">
+            {/* <div className="report-user">
               <div>
                 <img src={Flag} alt="" />
               </div>
@@ -239,7 +243,7 @@ export default function CancelledScheduled() {
               >
                 Leave a Review
               </button>
-            </div>
+            </div> */}
             <br />
           </div>
           <Popup trigger={popupButton} setTrigger={setPopupButton}>

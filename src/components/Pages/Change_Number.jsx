@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 // import Login_Header from "../../pages/logout/Login_Header";
 import "../css/change_number.css";
@@ -6,6 +6,7 @@ import Nigerianflag from "../Images/Nigerian_flag.png";
 import Flag from "../Images/Nigerian_flag.png";
 import Button from "../javascript/Button";
 import Arrow from "../Images/Arrow.png";
+import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function Change_Number() {
   const location = useLocation();
@@ -13,6 +14,8 @@ export default function Change_Number() {
 
   const [newNo, setNewNo] = useState("");
   const [newNoError, setNewNoError] = useState("");
+  const userValues = useContext(userContext);
+  const { token, userId } = userValues;
 
   const handleChange = (e) => {
     setNewNo(e.target.value);
@@ -31,8 +34,7 @@ export default function Change_Number() {
           method: "POST",
 
           body: JSON.stringify({
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBlNjdiODQ1M2EzNzIyMjc1N2I3OGMiLCJwaG9uZV9ubyI6IisyMzQ4MTU3NTQyODIwIiwiaWF0IjoxNjYxODg4NDUzfQ.ZcLApAMCMxmo17pp17Bu9nJ0d_G_vvkhfZekLrrkjis",
+            token: JSON.parse(token),
             old_phone_no: phone_no,
             new_phone_no: newNo,
           }),
@@ -99,8 +101,10 @@ export default function Change_Number() {
                     value={newNo}
                     onChange={handleChange}
                     className="phone-input nedu-info-div"
-                    disabled={true}
-                    maxLength={10}
+                    type="number"
+                    // pattern=""
+                    maxLength="10"
+                    // max={10}
                   />
                 </div>
               </div>

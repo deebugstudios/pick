@@ -18,7 +18,7 @@ import { ClipLoader } from "react-spinners";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
-import Thousand_converter from "../../javascript/Thousand_converter";
+import ThousandConverter from "../../javascript/ThousandConverter";
 
 export default function PendingScheduledDetails() {
   const navigate = useNavigate();
@@ -30,6 +30,8 @@ export default function PendingScheduledDetails() {
   const [percent, setPercent] = useState("");
   const [refundDays, setRefundDays] = useState("");
   const [cancelButton, setCancelButton] = useState(false);
+  const [popupButton, setPopupButton] = useState(false);
+  const [deliveryImages, setDeliveryImages] = useState([]);
   const userValues = useContext(userContext);
   const { token } = userValues;
 
@@ -98,6 +100,7 @@ export default function PendingScheduledDetails() {
     setDeliveryDetails(results?.delivery);
     // console.log(deliveryDetails);
     setDate(deliveryDetails?.pickup_time);
+    setDeliveryImages(results?.delivery.imgs);
   };
 
   useEffect(() => {
@@ -130,7 +133,7 @@ export default function PendingScheduledDetails() {
               <span>
                 &#8358;
                 {
-                  <Thousand_converter
+                  <ThousandConverter
                     value={deliveryDetails?.delivery_cost_user}
                   />
                 }
@@ -195,28 +198,28 @@ export default function PendingScheduledDetails() {
                 <div className="delivery-profile-details">
                   <table>
                     <tr>
-                      <th>Delivery agent :</th>
-                      <td>{deliveryDetails.delivery_agent_name}</td>
+                      <th>Delivery agent:</th>
+                      <td>{deliveryDetails?.delivery_agent_name}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle type :</th>
-                      <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                      <th>Phone no:</th>
+                      <td>{deliveryDetails.delivery_agent_phone_no}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle color :</th>
-                      <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                    </tr>
-                    <tr>
-                      <th>Agent ID :</th>
+                      <th>Rider ID:</th>
                       <td>{deliveryDetails.delivery_agent_id}</td>
                     </tr>
                     <tr>
-                      <th>Plate no :</th>
-                      <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                      <th>Vehicle type:</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                     </tr>
                     <tr>
-                      <th>Phone no :</th>
-                      <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                      <th>Vehicle color:</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                    </tr>
+                    <tr>
+                      <th>Plate no:</th>
+                      <td>{deliveryDetails.delivery_agent_plate_no}</td>
                     </tr>
                   </table>
                 </div>
@@ -254,16 +257,29 @@ export default function PendingScheduledDetails() {
             <br />
             <br />
 
-            <div
-              className="report-user"
-              onClick={() => {
-                setCancelButton(true);
-              }}
-            >
+            <div className="report-user">
               <div>
                 <img src={Cancel} alt="" />
               </div>
-              <p>Cancel</p>
+              <p
+                onClick={() => {
+                  setCancelButton(true);
+                }}
+              >
+                Cancel
+              </p>
+            </div>
+            <div className="report-user">
+              <div>
+                <img src={Flag} alt="" />
+              </div>
+              <p
+                onClick={() => {
+                  setPopupButton(true);
+                }}
+              >
+                Report this Delivery
+              </p>
             </div>
             <br />
           </div>
@@ -278,6 +294,25 @@ export default function PendingScheduledDetails() {
               delivery_id={Delivery_id}
             />
           </Popup3>
+
+          <Popup trigger={popupButton} setTrigger={setPopupButton}>
+            <ReportReason
+              delivery_id={Delivery_id}
+              parcel_code={deliveryDetails.parcel_code}
+              img_ids={deliveryDetails.img_ids}
+              imgs={deliveryImages.join(", ")}
+              agentName={deliveryDetails.delivery_agent_name}
+              delivery_agent_code={deliveryDetails.delivery_agent_code}
+              delivery_agent_id={deliveryDetails.delivery_agent_id}
+              delivery_agent_img={deliveryDetails.delivery_agent_img}
+              delivery_agent_img_id={deliveryDetails.delivery_agent_img_id}
+              delivery_agent_email={deliveryDetails.delivery_agent_email}
+              user_email={deliveryDetails.sender_email}
+              delivery_type={deliveryDetails.delivery_type}
+              sender_fullname={deliveryDetails.sender_fullname}
+              sender_id={deliveryDetails.sender_id}
+            />
+          </Popup>
         </div>
       </section>
     );

@@ -14,16 +14,28 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
+import ThousandConverter from "../../javascript/ThousandConverter";
 import Millisecond from "./Millisecond";
 
 export default function DeliveryHistoryDetails() {
-  const getMinutes = (milliseconds) => {
-    const d = new Date(Date.UTC(0, 0, 0, 0, 0, 0, milliseconds));
-    return [
-      d.getUTCHours() > 0 ? d.getUTCHours() : null,
-      d.getUTCMinutes() > 0 ? d.getUTCMinutes() : null,
-    ];
-  };
+  function convertMillisecondsToTime(ms) {
+    const hours = Math.floor(ms / 3600000); // 1 Hour = 36000 Milliseconds
+    const minutes = Math.floor((ms % 3600000) / 60000); // 1 Minute = 60000 Milliseconds
+    const seconds = (ms % 60000) / 1000;
+
+    if (hours === 0 && minutes === 0) {
+      return seconds.toFixed(3) + " seconds";
+    } else if (hours === 0) {
+      return minutes + (minutes > 1 ? " minutes" : " minute");
+    } else {
+      return (
+        hours +
+        (minutes > 1 ? " hours, " : " hour, ") +
+        minutes +
+        (minutes > 1 ? " minutes" : " minute")
+      );
+    }
+  }
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -93,7 +105,24 @@ export default function DeliveryHistoryDetails() {
             </div>
             <br />
             <br />
-            <h3>Instant Delivery ID: {deliveryDetails?.parcel_code} </h3>
+            <h3>Completed Instant Delivery</h3>
+            <br />
+            <p>
+              <strong>Delivery confirmation proof</strong>
+            </p>
+            <div className="delivery-details-pictures specifics-images">
+              {deliveryDetails.delivery_confirmation_proof_urls?.map(
+                (item, index) => (
+                  <li key={index}>
+                    <DeliveryImages rectangle={item} />
+                  </li>
+                )
+              )}
+            </div>
+
+            <p>
+              <strong>Delivery Summary</strong>
+            </p>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
                 <li key={index}>
@@ -102,18 +131,52 @@ export default function DeliveryHistoryDetails() {
               ))}
             </div>
             <br />
-            <h3>Delivery status</h3>
+
+            <div className="summary-cost">
+              <p>
+                <strong>Delivery cost: </strong>
+                <span>
+                  &#8358;
+                  {
+                    <ThousandConverter
+                      value={deliveryDetails?.delivery_cost_user}
+                    />
+                  }
+                </span>
+              </p>
+              <p>
+                <strong>Delivery ID:</strong> {deliveryDetails?.parcel_code}{" "}
+              </p>
+              <p>
+                <strong>Pickup address:</strong>{" "}
+                {deliveryDetails?.pickup_address}
+              </p>
+              <p>
+                <strong>Drop off address:</strong>{" "}
+                {deliveryDetails?.drop_off_address}
+              </p>
+            </div>
+
             <div className="delivery-details-location">
               <div className="delivery-deatails-location-pickup">
                 <div className="location-img">
                   <img src={Checkout} alt="" />
                 </div>
-                <h3>Item Received by Delivery Agent at the Pickup Location </h3>
+                <h3>Item collected by delivery agent </h3>
                 <p>
-                  {<TimeConverter value={deliveryDetails?.timestamp} />} on{" "}
-                  {<DateConverter value={deliveryDetails?.timestamp} />}
+                  {
+                    <TimeConverter
+                      value={deliveryDetails?.delivery_status.is_started_at}
+                    />
+                  }{" "}
+                  on{" "}
+                  {
+                    <DateConverter
+                      value={deliveryDetails?.delivery_status.is_started_at}
+                    />
+                  }
                 </p>
-                <h3>Item Received by User at the Drop off location </h3>
+                <h3>Item arrived drop off location </h3>
                 <p>
                   {" "}
                   {
@@ -132,14 +195,14 @@ export default function DeliveryHistoryDetails() {
             </div>
             <div className="estimatedtime">
               <h2>
-                Your item arrived at your location in {getMinutes(milli)}{" "}
-                minute(s)
+                Item delivered in {convertMillisecondsToTime(milli)}
+                {/* minute(s) */}
               </h2>
             </div>
             <br />
             <br />
 
-            <h3>Delivery Details</h3>
+            <h3>Delivery details</h3>
 
             <div className="delivery-profile1">
               <div className="driver-profile-image">
@@ -150,28 +213,28 @@ export default function DeliveryHistoryDetails() {
               <div className="delivery-profile-details">
                 <table>
                   <tr>
-                    <th>Delivery Agent :</th>
+                    <th>Delivery agent:</th>
                     <td>{deliveryDetails?.delivery_agent_name}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Type :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                    <th>Phone no:</th>
+                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Color :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                  </tr>
-                  <tr>
-                    <th>Agent ID :</th>
+                    <th>Rider ID:</th>
                     <td>{deliveryDetails.delivery_agent_id}</td>
                   </tr>
                   <tr>
-                    <th>Plate Number :</th>
-                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                    <th>Vehicle type:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                   </tr>
                   <tr>
-                    <th>Phone Number :</th>
-                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                    <th>Vehicle color:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                  </tr>
+                  <tr>
+                    <th>Plate no:</th>
+                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
                   </tr>
                 </table>
               </div>

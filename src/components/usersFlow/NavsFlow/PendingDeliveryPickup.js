@@ -14,7 +14,7 @@ import "../../css/toggle.css";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import EmptyBox from "../../Images/pendingD.png";
-import Thousand_converter from "../../javascript/Thousand_converter";
+import ThousandConverter from "../../javascript/ThousandConverter";
 
 export default function PendingDeliveryPickup(props) {
   const [toggle, setToggle] = useState(true);
@@ -120,7 +120,7 @@ export default function PendingDeliveryPickup(props) {
                   price={
                     <span>
                       &#8358;
-                      {<Thousand_converter value={item.delivery_cost_user} />}
+                      {<ThousandConverter value={item.delivery_cost_user} />}
                     </span>
                   }
                 />
@@ -147,7 +147,7 @@ export default function PendingDeliveryPickup(props) {
                   price={
                     <span>
                       &#8358;
-                      {<Thousand_converter value={item.delivery_cost_user} />}
+                      {<ThousandConverter value={item.delivery_cost_user} />}
                     </span>
                   }
                 />

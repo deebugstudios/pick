@@ -17,7 +17,7 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
-import Thousand_converter from "../../javascript/Thousand_converter";
+import ThousandConverter from "../../javascript/ThousandConverter";
 import { doc } from "firebase/firestore";
 import {
   collection,
@@ -117,14 +117,14 @@ export default function PendingInstantDetails() {
               <span>
                 &#8358;
                 {
-                  <Thousand_converter
+                  <ThousandConverter
                     value={deliveryDetails?.delivery_cost_user}
                   />
                 }
               </span>
             </h3>
             <h3>
-              Instant Delivery ID: <span>{deliveryDetails?.parcel_code}</span>
+              Delivery ID: <span>{deliveryDetails?.parcel_code}</span>
             </h3>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
@@ -173,7 +173,7 @@ export default function PendingInstantDetails() {
                       <td>{deliveryDetails?.delivery_agent_name}</td>
                     </tr>
                     <tr>
-                      <th>Phone number:</th>
+                      <th>Phone no:</th>
                       <td>{deliveryDetails.delivery_agent_phone_no}</td>
                     </tr>
                     <tr>
@@ -188,9 +188,8 @@ export default function PendingInstantDetails() {
                       <th>Vehicle color:</th>
                       <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
                     </tr>
-
                     <tr>
-                      <th>Plate number:</th>
+                      <th>Plate no:</th>
                       <td>{deliveryDetails.delivery_agent_plate_no}</td>
                     </tr>
                   </table>

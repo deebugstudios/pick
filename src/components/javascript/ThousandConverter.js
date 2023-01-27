@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Thousand_converter(props) {
+export default function ThousandConverter(props) {
   function reverseString(str) {
     return str.split("").reverse().join("");
   }

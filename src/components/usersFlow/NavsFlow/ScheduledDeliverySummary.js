@@ -240,28 +240,28 @@ export default function ScheduledDeliverySummary() {
               <div className="delivery-profile-details">
                 <table>
                   <tr>
-                    <th>Delivery Agent :</th>
-                    <td>{deliveryDetails.delivery_agent_name}</td>
+                    <th>Delivery agent:</th>
+                    <td>{deliveryDetails?.delivery_agent_name}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Type :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                    <th>Phone no:</th>
+                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
                   </tr>
                   <tr>
-                    <th>Vehicle Color :</th>
-                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                  </tr>
-                  <tr>
-                    <th>Agent ID :</th>
+                    <th>Rider ID:</th>
                     <td>{deliveryDetails.delivery_agent_id}</td>
                   </tr>
                   <tr>
-                    <th>Plate Number :</th>
-                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                    <th>Vehicle type:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                   </tr>
                   <tr>
-                    <th>Phone Number :</th>
-                    <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                    <th>Vehicle color:</th>
+                    <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                  </tr>
+                  <tr>
+                    <th>Plate no:</th>
+                    <td>{deliveryDetails.delivery_agent_plate_no}</td>
                   </tr>
                 </table>
               </div>

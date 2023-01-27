@@ -51,7 +51,7 @@ export default function SelectAgent() {
     setLoading(false);
     // setAgent(results?.deliveries);
     setAgent(data?.delivery_agents);
-    // console.log(data?.delivery_agents)
+    console.log(data?.delivery_agents);
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function SelectAgent() {
                         profile: item?.img_url,
                         total_rating: item?.rating.total_rating,
                         rating_count: item?.rating.rating_count,
-                        deliveries: item?.no_successful_deliveries,
+                        deliveries: item?.no_completed_deliveries,
                         phone: item?.phone_no,
                         agentId: item?._id,
                         color: item?.vehicle_details.color,
@@ -133,7 +133,7 @@ export default function SelectAgent() {
                       </div>
                       <div className="ratings-star">
                         <p>Deliveries</p>
-                        <p>{item?.no_successful_deliveries}</p>
+                        <p>{item?.no_completed_deliveries}</p>
                       </div>
                     </div>
                   </div>
