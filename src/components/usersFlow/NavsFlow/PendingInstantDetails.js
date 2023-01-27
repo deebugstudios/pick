@@ -136,7 +136,7 @@ export default function PendingInstantDetails() {
 
             <h3>Delivery status </h3>
             <div className="delivery-details-location">
-              <div className="delivery-deatails-location-pickup">
+              {/* <div className="delivery-deatails-location-pickup">
                 <div className="location-img">
                   <img src={locationimg} alt="" />
                 </div>
@@ -146,15 +146,7 @@ export default function PendingInstantDetails() {
                   {<DateConverter value={deliveryDetails?.timestamp} />}
                 </p>
                 <h3>Item in transit </h3>
-              </div>
-              {/* <table>
-                        <tr>
-                            <th>Arrived Pickup Location</th>
-                        </tr>
-                        <tr>
-                            <td>Thursday March 25th at 9:30pm</td>
-                        </tr>
-                    </table> */}
+              </div> */}
             </div>
             <div className="estimatedtime estimate-div">
               <h2>
@@ -177,28 +169,29 @@ export default function PendingInstantDetails() {
                 <div className="delivery-profile-details">
                   <table>
                     <tr>
-                      <th>Delivery agent :</th>
+                      <th>Delivery agent:</th>
                       <td>{deliveryDetails?.delivery_agent_name}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle type :</th>
-                      <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
+                      <th>Phone number:</th>
+                      <td>{deliveryDetails.delivery_agent_phone_no}</td>
                     </tr>
                     <tr>
-                      <th>Vehicle color :</th>
-                      <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
-                    </tr>
-                    <tr>
-                      <th>Agent ID :</th>
+                      <th>Rider ID:</th>
                       <td>{deliveryDetails.delivery_agent_id}</td>
                     </tr>
                     <tr>
-                      <th>Plate number :</th>
-                      <td>{deliveryDetails.delivery_agent_plate_no}</td>
+                      <th>Vehicle type:</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_type}</td>
                     </tr>
                     <tr>
-                      <th>Phone number :</th>
-                      <td>{deliveryDetails.delivery_agent_phone_no}</td>
+                      <th>Vehicle color:</th>
+                      <td>{deliveryDetails.delivery_agent_vehicle_color}</td>
+                    </tr>
+
+                    <tr>
+                      <th>Plate number:</th>
+                      <td>{deliveryDetails.delivery_agent_plate_no}</td>
                     </tr>
                   </table>
                 </div>

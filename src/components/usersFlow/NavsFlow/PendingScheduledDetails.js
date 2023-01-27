@@ -28,6 +28,7 @@ export default function PendingScheduledDetails() {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [date, setDate] = useState(new Date());
   const [percent, setPercent] = useState("");
+  const [refundDays, setRefundDays] = useState("");
   const [cancelButton, setCancelButton] = useState(false);
   const userValues = useContext(userContext);
   const { token } = userValues;
@@ -53,9 +54,28 @@ export default function PendingScheduledDetails() {
     // console.log(data);
   };
 
+  const fetchDays = async () => {
+    const res = await fetch(
+      "https://ancient-wildwood-73926.herokuapp.com/user_delivery/get_refund_days",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: JSON.parse(token),
+        }),
+      }
+    );
+    const data = await res.json();
+    // console.log(data);
+    setRefundDays(data.stats.refund_days);
+  };
+
   useEffect(() => {
     fetchPercentage();
     fetchDeliveryDetails();
+    fetchDays();
   }, []);
 
   const fetchDeliveryDetails = async () => {
@@ -116,7 +136,9 @@ export default function PendingScheduledDetails() {
                 }
               </span>
             </h3>
-            <h3>Scheduled Delivery ID: {deliveryDetails?.parcel_code} </h3>
+            <p>
+              <strong>Delivery ID:</strong> {deliveryDetails?.parcel_code}{" "}
+            </p>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
                 <li key={index}>
@@ -125,7 +147,9 @@ export default function PendingScheduledDetails() {
               ))}
             </div>
 
-            <h3>Delivery statistics</h3>
+            <p>
+              <strong>Delivery Status</strong>
+            </p>
             <div className="delivery-details-location">
               <div className="delivery-deatail-location-pickup">
                 <div>
@@ -134,8 +158,23 @@ export default function PendingScheduledDetails() {
                 <div id="selected-col">
                   <h3>Scheduled delivery time and date</h3>
                   <p>
-                    {<TimeConverter value={deliveryDetails?.timestamp} />} on{" "}
-                    {<DateConverter value={deliveryDetails?.timestamp} />}
+                    {
+                      <TimeConverter
+                        value={
+                          deliveryDetails?.delivery_status
+                            .scheduled_delivery_pickup_timestamp
+                        }
+                      />
+                    }{" "}
+                    on{" "}
+                    {
+                      <DateConverter
+                        value={
+                          deliveryDetails?.delivery_status
+                            .scheduled_delivery_pickup_timestamp
+                        }
+                      />
+                    }
                   </p>
                 </div>
               </div>
@@ -235,6 +274,7 @@ export default function PendingScheduledDetails() {
                 setCancelButton(false);
               }}
               percent={percent}
+              refund={refundDays}
               delivery_id={Delivery_id}
             />
           </Popup3>

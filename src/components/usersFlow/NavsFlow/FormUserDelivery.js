@@ -15,6 +15,8 @@ import {
   onSnapshot,
   QuerySnapshot,
   doc,
+  updateDoc,
+  increment,
 } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
@@ -250,9 +252,17 @@ export default function FormUserDelivery() {
                 },
               }
             )
-            .then((response) => {
+            .then(async (response) => {
               // console.log(response);
               if (response.status === 200) {
+                const notifyRef = doc(
+                  db,
+                  "admin_notifiers",
+                  "delivery_requests"
+                );
+                await updateDoc(notifyRef, {
+                  deliveries_count: increment(1),
+                });
                 // console.log(response);
                 let data = response.data;
                 console.log(data);

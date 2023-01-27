@@ -261,7 +261,7 @@ export default function UserForm() {
           </form>
 
           <p id="accountAlready">
-            Already Have an account?{" "}
+            Already have an account?{" "}
             <Link to="/welcome">
               <span id="loginSpan">Log in</span>
             </Link>

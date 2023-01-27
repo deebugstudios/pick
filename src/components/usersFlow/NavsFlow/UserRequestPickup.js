@@ -39,6 +39,7 @@ export default function UserRequestPickup() {
   const [senderEmail, setSenderEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [loadButton, setLoadButton] = useState(false);
+  const [nextButton, setNextButton] = useState(false);
   const userValues = useContext(userContext);
   const { token, userName, email, userNumber, userImg } = userValues;
   // console.log(new Date().getTime());
@@ -199,65 +200,97 @@ export default function UserRequestPickup() {
   };
   // console.log(duration);
 
-  const handleNavigate = () => {
+  const handleNavigate = async () => {
     const realDistance = parseFloat(distance.replace(",", ""));
     const deliveryState = pickupState;
     const pickLocation = pickupLocation;
     const dropOffLocation = dropLocation;
     const pickup_address = pickupRef.current.value;
     const drop_off_address = destinationRef.current.value;
+    setNextButton(true);
 
-    if (price !== "") {
-      member === "instant"
-        ? navigate("/user/formuser", {
-            state: {
-              vehicle: vehicle,
-              member: member,
-              distance: realDistance,
-              pickupLocation: pickLocation,
-              pickupState: deliveryState,
-              dropOffLocation: dropOffLocation,
-              price: price,
-              pickup_address: pickup_address,
-              drop_off_address: drop_off_address,
-              senderName: name,
-              number: number,
-              email: Useremail,
-            },
-          })
-        : navigate("/user/select-a", {
-            state: {
-              vehicle: vehicle,
-              member: member,
-              distance: realDistance,
-              pickupLocation: pickLocation,
-              pickupState: deliveryState,
-              dropOffLocation: dropOffLocation,
-              price: price,
-              pickup_address: pickup_address,
-              drop_off_address: drop_off_address,
-              senderName: name,
-              number: number,
-              email: Useremail,
-            },
-          });
-    } else {
-      return;
-    }
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/stats/get_delivery_medium_states",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: JSON.parse(token),
+          }),
+        }
+      );
+      // const dataCheck = { bike: true, car: true, truck: false, van: true };
+      const data = await res.json();
+      const dataCheck = data.active_delivery_mediums;
+      if (res.status === 200) {
+        for (const key in dataCheck) {
+          if (key == vehicle.toLowerCase()) {
+            if (dataCheck[key] == false) {
+              alert(
+                `We're sorry but ${vehicle} is not currently available at this moment, choose another delivery medium`
+              );
+              navigate(-1);
+            } else {
+              setNextButton(false);
+              if (price !== "") {
+                member === "instant"
+                  ? navigate("/user/formuser", {
+                      state: {
+                        vehicle: vehicle,
+                        member: member,
+                        distance: realDistance,
+                        pickupLocation: pickLocation,
+                        pickupState: deliveryState,
+                        dropOffLocation: dropOffLocation,
+                        price: price,
+                        pickup_address: pickup_address,
+                        drop_off_address: drop_off_address,
+                        senderName: name,
+                        number: number,
+                        email: Useremail,
+                      },
+                    })
+                  : navigate("/user/select-a", {
+                      state: {
+                        vehicle: vehicle,
+                        member: member,
+                        distance: realDistance,
+                        pickupLocation: pickLocation,
+                        pickupState: deliveryState,
+                        dropOffLocation: dropOffLocation,
+                        price: price,
+                        pickup_address: pickup_address,
+                        drop_off_address: drop_off_address,
+                        senderName: name,
+                        number: number,
+                        email: Useremail,
+                      },
+                    });
+              } else {
+                return;
+              }
+            }
+          }
+        }
+      }
+    } catch {}
   };
 
   const handleRoute = () => {
     buttonName === "Calculate Route" ? calculateRoute() : clearRoute();
   };
 
-  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
+  // const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
   return (
     <section className="user-dashboard">
       <div className="user-right-side-1">
         <div className="request-div">
           <div className="map-container-1">
             <GoogleMap
-              juve={juve}
+              // juve={juve}
               direct={direction}
               // {...marker.map()}
               // eslint-disable-next-line
@@ -338,7 +371,13 @@ export default function UserRequestPickup() {
               }
               onClick={handleNavigate}
             >
-              Next
+              <span>
+                {nextButton ? (
+                  <ClipLoader color={"grey"} loading={nextButton} size={30} />
+                ) : (
+                  "Next"
+                )}
+              </span>
             </button>
           </div>
         </div>

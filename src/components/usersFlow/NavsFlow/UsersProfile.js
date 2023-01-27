@@ -6,7 +6,7 @@ import "../../css/userprofile.css";
 import Button from "../../javascript/Button";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import UserIcon from "../../Images/user-regular.svg";
+import UserIcon from "../../Images/user.png";
 import { useNavigate } from "react-router-dom";
 import Flag from "../../Images/Nigerian_flag.png";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";

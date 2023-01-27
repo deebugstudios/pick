@@ -4,49 +4,65 @@ import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 import "../css/reason.css";
 import Button from "../javascript/Button";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db, storage } from "../../utils/firebase";
 
 export default function CancelReason(props) {
   const navigate = useNavigate();
   const [reason, setReason] = useState("I changed my mind");
   const [explain, setExplain] = useState("");
   const userValues = useContext(userContext);
-  const { token } = userValues;
+  const { userName, token } = userValues;
 
   const handleCheck = (e) => {
     setReason(e.target.value);
   };
 
+  const handleExplain = (e) => {
+    setExplain(e.target.value);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const realReason = reason === "Other reasons" ? explain : reason;
+    if (reason === "Other reasons" && explain === "") {
+      return;
+    } else {
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_delivery",
+          {
+            method: "POST",
 
-    try {
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_delivery",
-        {
-          method: "POST",
+            body: JSON.stringify({
+              delivery_id: props.delivery_id,
+              token: JSON.parse(token),
+              cancel_reason: realReason,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        // const data = await res.json();
+        // console.log(data);
 
-          body: JSON.stringify({
-            delivery_id: props.delivery_id,
-            token: JSON.parse(token),
-            cancel_reason: reason,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
+        if (res.status === 200) {
+          navigate("/user/completed-del");
+          const notifyRef = doc(db, "delivery_requests", props.delivery_id);
+          await updateDoc(notifyRef, {
+            cancel_reason: realReason,
+            delivery_status_is_cancelled_by: JSON.parse(userName),
+            delivery_status_is_cancelled: true,
+            delivery_status_is_cancelled_at: Date.now(),
+          });
+        } else {
+          // setMessage("Error occured");
+          // console.log("error");
         }
-      );
-      const data = await res.json();
-      console.log(data);
-
-      if (res.status === 200) {
-        navigate("/user/completed-del");
-      } else {
-        // setMessage("Error occured");
-        console.log("error");
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -131,6 +147,7 @@ export default function CancelReason(props) {
           className="phone-input3 textarea"
           disabled={reason !== "Other reasons"}
           value={explain}
+          onChange={handleExplain}
         />
       </div>
 

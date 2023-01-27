@@ -164,6 +164,7 @@ export default function JoinAgent(props) {
 
     if (!gender) {
       setGenderError("Please Select Your Gender");
+      // return genderError;
     } else setGenderError("");
 
     if (!selectedFile) {

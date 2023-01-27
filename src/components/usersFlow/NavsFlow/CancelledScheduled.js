@@ -54,7 +54,19 @@ export default function CancelledScheduled() {
 
   useEffect(() => {
     fetchDeliveryDetails();
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    // Remove the beforeunload event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
+
+  function handleBeforeUnload(e) {
+    // This event is fired before the page is unloaded
+    var confirmationMessage = "Are you sure you want to leave this page?";
+    e.preventDefault();
+    e.returnValue = confirmationMessage;
+  }
 
   if (loading === true) {
     return (
@@ -78,7 +90,10 @@ export default function CancelledScheduled() {
             </div>
             <br />
             <br />
-            <h3>Scheduled Delivery ID: {deliveryDetails?.parcel_code} </h3>
+            <p>
+              <strong>Scheduled Delivery ID:</strong>{" "}
+              {deliveryDetails?.parcel_code}
+            </p>
             <div className="delivery-details-pictures specifics-images">
               {deliveryDetails.imgs?.map((item, index) => (
                 <li key={index}>

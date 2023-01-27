@@ -34,7 +34,12 @@ export function Button2(props) {
 
 export function Button5(props) {
   return (
-    <button id="compButton5" type={props.type} disabled={props.loading}>
+    <button
+      id="compButton5"
+      type={props.type}
+      disabled={props.loading}
+      onClick={props.click}
+    >
       <span>{props.name}</span>
     </button>
   );

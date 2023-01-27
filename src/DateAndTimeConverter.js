@@ -1,41 +1,45 @@
-import dayjs from 'dayjs'
-let DATE = {}
+import dayjs from "dayjs";
+let DATE = {};
 export const TimeConverter = (props) => {
-    // console.log(props)
-    const date = new Date(props.value);
-    DATE =  {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
-    }
-    return DATE.time;
-  }
-  export const DateConverter = (props) => {
-    // console.log(props)
-    const date = new Date(props.value);
-    DATE =  {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
-    }
-    return DATE.date;
-  }
+  // console.log(props)
+  const date = new Date(props.value);
+  DATE = {
+    date: date.toLocaleDateString(),
+    time:
+      date
+        .toLocaleTimeString()
+        .substring(0, date.toLocaleTimeString().length - 5) +
+      date.toLocaleTimeString().substring(date.toLocaleTimeString().length - 3),
+    combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
+  };
+  return DATE.time;
+};
+export const DateConverter = (props) => {
+  // console.log(props)
+  const date = new Date(props.value);
+  DATE = {
+    date: date.toLocaleDateString(),
+    time: date.toLocaleTimeString(),
+    combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
+  };
+  return DATE.date;
+};
 
-  export const WeekDayConverter = (props) => {
-    const date =  dayjs(props.value)
+export const WeekDayConverter = (props) => {
+  const date = dayjs(props.value);
 
-  return  date.format('dddd')
-  }
+  return date.format("dddd");
+};
 
-  export const EveryDateConverter = props => {
-    const date =  dayjs(props.value)
-    return date.format('dddd' + ' D' + ' MMMM' + ' YYYY')
-  }
-  export const HourConverter = props => {
-    const date =  dayjs(props.value)
-    return date.format('h')
-  }
-  export const MinsConverter = props => {
-    const date =  dayjs(props.value)
-    return date.format('mm')
-  }
+export const EveryDateConverter = (props) => {
+  const date = dayjs(props.value);
+  return date.format("dddd" + " D" + " MMMM" + " YYYY");
+};
+export const HourConverter = (props) => {
+  const date = dayjs(props.value);
+  return date.format("h");
+};
+export const MinsConverter = (props) => {
+  const date = dayjs(props.value);
+  return date.format("mm");
+};

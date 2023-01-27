@@ -5,6 +5,8 @@ import Button from "../javascript/Button";
 import ReportThanks from "./ReportThanks";
 import Popup, { Popup2, Popup3 } from "../javascript/Popup";
 import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db, storage } from "../../utils/firebase";
 
 export default function ReportReason(props) {
   const navigate = useNavigate();
@@ -24,60 +26,67 @@ export default function ReportReason(props) {
     setReason(e.target.value);
   };
 
+  const handleExplain = (e) => {
+    setExplain(e.target.value);
+  };
   //set the reason inside handle change
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // navigate("/report-thanks");
-    try {
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/user_report/report_delivery",
-        {
-          method: "POST",
+    const realReason = reason === "Other reasons" ? explain : reason;
+    if (reason === "Other reasons" && explain === "") {
+      return;
+    } else {
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/user_report/report_delivery",
+          {
+            method: "POST",
 
-          body: JSON.stringify({
-            token: JSON.parse(token),
-            body: reason,
-            delivery_id: props.delivery_id,
-            parcel_code: props.parcel_code,
-            delivery_img_urls: props.imgs,
-            user_id: props.sender_id,
-            user_name: props.sender_fullname,
-            user_img_url: JSON.parse(userImg),
-            delivery_agent_name: props.agentName,
-            delivery_agent_code: props.delivery_agent_code,
-            delivery_agent_id: props.delivery_agent_id,
-            delivery_agent_img_url: props.delivery_agent_img,
-            reporter: "user",
-            delivery_agent_email: props.delivery_agent_email,
-            user_email: props.user_email,
-            delivery_type: props.delivery_type,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
+            body: JSON.stringify({
+              token: JSON.parse(token),
+              body: realReason,
+              delivery_id: props.delivery_id,
+              parcel_code: props.parcel_code,
+              delivery_img_urls: props.imgs,
+              user_id: props.sender_id,
+              user_name: props.sender_fullname,
+              user_img_url: JSON.parse(userImg),
+              delivery_agent_name: props.agentName,
+              delivery_agent_code: props.delivery_agent_code,
+              delivery_agent_id: props.delivery_agent_id,
+              delivery_agent_img_url: props.delivery_agent_img,
+              reporter: "user",
+              delivery_agent_email: props.delivery_agent_email,
+              user_email: props.user_email,
+              delivery_type: props.delivery_type,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data = await res.json();
+        // console.log(data);
+
+        if (res.status === 200) {
+          setPopupButton(true);
+          const notifyRef = doc(db, "admin_notifiers", "reports");
+          await updateDoc(notifyRef, {
+            reports_count: increment(1),
+          });
+        } else {
+          setMessage("Error occured");
         }
-      );
-      const data = await res.json();
-      // console.log(data);
-
-      if (res.status === 200) {
-        setPopupButton(true);
-      } else {
-        setMessage("Error occured");
+      } catch (error) {
+        // console.log(error);
       }
-    } catch (error) {
-      // console.log(error);
     }
   };
 
-  // if (reason === "Other reasons" && othersRef.current.value !== "") {
-  //   setReason(`Other reasons: ${othersRef.current.value}`);
-  // }
-
-  // console.log(reason);
   return (
     <div className="reason-main-div">
       <form id="reason-form" onSubmit={handleSubmit}>
@@ -160,7 +169,7 @@ export default function ReportReason(props) {
             className="phone-input3 textarea"
             disabled={reason !== "Other reasons"}
             value={explain}
-            // onChange={handleCheck}
+            onChange={handleExplain}
             // onChange={handleChange}
           />
         </div>

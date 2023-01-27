@@ -15,6 +15,7 @@ import { PaystackButton } from "react-paystack";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
+import Countdown from "../../javascript/Countdown";
 
 export default function InstantDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -61,7 +62,6 @@ export default function InstantDeliverySummary() {
             }
           );
           const data = await res.json();
-          // console.log(data);
 
           if (res.status === 200) {
             navigate("/user/type");
@@ -279,7 +279,7 @@ export default function InstantDeliverySummary() {
               <p>{deliveryDetails.drop_off_address}</p>
             </div>
           </div>
-
+          <Countdown startMinutes={payDuration} />
           <div id="btn-proceed">
             <PaystackButton {...componentProps} />
           </div>

@@ -126,7 +126,7 @@ export const AboutUs = () => {
           <div className="wrapper-second-green">
             <div className="second-green">
               <div className="first-bg-green">
-                <h3>Earn some extra cash Delivering items</h3>
+                <h3>Earn some extra cash delivering items</h3>
                 <div>
                   <button className="social-btn second-btn-style ">
                     <img src={googleplay} alt="" />

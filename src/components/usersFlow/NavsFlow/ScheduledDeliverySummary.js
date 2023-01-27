@@ -17,6 +17,7 @@ import { DateConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
+import Countdown from "../../javascript/Countdown";
 // import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
@@ -304,7 +305,7 @@ export default function ScheduledDeliverySummary() {
                 <p>{deliveryDetails.drop_off_address}</p>
               </div>
             </div>
-
+            <Countdown startMinutes={payDuration} />
             <div id="btn-proceed">
               <PaystackButton {...componentProps} />
             </div>

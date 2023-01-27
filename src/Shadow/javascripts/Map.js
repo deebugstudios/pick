@@ -14,8 +14,11 @@ import { type } from "@testing-library/user-event/dist/type";
 
 const Map = (props) => {
   const [map, setMap] = useState(/** @type google.maps.map */ (null));
-  const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
-  const center = useMemo(() => props.juve, []);
+  // const juve = new google.maps.LatLng(6.3352435, 5.625857700000001); //eslint-disable-line
+  const center = useMemo(
+    () => ({ lat: 6.3352435, lng: 5.625857700000001 }),
+    []
+  );
   const option = useMemo(
     () => ({
       disableDefaultUI: true,
@@ -36,7 +39,7 @@ const Map = (props) => {
             </Autocomplete>
              <button onClick={()=> map.panto(center)}>pan to</button> 
         </div> 
-    </div>*/}
+    </div> */}
       <div className="map">
         <GoogleMap
           zoom={18}
