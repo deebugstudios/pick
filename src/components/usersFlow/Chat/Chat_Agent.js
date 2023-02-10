@@ -21,11 +21,15 @@ import {
   setDoc,
   updateDoc,
   increment,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db, storage } from "../../../utils/firebase";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import dayjs from "dayjs";
+import { DateConverter } from "../../../DateAndTimeConverter";
+import { TimeConverter } from "../../../DateAndTimeConverter";
 // flies for audio when sending a message
 import audioFile from "../../audio/new_noti.wav";
 import audioFile2 from "../../audio/beep2.wav";
@@ -33,12 +37,14 @@ const audio = new Audio(audioFile);
 const audio2 = new Audio(audioFile2);
 
 export default function Chat_Agent() {
+  const location = useLocation();
   const agentId = location.state.agentId;
   const agentImg = location.state.agentImg;
   const agentName = location.state.agentName;
   const agentEmail = location.state.agentEmail;
+  const check = location.state.check;
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [convId, setConvId] = useState("");
   const [messageList, setMessageList] = useState([]);
   const bottomRef = useRef(null);
@@ -51,6 +57,7 @@ export default function Chat_Agent() {
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // console.log(check);
   // const [data, setData] = useState([]);
 
   // const [result, setResult] = useState("");
@@ -70,30 +77,32 @@ export default function Chat_Agent() {
   // const email =
   //   location.state.details.email || location.state.details.delivery_agent_email;
 
+  // console.log(convId);
+
   const Messager = (item, i) => {
     // console.log(item?.content);
     const user_id = JSON.parse(userId);
     let DATE = {};
-    const TimeConverter = (props) => {
-      // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.time;
-    };
-    const DateConverter = (props) => {
-      // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.date;
-    };
+    // const TimeConverter = (props) => {
+    //   // console.log(props)
+    //   const date = new Date(props.value);
+    //   DATE = {
+    //     date: date.toLocaleDateString(),
+    //     time: date.toLocaleTimeString(),
+    //     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
+    //   };
+    //   return DATE.time;
+    // };
+    // const DateConverter = (props) => {
+    //   // console.log(props)
+    //   const date = new Date(props.value);
+    //   DATE = {
+    //     date: date.toLocaleDateString(),
+    //     time: date.toLocaleTimeString(),
+    //     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
+    //   };
+    //   return DATE.date;
+    // };
     let cname = "";
     if (item.sender_id === user_id) {
       cname = "outgoing-msgs";
@@ -126,7 +135,7 @@ export default function Chat_Agent() {
                 src={item.content}
                 width="100px"
                 height=" 100px"
-                style={{ marginBottom: "5px" }}
+                style={{ marginBottom: "5px", maxWidth: "100px" }}
               />
             ) : (
               <p>{item?.content}</p>
@@ -146,7 +155,10 @@ export default function Chat_Agent() {
   };
 
   useEffect(() => {
-    const q = query(collection(db, "hf_collection", convId, convId));
+    const q = query(
+      collection(db, "messages_collection", convId, convId),
+      orderBy("timestamp", "asc")
+    );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const list = [];
       QuerySnapshot.forEach((doc) => {
@@ -154,25 +166,25 @@ export default function Chat_Agent() {
         setMessageList(list);
       });
     });
-    console.log(messageList);
+    // console.log(messageList);
     if (isLoaded === false) {
       unsubscribe();
     }
   }, [isLoaded === true]);
 
   useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageList]);
 
   const handleCheck = async () => {
     try {
       const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/help_feedback/check_convers",
+        "https://ancient-wildwood-73926.herokuapp.com/user_chat/check_convers",
         {
           method: "POST",
           body: JSON.stringify({
             token: JSON.parse(token),
+            receiver_id: agentId,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -182,7 +194,7 @@ export default function Chat_Agent() {
       );
       const data = await res.json();
       // console.log(data);
-      if (data.msg === "Old conversation") {
+      if (data.msg === "Success") {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
@@ -202,7 +214,7 @@ export default function Chat_Agent() {
 
   const SendMessage = async (e) => {
     e.preventDefault();
-    if (content === "") {
+    if (content.trim() === "") {
       return;
     }
     if (new_conv === true || convId === "a") {
@@ -211,7 +223,7 @@ export default function Chat_Agent() {
 
       try {
         const res = await fetch(
-          "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
+          "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
           {
             method: "POST",
             body: JSON.stringify({
@@ -219,10 +231,8 @@ export default function Chat_Agent() {
               sender_name: JSON.parse(userName),
               new_conv: true,
               sender_img: userImg ? JSON.parse(userImg) : "a",
+              receiver_id: agentId,
               content: contentToDB,
-              who_sent: "user",
-              which_user: "user",
-              user_id: JSON.parse(userId),
             }),
             headers: {
               "Content-Type": "application/json",
@@ -238,29 +248,18 @@ export default function Chat_Agent() {
           setNew_conv(false);
 
           await setDoc(
-            doc(db, "hf_collection", conv_id, conv_id, `${Date.now()}`),
+            doc(db, "messages_collection", conv_id, conv_id, `${Date.now()}`),
             {
-              content: contentToDB ? contentToDB : url,
+              content: contentToDB,
               sender_id: JSON.parse(userId),
               sender_img: userImg ? JSON.parse(userImg) : "a",
+              receiver_id: agentId,
               sender_name: JSON.parse(userName),
               timestamp: Date.now(),
-              which_user: "user",
-              who_sent: "user",
-              message_type: img ? "image" : "text",
+              conv_id: conv_id,
             }
           );
           audio2.play();
-
-          const notifyRef = doc(db, "admin_notifiers", "hf_messages");
-          await updateDoc(notifyRef, {
-            messages_count: increment(1),
-          });
-          const badgeDocRef = doc(db, "hf_collection", conv_id);
-          await setDoc(badgeDocRef, {
-            is_admin_in_chat: false,
-            unread_user_message_count: 1,
-          });
         } else {
           // console.log(" did not send message");
         }
@@ -269,52 +268,29 @@ export default function Chat_Agent() {
         // const err = error
       }
       setContent("");
-      setImg("");
-      setDisplay("");
     } else {
       if (e.keyCode === 13 && e.shiftKey === false) {
         setLoading(true);
-        let url;
-        if (img) {
-          const imageRef = ref(
-            storage,
-            `messageAttachment/${new Date().getTime()}-${img.name}`
-          );
-          const snap = await uploadBytes(imageRef, img);
-          const durl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-          url = durl;
-        }
         const contentToDB = content;
         setContent("");
         const timestamp = Date.now();
         await setDoc(
-          doc(db, "hf_collection", convId, convId, `${Date.now()}`),
+          doc(db, "messages_collection", convId, convId, `${Date.now()}`),
           {
-            content: contentToDB ? contentToDB : url,
+            content: contentToDB,
             sender_id: JSON.parse(userId),
             sender_img: userImg ? JSON.parse(userImg) : "a",
             sender_name: JSON.parse(userName),
             timestamp: Date.now(),
-            which_user: "user",
-            who_sent: "user",
-            message_type: img ? "image" : "text",
+            conv_id: convId,
+            receiver_id: agentId,
           }
         );
 
         audio2.play();
 
-        const notifyRef = doc(db, "admin_notifiers", "hf_messages");
-        await updateDoc(notifyRef, {
-          messages_count: increment(1),
-        });
-
-        const badge = doc(db, "hf_collection", convId);
-        await updateDoc(badge, {
-          unread_user_message_count: increment(1),
-        });
-
         const response = await fetch(
-          "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
+          "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
           {
             method: "POST",
             body: JSON.stringify({
@@ -322,10 +298,8 @@ export default function Chat_Agent() {
               sender_name: JSON.parse(userName),
               new_conv: false,
               sender_img: userImg ? JSON.parse(userImg) : "a",
-              content: contentToDB ? contentToDB : img.name,
-              who_sent: "user",
-              which_user: "user",
-              user_id: JSON.parse(userId),
+              content: contentToDB,
+              receiver_id: agentId,
               conv_id: convId,
             }),
             headers: {
@@ -341,51 +315,28 @@ export default function Chat_Agent() {
           // console.log("did not send message two");
         }
         setContent("");
-        setImg("");
-        setDisplay("");
         setLoading(false);
       } else if (!e.code) {
         setLoading(true);
-
-        let url;
-        if (img) {
-          const imageRef = ref(
-            storage,
-            `messageAttachment/${new Date().getTime()}-${img.name}`
-          );
-          const snap = await uploadBytes(imageRef, img);
-          const durl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-          url = durl;
-        }
         const contentToDB = content;
         setContent("");
         await setDoc(
-          doc(db, "hf_collection", convId, convId, `${Date.now()}`),
+          doc(db, "messages_collection", convId, convId, `${Date.now()}`),
           {
-            content: contentToDB ? contentToDB : url,
+            content: contentToDB,
             sender_id: JSON.parse(userId),
             sender_img: userImg ? JSON.parse(userImg) : "a",
             sender_name: JSON.parse(userName),
             timestamp: Date.now(),
-            which_user: "user",
-            who_sent: "user",
-            message_type: img ? "image" : "text",
+            conv_id: convId,
+            receiver_id: agentId,
           }
         );
 
         audio2.play();
 
-        const notifyRef = doc(db, "admin_notifiers", "hf_messages");
-        await updateDoc(notifyRef, {
-          messages_count: increment(1),
-        });
-
-        const badge = doc(db, "hf_collection", convId);
-        await updateDoc(badge, {
-          unread_user_message_count: increment(1),
-        });
         const response = await fetch(
-          "https://ancient-wildwood-73926.herokuapp.com/help_feedback/send_message",
+          "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
           {
             method: "POST",
             body: JSON.stringify({
@@ -393,10 +344,8 @@ export default function Chat_Agent() {
               sender_name: JSON.parse(userName),
               new_conv: false,
               sender_img: userImg ? JSON.parse(userImg) : "a",
-              content: contentToDB ? contentToDB : img.name,
-              who_sent: "user",
-              which_user: "user",
-              user_id: JSON.parse(userId),
+              content: contentToDB,
+              receiver_id: agentId,
               conv_id: convId,
             }),
             headers: {
@@ -407,8 +356,6 @@ export default function Chat_Agent() {
         );
         const res = await response.json();
         setContent("");
-        setImg("");
-        setDisplay("");
         setLoading(false);
       }
     }
@@ -416,7 +363,6 @@ export default function Chat_Agent() {
 
   const handleChange = (e) => {
     setImg(e.target.files[0]);
-    setDisplay(URL.createObjectURL(e.target.files[0]));
   };
 
   if (!isLoaded) {
@@ -440,19 +386,18 @@ export default function Chat_Agent() {
             <br />
           </div> */}
           <div className="chat-right-side">
-            {display && (
-              <span className="photo_display">
-                {display && <img src={display} width="100%" height="100%" />}{" "}
-              </span>
-            )}
             <div className="shadow-chat-right-side-wrapper">
               <div className="main-chat-discussion">
                 <div className="profile-picture1">
-                  <img src={pick} alt="icon" className="support-profile-pic1" />
+                  <img
+                    src={agentImg}
+                    alt="icon"
+                    className="support-profile-pic1"
+                  />
                 </div>
                 <div className="your-profile">
-                  <h3>Help and Support</h3>
-                  <h6>pickload1@gmail.com</h6>
+                  <h3>{agentName}</h3>
+                  <h6>{agentEmail}</h6>
                 </div>
               </div>
               {/* <div className="message-header">
@@ -462,32 +407,33 @@ export default function Chat_Agent() {
               <div className="messages-wrapper">
                 {messageList?.map((item, i) => Messager(item, i))}
                 <div ref={bottomRef} />
-                <div className="shadow-chat-section">
-                  <form
-                    onSubmit={SendMessage}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div className="typing-bar">
-                      <textarea
-                        disabled={img}
-                        role="textbox"
-                        placeholder="Type your message..."
-                        className="shadow-text-area"
-                        rows="1"
-                        cols="20"
-                        typeof="submit"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        onKeyUp={SendMessage}
-                      ></textarea>
-                    </div>
-                    <div className="chat-icons">
-                      <label
+                {check === 0 ? (
+                  <div className="shadow-chat-section">
+                    <form
+                      onSubmit={SendMessage}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="typing-bar">
+                        <textarea
+                          // disabled={img}
+                          role="textbox"
+                          placeholder="Type your message..."
+                          className="shadow-text-area"
+                          rows="1"
+                          cols="20"
+                          typeof="submit"
+                          value={content}
+                          onChange={(e) => setContent(e.target.value)}
+                          onKeyUp={SendMessage}
+                        ></textarea>
+                      </div>
+                      <div className="chat-icons">
+                        {/* <label
                         htmlFor="img"
                         className="shadow-label-text"
                         id={content ? "disabled" : ""}
@@ -502,24 +448,25 @@ export default function Chat_Agent() {
                         onChange={handleChange}
                         style={{ display: "none" }}
                         disabled={content}
-                      />
+                      /> */}
 
-                      <div className="send-message">
-                        <button
-                          style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                            width: "45px",
-                          }}
-                          disabled={loading}
-                          id={!content && !img ? "disabled" : ""}
-                        >
-                          <img src={sendicon} onClick={SendMessage} />
-                        </button>
+                        <div className="send-message">
+                          <button
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "none",
+                              width: "45px",
+                            }}
+                            disabled={loading}
+                            id={content.trim() == "" ? "disabled" : ""}
+                          >
+                            <img src={sendicon} onClick={SendMessage} />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </form>
-                </div>
+                    </form>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -534,11 +481,15 @@ export default function Chat_Agent() {
             <div className="shadow-chat-right-side-wrapper">
               <div className="main-chat-discussion">
                 <div className="profile-picture1">
-                  <img src={pick} alt="icon" className="support-profile-pic1" />
+                  <img
+                    src={agentImg}
+                    alt="icon"
+                    className="support-profile-pic1"
+                  />
                 </div>
                 <div className="your-profile">
-                  <h3>Help and Support</h3>
-                  <h6>pickload1@gmail.com</h6>
+                  <h3>{agentName}</h3>
+                  <h6>{agentEmail}</h6>
                 </div>
               </div>
               <div className="message-header">
@@ -546,27 +497,30 @@ export default function Chat_Agent() {
               </div>
 
               <div className="messages-wrapper">
+                {/* {messageList?.map((item, i) => Messager(item, i))} */}
                 <div ref={bottomRef} />
-                <div className="shadow-chat-section">
-                  <div className="typing-bar">
-                    <textarea
-                      role="textbox"
-                      placeholder="Type your message..."
-                      className="shadow-text-area"
-                      rows="1"
-                      cols="20"
-                      typeof="submit"
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
-                      // onKeyUp={SendMessage}
-                    ></textarea>
-                  </div>
-                  <div className="chat-icons">
-                    <div className="send-message">
-                      <img src={sendicon} alt="" onClick={SendMessage} />
+                {check == 0 ? (
+                  <div className="shadow-chat-section">
+                    <div className="typing-bar">
+                      <textarea
+                        role="textbox"
+                        placeholder="Type your message..."
+                        className="shadow-text-area"
+                        rows="1"
+                        cols="20"
+                        typeof="submit"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        // onKeyUp={SendMessage}
+                      ></textarea>
+                    </div>
+                    <div className="chat-icons">
+                      <div className="send-message">
+                        <img src={sendicon} alt="" onClick={SendMessage} />
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </div>

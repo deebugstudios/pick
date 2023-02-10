@@ -35,6 +35,8 @@ export default function PendingInstantDetails() {
   const userValues = useContext(userContext);
   const { token } = userValues;
 
+  // const [isMounted, setIsMounted] = useState(true);
+
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [pickDate, setPickDate] = useState("");
@@ -65,21 +67,9 @@ export default function PendingInstantDetails() {
     setDeliveryDetails(data?.delivery);
     console.log(data);
   };
-  let lat;
-  let lng;
+  // let lat;
+  // let lng;
   let agentLocation;
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      doc(db, "delivery_agents", agentId),
-      async (doc) => {
-        let fireData = doc.data();
-        lat = fireData.loca_lat;
-        lng = fireData.loca_long;
-        agentLocation = new google.maps.LatLng(lat, lng); // eslint-disable-line
-      }
-    );
-  }, []);
 
   useEffect(() => {
     fetchDeliveryDetails();

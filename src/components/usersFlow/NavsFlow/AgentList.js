@@ -53,6 +53,7 @@ export default function AgentList() {
             state: {
               agentId: user?.members[1],
               agentName: user?.other_username,
+              agentImg: user?.other_user_img,
             },
           });
         }}
@@ -62,7 +63,12 @@ export default function AgentList() {
         </div>
         <div className="shadow-message-info-container">
           <h3>{user?.other_username}</h3>
-          <p> {user?.latest_message.content}</p>
+          <p>
+            {" "}
+            {user?.latest_message.sender_id == user?.members[1]
+              ? `Agent: ${user?.latest_message.content}`
+              : `You: ${user?.latest_message.content}`}
+          </p>
         </div>
         <div className="shadow-time-of-message">
           <p>{<DateConverter value={user?.timestamp} />}</p>

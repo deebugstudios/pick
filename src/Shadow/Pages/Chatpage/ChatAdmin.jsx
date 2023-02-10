@@ -69,8 +69,9 @@ export default function UserChatAdmin() {
           }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         if (data.msg === "Message sent") {
+          let conv_id = data.message.conversation_id;
           setConvId(data.message.conversation_id);
           setNew_conv(false);
         }

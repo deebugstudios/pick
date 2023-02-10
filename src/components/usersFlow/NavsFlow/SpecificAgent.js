@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from "react";
 import Arrow from "../../Images/Arrow.png";
 import FormProgress from "../../Images/FormProgress2.png";
 import Starr from "../../Images/Star.png";
@@ -25,7 +31,9 @@ export default function SpecificAgent() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const userValues = useContext(userContext);
+  const [show, setShow] = useState(false);
   const { token } = userValues;
+  const isMounted = useRef(true);
 
   const name = location.state.name;
   const profile = location.state.profile;
@@ -73,6 +81,7 @@ export default function SpecificAgent() {
 
     // console.log(results);
     setReviews(results?.reviews);
+    setShow(true);
 
     // console.log(userDetails);
     // pendingDeliveries.map((item) => console.log(item));

@@ -231,6 +231,9 @@ export default function PendingScheduledDetails() {
                     state: {
                       agentId: deliveryDetails.delivery_agent_id,
                       agentName: deliveryDetails.delivery_agent_name,
+                      agentImg: deliveryDetails.delivery_agent_img,
+                      agentEmail: deliveryDetails.delivery_agent_email,
+                      check: 0,
                     },
                   });
                 }}

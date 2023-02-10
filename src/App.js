@@ -90,6 +90,7 @@ import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
 import Guest_User from "../src/components/usersFlow/Chat/Guest_User";
 import Chat_admin from "./components/usersFlow/Chat/Chat_admin";
+import Chat_Agent from "./components/usersFlow/Chat/Chat_Agent";
 export default function App() {
   return (
     <>
@@ -201,7 +202,7 @@ export default function App() {
                 />
                 <Route path="user-profile" element={<UsersProfile />} />
                 <Route path="user-logout" element={<Logout />} />
-                <Route path="chatwithagentuser" element={<UserChatAdmin />} />
+                <Route path="chatwithagentuser" element={<Chat_Agent />} />
                 <Route path="change" element={<Change_Number />} />
               </Route>
 

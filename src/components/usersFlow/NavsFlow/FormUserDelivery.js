@@ -113,29 +113,8 @@ export default function FormUserDelivery() {
       }
     });
     if (!limitExceeded) setDeliveryFiles(picUploaded);
-
-    // for (let i = 0; i < picUploaded.length; i++) {
-    //   images.push(URL.createObjectURL(picUploaded[i]));
-    //   setProfileImage(images);
-    // }
-    // console.log(picUploaded);
-
-    // for (let i = 0; i < picUploaded.length; i++) {
-    //   (function (file) {
-    //     const reader = new FileReader();
-    //     reader.onload = (file) => {
-    //       images.push(reader.result);
-    //       setProfileImage(images);
-    //     };
-
-    //     reader.readAsDataURL(file);
-    //   })(picUploaded[i]);
-    // }
   };
 
-  // const imageRemove = (file) => {};
-
-  // console.log(profileImage);
   const uploadMultipleFiles = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleVehicleImage(chosenFiles);

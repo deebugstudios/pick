@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/toggle.css";
-import {
-  PendingDeliveryList,
-  PendingDeliveryScheduled,
-} from "../usersFlow/Details info/PendingDeliveryList";
 
 export default function Toggle(props) {
   const [toggle, setToggle] = useState(true);

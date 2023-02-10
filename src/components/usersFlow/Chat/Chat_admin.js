@@ -5,6 +5,7 @@ import sendicon from "../../Images/sendicon.png";
 import attachfileicon from "../../Images/attachfileicon.png";
 import aang from "../../Images/aang.jpg";
 import pick from "../../Images/logo192.png";
+import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { ClipLoader } from "react-spinners";
@@ -21,6 +22,9 @@ import {
   setDoc,
   updateDoc,
   increment,
+  deleteDoc,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db, storage } from "../../../utils/firebase";
 
@@ -71,29 +75,24 @@ export default function Chat_admin() {
   //   location.state.details.email || location.state.details.delivery_agent_email;
   // const [new_conv, setNewConv] = useState(false);
 
+  // console.log(convId);
   const Messager = (item, i) => {
     // console.log(item?.content);
     const user_id = JSON.parse(userId);
     let DATE = {};
     const TimeConverter = (props) => {
       // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.time;
+      const timer = item?.timestamp
+        ? dayjs(props.value.seconds * 1000).format("hh:mm a")
+        : "...";
+      return timer;
     };
     const DateConverter = (props) => {
       // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.date;
+      const timer = item?.timestamp
+        ? dayjs(props.value.seconds * 1000).format("MMM DD, YYYY")
+        : "...";
+      return timer;
     };
     let cname = "";
     if (item.sender_id === user_id) {
@@ -127,7 +126,7 @@ export default function Chat_admin() {
                 src={item.content}
                 width="100px"
                 height=" 100px"
-                style={{ marginBottom: "5px" }}
+                style={{ marginBottom: "5px", maxWidth: "100px" }}
               />
             ) : (
               <p>{item?.content}</p>
@@ -147,7 +146,10 @@ export default function Chat_admin() {
   };
 
   useEffect(() => {
-    const q = query(collection(db, "hf_collection", convId, convId));
+    const q = query(
+      collection(db, "hf_collection", convId, convId),
+      orderBy("timestamp", "asc")
+    );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       const list = [];
       QuerySnapshot.forEach((doc) => {
@@ -155,14 +157,13 @@ export default function Chat_admin() {
         setMessageList(list);
       });
     });
-    console.log(messageList);
+    // console.log(messageList);
     if (isLoaded === false) {
       unsubscribe();
     }
   }, [isLoaded === true]);
 
   useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageList]);
 
@@ -182,7 +183,7 @@ export default function Chat_admin() {
         }
       );
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
       if (data.msg === "Old conversation") {
         setConvId(data.conversation_id);
         setIsLoaded(true);
@@ -191,9 +192,17 @@ export default function Chat_admin() {
         setConvId("a");
         setNew_conv(true);
         setIsLoaded(true);
+      } else if (
+        data.msg === "Help feedback admin changed, new conversation created"
+      ) {
+        setConvId(data.conversation_id);
+        setIsLoaded(true);
+        setNew_conv(false);
+        const oldConvIDToBeDeleted = data.conversation_id;
+        await deleteDoc(doc(db, "hf_collection", oldConvIDToBeDeleted));
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -203,7 +212,7 @@ export default function Chat_admin() {
 
   const SendMessage = async (e) => {
     e.preventDefault();
-    if (content === "" && img === "") {
+    if (content.trim() === "" && img === "") {
       return;
     }
     if (new_conv === true || convId === "a") {
@@ -256,7 +265,7 @@ export default function Chat_admin() {
               sender_id: JSON.parse(userId),
               sender_img: userImg ? JSON.parse(userImg) : "a",
               sender_name: JSON.parse(userName),
-              timestamp: Date.now(),
+              timestamp: serverTimestamp(),
               which_user: "user",
               who_sent: "user",
               message_type: img ? "image" : "text",
@@ -270,7 +279,6 @@ export default function Chat_admin() {
           });
           const badgeDocRef = doc(db, "hf_collection", conv_id);
           await setDoc(badgeDocRef, {
-            is_admin_in_chat: false,
             unread_msg_count: 1,
           });
         } else {
@@ -307,7 +315,7 @@ export default function Chat_admin() {
             sender_id: JSON.parse(userId),
             sender_img: userImg ? JSON.parse(userImg) : "a",
             sender_name: JSON.parse(userName),
-            timestamp: Date.now(),
+            timestamp: serverTimestamp(),
             which_user: "user",
             who_sent: "user",
             message_type: img ? "image" : "text",
@@ -379,7 +387,7 @@ export default function Chat_admin() {
             sender_id: JSON.parse(userId),
             sender_img: userImg ? JSON.parse(userImg) : "a",
             sender_name: JSON.parse(userName),
-            timestamp: Date.now(),
+            timestamp: serverTimestamp(),
             which_user: "user",
             who_sent: "user",
             message_type: img ? "image" : "text",
@@ -497,6 +505,7 @@ export default function Chat_admin() {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         onKeyUp={SendMessage}
+                        onSubmit={SendMessage}
                       ></textarea>
                     </div>
                     <div className="chat-icons">

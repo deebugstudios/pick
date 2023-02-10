@@ -405,6 +405,9 @@ p {
   height: 40px;
   padding: 10px !important;
   border-radius: 7px !important;
+  background-color: rgba(0, 0, 0, 0.2);
+  resize: none;
+  border: none !important;
 }
 .shadow-chat-right-side-wrapper {
   width: 70%;

@@ -21,7 +21,9 @@ import {
   setDoc,
   updateDoc,
   increment,
+  serverTimestamp,
 } from "firebase/firestore";
+import dayjs from "dayjs";
 import { db, storage } from "../../../utils/firebase";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -51,23 +53,17 @@ export default function Guest_User() {
     let DATE = {};
     const TimeConverter = (props) => {
       // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.time;
+      const timer = item?.timestamp
+        ? dayjs(props.value.seconds * 1000).format("hh:mm a")
+        : "...";
+      return timer;
     };
     const DateConverter = (props) => {
       // console.log(props)
-      const date = new Date(props.value);
-      DATE = {
-        date: date.toLocaleDateString(),
-        time: date.toLocaleTimeString(),
-        combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-      };
-      return DATE.date;
+      const timer = item?.timestamp
+        ? dayjs(props.value.seconds * 1000).format("MMM DD, YYYY")
+        : "...";
+      return timer;
     };
     let cname = "";
     if (item.sender_id === user_id) {
@@ -101,7 +97,7 @@ export default function Guest_User() {
                 src={item.content}
                 width="100px"
                 height=" 100px"
-                style={{ marginBottom: "5px" }}
+                style={{ marginBottom: "5px", maxWidth: "100px" }}
               />
             ) : (
               <p>{item?.content}</p>
@@ -174,7 +170,7 @@ export default function Guest_User() {
         sender_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
-        timestamp: Date.now(),
+        timestamp: serverTimestamp(),
         which_user: "guest",
         who_sent: "user",
         message_type: "text",
@@ -192,7 +188,7 @@ export default function Guest_User() {
         setNew_conv(false);
         const badgeDocRef = doc(db, "hf_collection", convId);
         await setDoc(badgeDocRef, {
-          is_admin_in_chat: false,
+          // is_admin_in_chat: false,
           unread_user_message_count: 1,
         });
       } else {
@@ -210,7 +206,7 @@ export default function Guest_User() {
         sender_id: `guest_${convId}`,
         sender_img: "a",
         sender_name: `Guest_${convId}`,
-        timestamp: Date.now(),
+        timestamp: serverTimestamp(),
         which_user: "guest",
         who_sent: "user",
         message_type: "text",
@@ -229,7 +225,7 @@ export default function Guest_User() {
         setNew_conv(false);
         const badgeDocRef = doc(db, "hf_collection", convId);
         await setDoc(badgeDocRef, {
-          is_admin_in_chat: false,
+          // is_admin_in_chat: false,
           unread_user_message_count: 1,
         });
       } else {
@@ -245,7 +241,7 @@ export default function Guest_User() {
     return (
       <div className="support-chat">
         <div className="chat-wrapper">
-          <div className="back2">
+          <div className="back2" style={{ cursor: "pointer" }}>
             <span>
               <FontAwesomeIcon
                 icon={faArrowLeftLong}
