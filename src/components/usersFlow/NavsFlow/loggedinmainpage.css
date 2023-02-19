@@ -8,7 +8,7 @@
   width: 100%;
   background-color: #e8f4e3;
   padding: 0px 30px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 #content-pad {
   background-color: white;

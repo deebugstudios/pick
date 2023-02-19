@@ -50,31 +50,6 @@ export default function Chat_admin() {
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const [data, setData] = useState([]);
-
-  // const [result, setResult] = useState("");
-  // const [result2, setResult2] = useState("");
-  // const [firstFire, setFirstFire] = useState(true);
-  // const [count, setCount] = useState(0);
-  // // const [profile_pic, setProfilePic] = useState('');
-  // // const [sender_name, setSenderName] = useState('');
-
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  // const messagesEndRef = useRef(null);
-  // // console.log(location);
-
-  // const receiver_id =
-  //   location.state.details.id || location.state.details.delivery_agent_id;
-  // const sender_name =
-  //   location.state.details.fullname ||
-  //   location.state.details.delivery_agent_name;
-  // const profile_pic =
-  //   location.state.details.img || location.state.details.delivery_agent_img_url;
-  // const email =
-  //   location.state.details.email || location.state.details.delivery_agent_email;
-  // const [new_conv, setNewConv] = useState(false);
-
   // console.log(convId);
   const Messager = (item, i) => {
     // console.log(item?.content);
