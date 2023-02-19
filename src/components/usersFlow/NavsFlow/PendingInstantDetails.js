@@ -138,12 +138,12 @@ export default function PendingInstantDetails() {
                 <h3>Item in transit </h3>
               </div> */}
             </div>
-            <div className="estimatedtime estimate-div">
+            {/* <div className="estimatedtime estimate-div">
               <h2>
                 Your item will arrive at your location in approximately 10
                 minutes{" "}
               </h2>
-            </div>
+            </div> */}
             <br />
             <br />
 
@@ -192,6 +192,9 @@ export default function PendingInstantDetails() {
                     state: {
                       agentId: deliveryDetails.delivery_agent_id,
                       agentName: deliveryDetails.delivery_agent_name,
+                      agentImg: deliveryDetails.delivery_agent_img,
+                      agentEmail: deliveryDetails.delivery_agent_email,
+                      check: 0,
                     },
                   });
                 }}

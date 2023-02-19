@@ -123,7 +123,7 @@ export default function Chat_admin() {
             {/* {item.media ? <img src={item.media} width="100px" height=" 100px" style={{marginBottom: "5px"}} /> : null}  */}
             {item.message_type === "image" ? (
               <img
-                src={item.content}
+                src={item?.content}
                 width="100px"
                 height=" 100px"
                 style={{ marginBottom: "5px", maxWidth: "100px" }}
@@ -269,6 +269,7 @@ export default function Chat_admin() {
               which_user: "user",
               who_sent: "user",
               message_type: img ? "image" : "text",
+              file_name: contentToDB ? "a" : `IMG_${Date.now()}`,
             }
           );
           audio2.play();
@@ -319,6 +320,7 @@ export default function Chat_admin() {
             which_user: "user",
             who_sent: "user",
             message_type: img ? "image" : "text",
+            file_name: contentToDB ? "a" : `IMG_${Date.now()}`,
           }
         );
 
@@ -391,6 +393,7 @@ export default function Chat_admin() {
             which_user: "user",
             who_sent: "user",
             message_type: img ? "image" : "text",
+            file_name: contentToDB ? "a" : `IMG_${Date.now()}`,
           }
         );
 

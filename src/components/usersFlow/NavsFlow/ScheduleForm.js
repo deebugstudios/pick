@@ -504,11 +504,10 @@ export default function ScheduleForm() {
             <label className="requiredText">Item Type{asterik}</label>
             <div className="nedu-info-div bottom-marg">
               <select
-                defaultValue={parcelType}
+                value={parcelType}
                 className="nedu-info-div phone-input3"
                 name="ParcelType"
                 onChange={handleType}
-                // value={parcelType}
               >
                 <option value="fragile">Fragile</option>
                 <option value="non-fragile">Non-Fragile</option>

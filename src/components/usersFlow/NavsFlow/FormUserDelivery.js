@@ -460,7 +460,7 @@ export default function FormUserDelivery() {
             <label className="requiredText">Item Type{asterik}</label>
             <div className="nedu-info-div">
               <select
-                defaultValue={parcelType}
+                value={parcelType}
                 className="phone-input3 bottom-marg nedu-info-div"
                 name="ParcelType"
                 onChange={handleType}
