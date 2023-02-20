@@ -24,10 +24,10 @@
 .history-wrapper-2 {
   background: #fefefe !important;
   width: 100% !important;
-  margin: 20px auto 20px auto !important;
-  overflow-y: scroll !important;
+  margin: 20px auto 0 auto !important;
+  /* overflow-y: scroll !important; */
   padding: 0px 30px 0px 30px !important;
-  height: 80vh;
+  height: 100%;
 }
 .calendar {
   width: max-content !important;
