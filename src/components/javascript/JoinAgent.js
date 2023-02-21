@@ -455,7 +455,7 @@ export default function JoinAgent(props) {
               <span className="requiredText">State of Operation{asterik}</span>
               <br />
               <div className="delivery-location-input">
-                <img src={Locate} alt="" className="locate-icon" />
+                {/* <img src={Locate} alt="" className="locate-icon" /> */}
                 <select
                   value={residentState}
                   className="secondField phone-input2"
