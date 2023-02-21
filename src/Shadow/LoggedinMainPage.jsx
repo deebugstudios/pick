@@ -38,13 +38,16 @@ const LoggedinMainPage = (props) => {
 export default LoggedinMainPage;
 
 export const LoggedinMainPage1 = (props) => {
+  const value = useContext(RiderContext);
+  const { token } = value;
+
   return (
     <section className="user-dashboard-main">
       <div className="user-left-side-main">
         <NavigationBar />
       </div>
       <div className="user-right-side-main">
-        <div className="map-container">{props.name}</div>
+        <div className="map-container">{props.children}</div>
       </div>
     </section>
   );

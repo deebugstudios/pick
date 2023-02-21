@@ -8,9 +8,9 @@ const OurServices = () => {
       <h3>Our Services</h3>
       <p>
         At PickLoad, We provide on-demand delivery services such as moving of
-        items, buying of food items, and house moving services. We go further to
-        ensure our users have the best experience by providing either
-        on-demand/instant delivery services and scheduled delivery services.
+        items and house moving services. We go further to ensure our users have
+        the best experience by providing either on-demand/instant delivery
+        services and scheduled delivery services.
       </p>
       <div className="ourservices-description">
         <div className="ourservices-descrip">

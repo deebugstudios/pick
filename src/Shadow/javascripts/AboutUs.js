@@ -107,7 +107,7 @@ export const AboutUs = () => {
           <div className="background-green">
             <div className="left-green-background">
               <h3>
-                Get your items Picked up and Delivered <br /> Swiftly using{" "}
+                Get your items picked up and delivered <br /> swiftly using{" "}
                 <span>PICKLOAD</span>
               </h3>
               <div className="social-btn-container">
@@ -139,7 +139,7 @@ export const AboutUs = () => {
               <div className="second-bg">
                 <div className="second-bg-text">
                   <h3>
-                    Sign Up to become a Rider with <span> PICKLOAD </span>
+                    Sign Up to become an Agent with <span> PICKLOAD </span>
                   </h3>
                 </div>
                 <div className="second-bg-button">

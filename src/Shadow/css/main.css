@@ -284,6 +284,9 @@ input::placeholder {
 .delivery-location-input {
   position: relative;
 }
+.delivery-location-input select {
+  padding-left: 40px;
+}
 .left-icon {
   width: 30px;
   position: absolute;

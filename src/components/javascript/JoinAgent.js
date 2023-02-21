@@ -407,11 +407,12 @@ export default function JoinAgent(props) {
           <input
             value={formData.nin}
             onChange={handleChange}
-            type="number"
+            type="text"
             className="form-field edit-field phone-input3"
             placeholder="Enter your National Identification Number"
             name="nin"
-            maxLength={11}
+            pattern="\d*"
+            maxlength="11"
           />
           <p className="error-style bottom-marg">{formErrors.nin}</p>
           {/* <br /> */}
@@ -456,7 +457,7 @@ export default function JoinAgent(props) {
               <div className="delivery-location-input">
                 <img src={Locate} alt="" className="locate-icon" />
                 <select
-                  defaultValue={residentState}
+                  value={residentState}
                   className="secondField phone-input2"
                   name="ParcelType"
                   onChange={handleState}
