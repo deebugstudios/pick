@@ -1,12 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./support.css";
-import sendicon from "../../Images/sendicon.png";
-import attachfileicon from "../../Images/attachfileicon.png";
+import "./chat.css";
 import aang from "../../Images/aang.jpg";
-import pick from "../../Images/logo192.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import sendicon from "../../Images/sendicon.png";
 import { ClipLoader } from "react-spinners";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import {
@@ -36,7 +32,7 @@ import audioFile2 from "../../audio/beep2.wav";
 const audio = new Audio(audioFile);
 const audio2 = new Audio(audioFile2);
 
-export default function Chat_Agent() {
+export default function ChatAgent() {
   const location = useLocation();
   const agentId = location.state.agentId;
   const agentImg = location.state.agentImg;
@@ -57,52 +53,11 @@ export default function Chat_Agent() {
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // console.log(check);
-  // const [data, setData] = useState([]);
-
-  // const [result, setResult] = useState("");
-  // const [result2, setResult2] = useState("");
-  // const [firstFire, setFirstFire] = useState(true);
-  // const [count, setCount] = useState(0);
-  // // const [profile_pic, setProfilePic] = useState('');
-  // // const [sender_name, setSenderName] = useState('');
-
-  // const receiver_id =
-  //   location.state.details.id || location.state.details.delivery_agent_id;
-  // const sender_name =
-  //   location.state.details.fullname ||
-  //   location.state.details.delivery_agent_name;
-  // const profile_pic =
-  //   location.state.details.img || location.state.details.delivery_agent_img_url;
-  // const email =
-  //   location.state.details.email || location.state.details.delivery_agent_email;
-
-  // console.log(convId);
-
   const Messager = (item, i) => {
     // console.log(item?.content);
     const user_id = JSON.parse(userId);
     let DATE = {};
-    // const TimeConverter = (props) => {
-    //   // console.log(props)
-    //   const date = new Date(props.value);
-    //   DATE = {
-    //     date: date.toLocaleDateString(),
-    //     time: date.toLocaleTimeString(),
-    //     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-    //   };
-    //   return DATE.time;
-    // };
-    // const DateConverter = (props) => {
-    //   // console.log(props)
-    //   const date = new Date(props.value);
-    //   DATE = {
-    //     date: date.toLocaleDateString(),
-    //     time: date.toLocaleTimeString(),
-    //     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-    //   };
-    //   return DATE.date;
-    // };
+
     let cname = "";
     if (item.sender_id === user_id) {
       cname = "outgoing-msgs";
@@ -110,47 +65,44 @@ export default function Chat_Agent() {
       cname = "incoming-msgs";
     }
     return (
-      <div
-        className={
-          cname === "outgoing-msgs"
-            ? "shadow-outgoing-msg-container"
-            : "shadow-incoming-msg-container"
-        }
-        ref={bottomRef}
+      <li
         key={i}
+        ref={bottomRef}
+        className={cname === "outgoing-msgs" ? "sent" : "received"}
       >
-        <div
-          className={
-            cname === "outgoing-msgs"
-              ? "shadow-outgoing-msg-wrapper"
-              : "shadow-incoming-msg-wrapper"
-          }
-        >
-          {/* <p className="date-of-msg"> */}
-
-          <div className={cname}>
-            {/* {item.media ? <img src={item.media} width="100px" height=" 100px" style={{marginBottom: "5px"}} /> : null}  */}
-            {item.message_type === "image" ? (
+        <div className="message-bubble">
+          {item.message_type === "image" ? (
+            <>
               <img
-                src={item.content}
+                src={item?.content}
                 width="100px"
                 height=" 100px"
                 style={{ marginBottom: "5px", maxWidth: "100px" }}
               />
-            ) : (
+              <p className="message-time">
+                <span>
+                  <TimeConverter value={item?.timestamp} />
+                </span>
+                <span>
+                  <DateConverter value={item?.timestamp} />
+                </span>
+              </p>
+            </>
+          ) : (
+            <>
               <p>{item?.content}</p>
-            )}
-          </div>
-          <p
-            className={
-              cname === "outgoing-msgs" ? "date-of-msg" : "shadow-date-of-msg"
-            }
-          >
-            <TimeConverter value={item?.timestamp} /> <br />
-            <DateConverter value={item?.timestamp} />
-          </p>
+              <p className="message-time">
+                <span>
+                  <TimeConverter value={item?.timestamp} />
+                </span>
+                <span>
+                  <DateConverter value={item?.timestamp} />
+                </span>
+              </p>
+            </>
+          )}
         </div>
-      </div>
+      </li>
     );
   };
 
@@ -268,6 +220,7 @@ export default function Chat_Agent() {
         // const err = error
       }
       setContent("");
+      handleCheck();
     } else {
       if (e.keyCode === 13 && e.shiftKey === false) {
         setLoading(true);
@@ -361,10 +314,6 @@ export default function Chat_Agent() {
     }
   };
 
-  const handleChange = (e) => {
-    setImg(e.target.files[0]);
-  };
-
   if (!isLoaded) {
     return (
       <h1 className="loader-screen">
@@ -373,156 +322,111 @@ export default function Chat_Agent() {
     );
   } else if (convId?.length > 1) {
     return (
-      <div className="support-chat">
-        <div className="chat-wrapper">
-          {/* <div className="back2">
-            <span>
-              <FontAwesomeIcon
-                icon={faArrowLeftLong}
-                onClick={() => navigate(-1)}
-                className="back"
-              ></FontAwesomeIcon>{" "}
-            </span>{" "}
-            <br />
-          </div> */}
-          <div className="chat-right-side">
-            <div className="shadow-chat-right-side-wrapper">
-              <div className="main-chat-discussion">
-                <div className="profile-picture1">
-                  <img
-                    src={agentImg}
-                    alt="icon"
-                    className="support-profile-pic1"
-                  />
-                </div>
-                <div className="your-profile">
-                  <h3>{agentName}</h3>
-                  <h6>{agentEmail}</h6>
-                </div>
+      <div className="chat-page">
+        <div className="chat-section">
+          <div className="chat-container">
+            <div className="user-chat-section">
+              <div className="user-info">
+                <img src={agentImg ? agentImg : aang} alt="name" />
+                <p className="user-info-split">
+                  <span className="user-info-name">{agentName}</span>
+                  <span className="user-info-email">{agentEmail}</span>
+                </p>
               </div>
-              {/* <div className="message-header">
-                  <h6>Conversations</h6>
-                </div> */}
-
-              <div className="messages-wrapper">
-                {messageList?.map((item, i) => Messager(item, i))}
-                <div ref={bottomRef} />
-                {check === 0 ? (
-                  <div className="shadow-chat-section">
-                    <form
-                      onSubmit={SendMessage}
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div className="typing-bar">
-                        <textarea
-                          // disabled={img}
-                          role="textbox"
-                          placeholder="Type your message..."
-                          className="shadow-text-area"
-                          rows="1"
-                          cols="20"
-                          typeof="submit"
-                          value={content}
-                          onChange={(e) => setContent(e.target.value)}
-                          onKeyUp={SendMessage}
-                        ></textarea>
-                      </div>
-                      <div className="chat-icons">
-                        {/* <label
-                        htmlFor="img"
-                        className="shadow-label-text"
-                        id={content ? "disabled" : ""}
-                      >
-                        <img src={attachfileicon} width="30px" height="30px" />
-                      </label>
-                      <input
-                        type="file"
-                        name="img"
-                        id="img"
-                        accept="image/*"
-                        onChange={handleChange}
-                        style={{ display: "none" }}
-                        disabled={content}
-                      /> */}
-
-                        <div className="send-message">
-                          <button
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                              width: "45px",
-                            }}
-                            disabled={loading}
-                            id={content.trim() == "" ? "disabled" : ""}
-                          >
-                            <img src={sendicon} onClick={SendMessage} />
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                ) : null}
-              </div>
+              <div className="conversation-name">Conversations</div>
             </div>
+            <ul className="messages-wrapper">
+              {messageList?.map((item, i) => Messager(item, i))}
+              <div ref={bottomRef} />
+            </ul>
+            {check === 0 ? (
+              <form className="form-message" onSubmit={SendMessage}>
+                <textarea
+                  //   disabled={img}
+                  role="textbox"
+                  placeholder="Type your message..."
+                  rows="1"
+                  cols="20"
+                  typeof="submit"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  onKeyUp={SendMessage}
+                />
+                <div className="chat-icons">
+                  {/* <label
+                    htmlFor="img"
+                    className="shadow-label-text"
+                    id={content ? "disabled" : ""}
+                  >
+                    <img src={attachfileicon} width="30px" height="30px" />
+                  </label>
+                  <input
+                    type="file"
+                    name="img"
+                    id="img"
+                    accept="image/*"
+                    onChange={handleChange}
+                    style={{ display: "none" }}
+                    disabled={content}
+                  /> */}
+
+                  <div className="send-message">
+                    <button
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "none",
+                        width: "45px",
+                      }}
+                      type="submit"
+                      disabled={loading}
+                      id={content.trim() == "" ? "disabled" : ""}
+                    >
+                      <img src={sendicon} onClick={SendMessage} />
+                    </button>
+                  </div>
+                </div>
+              </form>
+            ) : null}
           </div>
         </div>
       </div>
     );
   } else if (convId === "a") {
     return (
-      <div className="support-chat">
-        <div className="chat-wrapper">
-          <div className="chat-right-side">
-            <div className="shadow-chat-right-side-wrapper">
-              <div className="main-chat-discussion">
-                <div className="profile-picture1">
-                  <img
-                    src={agentImg}
-                    alt="icon"
-                    className="support-profile-pic1"
-                  />
-                </div>
-                <div className="your-profile">
-                  <h3>{agentName}</h3>
-                  <h6>{agentEmail}</h6>
-                </div>
+      <div className="chat-page">
+        <div className="chat-section">
+          <div className="chat-container">
+            <div className="user-chat-section">
+              <div className="user-info">
+                <img src={agentImg ? agentImg : aang} alt="name" />
+                <p className="user-info-split">
+                  <span className="user-info-name">{agentName}</span>
+                  <span className="user-info-email">{agentEmail}</span>
+                </p>
               </div>
-              <div className="message-header">
-                <h6>Conversations</h6>
-              </div>
-
-              <div className="messages-wrapper">
-                {/* {messageList?.map((item, i) => Messager(item, i))} */}
-                <div ref={bottomRef} />
-                {check == 0 ? (
-                  <div className="shadow-chat-section">
-                    <div className="typing-bar">
-                      <textarea
-                        role="textbox"
-                        placeholder="Type your message..."
-                        className="shadow-text-area"
-                        rows="1"
-                        cols="20"
-                        typeof="submit"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        // onKeyUp={SendMessage}
-                      ></textarea>
-                    </div>
-                    <div className="chat-icons">
-                      <div className="send-message">
-                        <img src={sendicon} alt="" onClick={SendMessage} />
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
+              <div className="conversation-name">Conversations</div>
             </div>
+            <ul>
+              <div ref={bottomRef} />
+            </ul>
+            {check == 0 ? (
+              <form className="form-message">
+                <textarea
+                  role="textbox"
+                  placeholder="Type your message..."
+                  rows="1"
+                  cols="20"
+                  typeof="submit"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
+                <div className="chat-icons">
+                  <div className="send-message">
+                    <img src={sendicon} alt="" onClick={SendMessage} />
+                  </div>
+                </div>
+              </form>
+            ) : null}
           </div>
         </div>
       </div>

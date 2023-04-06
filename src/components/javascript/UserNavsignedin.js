@@ -11,7 +11,7 @@ import "../css/usernavsignedin.css";
 import { NavLink, Link } from "react-router-dom";
 import { Notification } from "../../Shadow/Pages/Notifications/Notification";
 
-const Navsignedin = (props) => {
+const NavsignedinU = (props) => {
   const [open, setOpen] = useState(false);
 
   const handlePopUp = () => {
@@ -23,7 +23,7 @@ const Navsignedin = (props) => {
       <div className="nav-wrapper-1">
         <div id="pick-div">
           <div>
-            <Link to="/user/home">
+            <Link to="/">
               <img src={Pickload} alt="" />
             </Link>
           </div>
@@ -31,14 +31,14 @@ const Navsignedin = (props) => {
         <div className="nav-links">
           <ul>
             <li>
-              <Link to="/user/home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
 
             <li>
-              <Link to="/user/about"> About Us </Link>
+              <Link to="/aboutUS"> About Us </Link>
             </li>
             <li>
-              <Link to="/user/contact"> Contact Us </Link>
+              <Link to="/contactUS"> Contact Us </Link>
             </li>
             <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />
@@ -80,4 +80,4 @@ const Navsignedin = (props) => {
   );
 };
 
-export default Navsignedin;
+export default NavsignedinU;

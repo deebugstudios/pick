@@ -53,7 +53,6 @@ import PendingDeliveryspecificsAgent from "./Shadow/Pages/Pending_deliveries/Del
 import DeliveryHistoryDetailsAgent, {
   ScheduledHistoryDetailsAgent,
 } from "./Shadow/Pages/DeliveryHistorys/DeliveryHistoryDetails/DeliveryHistoryDetails";
-import UserChatAdmin from "./Shadow/Pages/Chatpage/ChatAdmin";
 import Navsignedin from "./Shadow/javascripts/Navsignedin";
 import SideBar from "./Shadow/javascripts/SideBar";
 import PaymentDetails from "./Shadow/Pages/PaymentDetails/PaymentDetails";
@@ -88,9 +87,10 @@ import AgentList from "./components/usersFlow/NavsFlow/AgentList";
 import { ProtectedRoutes } from "./Shadow/ProtectedRoutes";
 import { UserProtectedRoutes } from "./UserProtectedRoutes";
 import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
-import Guest_User from "../src/components/usersFlow/Chat/Guest_User";
-import Chat_admin from "./components/usersFlow/Chat/Chat_admin";
-import Chat_Agent from "./components/usersFlow/Chat/Chat_Agent";
+
+import Chat from "./components/usersFlow/ChatPage/Chat";
+import ChatAgent from "./components/usersFlow/ChatPage/ChatAgent";
+import Guest from "./components/usersFlow/ChatPage/Guest";
 export default function App() {
   return (
     <>
@@ -98,12 +98,6 @@ export default function App() {
         <UseTokenProviderUser>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
-              <Route
-                path="contactUS"
-                element={
-                  <LoggedinMainPage name={<ContactUs />} logged={false} />
-                }
-              />
               {/* <Route
                 path="contactUS2"
                 element={
@@ -111,10 +105,7 @@ export default function App() {
                 }
               />
               <Route path="contactUS1" element={<ContactUs1 />} /> */}
-              <Route
-                path="aboutUS"
-                element={<LoggedinMainPage name={<AboutUs />} logged={false} />}
-              />
+              {/* <Route path="aboutUS" element={<AboutUs />} /> */}
               {/* <Route
                 path="aboutUS2"
                 element={<LoggedinMainPage name={<AboutUs2 />} logged={true} />}
@@ -123,16 +114,14 @@ export default function App() {
 
               <Route
                 path="guest"
-                element={
-                  <LoggedinMainPage1 name={<Guest_User />} logged={false} />
-                }
+                element={<LoggedinMainPage1 name={<Guest />} logged={false} />}
               />
 
-              <Route
-                exact
-                path="/"
-                element={<LoggedinMainPage name={<Main />} logged={false} />}
-              />
+              <Route exact path="/" element={<LoggedinMainPage1 />}>
+                <Route path="" element={<Main />} />
+                <Route path="aboutUS" element={<AboutUs />} />
+                <Route path="contactUS" element={<ContactUs />} />
+              </Route>
 
               {/* <Route exact path="main" element={<Main1 />} /> */}
               <Route path="Termsandconditions" element={<Terms />} />
@@ -161,7 +150,7 @@ export default function App() {
                 }
               >
                 {/* The Route */}
-                <Route path="chat" element={<Chat_admin />} />
+                <Route path="chat" element={<Chat />} />
                 <Route path="agentlist" element={<AgentList />} />
                 <Route path="type" element={<DeliveryType />} />
                 <Route path="notifications" element={<Notification />} />
@@ -202,7 +191,7 @@ export default function App() {
                 />
                 <Route path="user-profile" element={<UsersProfile />} />
                 <Route path="user-logout" element={<Logout />} />
-                <Route path="chatwithagentuser" element={<Chat_Agent />} />
+                <Route path="chatwithagentuser" element={<ChatAgent />} />
                 <Route path="change" element={<Change_Number />} />
               </Route>
 

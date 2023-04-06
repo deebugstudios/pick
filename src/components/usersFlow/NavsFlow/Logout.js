@@ -11,10 +11,12 @@ export default function Logout() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handleLogout = async () => {
+    // console.log(sessionStorage.length);
     setLoading(true);
     sessionStorage.clear();
-    navigate("/", { replace: true });
-    window.location.reload(true);
+    navigate("/");
+    window.location.reload();
+
     setLoading(false);
   };
 
@@ -56,7 +58,7 @@ export function Logout2() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    setLoading(true);
+    // setLoading(true);
     // try {
     //   const res = await fetch("https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/logout",{
     //   method: "POST",
@@ -71,10 +73,12 @@ export function Logout2() {
     // const data = await res.json()
     // if(res.status === 200){
     // console.log(data)
-    localStorage.clear();
-    navigate("/");
-    window.location.reload(true);
-    setLoading(false);
+    sessionStorage.clear();
+    if (sessionStorage.length === 0) {
+      navigate("/", { replace: true });
+      window.location.reload(true);
+    }
+    // setLoading(false);
     // }else {
     // setLoading(false)
     // }

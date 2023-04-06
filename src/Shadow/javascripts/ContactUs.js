@@ -112,8 +112,8 @@ export const ContactUs = () => {
           </div>
           <div className="input-btn">Submit</div>
         </div>
+        <Footer />
       </section>
-      <Footer />
     </div>
   );
 };

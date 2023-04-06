@@ -12,7 +12,7 @@ export default function Payment_Bar_stat() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const value = useContext(RiderContext);
-  const { riderdata, token } = value;
+  const { riderdata, token, typeAccount } = value;
 
   const navigate = useNavigate();
 
@@ -30,16 +30,16 @@ export default function Payment_Bar_stat() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            pagec: 1,
             token: JSON.parse(token),
-            delivery_agent_type: riderdata?.delivery_agent_type,
+            delivery_agent_type:
+              typeAccount === "Agent" ? "delivery agent" : "fleet manager",
           }),
         }
       );
       const data = await res.json();
       const results = await data;
       setLoading(false);
-      // console.log(results)
+      console.log(results);
       setData(results?.fleet_stats);
     } catch (err) {
       console.log(err);

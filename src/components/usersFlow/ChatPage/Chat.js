@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./support.css";
+import "./chat.css";
 import sendicon from "../../Images/sendicon.png";
 import attachfileicon from "../../Images/attachfileicon.png";
 import aang from "../../Images/aang.jpg";
@@ -36,7 +36,7 @@ import audioFile2 from "../../audio/beep2.wav";
 const audio = new Audio(audioFile);
 const audio2 = new Audio(audioFile2);
 
-export default function Chat_admin() {
+export default function Chat() {
   const navigate = useNavigate();
   const [convId, setConvId] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -50,7 +50,6 @@ export default function Chat_admin() {
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // console.log(convId);
   const Messager = (item, i) => {
     // console.log(item?.content);
     const user_id = JSON.parse(userId);
@@ -76,47 +75,44 @@ export default function Chat_admin() {
       cname = "incoming-msgs";
     }
     return (
-      <div
-        className={
-          cname === "outgoing-msgs"
-            ? "shadow-outgoing-msg-container"
-            : "shadow-incoming-msg-container"
-        }
-        ref={bottomRef}
+      <li
         key={i}
+        ref={bottomRef}
+        className={cname === "outgoing-msgs" ? "sent" : "received"}
       >
-        <div
-          className={
-            cname === "outgoing-msgs"
-              ? "shadow-outgoing-msg-wrapper"
-              : "shadow-incoming-msg-wrapper"
-          }
-        >
-          {/* <p className="date-of-msg"> */}
-
-          <div className={cname}>
-            {/* {item.media ? <img src={item.media} width="100px" height=" 100px" style={{marginBottom: "5px"}} /> : null}  */}
-            {item.message_type === "image" ? (
+        <div className="message-bubble">
+          {item.message_type === "image" ? (
+            <>
               <img
                 src={item?.content}
                 width="100px"
                 height=" 100px"
                 style={{ marginBottom: "5px", maxWidth: "100px" }}
               />
-            ) : (
+              <p className="message-time">
+                <span>
+                  <TimeConverter value={item?.timestamp} />
+                </span>
+                <span>
+                  <DateConverter value={item?.timestamp} />
+                </span>
+              </p>
+            </>
+          ) : (
+            <>
               <p>{item?.content}</p>
-            )}
-          </div>
-          <p
-            className={
-              cname === "outgoing-msgs" ? "date-of-msg" : "shadow-date-of-msg"
-            }
-          >
-            <TimeConverter value={item?.timestamp} /> <br />
-            <DateConverter value={item?.timestamp} />
-          </p>
+              <p className="message-time">
+                <span>
+                  <TimeConverter value={item?.timestamp} />
+                </span>
+                <span>
+                  <DateConverter value={item?.timestamp} />
+                </span>
+              </p>
+            </>
+          )}
         </div>
-      </div>
+      </li>
     );
   };
 
@@ -187,6 +183,7 @@ export default function Chat_admin() {
 
   const SendMessage = async (e) => {
     e.preventDefault();
+    console.log(convId);
     if (content.trim() === "" && img === "") {
       return;
     }
@@ -267,6 +264,9 @@ export default function Chat_admin() {
       setContent("");
       setImg("");
       setDisplay("");
+      handleCheck();
+
+      // window.location.reload();
     } else {
       if (e.keyCode === 13 && e.shiftKey === false) {
         e.preventDefault();
@@ -426,149 +426,122 @@ export default function Chat_admin() {
     );
   } else if (convId?.length > 1) {
     return (
-      <div className="support-chat">
-        <div className="chat-wrapper">
-          {/* <div className="back2">
-            <span>
-              <FontAwesomeIcon
-                icon={faArrowLeftLong}
-                onClick={() => navigate(-1)}
-                className="back"
-              ></FontAwesomeIcon>{" "}
-            </span>{" "}
-            <br />
-          </div> */}
-          <div className="chat-right-side">
-            {display && (
-              <span className="photo_display">
-                {display && <img src={display} width="100%" height="100%" />}{" "}
-              </span>
-            )}
-            <div className="shadow-chat-right-side-wrapper">
-              <div className="main-chat-discussion">
-                <div className="profile-picture1">
-                  <img src={pick} alt="icon" className="support-profile-pic1" />
-                </div>
-                <div className="your-profile">
-                  <h3>Help and Support</h3>
-                  <h6>pickload1@gmail.com</h6>
-                </div>
+      <div className="chat-page">
+        <div className="chat-section">
+          {display && (
+            <span className="photo_display">
+              {display && <img src={display} width="100%" height="100%" />}{" "}
+            </span>
+          )}
+          <div className="chat-container">
+            <div className="user-chat-section">
+              <div className="user-info">
+                <img src={pick} alt="name" />
+                <p className="user-info-split">
+                  <span className="user-info-name">Help and Support</span>
+                  <span className="user-info-email">pickload1@gmail.com</span>
+                </p>
               </div>
-              {/* <div className="message-header">
-                  <h6>Conversations</h6>
-                </div> */}
-
-              <div className="messages-wrapper">
-                {messageList?.map((item, i) => Messager(item, i))}
-                <div ref={bottomRef} />
-                <div className="shadow-chat-section">
-                  <form
-                    onSubmit={SendMessage}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div className="typing-bar">
-                      <textarea
-                        disabled={img}
-                        role="textbox"
-                        placeholder="Type your message..."
-                        className="shadow-text-area"
-                        rows="1"
-                        cols="20"
-                        typeof="submit"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        onKeyUp={SendMessage}
-                        onSubmit={SendMessage}
-                      ></textarea>
-                    </div>
-                    <div className="chat-icons">
-                      <label
-                        htmlFor="img"
-                        className="shadow-label-text"
-                        id={content ? "disabled" : ""}
-                      >
-                        <img src={attachfileicon} width="30px" height="30px" />
-                      </label>
-                      <input
-                        type="file"
-                        name="img"
-                        id="img"
-                        accept="image/*"
-                        onChange={handleChange}
-                        style={{ display: "none" }}
-                        disabled={content}
-                      />
-
-                      <div className="send-message">
-                        <button
-                          style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                            width: "45px",
-                          }}
-                          disabled={loading}
-                          id={!content && !img ? "disabled" : ""}
-                        >
-                          <img src={sendicon} onClick={SendMessage} />
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              <div className="conversation-name">Conversations</div>
             </div>
+            <ul className="messages-wrapper">
+              {messageList?.map((item, i) => Messager(item, i))}
+              <div ref={bottomRef} />
+            </ul>
+            <form className="form-message" onSubmit={SendMessage}>
+              <textarea
+                disabled={img}
+                role="textbox"
+                placeholder="Type your message..."
+                rows="1"
+                cols="20"
+                typeof="submit"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                onKeyUp={SendMessage}
+                onSubmit={SendMessage}
+              />
+              <div className="chat-icons">
+                <label
+                  htmlFor="img"
+                  className="shadow-label-text"
+                  id={content ? "disabled" : ""}
+                >
+                  <img src={attachfileicon} width="30px" height="30px" />
+                </label>
+                <input
+                  type="file"
+                  name="img"
+                  id="img"
+                  accept="image/*"
+                  onChange={handleChange}
+                  style={{ display: "none" }}
+                  disabled={content}
+                />
+
+                <div className="send-message">
+                  <button
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      width: "45px",
+                    }}
+                    type="submit"
+                    disabled={loading}
+                    id={content.trim() == "" && !img ? "disabled" : ""}
+                  >
+                    <img src={sendicon} onClick={SendMessage} />
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     );
   } else if (convId === "a") {
     return (
-      <div className="support-chat">
-        <div className="chat-wrapper">
-          <div className="chat-right-side">
-            <div className="shadow-chat-right-side-wrapper">
-              <div className="main-chat-discussion">
-                <div className="profile-picture1">
-                  <img src={pick} alt="icon" className="support-profile-pic1" />
-                </div>
-                <div className="your-profile">
-                  <h3>Help and Support</h3>
-                  <h6>pickload1@gmail.com</h6>
-                </div>
+      <div className="chat-page">
+        <div className="chat-section">
+          <div className="chat-container">
+            <div className="user-chat-section">
+              <div className="user-info">
+                <img src={pick} alt="name" />
+                <p className="user-info-split">
+                  <span className="user-info-name">Help and Support</span>
+                  <span className="user-info-email">pickload1@gmail.com</span>
+                </p>
               </div>
-              <div className="message-header">
-                <h6>Conversations</h6>
-              </div>
-
-              <div className="messages-wrapper">
-                <div ref={bottomRef} />
-                <div className="shadow-chat-section">
-                  <div className="typing-bar">
-                    <textarea
-                      role="textbox"
-                      placeholder="Type your message..."
-                      className="shadow-text-area"
-                      rows="1"
-                      cols="20"
-                      typeof="submit"
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
-                      // onKeyUp={SendMessage}
-                    ></textarea>
-                  </div>
-                  <div className="chat-icons">
-                    <div className="send-message">
-                      <img src={sendicon} alt="" onClick={SendMessage} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className="conversation-name">Conversations</div>
             </div>
+            <ul>
+              <div ref={bottomRef} />
+            </ul>
+            <form className="form-message" onSubmit={SendMessage}>
+              <textarea
+                role="textbox"
+                placeholder="Type your message..."
+                rows="1"
+                cols="20"
+                typeof="submit"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <div className="chat-icons">
+                <button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    width: "45px",
+                  }}
+                  type="submit"
+                  disabled={loading}
+                  id={content.trim() == "" && !img ? "disabled" : ""}
+                >
+                  <img src={sendicon} alt="" />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

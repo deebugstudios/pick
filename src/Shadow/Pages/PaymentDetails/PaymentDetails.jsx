@@ -11,13 +11,13 @@ const PaymentDetails = () => {
   const [accountNumber, setAccountNumber] = useState(bank_details?.account_no);
   const [accountType, setAccountType] = useState(bank_details?.account_type);
   const [bvn, setBvn] = useState(bank_details?.bvn);
-  
-  const navigate = useNavigate()
-  const handleClick =()=> {
-    navigate("/change-payment-details")
-  }
-  if (!riderdata){
-    navigate("/welcome-agent")
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/change-payment-details");
+  };
+  if (!riderdata) {
+    navigate("/welcome-agent");
   }
   return (
     <div className="iiii">
@@ -66,7 +66,7 @@ const PaymentDetails = () => {
             <input type="text" name="bvn" id="bvn" value={bvn} disabled />{" "}
             <br />
             <button type="submit" className="payment-btn" onClick={handleClick}>
-              Request to change payment account
+              Change payment account
             </button>
           </form>
         </div>

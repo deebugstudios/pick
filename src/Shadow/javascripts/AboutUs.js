@@ -151,8 +151,8 @@ export const AboutUs = () => {
             </div>
           </div>
         </section>
+        <Footer />
       </section>
-      <Footer />
     </div>
   );
 };

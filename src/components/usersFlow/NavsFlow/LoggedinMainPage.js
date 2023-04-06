@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navsignedin from "../../javascript/UserNavsignedin";
+import NavsignedinU from "../../javascript/UserNavsignedin";
 import SideBar from "../../javascript/SideBar";
 import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
@@ -21,7 +21,7 @@ const LoggedinMainPageUser = (props) => {
   return (
     <section className="user-dashboard-main">
       <div className="user-left-side-main">
-        <Navsignedin
+        <NavsignedinU
           profile={
             <img
               src={JSON.parse(userImg) !== "" ? JSON.parse(userImg) : UserIcon}
@@ -64,7 +64,7 @@ export const LoggedinMainPage2 = (props) => {
   return (
     <section className="user-dashboard-main">
       <div className="user-left-side-main">
-        <Navsignedin />
+        <NavsignedinU />
       </div>
       <div className="user-right-side-main">
         <div className="sider-group">

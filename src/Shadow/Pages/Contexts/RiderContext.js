@@ -65,6 +65,7 @@ export const UseTokenProviderUser = (props) => {
   const email = sessionStorage.getItem("pickload_userEmail");
   const userNumber = sessionStorage.getItem("pickload_userNumber");
   const userImg = sessionStorage.getItem("pickload_userImg");
+  const typeAccount = sessionStorage.getItem("typeAccount");
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -141,7 +142,7 @@ export const UseTokenProviderUser = (props) => {
             // console.log(error);
             setLoading(false);
           });
-
+        sessionStorage.setItem("typeAccount", "user");
         sessionStorage.setItem("user_rubbish", JSON.stringify(data?.token));
         sessionStorage.setItem(
           "pickload_userId",
@@ -186,6 +187,7 @@ export const UseTokenProviderUser = (props) => {
     setDataError,
     setLoading,
     loadOtp,
+    typeAccount,
     loading,
     dataError,
     formErrors,
@@ -221,8 +223,10 @@ export const UseRiderProvider = (props) => {
   const [loadOtp, setLoadOtp] = useState(false);
   const [countDown, setCountDown] = useState(60);
 
-  const token = localStorage.getItem("agent_rubbish");
-  const agentId = localStorage.getItem("agentId");
+  const token = sessionStorage.getItem("agent_rubbish");
+  const agentId = sessionStorage.getItem("agentId");
+  const typeAccount = sessionStorage.getItem("typeAccount");
+  // const riderdata = sessionStorage.getItem("riderData");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -271,7 +275,6 @@ export const UseRiderProvider = (props) => {
         }
       );
       const data = await res.json();
-      // console.log(data);
 
       if (data.msg == "Account not active or delivery agent does not exist") {
         setDataError(data.msg);
@@ -282,6 +285,7 @@ export const UseRiderProvider = (props) => {
       }
 
       if (res.status === 200) {
+        console.log(data);
         setLoadOtp(true);
         const interval = setInterval(() => {
           setCountDown((countDown) => countDown - 1);
@@ -300,12 +304,19 @@ export const UseRiderProvider = (props) => {
             console.log(error);
             setLoading(false);
           });
-        localStorage.setItem("agent_rubbish", JSON.stringify(data?.token));
-        localStorage.setItem(
+        sessionStorage.setItem("agent_rubbish", JSON.stringify(data?.token));
+        sessionStorage.setItem(
           "agentId",
           JSON.stringify(data?.delivery_agent._id)
         );
-        setRiderData(data?.delivery_agent);
+        let type =
+          data?.delivery_agent.delivery_agent_type == "delivery agent"
+            ? "Agent"
+            : "Fleet";
+
+        sessionStorage.setItem("typeAccount", type);
+        // sessionStorage.setItem("riderData", data?.delivery_agent);
+        // setRiderData(data?.delivery_agent);
         setLoading(false);
       } else {
         setMessage("An Error occured");
@@ -356,8 +367,9 @@ export const UseRiderProvider = (props) => {
         }),
       });
       const data = await res.json();
-      const finalData = await data?.delivery_agent;
       setLoading(false);
+      const finalData = await data?.delivery_agent;
+
       setRiderData(finalData);
     }
   };
@@ -377,6 +389,7 @@ export const UseRiderProvider = (props) => {
 
   // const token = localStorage.getItem("rubbish")
   const values = {
+    typeAccount,
     sideBar,
     toggleSideBar,
     riderdata,
