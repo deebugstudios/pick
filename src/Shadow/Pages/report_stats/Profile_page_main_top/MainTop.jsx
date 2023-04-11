@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./maintop.css";
 import personprofileicon from "../../../images/profilepersonicon.png";
 import staricon from "../../../images/staricon.png";
@@ -9,12 +9,18 @@ import notFleetManager from "../../../images/becomefleetmanagerimage.png";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { RiderContext } from "../../Contexts/RiderContext";
+import { useNavigate } from "react-router-dom";
 
 export const MainTop = (props) => {
+  const navigate = useNavigate();
   const { fleet_manager_vehicles, rating, delivery_agent_type } =
     props?.riderdata;
   const value = useContext(RiderContext);
-  const { typeAccount } = value;
+  const { typeAccount, riderdata } = value;
+  useEffect(() => {
+    console.log(riderdata);
+  });
+  const number = riderdata?.phone_no;
 
   // const {no_of_bikes, no_of_buses, no_of_cars, no_of_trucks} = fleet_manager_vehicles;
   // const {total_rating} = rating
@@ -91,7 +97,12 @@ export const MainTop = (props) => {
 
         <div className="pages">
           <h3>MY RATING </h3>
-          <span>&nbsp; {rating?.total_rating}</span>
+          <span>
+            &nbsp;{" "}
+            {rating?.rating_count > 0
+              ? Math.round(rating?.total_rating / rating?.rating_count)
+              : 0}
+          </span>
           <div className="profile-icons">
             <div className="half-circle green-color">
               <img src={staricon} alt="icon" />
@@ -135,7 +146,7 @@ export const MainTop = (props) => {
               </ul>
             </div>
           </div>
-        ) : (
+        ) : typeAccount === "Agent" && riderdata?.fleet_manager_id == "" ? (
           <div className="pages span-two">
             <div className="become-a-fleet-manager-wrapper">
               <div className="become-fleet-manager-left-side">
@@ -145,7 +156,24 @@ export const MainTop = (props) => {
               </div>
               <div className="Not-fleet-manager-text-container">
                 <h4>Upgrade your profile to a Fleet Manager</h4>
-                <button className="become-fleet-manager-button">Proceed</button>
+                <button
+                  className="become-fleet-manager-button"
+                  onClick={() =>
+                    navigate("/upgrade", { state: { num: number } })
+                  }
+                >
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="pages span-two">
+            <div className="become-a-fleet-manager-wrapper">
+              <div className="become-fleet-manager-left-side">
+                <div className="Not-fleet-manager-image">
+                  <img src={notFleetManager} alt="" />
+                </div>
               </div>
             </div>
           </div>

@@ -24,9 +24,14 @@ export default function DeliveryHistoryDetails() {
     const seconds = (ms % 60000) / 1000;
 
     if (hours === 0 && minutes === 0) {
-      return seconds.toFixed(3) + " seconds";
+      return seconds.toFixed(0) + " seconds";
     } else if (hours === 0) {
-      return minutes + (minutes > 1 ? " minutes" : " minute");
+      return (
+        minutes +
+        (minutes > 1 ? " minutes " : " minute ") +
+        seconds.toFixed(0) +
+        (seconds > 1 ? " seconds" : " second")
+      );
     } else {
       return (
         hours +
@@ -169,7 +174,6 @@ export default function DeliveryHistoryDetails() {
                       value={deliveryDetails?.delivery_status.is_started_at}
                     />
                   }{" "}
-                  on{" "}
                   {
                     <DateConverter
                       value={deliveryDetails?.delivery_status.is_started_at}
@@ -184,7 +188,6 @@ export default function DeliveryHistoryDetails() {
                       value={deliveryDetails?.delivery_status.is_completed_at}
                     />
                   }{" "}
-                  on{" "}
                   {
                     <DateConverter
                       value={deliveryDetails?.delivery_status.is_completed_at}

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "../css/sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,10 +10,11 @@ import {
   faCreditCard,
   faCreditCardAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import bikeicon from '../images/bikeicon.png'
-import cashicon from '../images/cashicon.png'
-import historyicon from '../images/historyicon.png'
-import reporticon from '../images/reporticon.png'
+import bikeicon from "../images/bikeicon.png";
+import cashicon from "../images/cashicon.png";
+import User from "../images/user.png";
+import historyicon from "../images/historyicon.png";
+import reporticon from "../images/reporticon.png";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import profileimage from "../images/profileimage.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
@@ -21,10 +22,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const SideBar = (props) => {
   const value = useContext(RiderContext);
-  const { riderdata, loading } = value;
+  const { riderdata, loading, typeAccount } = value;
   return (
-    <section className={props.toggle? "sider-group-active" :"side-bar"}>
-    
+    <section className={props.toggle ? "sider-group-active" : "side-bar"}>
       <div className="side-bar-links">
         <ul>
           {/* <Link to="/Deliveryrequest">
@@ -40,28 +40,50 @@ const SideBar = (props) => {
               Pending Deliveries
             </li>
           </Link> */}
-              {/* <li> */}
-              <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/deliveryhistory" onClick={props.toggler}>
-                <li>
-                    <img src={historyicon} className="sidebar-icons space-icons" />
-                        Delivery History
-                </li>
+          {/* <li> */}
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "#E8F4E3" : "white",
+            })}
+            to="/agent-profile"
+            onClick={props.toggler}
+          >
+            <div className="side-bar-profile-details">
+              <div className="side-bar-profile-img skeleton">
+                {loading ? (
+                  <ClipLoader
+                    color={"#1AA803"}
+                    loading={loading}
+                    cssOverride={{ margin: "10px 10px" }}
+                    size={30}
+                  />
+                ) : (
+                  <img src={riderdata?.img_url ? riderdata?.img_url : User} />
+                )}
+              </div>
+              <div className="side-bar-profile-name">
+                <h5>{riderdata?.fullname}</h5>
+                <p>View Profile</p>
+              </div>
+            </div>
+          </NavLink>
 
-              </NavLink>
-              {/* </li> */}
-              {/* <li> */}
-                <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/agent-profile" onClick={props.toggler}>
-                <div className="side-bar-profile-details">
-                    <div className="side-bar-profile-img skeleton">
-                     {loading ?   <ClipLoader color={"#1AA803"} loading={loading} cssOverride={{margin:"10px 10px"}} size={30} /> : <img src={riderdata?.img_url}  /> }  
-                    </div>
-                    <div className="side-bar-profile-name">
-                      <h5>{riderdata?.fullname}</h5>
-                      <p>View Profile</p>
-                    </div>
-                </div>
-                </NavLink>
-              {/* </li> */}
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "#E8F4E3" : "white",
+            })}
+            to="/deliveryhistory"
+            onClick={props.toggler}
+          >
+            <li>
+              <img src={historyicon} className="sidebar-icons space-icons" />
+              Delivery History
+            </li>
+          </NavLink>
+          {/* </li> */}
+          {/* <li> */}
+
+          {/* </li> */}
           {/* <Link to="/Chatwithadmin">
             <li>
               <img src={reporticon} className="sidebar-icons space-icons" />
@@ -69,10 +91,10 @@ const SideBar = (props) => {
               Chat with Admin
             </li>
           </Link> */}
-        {/* </ul>
+          {/* </ul>
 
         <ul> */}
-              {/* <li>
+          {/* <li>
               <Link to="/agent-profile">
           <div className="side-bar-profile-details" onClick={props.toggler}>
             <div className="side-bar-profile-img skeleton">
@@ -86,7 +108,7 @@ const SideBar = (props) => {
             </Link>
               </li> */}
 
-              {/* <li>
+          {/* <li>
                 <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/agent-profile">
                 <div className="side-bar-profile-details" onClick={props.toggler}>
                     <div className="side-bar-profile-img skeleton">
@@ -100,28 +122,38 @@ const SideBar = (props) => {
                 </NavLink>
               </li> */}
 
+          {/* <li> */}
+          {typeAccount == "Agent" &&
+          riderdata?.fleet_manager_id != "" ? null : (
+            <NavLink
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#E8F4E3" : "white",
+              })}
+              to="/payment-details"
+              onClick={props.toggler}
+            >
+              <li>
+                <img src={cashicon} className="sidebar-icons space-icons" />
+                Payment details
+              </li>
+            </NavLink>
+          )}
+          {/* </li> */}
 
-
-
-              {/* <li> */}
-              <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/payment-details"  onClick={props.toggler}>
-                  <li>
-                
-                      <img src={cashicon} className="sidebar-icons space-icons" />
-                      Payment details
-                  </li>
-              </NavLink>
-              {/* </li> */}
-          
-
-                {/* <li> */}
-              <NavLink style={({isActive})=>({ backgroundColor: isActive ? "#E8F4E3" : "white" })} to="/agent-logout" onClick={props.toggler}>
-                  <li >
-                      <FontAwesomeIcon icon={faSignOut} className="space-icons" />
-                        Log out
-                  </li>
-              </NavLink>
-                {/* </li> */}
+          {/* <li> */}
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "#E8F4E3" : "white",
+            })}
+            to="/agent-logout"
+            onClick={props.toggler}
+          >
+            <li>
+              <FontAwesomeIcon icon={faSignOut} className="space-icons" />
+              Log out
+            </li>
+          </NavLink>
+          {/* </li> */}
           {/* <Link to="/agent-logout">
             
             <li onClick={props.toggler}>

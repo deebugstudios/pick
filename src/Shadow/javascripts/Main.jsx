@@ -95,13 +95,13 @@ const Main = () => {
                   <img src={reddots} alt="" className="red-dots2 " />
                 </div>
               </div>
-              <div className="whats-app" onClick={goToChat}>
+              {/* <div className="whats-app" onClick={goToChat}>
                 <FontAwesomeIcon
                   icon={faMessage}
                   className="space-icons-1 my-float"
                 />
                 <p className="help-text">Say Hello</p>
-              </div>
+              </div> */}
               <Section2 />
               <Section2subsec1 />
               <OurServices />

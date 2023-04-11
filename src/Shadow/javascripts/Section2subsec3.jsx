@@ -35,7 +35,7 @@ const Section2subsec3 = () => {
             <div className="contact-details">
               <h4>Contact</h4>
               <p>Mobile : 0803 890 6338</p>
-              <p>Email : pickload1@gmail.com</p>
+              <p>Email : support@pickload.ng</p>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@ const Section2subsec3 = () => {
               <ul>
                 <li>Contact Us</li>
                 <li>0803 890 6338</li>
-                <li>pickload1@gmail.com</li>
+                <li>support@pickload.ng</li>
               </ul>
             </div>
           </div>

@@ -250,7 +250,7 @@ export default function Guest() {
                 <img src={pick} alt="name" />
                 <p className="user-info-split">
                   <span className="user-info-name">Help and Support</span>
-                  <span className="user-info-email">pickload1@gmail.com</span>
+                  <span className="user-info-email">support@pickload.ng</span>
                 </p>
               </div>
               <div className="conversation-name">Conversations</div>
@@ -311,7 +311,7 @@ export default function Guest() {
                 <img src={pick} alt="name" />
                 <p className="user-info-split">
                   <span className="user-info-name">Help and Support</span>
-                  <span className="user-info-email">pickload1@gmail.com</span>
+                  <span className="user-info-email">support@pickload.ng</span>
                 </p>
               </div>
               <div className="conversation-name">Conversations</div>

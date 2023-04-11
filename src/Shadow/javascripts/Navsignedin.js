@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import "../css/navsignedin.css";
+import User from "../images/user.png";
 import { Link } from "react-router-dom";
 import Pickload from "../../components/Images/pickload.png";
 import { RiderContext } from "../Pages/Contexts/RiderContext";
@@ -21,7 +22,7 @@ const Navsignedin = (props) => {
         </div>
         <div className="nav-links">
           <ul>
-            <li>
+            {/* <li>
               <Link to="/">Home</Link>
             </li>
             <li>
@@ -29,7 +30,7 @@ const Navsignedin = (props) => {
             </li>
             <li>
               <Link to="/contactUS"> Contact Us </Link>
-            </li>
+            </li> */}
             <li className="hover-me">
               <a href="">
                 My Account <FontAwesomeIcon icon={faAngleDown} />
@@ -56,7 +57,7 @@ const Navsignedin = (props) => {
                   size={25}
                 />
               ) : (
-                <img src={riderdata?.img_url} />
+                <img src={riderdata?.img_url ? riderdata?.img_url : User} />
               )}
             </div>
           </Link>

@@ -117,19 +117,12 @@ export default function CancelledScheduled() {
                   <p>
                     {
                       <TimeConverter
-                        value={
-                          deliveryDetails?.delivery_status
-                            .scheduled_delivery_pickup_timestamp
-                        }
+                        value={deliveryDetails?.delivery_status.is_accepted_at}
                       />
                     }{" "}
-                    on{" "}
                     {
                       <DateConverter
-                        value={
-                          deliveryDetails?.delivery_status
-                            .scheduled_delivery_pickup_timestamp
-                        }
+                        value={deliveryDetails?.delivery_status.is_accepted_at}
                       />
                     }
                   </p>
@@ -148,7 +141,6 @@ export default function CancelledScheduled() {
                         value={deliveryDetails?.delivery_status.is_cancelled_at}
                       />
                     }{" "}
-                    on{" "}
                     {
                       <DateConverter
                         value={deliveryDetails?.delivery_status.is_cancelled_at}

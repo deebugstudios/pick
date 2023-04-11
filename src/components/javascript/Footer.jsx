@@ -69,7 +69,7 @@ const Footer = () => {
             <ul>
               <li>Contact Us</li>
               <li>0803 890 6338</li>
-              <li>pickload1@gmail.com</li>
+              <li>support@pickload.ng</li>
             </ul>
           </div>
         </div>
@@ -125,7 +125,10 @@ const Footer = () => {
       </div>
       <div className="main-footer-rights">
         <div>
-          <p>© Copyright 2022 | pickload.ng | All rights reserved.</p>
+          <p>
+            © Copyright {new Date().getFullYear()} | pickload.ng | All rights
+            reserved.
+          </p>
         </div>
         <div>
           <ul>

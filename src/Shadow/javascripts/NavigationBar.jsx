@@ -14,7 +14,7 @@ const NavigationBar = () => {
             <img src={Pickload} alt="" />
           </Link>
         </div>
-        <div className="nav-links">
+        {/* <div className="nav-links">
           <ul>
             <Link to="/">
               <li>
@@ -28,7 +28,7 @@ const NavigationBar = () => {
               <Link to="/contactUS"> Contact Us </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="btns">
           <Link to="/login-as">
             <button className="login-btn">Log in</button>

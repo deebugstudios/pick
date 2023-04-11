@@ -12,12 +12,42 @@ import {
   MinsConverter,
   TimeConverter,
 } from "../../../../DateAndTimeConverter";
+import { ReportReason2 } from "../../../../components/usersFlow/ReportReason";
+import Popup from "../../../../components/javascript/Popup";
+import Flag from "../../../images/flag.png";
+import ThousandConverter from "../../../../components/javascript/ThousandConverter";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const DeliveryHistoryDetailsAgent = () => {
+  const [popupButton, setPopupButton] = useState(false);
+  function convertMillisecondsToTime(ms) {
+    const hours = Math.floor(ms / 3600000); // 1 Hour = 36000 Milliseconds
+    const minutes = Math.floor((ms % 3600000) / 60000); // 1 Minute = 60000 Milliseconds
+    const seconds = (ms % 60000) / 1000;
+
+    if (hours === 0 && minutes === 0) {
+      return seconds.toFixed(0) + " seconds";
+    } else if (hours === 0) {
+      return (
+        minutes +
+        (minutes > 1 ? " minutes " : " minute ") +
+        seconds.toFixed(0) +
+        (seconds > 1 ? " seconds" : " second")
+      );
+    } else {
+      return (
+        hours +
+        (minutes > 1 ? " hours, " : " hour, ") +
+        minutes +
+        (minutes > 1 ? " minutes" : " minute")
+      );
+    }
+  }
   const location = useLocation();
   const value = useContext(RiderContext);
   const { token } = value;
+  const [deliveryImages, setDeliveryImages] = useState([]);
+  const [milli, setMilli] = useState("");
 
   const [loading, setLoading] = useState(true);
   const [deliveryDetails, setDeliveryDetails] = useState({});
@@ -42,7 +72,11 @@ const DeliveryHistoryDetailsAgent = () => {
       const data = await res.json();
       const results = await data;
       setLoading(false);
+      console.log(results);
       setDeliveryDetails(results?.delivery);
+      setDeliveryImages(results?.delivery.imgs);
+
+      setMilli(results?.delivery.delivered_in);
     } catch (err) {
       console.log(err);
     }
@@ -71,57 +105,80 @@ const DeliveryHistoryDetailsAgent = () => {
             </div>
           ) : (
             <div className="specifics-details-section-1">
-              <h3>
-                {deliveryDetails?.delivery_type == "instant"
-                  ? "Instant"
-                  : deliveryDetails?.delivery_type === "scheduled"
-                  ? "Scheduled"
-                  : null}{" "}
-                Delivery ID : {deliveryDetails?._id}
-              </h3>
-              <div className="delivery-details-pictures specifics-images">
-                {deliveryDetails?.imgs?.map((item, index) => (
-                  <DeliveryImages key={index} rectangle={item} />
-                ))}
+              <p style={{ color: "red", textAlign: "right" }}>
+                {deliveryDetails?.delivery_status.is_cancelled === true
+                  ? "Delivery cancelled"
+                  : null}
+              </p>
+              <div className="summary-cost">
+                <p>
+                  <strong>
+                    {deliveryDetails?.delivery_type == "instant"
+                      ? "Instant"
+                      : deliveryDetails?.delivery_type === "scheduled"
+                      ? "Scheduled"
+                      : null}{" "}
+                    Delivery ID:
+                  </strong>{" "}
+                  {deliveryDetails?.parcel_code}{" "}
+                </p>
+                <p>
+                  <strong>Item name:</strong> {deliveryDetails?.parcel_name}
+                </p>
+                <p>
+                  <strong>Delivery agent name:</strong>{" "}
+                  {deliveryDetails?.delivery_agent_name}
+                </p>
+                <p>
+                  <strong>Estimated Delivery Fee:</strong>{" "}
+                  <span style={{ color: "#1ca905" }}>
+                    &#8358;
+                    {
+                      <ThousandConverter
+                        value={deliveryDetails?.delivery_cost_delivery_agent}
+                      />
+                    }
+                  </span>
+                </p>
               </div>
-              <h3>Delivery status</h3>
+
+              <div className="estimatedtime">
+                <h2>Item delivered in {convertMillisecondsToTime(milli)}</h2>
+              </div>
+
               <div className="delivery-details-location">
                 <div className="delivery-deatails-location-pickup">
                   <div className="location-img">
                     <img src={locationimg} alt="" />
                   </div>
-                  <h3>
-                    Item Received by Delivery Agent at the Pickup Location{" "}
-                  </h3>
+                  <h3>Item picked up </h3>
                   {!deliveryDetails?.delivery_status?.is_started_at ? (
                     <div style={{ margin: "10px 0" }}>
                       Package Not Yet Picked UP
                     </div>
                   ) : (
                     <p>
-                      <EveryDateConverter
+                      <TimeConverter
                         value={deliveryDetails?.delivery_status?.is_started_at}
                       />{" "}
-                      at{" "}
-                      <TimeConverter
+                      <DateConverter
                         value={deliveryDetails?.delivery_status?.is_started_at}
                       />
                     </p>
                   )}
-                  <h3>Item Received by User at the Drop off loaction </h3>
+                  <h3>Item dropped off </h3>
                   {deliveryDetails?.delivery_status?.is_completed_at === 0 ? (
                     <div style={{ margin: "10px 0" }}>
                       Package Not Yet Dropped off
                     </div>
                   ) : (
                     <p>
-                      <EveryDateConverter
+                      <TimeConverter
                         value={
                           deliveryDetails?.delivery_status?.is_completed_at
                         }
                       />{" "}
-                      at{" "}
-                      <TimeConverter
+                      <DateConverter
                         value={
                           deliveryDetails?.delivery_status?.is_completed_at
                         }
@@ -130,6 +187,29 @@ const DeliveryHistoryDetailsAgent = () => {
                   )}
                 </div>
               </div>
+
+              <div className="delivery-details-pictures specifics-images">
+                {deliveryDetails?.imgs?.map((item, index) => (
+                  <DeliveryImages key={index} rectangle={item} />
+                ))}
+              </div>
+              {deliveryDetails?.delivery_confirmation_proof_urls.length > 0 ? (
+                <>
+                  <p>
+                    <strong>Delivery confirmation proof</strong>
+                  </p>
+                  <div className="delivery-details-pictures specifics-images">
+                    {deliveryDetails?.delivery_confirmation_proof_urls?.map(
+                      (item, index) => (
+                        <li key={index}>
+                          <DeliveryImages rectangle={item} />
+                        </li>
+                      )
+                    )}
+                  </div>
+                </>
+              ) : null}
+
               {/* <div className="estimatedtime">
             <h2>
                 {deliveryDetails?.delivered_in === 0 ? 
@@ -141,7 +221,7 @@ const DeliveryHistoryDetailsAgent = () => {
                 }    
             </h2>
           </div> */}
-              <div className="delivery-profile1">
+              {/* <div className="delivery-profile1">
                 <div className="driver-profile-image">
                   <p>Delivery Details</p>
                   <div className="image">
@@ -178,7 +258,7 @@ const DeliveryHistoryDetailsAgent = () => {
                     </thead>
                   </table>
                 </div>
-              </div>
+              </div> */}
               <div className="delivery-history-info">
                 <DeliverInfo
                   key={deliveryDetails?._id}
@@ -190,7 +270,6 @@ const DeliveryHistoryDetailsAgent = () => {
                   parcel_type={deliveryDetails?.parcel_type}
                   description={deliveryDetails?.parcel_description}
                   instruction={deliveryDetails?.delivery_instructions}
-                  timestamp={deliveryDetails?.timestamp}
                 />
               </div>
               <br />
@@ -205,9 +284,42 @@ const DeliveryHistoryDetailsAgent = () => {
               Report this user
             </p>
           </div> */}
+              <div className="report-user">
+                <div>
+                  <img src={Flag} alt="" />
+                </div>
+                <p
+                  onClick={() => {
+                    setPopupButton(true);
+                  }}
+                >
+                  Report this user
+                </p>
+              </div>
             </div>
           )}
         </div>
+        <Popup trigger={popupButton} setTrigger={setPopupButton}>
+          <ReportReason2
+            delivery_id={Delivery_id}
+            parcel_code={deliveryDetails?.parcel_code}
+            img_ids={deliveryDetails?.img_ids}
+            imgs={deliveryImages?.join(", ")}
+            agentName={deliveryDetails?.delivery_agent_name}
+            delivery_agent_code={deliveryDetails?.delivery_agent_code}
+            delivery_agent_id={deliveryDetails?.delivery_agent_id}
+            delivery_agent_img={deliveryDetails?.delivery_agent_img}
+            delivery_agent_img_id={deliveryDetails?.delivery_agent_img_id}
+            delivery_agent_email={deliveryDetails?.delivery_agent_email}
+            user_email={deliveryDetails?.sender_email}
+            delivery_type={deliveryDetails?.delivery_type}
+            sender_fullname={deliveryDetails?.sender_fullname}
+            sender_id={deliveryDetails?.sender_id}
+            sender_img={deliveryDetails?.sender_img}
+            token={JSON.parse(token)}
+          />
+          {/* <ReportReason2 /> */}
+        </Popup>
       </section>
     </div>
   );

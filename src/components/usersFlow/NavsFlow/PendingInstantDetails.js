@@ -95,10 +95,10 @@ export default function PendingInstantDetails() {
               <img src={Arrow} alt="" />
             </div>
           </div>
-          <div className="specifics-map-container">
-            {/* <img src={map} alt="" /> */}
+          {/* <div className="specifics-map-container">
+            
             <GoogleMap mark={agentLocation} />
-          </div>
+          </div> */}
           <br />
 
           <div className="specific-details-section">

@@ -18,7 +18,11 @@ export const DateConverter = (props) => {
   // console.log(props)
   const date = new Date(props.value);
   DATE = {
-    date: date.toLocaleDateString(),
+    date: date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "2-digit",
+      year: "numeric",
+    }),
     time: date.toLocaleTimeString(),
     combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
   };

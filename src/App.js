@@ -91,6 +91,7 @@ import EditProfile from "./Shadow/Pages/report_stats/EditProfile";
 import Chat from "./components/usersFlow/ChatPage/Chat";
 import ChatAgent from "./components/usersFlow/ChatPage/ChatAgent";
 import Guest from "./components/usersFlow/ChatPage/Guest";
+import UpgradeAccount from "./components/Pages/UpgradeAccount";
 export default function App() {
   return (
     <>
@@ -112,15 +113,11 @@ export default function App() {
               /> */}
               {/* <Route path="aboutUS1" element={<AboutUs1 />} /> */}
 
-              <Route
-                path="guest"
-                element={<LoggedinMainPage1 name={<Guest />} logged={false} />}
-              />
-
               <Route exact path="/" element={<LoggedinMainPage1 />}>
                 <Route path="" element={<Main />} />
                 <Route path="aboutUS" element={<AboutUs />} />
                 <Route path="contactUS" element={<ContactUs />} />
+                <Route path="guest" element=<Guest /> />
               </Route>
 
               {/* <Route exact path="main" element={<Main1 />} /> */}
@@ -130,6 +127,7 @@ export default function App() {
               <Route path="join" element={<Signup />} />
               <Route path="userform" element={<UserForm />} />
               <Route path="fleet" element={<AsFleet />} />
+              <Route path="upgrade" element={<UpgradeAccount />} />
               <Route path="login-as" element={<LoginAs />} />
               <Route path="welcome-agent" element={<WelcomeAgent />} />
               <Route path="confirm" element={<PhoneConfirm />} />

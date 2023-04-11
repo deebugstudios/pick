@@ -23,3 +23,25 @@ export default function Thanks(props) {
     </>
   );
 }
+
+export function Thanks2(props) {
+  const navigate = useNavigate();
+  return (
+    <>
+      <div id="thanks-div">
+        <p>
+          {props.First} <br /> {props.Second}
+        </p>
+        <br />
+
+        <button
+          onClick={() => {
+            navigate("/deliveryhistory");
+          }}
+        >
+          Okay
+        </button>
+      </div>
+    </>
+  );
+}

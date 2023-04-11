@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import axios from "axios";
 
-export default function FleetVehicle() {
+export default function UpgradeV() {
   const asterik = <span id="asterik">*</span>;
   const location = useLocation();
 
@@ -36,9 +36,6 @@ export default function FleetVehicle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // console.log(id);
-    // console.log(token);
-    console.log(formData.fleet_name);
     // navigate("/account");
 
     const validate = (data) => {
@@ -90,7 +87,7 @@ export default function FleetVehicle() {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -157,7 +154,7 @@ export default function FleetVehicle() {
           </div>
         </form>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

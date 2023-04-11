@@ -158,6 +158,7 @@
 .image img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .image2 {
   width: 150px;
@@ -169,11 +170,13 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .image img {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .delivery-history-info {
   margin-top: 20px;

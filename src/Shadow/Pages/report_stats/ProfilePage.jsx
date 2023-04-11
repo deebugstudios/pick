@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import "./profilepage.css";
 import passportphoto from "../../images/profilepic3.jpg";
+import User from "../../images/user.png";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -82,15 +83,15 @@ const ProfilePage = () => {
     navigate("/edit-profile");
   };
 
-  const vehcileImages = riderdata?.vehicle_details?.img_urls?.map(
-    (image, index) => {
+  const vehcileImages = riderdata?.vehicle_details?.img_urls
+    ?.slice(2, 7)
+    .map((image, index) => {
       return (
         <div className="front-side skeleton" key={index}>
           <img src={image} alt="" />
         </div>
       );
-    }
-  );
+    });
 
   // const handleSubmitChangeProfile = (e) => {
   //   e.preventDefault()
@@ -330,12 +331,19 @@ const ProfilePage = () => {
                     />
                   </form>
                   <form className="vechile-details-form2">
-                    <label htmlFor="">Agent ID</label> <br />
+                    <label htmlFor="">
+                      {typeAccount == "Agent" ? "Agent ID" : "Fleet name"}
+                    </label>{" "}
+                    <br />
                     <input
                       type="text"
                       name="agentId"
                       id=""
-                      value={riderdata?.delivery_agent_code || "No Agent ID"}
+                      value={
+                        typeAccount == "Agent"
+                          ? riderdata?.delivery_agent_code
+                          : riderdata?.fleet_name
+                      }
                       disabled
                     />{" "}
                     <br />
@@ -362,21 +370,27 @@ const ProfilePage = () => {
                 </div>
                 {typeAccount === "Agent" ? (
                   <div className="driver-passport-pictures">
-                    <h6>Passport/Selfie</h6>
+                    <h6>
+                      Passport/Selfie{" "}
+                      {riderdata?.img_url ? null : "- No profile picture set"}
+                    </h6>
                     <div className="driver-passport skeleton">
-                      <img src={riderdata?.img_url} alt="driver passport" />
+                      <img
+                        src={riderdata?.img_url ? riderdata?.img_url : User}
+                        alt="driver passport"
+                      />
                     </div>
                     <h6>Drivers license</h6>
                     <div className="driver-driver-license">
                       <div className="front-side skeleton">
                         <img
-                          src={riderdata?.vehicle_details?.img_urls?.[1]}
+                          src={riderdata?.vehicle_details?.img_urls?.[0]}
                           alt=""
                         />
                       </div>
                       <div className="back-side skeleton">
                         <img
-                          src={riderdata?.vehicle_details?.img_urls?.[2]}
+                          src={riderdata?.vehicle_details?.img_urls?.[1]}
                           alt=""
                         />
                       </div>

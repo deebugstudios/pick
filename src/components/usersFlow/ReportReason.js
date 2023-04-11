@@ -2,11 +2,12 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/reason.css";
 import Button from "../javascript/Button";
-import ReportThanks from "./ReportThanks";
+import ReportThanks, { ReportThanks2 } from "./ReportThanks";
 import Popup, { Popup2, Popup3 } from "../javascript/Popup";
 import { userContext } from "../../Shadow/Pages/Contexts/RiderContext";
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db, storage } from "../../utils/firebase";
+import { RiderContext } from "../../Shadow/Pages/Contexts/RiderContext";
 
 export default function ReportReason(props) {
   const navigate = useNavigate();
@@ -179,6 +180,183 @@ export default function ReportReason(props) {
 
       <Popup3 trigger={popupButton} setTrigger={setPopupButton}>
         <ReportThanks />
+      </Popup3>
+    </div>
+  );
+}
+
+export function ReportReason2(props) {
+  const navigate = useNavigate();
+  const [reason, setReason] = useState("Long wait time");
+  const [others, setOthers] = useState("");
+  const [message, setMessage] = useState("");
+  const [popupButton, setPopupButton] = useState(false);
+  const [explain, setExplain] = useState("");
+  const userValues = useContext(userContext);
+  const [realImage, setRealImage] = useState("");
+  const value = useContext(RiderContext);
+  const { token } = value;
+
+  /**@type React.MutableRefObject<HTMLInputElement> */
+  const othersRef = useRef();
+
+  const handleCheck = (e) => {
+    setReason(e.target.value);
+  };
+
+  const handleExplain = (e) => {
+    setExplain(e.target.value);
+  };
+  //set the reason inside handle change
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // navigate("/report-thanks");
+    const realReason = reason === "Other reasons" ? explain : reason;
+    if (reason === "Other reasons" && explain === "") {
+      return;
+    } else {
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_report/report_delivery",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              token: props.token,
+              body: realReason,
+              delivery_id: props.delivery_id,
+              delivery_code: props.parcel_code,
+              // delivery_img_urls: props.imgs,
+              user_id: props.sender_id,
+              user_name: props.sender_fullname,
+              // user_img_url: props.sender_img,
+              delivery_agent_name: props.agentName,
+              delivery_agent_code: props.delivery_agent_code,
+              // delivery_agent_id: props.delivery_agent_id,
+              // delivery_agent_img_url: props.delivery_agent_img,
+              reporter: "delivery agent",
+              delivery_agent_email: props.delivery_agent_email,
+              user_email: props.user_email,
+              delivery_type: props.delivery_type,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data = await res.json();
+        // console.log(data);
+
+        if (res.status === 200) {
+          setPopupButton(true);
+          const notifyRef = doc(db, "admin_notifiers", "reports");
+          await updateDoc(notifyRef, {
+            reports_count: increment(1),
+          });
+        } else {
+          setMessage("Error occured");
+        }
+      } catch (error) {
+        // console.log(error);
+      }
+    }
+  };
+
+  return (
+    <div className="reason-main-div">
+      <form id="reason-form" onSubmit={handleSubmit}>
+        <h2>
+          Please let us know why you are reporting <br /> this user
+        </h2>
+        <br />
+
+        <div id="reason-div">
+          <div className="div-reason">
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Long wait time"
+                checked={reason === "Long wait time"}
+                name="Reason"
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Long wait time
+              </label>
+            </div>
+
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Parcel not properly packaged"
+                checked={reason === "Parcel not properly packaged"}
+                name="Reason"
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Parcel not properly packaged
+              </label>
+            </div>
+          </div>
+
+          <div className="div-reason">
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Rude reception"
+                name="Reason"
+                checked={reason === "Rude reception"}
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Rude reception
+              </label>
+            </div>
+
+            <div className="real-div">
+              <input
+                id="maleCheck"
+                type="checkbox"
+                value="Other reasons"
+                name="Reason"
+                checked={reason === "Other reasons"}
+                onChange={handleCheck}
+              />
+              <label className="check-reason" htmlFor="Reason">
+                Other reasons
+              </label>
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <div id="input-div-w">
+          <label className="check-reason" htmlFor="why">
+            Please tell us why
+          </label>
+          <textarea
+            type="text"
+            name="why"
+            id="why-input"
+            className="phone-input3 textarea"
+            disabled={reason !== "Other reasons"}
+            value={explain}
+            onChange={handleExplain}
+            // onChange={handleChange}
+          />
+        </div>
+
+        <Button name="Submit" type="submit" />
+      </form>
+
+      <Popup3 trigger={popupButton} setTrigger={setPopupButton}>
+        <ReportThanks2 />
       </Popup3>
     </div>
   );

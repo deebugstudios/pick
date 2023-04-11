@@ -67,7 +67,7 @@ const Footer = () => {
             <ul>
               <li>Contact Us</li>
               <li>0803 890 6338</li>
-              <li>pickload1@gmail.com</li>
+              <li>support@pickload.ng</li>
             </ul>
           </div>
         </div>

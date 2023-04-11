@@ -30,7 +30,7 @@ const NavsignedinU = (props) => {
         </div>
         <div className="nav-links">
           <ul>
-            <li>
+            {/* <li>
               <Link to="/">Home</Link>
             </li>
 
@@ -39,7 +39,7 @@ const NavsignedinU = (props) => {
             </li>
             <li>
               <Link to="/contactUS"> Contact Us </Link>
-            </li>
+            </li> */}
             <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />
               <div className="sub-menu">

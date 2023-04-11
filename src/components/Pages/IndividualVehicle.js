@@ -127,15 +127,21 @@ export default function IndividualVehicle() {
     setLoading(true);
     // navigate("/account");
 
-    if (license.length === 0) {
-      setImage2Errors(`Upload Photo of Your Driver's License`);
+    if (license.length < 2) {
+      setImage2Errors(`Upload the front and back of Your Driver's License`);
+      setLoading(false);
+      return;
     } else setImage2Errors("");
-    if (vehicleImage.length === 0) {
-      setImage3Errors(`Upload Image(s) of Your Vehicle`);
+    if (vehicleImage.length < 3) {
+      setImage3Errors(`Upload at least 3 Images of Your Vehicle`);
+      setLoading(false);
+      return;
     } else setImage3Errors("");
 
     if (!expiry) {
       setNoDate(`Select Your Driver's License Expiry Date`);
+      setLoading(false);
+      return;
     } else setNoDate("");
 
     const validate = (data) => {
@@ -195,7 +201,7 @@ export default function IndividualVehicle() {
           setMessage("Error occured");
           setLoading(false);
         }
-        // console.log(response);
+        console.log(response);
       })
       .catch((error) => {
         // console.log(error);

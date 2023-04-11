@@ -23,7 +23,7 @@
   align-items: center;
 }
 
-@media screen and (max-width:678px) {
+@media screen and (max-width: 678px) {
   .iiii {
     margin: 10px 8px !important;
   }
@@ -62,15 +62,20 @@ button:disabled {
 .payment-details-form {
   /* margin: auto 0; */
   padding: 50px 10px 0 10px;
-  
+
   height: 100%;
   overflow: hidden;
 }
-.payment-details-form input {
+.payment-details-form input,
+.payment-details-form select {
   width: 100%;
   margin: 5px 0;
   padding: 6px 10px;
   font-weight: 400;
+}
+.payment-details-form select {
+  height: 40px;
+  border-radius: 5px;
 }
 .payment-btn {
   /* background-color: var(--maincolor); */

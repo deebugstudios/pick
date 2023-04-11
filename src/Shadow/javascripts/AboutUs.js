@@ -62,7 +62,10 @@ export const AboutUs = () => {
               <button className="learn-more">Learn More</button>
               <button className="watch-video">
                 {" "}
-                <a href="http://www.youtube.com" target="_blank">
+                <a
+                  href="https://drive.google.com/file/d/1cfjb66L9LtQ4owbGgBluPvX_Ae0mjiSu/view?usp=drivesdk"
+                  target="_blank"
+                >
                   {" "}
                   Watch Video <FontAwesomeIcon icon={faPlay} />{" "}
                 </a>
@@ -95,7 +98,7 @@ export const AboutUs = () => {
           <iframe
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/rwbeLBwExD8"
+            src="https://youtu.be/DHyblOwXiko"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -111,12 +114,19 @@ export const AboutUs = () => {
                 <span>PICKLOAD</span>
               </h3>
               <div className="social-btn-container">
-                <button className="social-btn">
-                  <img src={googleplay} alt="" />
-                </button>
-                <button className="social-btn">
-                  <img src={appstore} alt="" />
-                </button>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.pickload.pickloaduser&pli=1"
+                  target="_blank"
+                >
+                  <button className="social-btn">
+                    <img src={googleplay} alt="" />
+                  </button>
+                </a>
+                <a href="https://www.apple.com/app-store/" target="_blank">
+                  <button className="social-btn">
+                    <img src={appstore} alt="" />
+                  </button>
+                </a>
               </div>
             </div>
             <div className="right-green-background">
@@ -128,12 +138,16 @@ export const AboutUs = () => {
               <div className="first-bg-green">
                 <h3>Earn some extra cash delivering items</h3>
                 <div>
-                  <button className="social-btn second-btn-style ">
-                    <img src={googleplay} alt="" />
-                  </button>
-                  <button className="social-btn second-btn-style ">
-                    <img src={appstore} alt="" />
-                  </button>
+                  <a href="https://www.apple.com/app-store/" target="_blank">
+                    <button className="social-btn second-btn-style ">
+                      <img src={googleplay} alt="" />
+                    </button>
+                  </a>
+                  <a href="https://www.apple.com/app-store/" target="_blank">
+                    <button className="social-btn second-btn-style ">
+                      <img src={appstore} alt="" />
+                    </button>
+                  </a>
                 </div>
               </div>
               <div className="second-bg">

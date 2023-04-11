@@ -135,7 +135,7 @@ export default function ScheduledDeliverySummary() {
       phone,
     },
     channels: ["card"],
-    publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
+    publicKey: "pk_live_fb68ed4b8914b2f8294b28e98158e12619dbb0f6",
     className: showButton,
     text: "Proceed to Payment",
     // callback: function (response) {},

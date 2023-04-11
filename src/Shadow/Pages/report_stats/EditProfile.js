@@ -207,12 +207,12 @@ const EditProfile = () => {
             <option value="Zamfara">Zamfara</option>
           </select>
           <br />
-          <label htmlFor="city">city</label>
+          <label htmlFor="city">City</label>
           <br />
           <input type="text" name="city" id="city" onChange={handleChange} />
           <br />
           <label htmlFor="driver_license_expiry_date">
-            driver_license_expiry_date
+            Driver's license expiry date
           </label>
           <br />
           <input
@@ -225,7 +225,7 @@ const EditProfile = () => {
           />
           <br />
           <br />
-          <label htmlFor="plate_no">plate_no</label>
+          <label htmlFor="plate_no">Plate no</label>
           <br />
           <input
             type="text"

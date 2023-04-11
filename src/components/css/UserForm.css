@@ -83,7 +83,7 @@
 .phone-input2 {
   opacity: 1 !important;
   padding-left: 40px !important;
-  border: 2px solid rgba(10, 16, 52, 0.3);
+  border: 2px solid rgba(10, 16, 52, 0.3) !important;
 }
 .phone-input3 {
   opacity: 1 !important;

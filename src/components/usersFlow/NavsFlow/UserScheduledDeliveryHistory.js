@@ -24,7 +24,12 @@ export default function UserScheduledDeliveryHistory() {
     if (hours === 0 && minutes === 0) {
       return seconds.toFixed(0) + " seconds";
     } else if (hours === 0) {
-      return minutes + (minutes > 1 ? " minutes" : " minute");
+      return (
+        minutes +
+        (minutes > 1 ? " minutes " : " minute ") +
+        seconds.toFixed(0) +
+        (seconds > 1 ? " seconds" : " second")
+      );
     } else {
       return (
         hours +
@@ -164,7 +169,6 @@ export default function UserScheduledDeliveryHistory() {
                       value={deliveryDetails?.delivery_status.is_started_at}
                     />
                   }{" "}
-                  on{" "}
                   {
                     <DateConverter
                       value={deliveryDetails?.delivery_status.is_started_at}
@@ -179,7 +183,6 @@ export default function UserScheduledDeliveryHistory() {
                       value={deliveryDetails?.delivery_status.is_completed_at}
                     />
                   }{" "}
-                  on{" "}
                   {
                     <DateConverter
                       value={deliveryDetails?.delivery_status.is_completed_at}

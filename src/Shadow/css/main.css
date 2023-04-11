@@ -286,6 +286,9 @@ input::placeholder {
 }
 .delivery-location-input select {
   padding-left: 40px;
+  border: 2px solid rgba(10, 16, 52, 0.3) !important;
+  border-radius: 5px;
+  /* height: 45px; */
 }
 .left-icon {
   width: 30px;
@@ -360,20 +363,11 @@ input::placeholder {
   display: none;
   right: 0;
 }
-/* @media screen and (max-width:1281px) {
-    .delivery-picture {
-        width: 50%;
-        height: 70vh;
-    }
-    .header-text {
-        font-weight: 300;
-        margin: 0 !important;
-        padding-bottom: 0;
-    }
-    form {
-        padding-bottom: 0;
-    }
-} */
+@media screen and (max-width: 580px) {
+  .delivery-location-input select {
+    height: 38px;
+  }
+}
 /*
 @media screen and (max-width:1001px) {
    .left-side-container {

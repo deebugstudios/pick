@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "../css/testimonials.css";
-import image from "../images/profileimage.png";
-import image1 from "../images/kem-hero.png";
-import image2 from "../images/contact_us.png";
+import image from "../images/obinna.png";
+import image1 from "../images/elo.jpg";
+import image2 from "../images/michael.jpg";
 import image3 from "../images/contactusimage.png";
 // import image4 from '../images/profilepic3.png'
 const Testimonials = () => {
@@ -11,28 +11,18 @@ const Testimonials = () => {
   const testimonialSlider = [
     {
       image: image,
-      text: " Pickload made parcel delivery so easier.",
-      name: "GLORIA BASSEY",
+      text: "I was struggling to manage my business's logistics before I found this app. But now, thanks to its easy-to-use interface and powerful features, I'm able to streamline my delivery and tracking processes like never before. I've saved so much time and money since I started using it, and I couldn't be happier!",
+      name: "Osmond Obinna",
     },
     {
-      image: image,
-      text: " pickload you Rock.",
-      name: "CHIZZY",
+      image: image1,
+      text: "As an ecommerce entrepreneur, delivery is one of the most important aspect of my business. That's why I was thrilled to discover this logistics app. It's transformed the way I manage my orders and deliveries, with real-time tracking, automatic notifications, and seamless integration with my existing systems. I highly recommend it to anyone in the ecommerce space!",
+      name: "Light Elo",
     },
     {
-      image: image,
-      text: " this is an amazing website.",
-      name: "LIGHT",
-    },
-    {
-      image: image,
-      text: " awesome project .",
-      name: "MR P",
-    },
-    {
-      image: image,
-      text: " Honestly, this is the best Logistic app I have ever made use of. I have never had things delivered to me in so short a time at a very affordable rate. The delivery agent was also very professional yet  friendly.",
-      name: "MR OBINNA",
+      image: image2,
+      text: "I'm not usually one to leave reviews, but this logistics app has truly blown me away. From its user-friendly interface to its lightning-fast delivery times, it's clear that the developers really know what they're doing. I've used it for both personal and professional deliveries, and it's never let me down. If you're looking for a reliable logistics solution, look no further than this app!",
+      name: "Michael Nukonu",
     },
   ];
   const goToSlide = (slideIndex) => {
