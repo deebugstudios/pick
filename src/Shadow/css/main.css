@@ -43,10 +43,21 @@
   /* overflow-y: scroll; */
 }
 .main-container {
-  height: 80vh;
+  /* height: 80vh; */
   width: var(--width);
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 50px 0 20px 0;
+}
+.align-main {
+  align-self: flex-start;
+  width: 100%;
+  margin-top: 30px;
+  padding-left: 1.5em;
+}
+.align-main div {
+  margin-left: -20px;
+  margin-top: 5px;
 }
 .main-left-side {
   display: flex;
@@ -161,6 +172,18 @@
     display: flex;
     flex-direction: column-reverse;
     padding: 0;
+  }
+  .main-first {
+    margin: 0;
+  }
+  .align-main {
+    align-self: center;
+    text-align: center;
+    padding-left: 0;
+  }
+  .align-main div {
+    margin: 5px auto 20px auto;
+    /* margin-top: 5px; */
   }
   .green-dots,
   .red-dots,

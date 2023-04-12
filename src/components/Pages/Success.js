@@ -9,6 +9,7 @@ export default function Success() {
 
   const handleClick = (e) => {
     e.preventDefault();
+    sessionStorage.clear();
     navigate("/welcome-agent");
   };
   return (

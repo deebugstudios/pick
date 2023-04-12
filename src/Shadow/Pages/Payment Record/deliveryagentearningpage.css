@@ -1,39 +1,49 @@
 .padding {
-    /* padding: 10px 30px;
+  /* padding: 10px 30px;
      */
-     margin: 10px 15px;
-     padding: 20px 0;
+  margin: 10px 15px;
+  padding: 20px 0;
 }
 .total-earnings {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 0.5px solid #CCCACA;
-    padding: 10px 30px;
-    margin: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid #cccaca;
+  padding: 10px 30px;
+  margin: 0 30px;
 }
-@media screen and (max-width:500px) {
-    .total-earnings {
-        padding: 10px 10px !important;
-        font-size: 12px;
-    } 
+.week1date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.week-duration {
+  font-size: 13px;
+  margin: 5px;
+}
+@media screen and (max-width: 500px) {
+  .total-earnings {
+    padding: 10px 10px !important;
+    font-size: 12px;
+  }
 }
 .td-style td {
-    font-size: 13px;
+  font-size: 13px;
 }
 .is-payment {
-    background: rgba(196, 196, 196, 0.64);
-    border-radius: 6px;
-    padding: 9px 15px;
-    width: 37%;
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 10px;
-    text-align: center;
+  background: rgba(196, 196, 196, 0.64);
+  border-radius: 6px;
+  padding: 9px 15px;
+  width: 37%;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 10px;
+  text-align: center;
 }
 .place-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 30px;
 }

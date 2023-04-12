@@ -3,6 +3,8 @@ import "../css/section2subsec4.css";
 import googleplay from "../images/googlePlay.png";
 import appstore from "../images/appStore.png";
 import mobile from "../images/mobile.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import pickloadvideo from "../images/pickloadvideo.png";
 import { Link } from "react-router-dom";
 const Section2subsec4 = () => {
@@ -23,7 +25,10 @@ const Section2subsec4 = () => {
                 <img src={googleplay} alt="" />
               </button>
             </a>
-            <a href="https://www.apple.com/app-store/" target="_blank">
+            <a
+              href="https://apps.apple.com/ng/app/pickload/id1662091716"
+              target="_blank"
+            >
               <button className="social-btn">
                 <img src={appstore} alt="" />
               </button>
@@ -47,7 +52,10 @@ const Section2subsec4 = () => {
                   <img src={googleplay} alt="" />
                 </button>
               </a>
-              <a href="https://www.apple.com/app-store/" target="_blank">
+              <a
+                href="https://apps.apple.com/ng/app/pickload-agent/id1662203435"
+                target="_blank"
+              >
                 <button className="social-btn second-btn-style ">
                   <img src={appstore} alt="" />
                 </button>
@@ -59,6 +67,16 @@ const Section2subsec4 = () => {
               <h3>
                 Sign Up to become an Agent with <span> PICKLOAD </span>
               </h3>
+              <button className="watch-video">
+                {" "}
+                <a
+                  href="https://www.youtube.com/watch?v=DHyblOwXiko"
+                  target="_blank"
+                >
+                  {" "}
+                  Watch Video <FontAwesomeIcon icon={faPlay} />{" "}
+                </a>
+              </button>
             </div>
             <div className="second-bg-button">
               <Link to="/sign">

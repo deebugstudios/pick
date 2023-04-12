@@ -5,6 +5,7 @@ import "./paymentdetails.css";
 const PaymentDetails = () => {
   const value = useContext(RiderContext);
   const { riderdata } = value;
+  console.log(riderdata);
   const { bank_details } = riderdata;
   const [bankName, setBankName] = useState(bank_details?.bank_name);
   const [accountName, setAccountName] = useState(bank_details?.account_name);

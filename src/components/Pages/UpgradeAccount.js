@@ -235,6 +235,7 @@ export default function UpgradeAccount(props) {
       console.log(data);
 
       if (res.status === 200) {
+        sessionStorage.clear();
         try {
           const res = await fetch(
             "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_one",

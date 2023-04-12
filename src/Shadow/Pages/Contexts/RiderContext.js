@@ -213,7 +213,7 @@ export const UseRiderProvider = (props) => {
 
   const [phone_no, setPhone_no] = useState("");
   // const [newNumber, setNewNumber] = ("")
-  const [riderdata, setRiderData] = useState({});
+  // const [riderdata, setRiderData] = useState({});
   const [message, setMessage] = useState("");
   const [formErrors, setFormErrors] = useState("");
   const [dataError, setDataError] = useState("");
@@ -226,7 +226,8 @@ export const UseRiderProvider = (props) => {
   const token = sessionStorage.getItem("agent_rubbish");
   const agentId = sessionStorage.getItem("agentId");
   const typeAccount = sessionStorage.getItem("typeAccount");
-  // const riderdata = sessionStorage.getItem("riderData");
+  const datat = sessionStorage.getItem("riderData");
+  const riderdata = JSON.parse(datat);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -315,7 +316,10 @@ export const UseRiderProvider = (props) => {
             : "Fleet";
 
         sessionStorage.setItem("typeAccount", type);
-        // sessionStorage.setItem("riderData", data?.delivery_agent);
+        sessionStorage.setItem(
+          "riderData",
+          JSON.stringify(data?.delivery_agent)
+        );
         // setRiderData(data?.delivery_agent);
         setLoading(false);
       } else {
@@ -354,33 +358,33 @@ export const UseRiderProvider = (props) => {
   };
 
   // console.log(token);
-  const fetchData = async () => {
-    if (token) {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          delivery_agent_id: JSON.parse(agentId),
-          token: JSON.parse(token),
-        }),
-      });
-      const data = await res.json();
-      setLoading(false);
-      const finalData = await data?.delivery_agent;
+  // const fetchData = async () => {
+  //   if (token) {
+  //     const res = await fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         delivery_agent_id: JSON.parse(agentId),
+  //         token: JSON.parse(token),
+  //       }),
+  //     });
+  //     const data = await res.json();
+  //     setLoading(false);
+  //     const finalData = await data?.delivery_agent;
 
-      setRiderData(finalData);
-    }
-  };
-  useEffect(() => {
-    if (token) {
-      fetchData();
-    }
-    return () => {
-      fetchData();
-    };
-  }, []);
+  //     setRiderData(finalData);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (token) {
+  //     fetchData();
+  //   }
+  //   return () => {
+  //     fetchData();
+  //   };
+  // }, []);
 
   const toggleSideBar = () => {
     setSideBar(!sideBar);

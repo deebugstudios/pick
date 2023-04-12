@@ -95,10 +95,12 @@
 .payment-week {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   margin-bottom: 20px;
   /* font-size: 12px; */
   font-weight: 400;
+  overflow-x: scroll;
+  width: 100%;
 }
 .week1 {
   background-color: #1aa803;
@@ -117,32 +119,32 @@
   justify-content: center;
   margin-right: 2px;
   cursor: pointer;
-  font-size: 8px;
+  font-size: 10px;
   padding: 8px 12px;
 }
-@media screen and (min-width:500px) {
+@media screen and (min-width: 585px) {
   .week1,
-.week2,
-.week3,
-.week4,
-.week5 {
-  height: 28px !important;
-  margin-right: 10px !important;
-  font-size: 13px !important;
-  padding: 10px 15px !important;
-}
-.payment-to {
-  font-size: 13px;
-}
-.bikes,
-.cars,
-.buses,
-.truck {
-  height: 28px !important;
-  margin-right: 10px !important;
-  font-size: 13px !important;
-  padding: 10px 15px !important;
-}
+  .week2,
+  .week3,
+  .week4,
+  .week5 {
+    height: 28px !important;
+    margin-right: 10px !important;
+    font-size: 13px !important;
+    padding: 10px 15px !important;
+  }
+  .payment-to {
+    font-size: 13px;
+  }
+  .bikes,
+  .cars,
+  .buses,
+  .truck {
+    height: 28px !important;
+    margin-right: 10px !important;
+    font-size: 13px !important;
+    padding: 10px 15px !important;
+  }
 }
 .week2,
 .week3,
@@ -200,7 +202,8 @@
   margin-bottom: 10px;
 }
 .record-date input {
- width: 12%;
+  width: 120px;
+  height: 40px;
 }
 .table-data {
   margin: 0 !important;
@@ -225,23 +228,21 @@
   border-bottom: 0.5px solid #cccaca;
 }
 
-@media screen and (min-width:500px) {
+@media screen and (min-width: 500px) {
   .table-data thead th {
     font-size: 14px !important;
   }
   .table-data tr td {
     font-size: 13px !important;
   }
-  
 }
-@media screen and (min-width:950px) {
+@media screen and (min-width: 950px) {
   .table-data thead th {
     font-size: 16px !important;
   }
   .table-data tr td {
     font-size: 15px !important;
   }
-  
 }
 .table-data tr td,
 .table-data thead th {

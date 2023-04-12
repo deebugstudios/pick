@@ -24,7 +24,10 @@ const Section2subsec2 = () => {
             <button className="learn-more">Learn More</button>
             <button className="watch-video">
               {" "}
-              <a href="http://www.youtube.com" target="_blank">
+              <a
+                href="https://www.youtube.com/watch?v=DHyblOwXiko"
+                target="_blank"
+              >
                 {" "}
                 Watch Video <FontAwesomeIcon icon={faPlay} />{" "}
               </a>

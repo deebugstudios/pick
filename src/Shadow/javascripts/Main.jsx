@@ -84,6 +84,23 @@ const Main = () => {
                         </Link>
                       </div>
                     </form>
+                    <div className="align-main">
+                      <p>
+                        <strong>Watch how to use the Pickload user app</strong>
+                      </p>
+                      <div className="pickload-video-container">
+                        {/* <img src={pickloadvideo} alt="video on how to use pickload" /> */}
+                        <iframe
+                          src="https://www.youtube.com/embed/DHyblOwXiko"
+                          title="Pickload"
+                          width="100%"
+                          height="310"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        ></iframe>
+                      </div>
+                    </div>
                     <img src={greendots} alt="" className="green-dots2" />
                   </div>
                 </div>
