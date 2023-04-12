@@ -179,13 +179,13 @@ export default function Guest() {
       });
       if (new_conv === true) {
         setNew_conv(false);
-        const badgeDocRef = doc(db, "hf_collection", convId);
+        const badgeDocRef = doc(db, "conversations", convId);
         await setDoc(badgeDocRef, {
           // is_admin_in_chat: false,
           unread_user_message_count: 1,
         });
       } else {
-        const badge = doc(db, "hf_collection", convId);
+        const badge = doc(db, "conversations", convId);
         await updateDoc(badge, {
           unread_user_message_count: increment(1),
         });
@@ -216,13 +216,13 @@ export default function Guest() {
 
       if (new_conv === true) {
         setNew_conv(false);
-        const badgeDocRef = doc(db, "hf_collection", convId);
+        const badgeDocRef = doc(db, "conversations", convId);
         await setDoc(badgeDocRef, {
           // is_admin_in_chat: false,
           unread_user_message_count: 1,
         });
       } else {
-        const badge = doc(db, "hf_collection", convId);
+        const badge = doc(db, "conversations", convId);
         await updateDoc(badge, {
           unread_user_message_count: increment(1),
         });
