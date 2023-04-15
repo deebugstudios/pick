@@ -52,6 +52,7 @@ export default function ChatAgent() {
   const [img, setImg] = useState("");
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadM, setLoadM] = useState(false);
 
   const Messager = (item, i) => {
     // console.log(item?.content);
@@ -122,7 +123,7 @@ export default function ChatAgent() {
     if (isLoaded === false) {
       unsubscribe();
     }
-  }, [isLoaded === true]);
+  }, [loadM]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -150,6 +151,7 @@ export default function ChatAgent() {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
+        setLoadM(true);
       } else if (data.msg === "No conversation found") {
         setConvId("a");
         setNew_conv(true);
@@ -165,6 +167,7 @@ export default function ChatAgent() {
   }, []);
 
   const SendMessage = async (e) => {
+    const first = userImg.length < 3 ? "a" : JSON.parse(userImg);
     e.preventDefault();
     if (content.trim() === "") {
       return;
@@ -182,7 +185,7 @@ export default function ChatAgent() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: true,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               receiver_id: agentId,
               content: contentToDB,
             }),
@@ -204,7 +207,7 @@ export default function ChatAgent() {
             {
               content: contentToDB,
               sender_id: JSON.parse(userId),
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               receiver_id: agentId,
               sender_name: JSON.parse(userName),
               timestamp: Date.now(),
@@ -212,6 +215,7 @@ export default function ChatAgent() {
             }
           );
           audio2.play();
+          setLoadM(true);
         } else {
           // console.log(" did not send message");
         }
@@ -232,7 +236,7 @@ export default function ChatAgent() {
           {
             content: contentToDB,
             sender_id: JSON.parse(userId),
-            sender_img: userImg ? JSON.parse(userImg) : "a",
+            sender_img: first,
             sender_name: JSON.parse(userName),
             timestamp: Date.now(),
             conv_id: convId,
@@ -241,6 +245,7 @@ export default function ChatAgent() {
         );
 
         audio2.play();
+        setLoadM(true);
 
         const response = await fetch(
           "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
@@ -250,7 +255,7 @@ export default function ChatAgent() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: false,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               content: contentToDB,
               receiver_id: agentId,
               conv_id: convId,
@@ -278,7 +283,7 @@ export default function ChatAgent() {
           {
             content: contentToDB,
             sender_id: JSON.parse(userId),
-            sender_img: userImg ? JSON.parse(userImg) : "a",
+            sender_img: first,
             sender_name: JSON.parse(userName),
             timestamp: Date.now(),
             conv_id: convId,
@@ -287,6 +292,7 @@ export default function ChatAgent() {
         );
 
         audio2.play();
+        setLoadM(true);
 
         const response = await fetch(
           "https://ancient-wildwood-73926.herokuapp.com/user_chat/send_message",
@@ -296,7 +302,7 @@ export default function ChatAgent() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: false,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               content: contentToDB,
               receiver_id: agentId,
               conv_id: convId,

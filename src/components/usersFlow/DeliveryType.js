@@ -83,6 +83,7 @@ export default function DeliveryType() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(vehicle);
     navigate("/user/userflow", { state: { vehicle: vehicle, member: member } });
 
     // console.log(user);

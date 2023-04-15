@@ -5,6 +5,7 @@ import Cancel from "../../Images/cancel.png";
 import "../../css/userprofile.css";
 import Button from "../../javascript/Button";
 import { useEffect } from "react";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import UserIcon from "../../Images/user.png";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,8 @@ import Flag from "../../Images/Nigerian_flag.png";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Popup2 } from "../../javascript/Popup";
 
 export default function UsersProfile() {
   const navigate = useNavigate();
@@ -24,8 +27,54 @@ export default function UsersProfile() {
   const [isSelected, setIsSelected] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedSrc, setSelectedSrc] = useState("");
+  const [loadDelete, setLoadDelete] = useState(false);
+  const [loadOtp, setLoadOtp] = useState(false);
   const userValues = useContext(userContext);
   const { token } = userValues;
+
+  const handleDelete = async () => {
+    setLoadDelete(true);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_auth/request_delete_account",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            email: userDetails.email,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        sessionStorage.clear();
+        setLoadDelete(false);
+        alert("Request sent. Check your email to complete the process");
+        navigate("/welcome");
+        window.location.reload();
+
+        // setLoadButton(false);
+      } else {
+        setLoadDelete(false);
+        // setMessage("An Error occured");
+        // setLoadButton(false);
+      }
+    } catch (error) {
+      // setLoadButton(false);
+      alert("Request failed. Check your network connection and try again");
+      // setLoadOtp(false);
+      setLoadDelete(false);
+      // console.log(error);
+      // const err = error
+    }
+  };
 
   const inputRef = useRef();
 
@@ -283,9 +332,46 @@ export default function UsersProfile() {
 
                 <Button name="Save and Update" loading={loadButton} />
               </form>
+
+              <div
+                style={{
+                  color: "red",
+                  alignSelf: "center",
+                  marginTop: "40px",
+                  cursor: "pointer",
+                }}
+                onClick={() => setLoadOtp(true)}
+              >
+                <FontAwesomeIcon icon={faTrash} /> Delete Account
+              </div>
             </div>
             <br />
           </div>
+          <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "15px",
+                padding: "20px 20px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <p>
+                <FontAwesomeIcon icon={faTrash} /> Delete Account
+              </p>
+              <div style={{ maxWidth: "400px", textAlign: "center" }}>
+                Your data cannot be recovered once deleted. We'll send you an
+                email to complete the process.
+              </div>
+              <Button
+                name="Proceed"
+                click={handleDelete}
+                loading={loadDelete}
+              />
+            </div>
+          </Popup2>
         </div>
       </>
     );

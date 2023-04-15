@@ -55,7 +55,7 @@ export default function WelcomeUser(props) {
   };
 
   const handleClick = () => {
-    navigate("/forgot");
+    navigate("/forgot", { state: { type: "user" } });
   };
 
   const resend = () => {
@@ -185,7 +185,7 @@ export default function WelcomeUser(props) {
             <p className="error-style">{dataError}</p>
 
             <p id="forgot" onClick={handleClick}>
-              Forgot your Phone Number?
+              Recover account?
             </p>
 
             <br />
@@ -367,7 +367,7 @@ export function WelcomeAgent() {
           const user = result.user;
           // ...
           console.log("worked");
-          navigate("/deliveryhistory", { replace: true });
+          navigate("/agent-profile", { replace: true });
           // console.log(user);
           setLoadOtp(false);
         })
@@ -408,7 +408,7 @@ export function WelcomeAgent() {
   };
 
   const handleClick = (e) => {
-    navigate("/forgot");
+    navigate("/forgot", { state: { type: "agent" } });
   };
 
   const resend = () => {
@@ -476,7 +476,7 @@ export function WelcomeAgent() {
             <p className="error-style">{dataError}</p>
 
             <p id="forgot" onClick={handleClick}>
-              Forgot your Phone Number?
+              Recover account?
             </p>
 
             <br />

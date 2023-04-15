@@ -94,7 +94,7 @@ export default function UserForm() {
               }
             );
             const data = await res.json();
-            // console.log(data);
+            console.log(data);
             if (
               data.msg === "An account with this phone number already exists"
             ) {

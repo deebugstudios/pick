@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   faInstagramSquare,
   faLinkedin,
@@ -10,6 +10,7 @@ import {
 import logo from "../images/pickloadlogo.png";
 import "../css/footer.css";
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <section className="footer">
       <div className="footer-section1">
@@ -80,7 +81,7 @@ const Footer = () => {
           <span className="green-icons">
             <a
               className="green-icons"
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/pickload1/?next=%2F"
               target="_blank"
             >
               {" "}
@@ -90,14 +91,14 @@ const Footer = () => {
           <span>
             <a
               className="green-icons"
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/in/pickload-logistics-73b215272/"
               target="_blank"
             >
               {" "}
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
           </span>
-          <span>
+          {/* <span>
             <a
               className="green-icons"
               href="https://www.facebook.com"
@@ -105,11 +106,11 @@ const Footer = () => {
             >
               <FontAwesomeIcon icon={faFacebookSquare}> </FontAwesomeIcon>{" "}
             </a>
-          </span>
+          </span> */}
           <span>
             <a
               className="green-icons"
-              href="https://www.twitter.com"
+              href="https://twitter.com/pickload52893"
               target="_blank"
             >
               <FontAwesomeIcon icon={faTwitterSquare} />
@@ -126,8 +127,25 @@ const Footer = () => {
         </div>
         <div>
           <ul>
-            <li>Contact Us</li>
-            <li>Terms</li>
+            <li
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/guest")}
+            >
+              Contact Us
+            </li>
+            <li>
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/Termsandconditions"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {" "}
+                Terms{" "}
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

@@ -201,6 +201,7 @@ export default function UserRequestPickup() {
   // console.log(duration);
 
   const handleNavigate = async () => {
+    console.log(vehicle);
     const realDistance = parseFloat(distance.replace(",", ""));
     const deliveryState = pickupState;
     const pickLocation = pickupLocation;

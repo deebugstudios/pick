@@ -57,11 +57,6 @@ export default function FormUserDelivery() {
   });
   const [fire, setFire] = useState(false);
 
-  useEffect(() => {
-    handleDelete();
-    setFire(false);
-  }, [fire === true]);
-
   const handleDelete = (url) => {
     // e.preventDefault();
     if (deliveryFiles.length === 5) {
@@ -95,7 +90,13 @@ export default function FormUserDelivery() {
   const drop_off_address = location.state.drop_off_address;
   const userValues = useContext(userContext);
   const { token } = userValues;
-
+  useEffect(() => {
+    handleDelete();
+    setFire(false);
+  }, [fire === true]);
+  useEffect(() => {
+    console.log(vehicle);
+  }, []);
   const images = [];
   const picUploaded = [...deliveryFiles];
 

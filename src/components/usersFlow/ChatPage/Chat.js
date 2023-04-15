@@ -49,6 +49,7 @@ export default function Chat() {
   const [img, setImg] = useState("");
   const [display, setDisplay] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadM, setLoadM] = useState(false);
 
   const Messager = (item, i) => {
     // console.log(item?.content);
@@ -132,7 +133,7 @@ export default function Chat() {
     if (isLoaded === false) {
       unsubscribe();
     }
-  }, [isLoaded === true]);
+  }, [loadM]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -159,16 +160,19 @@ export default function Chat() {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
+        setLoadM(true);
       } else if (data.msg === "No conversation found") {
         setConvId("a");
         setNew_conv(true);
         setIsLoaded(true);
+        setLoadM(false);
       } else if (
         data.msg === "Help feedback admin changed, new conversation created"
       ) {
         setConvId(data.conversation_id);
         setIsLoaded(true);
         setNew_conv(false);
+        setLoadM(false);
         const oldConvIDToBeDeleted = data.conversation_id;
         await deleteDoc(doc(db, "hf_collection", oldConvIDToBeDeleted));
       }
@@ -183,7 +187,9 @@ export default function Chat() {
 
   const SendMessage = async (e) => {
     e.preventDefault();
-    console.log(convId);
+
+    const first = userImg.length < 3 ? "a" : JSON.parse(userImg);
+
     if (content.trim() === "" && img === "") {
       return;
     }
@@ -211,7 +217,7 @@ export default function Chat() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: true,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               content: contentToDB ? contentToDB : img.name,
               who_sent: "user",
               which_user: "user",
@@ -229,13 +235,14 @@ export default function Chat() {
           let conv_id = data.message.conversation_id;
           setConvId(data.message.conversation_id);
           setNew_conv(false);
+          setIsLoaded(true);
 
           await setDoc(
             doc(db, "hf_collection", conv_id, conv_id, `${Date.now()}`),
             {
               content: contentToDB ? contentToDB : url,
               sender_id: JSON.parse(userId),
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               sender_name: JSON.parse(userName),
               timestamp: serverTimestamp(),
               which_user: "user",
@@ -245,6 +252,7 @@ export default function Chat() {
             }
           );
           audio2.play();
+          setLoadM(true);
 
           const notifyRef = doc(db, "admin_notifiers", "hf_messages");
           await updateDoc(notifyRef, {
@@ -289,7 +297,7 @@ export default function Chat() {
           {
             content: contentToDB ? contentToDB : url,
             sender_id: JSON.parse(userId),
-            sender_img: userImg ? JSON.parse(userImg) : "a",
+            sender_img: first,
             sender_name: JSON.parse(userName),
             timestamp: serverTimestamp(),
             which_user: "user",
@@ -300,6 +308,7 @@ export default function Chat() {
         );
 
         audio2.play();
+        setLoadM(true);
 
         const notifyRef = doc(db, "admin_notifiers", "hf_messages");
         await updateDoc(notifyRef, {
@@ -319,7 +328,7 @@ export default function Chat() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: false,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               content: contentToDB ? contentToDB : img.name,
               who_sent: "user",
               which_user: "user",
@@ -362,7 +371,7 @@ export default function Chat() {
           {
             content: contentToDB ? contentToDB : url,
             sender_id: JSON.parse(userId),
-            sender_img: userImg ? JSON.parse(userImg) : "a",
+            sender_img: first,
             sender_name: JSON.parse(userName),
             timestamp: serverTimestamp(),
             which_user: "user",
@@ -373,6 +382,7 @@ export default function Chat() {
         );
 
         audio2.play();
+        setLoadM(true);
 
         const notifyRef = doc(db, "admin_notifiers", "hf_messages");
         await updateDoc(notifyRef, {
@@ -391,7 +401,7 @@ export default function Chat() {
               token: JSON.parse(token),
               sender_name: JSON.parse(userName),
               new_conv: false,
-              sender_img: userImg ? JSON.parse(userImg) : "a",
+              sender_img: first,
               content: contentToDB ? contentToDB : img.name,
               who_sent: "user",
               which_user: "user",

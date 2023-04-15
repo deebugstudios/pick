@@ -40,6 +40,7 @@ export default function InstantDeliverySummary() {
   const { token } = userValues;
 
   useEffect(() => {
+    console.log(vehicle);
     let timer;
     if (timeoutState === false) {
       timer = setTimeout(async () => {
@@ -81,6 +82,17 @@ export default function InstantDeliverySummary() {
   const amount = price * 100;
 
   const handleSubmit = async () => {
+    // console.log(
+    //   toFleet,
+    //   name,
+    //   price,
+    //   deliveryDetails.parcel_code,
+    //   deliveryDetails.parcel_name,
+    //   deliveryDetails.delivery_agent_id,
+    //   deliveryDetails.delivery_agent_name,
+    //   fleetId,
+    //   Date.now()
+    // );
     try {
       const res = await fetch(
         "https://ancient-wildwood-73926.herokuapp.com/user_transaction/new_transaction",
@@ -110,7 +122,7 @@ export default function InstantDeliverySummary() {
         }
       );
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
 
       if (res.status === 200) {
         setTimeoutState(true);
@@ -119,7 +131,7 @@ export default function InstantDeliverySummary() {
         // setMessage("An Error occured");
       }
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       // const err = error
     }
     setIsSuccess(true);
@@ -133,7 +145,7 @@ export default function InstantDeliverySummary() {
       phone,
     },
     channels: ["card"],
-    publicKey: "pk_live_fb68ed4b8914b2f8294b28e98158e12619dbb0f6",
+    publicKey: "pk_test_43feb057cb4b04a113c1d3287f57a2c3c6a1d519",
     className: showButton,
     text: "Proceed to Payment",
     onSuccess: () => {
@@ -142,7 +154,7 @@ export default function InstantDeliverySummary() {
     // callback: function
     // onFail: () => {},
 
-    onClose: () => alert("Wait! Don't leave :("),
+    onClose: () => alert("Payment cancelled"),
   };
 
   const [deliveryDetails, setDeliveryDetails] = useState({});
