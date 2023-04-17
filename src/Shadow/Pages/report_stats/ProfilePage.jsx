@@ -1,10 +1,14 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import "./profilepage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import passportphoto from "../../images/profilepic3.jpg";
 import User from "../../images/user.png";
+import Button from "../../../components/javascript/Button";
 import { RiderContext } from "../Contexts/RiderContext";
 import { MainTop } from "./Profile_page_main_top/MainTop";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Popup2 } from "../../../components/javascript/Popup";
 import camera from "../../images/camera.png";
 import ClipLoader from "react-spinners/ClipLoader";
 const ProfilePage = () => {
@@ -14,6 +18,7 @@ const ProfilePage = () => {
   const [success, setSuccess] = useState("");
   const [riderdata, setRiderData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadOtp, setLoadOtp] = useState(false);
 
   // console.log(riderdata?.fullname)
   // console.log(JSON.parse(riderdata.phone_no) , riderdata.phone_no);
@@ -29,6 +34,7 @@ const ProfilePage = () => {
   const fullnameref = useRef(riderdata?.fullname);
 
   // fetching profile details
+  const [loadDelete, setLoadDelete] = useState(false);
 
   const fetchDetails = async () => {
     try {
@@ -60,6 +66,50 @@ const ProfilePage = () => {
   useEffect(() => {
     fetchDetails();
   }, []);
+
+  const handleDelete = async () => {
+    setLoadDelete(true);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/request_delete_account",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            email: riderdata?.email,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        sessionStorage.clear();
+        setLoadDelete(false);
+        alert("Request sent. Check your email to complete the process");
+        navigate("/welcome-agent");
+        window.location.reload();
+
+        // setLoadButton(false);
+      } else {
+        setLoadDelete(false);
+        // setMessage("An Error occured");
+        // setLoadButton(false);
+      }
+    } catch (error) {
+      // setLoadButton(false);
+      alert("Request failed. Check your network connection and try again");
+      // setLoadOtp(false);
+      setLoadDelete(false);
+      // console.log(error);
+      // const err = error
+    }
+  };
 
   // const handleChange = (e) => {
   //   e.preventDefault();
@@ -408,9 +458,45 @@ const ProfilePage = () => {
                   </div>
                 ) : null}
               </div>
+              <div
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "40px",
+                  marginBottom: "30px",
+                  cursor: "pointer",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  width: "100%",
+                }}
+                onClick={() => setLoadOtp(true)}
+              >
+                <FontAwesomeIcon icon={faTrash} /> Delete Account
+              </div>
             </>
           )}
         </div>
+        <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "15px",
+              padding: "20px 20px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <p>
+              <FontAwesomeIcon icon={faTrash} /> Delete Account
+            </p>
+            <div style={{ maxWidth: "400px", textAlign: "center" }}>
+              Your data cannot be recovered once deleted. We'll send you an
+              email to complete the process.
+            </div>
+            <Button name="Proceed" click={handleDelete} loading={loadDelete} />
+          </div>
+        </Popup2>
         <Outlet />
       </div>
     </div>

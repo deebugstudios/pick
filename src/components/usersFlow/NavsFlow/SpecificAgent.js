@@ -8,6 +8,7 @@ import React, {
 import Arrow from "../../Images/Arrow.png";
 import FormProgress from "../../Images/FormProgress2.png";
 import Starr from "../../Images/Star.png";
+import User from "../../Images/user.png";
 import "../../css/specific.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -115,7 +116,7 @@ export default function SpecificAgent() {
         <div className="delivery-profile1">
           <div className="driver-profile-image">
             <div className="image">
-              <img src={profile} alt="" />
+              <img src={profile ? profile : User} alt="" />
             </div>
           </div>
           <div className="delivery-profile-details">

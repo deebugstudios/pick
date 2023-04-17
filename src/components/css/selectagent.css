@@ -50,6 +50,7 @@
 .agent-profiles-image img {
   height: 150px;
   width: 150px;
+  object-fit: cover;
 }
 .agent-info-name {
   font-size: small;

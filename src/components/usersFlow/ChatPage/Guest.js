@@ -44,7 +44,7 @@ export default function Guest() {
   const [loadM, setLoadM] = useState(false);
   const [loading, setLoading] = useState(false);
   const conversations = sessionStorage.getItem("convo_id");
-  const Realtoken = sessionStorage.getItem("token");
+  const Realtoken = sessionStorage.getItem("guest_token");
   const converse = sessionStorage.getItem("convo");
 
   const Messager = (item, i) => {
@@ -177,7 +177,7 @@ export default function Guest() {
         console.log(data);
         setIsLoaded(true);
         setToken(data?.token);
-        sessionStorage.setItem("token", data?.token);
+        sessionStorage.setItem("guest_token", data?.token);
       } catch (error) {
         // console.log(error);
         // const err = error

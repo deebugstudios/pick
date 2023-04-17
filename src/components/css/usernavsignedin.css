@@ -103,6 +103,7 @@
   align-items: center;
   justify-content: center;
   color: #1aa803;
+  column-gap: 5px;
 }
 .profile-img-1 {
   width: 50px;
@@ -119,6 +120,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 /* media at 920px which is for mobile view */
 @media screen and (max-width: 920px) {

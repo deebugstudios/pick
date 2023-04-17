@@ -1,18 +1,15 @@
 import dayjs from "dayjs";
 let DATE = {};
 export const TimeConverter = (props) => {
-  // console.log(props)
   const date = new Date(props.value);
-  DATE = {
-    date: date.toLocaleDateString(),
-    time:
-      date
-        .toLocaleTimeString()
-        .substring(0, date.toLocaleTimeString().length - 6) +
-      date.toLocaleTimeString().substring(date.toLocaleTimeString().length - 2),
-    combined: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
-  };
-  return DATE.time;
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const meridiem = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 || 12; // convert hour to 12-hour format
+  const formattedTime = `${hour12}:${minute
+    .toString()
+    .padStart(2, "0")}${meridiem}`;
+  return formattedTime;
 };
 export const DateConverter = (props) => {
   // console.log(props)

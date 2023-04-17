@@ -40,7 +40,7 @@ const NavsignedinU = (props) => {
             <li>
               <Link to="/contactUS"> Contact Us </Link>
             </li> */}
-            <li className="hover-me">
+            {/* <li className="hover-me">
               My Account <FontAwesomeIcon icon={faAngleDown} />
               <div className="sub-menu">
                 <ul>
@@ -52,13 +52,32 @@ const NavsignedinU = (props) => {
                   </Link>
                 </ul>
               </div>
-            </li>
+            </li> */}
+            <Link
+              to="/user/user-profile"
+              style={{
+                color: "black",
+                fontSize: "15px",
+                fontWeight: "400",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  // columnGap: "1px",
+                  alignItems: "center",
+                }}
+              >
+                <div className="profile-img-1">{props.profile}</div>
+                <div>{props.name}</div>
+              </div>
+            </Link>
           </ul>
         </div>
         <div className="profile">
-          <Link to="/user/user-profile">
+          {/* <Link to="/user/user-profile">
             <div className="profile-img-1">{props.profile}</div>
-          </Link>
+          </Link> */}
           <Link to="/user/notifications">
             <div className="bell-span">
               <FontAwesomeIcon icon={faBell} />
@@ -69,6 +88,7 @@ const NavsignedinU = (props) => {
               <FontAwesomeIcon icon={faMessage} />
             </div>
           </Link>
+
           <FontAwesomeIcon
             icon={faBars}
             className="siderbar-small"

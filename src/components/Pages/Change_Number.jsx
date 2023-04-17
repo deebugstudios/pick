@@ -34,25 +34,30 @@ export default function Change_Number() {
     e.preventDefault();
     setLoading(true);
     const number = "+234" + [newNo];
-    // console.log(number);
-
-    try {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // console.log(response);
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            handleSubmit();
+    if (!newNo) {
+      setNewNoError("Please enter a new Phone Number");
+      return;
+    } else if (newNo?.length < 10) {
+      setNewNoError("Please enter a valid Phone Number");
+      return;
+    } else
+      try {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          "recaptcha-container",
+          {
+            size: "invisible",
+            callback: (response) => {
+              // console.log(response);
+              // reCAPTCHA solved, allow signInWithPhoneNumber.
+              handleSubmit();
+            },
           },
-        },
-        auth
-      );
-    } catch (err) {
-      setMessage("An error occured, please try again");
-      // console.log(err);
-    }
+          auth
+        );
+      } catch (err) {
+        setMessage("An error occured, please try again");
+        // console.log(err);
+      }
 
     const appVerifier = window.recaptchaVerifier;
     // console.log(appVerifier);
@@ -89,9 +94,6 @@ export default function Change_Number() {
           // ...
           console.log("worked");
 
-          if (!newNo) {
-            setNewNoError("Please enter a new Phone Number");
-          }
           // e.preventDefault();
 
           try {
@@ -149,6 +151,7 @@ export default function Change_Number() {
 
   const handleChange = (e) => {
     setNewNo(e.target.value);
+    setNewNoError("");
   };
 
   const OtpChange = (element, index, direction) => {
@@ -207,6 +210,15 @@ export default function Change_Number() {
       });
   };
 
+  function handleKeyDown(event) {
+    const inputValue = event.target.value;
+    const isBackspaceOrDelete =
+      event.key === "Backspace" || event.key === "Delete";
+    if (inputValue.length >= 10 && !isBackspaceOrDelete) {
+      event.preventDefault();
+    }
+  }
+
   return (
     <>
       <div className="change_no">
@@ -251,7 +263,7 @@ export default function Change_Number() {
                     className="phone-input nedu-info-div"
                     type="number"
                     // pattern=""
-                    maxLength="10"
+                    onKeyDown={handleKeyDown}
                     // max={10}
                   />
                 </div>

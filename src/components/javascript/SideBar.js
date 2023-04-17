@@ -14,7 +14,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 
-const SideBar = (props) => {
+const SideBarU = (props) => {
   // const [sideBar, setSideBar] = useState(true);
   // const show = () => {
   //   setSideBar(!sideBar);
@@ -161,6 +161,7 @@ const SideBar = (props) => {
                 background: isActive ? "#e8f4e3" : "",
                 marginBottom: "10px",
                 marginLeft: "10px",
+                color: "black",
               };
             }}
             onClick={props.toggler}
@@ -209,4 +210,4 @@ const SideBar = (props) => {
   );
 };
 
-export default SideBar;
+export default SideBarU;

@@ -21,7 +21,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import Footer from "./Footer";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { userContext } from "../Pages/Contexts/RiderContext";
+import { userContext, RiderContext } from "../Pages/Contexts/RiderContext";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
@@ -29,6 +29,8 @@ const Main = () => {
   const { token } = userValues;
   const userToken = token;
   const navigate = useNavigate();
+  const value = useContext(RiderContext);
+  const { typeAccount } = value;
 
   const goToChat = () => {
     userToken ? navigate("/user/chat") : navigate("/guest");
@@ -77,11 +79,33 @@ const Main = () => {
                         {/* </Autocomplete> */}
                       </div>
                       <div className="pickup-btn">
-                        <Link to="/join">
-                          <button className="pickup-btn" type="submit">
+                        {typeAccount == "Agent" || typeAccount == "Fleet" ? (
+                          <button
+                            className="pickup-btn"
+                            type="button"
+                            disabled
+                            style={{ backgroundColor: "grey", opacity: "1" }}
+                          >
                             Request Pickup
                           </button>
-                        </Link>
+                        ) : typeAccount == "user" ? (
+                          <button
+                            className="pickup-btn"
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigate("/user/type");
+                            }}
+                          >
+                            Request Pickup
+                          </button>
+                        ) : (
+                          <Link to="/join">
+                            <button className="pickup-btn" type="submit">
+                              Request Pickup
+                            </button>
+                          </Link>
+                        )}
                       </div>
                     </form>
                     <div className="align-main">

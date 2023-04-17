@@ -3,6 +3,7 @@ import FormProgress from "../../Images/FormProgress.png";
 import "../../css/selectagent.css";
 import Splash from "../../Images/splash.png";
 import Star from "../../Images/Star.png";
+import User from "../../Images/user.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { ClipLoader } from "react-spinners";
@@ -113,7 +114,7 @@ export default function SelectAgent() {
                   }}
                 >
                   <div className="agent-profiles-image">
-                    <img src={item?.img_url} />
+                    <img src={item?.img_url ? item?.img_url : User} />
                   </div>
 
                   <div className="agent-profiles-rating">

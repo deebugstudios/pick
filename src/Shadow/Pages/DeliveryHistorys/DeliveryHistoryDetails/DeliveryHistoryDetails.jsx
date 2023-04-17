@@ -25,7 +25,25 @@ const DeliveryHistoryDetailsAgent = () => {
     const minutes = Math.floor((ms % 3600000) / 60000); // 1 Minute = 60000 Milliseconds
     const seconds = (ms % 60000) / 1000;
 
-    if (hours === 0 && minutes === 0) {
+    if (hours >= 24) {
+      const days = Math.floor(hours / 24);
+      const remainingHours = hours % 24;
+      if (remainingHours === 0) {
+        return (
+          days +
+          (days > 1 ? " days, " : " day, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      } else {
+        return (
+          days +
+          (days > 1 ? " days, " : " day, ") +
+          remainingHours +
+          (remainingHours > 1 ? " hours" : " hour")
+        );
+      }
+    } else if (hours === 0 && minutes === 0) {
       return seconds.toFixed(0) + " seconds";
     } else if (hours === 0) {
       return (
@@ -35,12 +53,22 @@ const DeliveryHistoryDetailsAgent = () => {
         (seconds > 1 ? " seconds" : " second")
       );
     } else {
-      return (
-        hours +
-        (minutes > 1 ? " hours, " : " hour, ") +
-        minutes +
-        (minutes > 1 ? " minutes" : " minute")
-      );
+      const remainingHours = hours % 24;
+      if (remainingHours === 0) {
+        return (
+          hours +
+          (hours > 1 ? " hours, " : " hour, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      } else {
+        return (
+          hours +
+          (hours > 1 ? " hours, " : " hour, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      }
     }
   }
   const location = useLocation();
@@ -154,7 +182,7 @@ const DeliveryHistoryDetailsAgent = () => {
                   <h3>Item picked up </h3>
                   {!deliveryDetails?.delivery_status?.is_started_at ? (
                     <div style={{ margin: "10px 0" }}>
-                      Package Not Yet Picked UP
+                      Package not yet picked up
                     </div>
                   ) : (
                     <p>
@@ -169,7 +197,7 @@ const DeliveryHistoryDetailsAgent = () => {
                   <h3>Item dropped off </h3>
                   {deliveryDetails?.delivery_status?.is_completed_at === 0 ? (
                     <div style={{ margin: "10px 0" }}>
-                      Package Not Yet Dropped off
+                      Package not yet dropped off
                     </div>
                   ) : (
                     <p>

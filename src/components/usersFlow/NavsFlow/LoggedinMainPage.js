@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavsignedinU from "../../javascript/UserNavsignedin";
-import SideBar from "../../javascript/SideBar";
+import SideBarU from "../../javascript/SideBar";
 import "./loggedinmainpage.css";
 import { InstantDeliverySummary1 } from "./InstantDeliverySummary";
 import { Outlet, useLocation } from "react-router-dom";
@@ -28,12 +28,13 @@ const LoggedinMainPageUser = (props) => {
             />
           }
           siderBar={toggleSideBar}
+          name={JSON.parse(userName)}
         />
       </div>
       <div className="user-right-side-main">
         <div className="sider-group">
           {/* <div className={sideBar ? "sider-group-active" : "sider-groups"}> */}
-          <SideBar
+          <SideBarU
             profile={
               <img
                 src={
@@ -57,25 +58,25 @@ const LoggedinMainPageUser = (props) => {
 };
 export default LoggedinMainPageUser;
 
-export const LoggedinMainPage2 = (props) => {
-  // const location = useLocation();
-  // const Token = location.state.token;
-  // console.log(Token);
-  return (
-    <section className="user-dashboard-main">
-      <div className="user-left-side-main">
-        <NavsignedinU />
-      </div>
-      <div className="user-right-side-main">
-        <div className="sider-group">
-          <SideBar />
-        </div>
-        <div className="content-wrap">
-          <div id="content-pad">
-            <Outlet />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+// export const LoggedinMainPage2 = (props) => {
+//   // const location = useLocation();
+//   // const Token = location.state.token;
+//   // console.log(Token);
+//   return (
+//     <section className="user-dashboard-main">
+//       <div className="user-left-side-main">
+//         <NavsignedinU />
+//       </div>
+//       <div className="user-right-side-main">
+//         <div className="sider-group">
+//           <SideBarU />
+//         </div>
+//         <div className="content-wrap">
+//           <div id="content-pad">
+//             <Outlet />
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };

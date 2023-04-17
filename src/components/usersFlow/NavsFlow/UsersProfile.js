@@ -212,6 +212,7 @@ export default function UsersProfile() {
                       ? userDetails.img
                       : UserIcon
                   }
+                  style={{ objectFit: "cover" }}
                 />{" "}
               </div>
             </div>

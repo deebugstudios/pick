@@ -16,6 +16,7 @@ export default function AgentList() {
   const { token } = userValues;
 
   const fetchConversations = async () => {
+    // console.log(JSON.parse(token));
     const response = await fetch(
       "https://ancient-wildwood-73926.herokuapp.com/user_chat/get_conversations",
       {
@@ -44,7 +45,7 @@ export default function AgentList() {
   //     alert("success");
   //   }
 
-  const displayData = conversations.map((user, i) => (
+  const displayData = conversations?.map((user, i) => (
     <div className="shadow-agent-wrapper">
       <div
         className="shadow-agent-container"
@@ -89,7 +90,7 @@ export default function AgentList() {
       <section className="shadow-agentlist-wrapper">
         <div className="shadow-agentlist-container">
           <h3>Messages</h3>
-          {displayData.length > 0 ? (
+          {displayData?.length > 0 ? (
             displayData
           ) : (
             <div className="loader-screen">No previous conversations</div>

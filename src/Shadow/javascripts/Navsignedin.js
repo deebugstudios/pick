@@ -31,23 +31,53 @@ const Navsignedin = (props) => {
             <li>
               <Link to="/contactUS"> Contact Us </Link>
             </li> */}
-            <li className="hover-me">
+            {/* <li className="hover-me">
               <a href="">
                 My Account <FontAwesomeIcon icon={faAngleDown} />
               </a>
               <div className="sub-menu">
                 <ul>
-                  {/* <li>Pending deliveries</li> */}
+                  
                   <Link to="/deliveryhistory">
                     <li>Delivery history</li>
                   </Link>
                 </ul>
               </div>
-            </li>
+            </li> */}
+            <Link
+              to="/agent-profile"
+              style={{
+                color: "black",
+                fontSize: "15px",
+                fontWeight: "400",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  // columnGap: "1px",
+                  alignItems: "center",
+                }}
+              >
+                <div className="profile-img skeleton">
+                  {loading ? (
+                    <ClipLoader
+                      color={"#1AA803"}
+                      loading={loading}
+                      cssOverride={{ margin: "5px 5px" }}
+                      size={25}
+                    />
+                  ) : (
+                    <img src={riderdata?.img_url ? riderdata?.img_url : User} />
+                  )}
+                </div>
+                <div>{riderdata?.fullname}</div>
+              </div>
+            </Link>
           </ul>
         </div>
         <div className="profile">
-          <Link to="/agent-profile">
+          {/* <Link to="/agent-profile">
             <div className="profile-img skeleton">
               {loading ? (
                 <ClipLoader
@@ -60,7 +90,7 @@ const Navsignedin = (props) => {
                 <img src={riderdata?.img_url ? riderdata?.img_url : User} />
               )}
             </div>
-          </Link>
+          </Link> */}
           {/* <div className="notification"> */}
           {/* <FontAwesomeIcon icon={faBell} className="notification-bell" /> */}
           {/* <li className="siderbar-small" onClick={props.siderBar}>X</li> */}

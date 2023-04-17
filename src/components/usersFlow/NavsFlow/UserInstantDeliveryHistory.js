@@ -23,7 +23,25 @@ export default function DeliveryHistoryDetails() {
     const minutes = Math.floor((ms % 3600000) / 60000); // 1 Minute = 60000 Milliseconds
     const seconds = (ms % 60000) / 1000;
 
-    if (hours === 0 && minutes === 0) {
+    if (hours >= 24) {
+      const days = Math.floor(hours / 24);
+      const remainingHours = hours % 24;
+      if (remainingHours === 0) {
+        return (
+          days +
+          (days > 1 ? " days, " : " day, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      } else {
+        return (
+          days +
+          (days > 1 ? " days, " : " day, ") +
+          remainingHours +
+          (remainingHours > 1 ? " hours" : " hour")
+        );
+      }
+    } else if (hours === 0 && minutes === 0) {
       return seconds.toFixed(0) + " seconds";
     } else if (hours === 0) {
       return (
@@ -33,12 +51,22 @@ export default function DeliveryHistoryDetails() {
         (seconds > 1 ? " seconds" : " second")
       );
     } else {
-      return (
-        hours +
-        (minutes > 1 ? " hours, " : " hour, ") +
-        minutes +
-        (minutes > 1 ? " minutes" : " minute")
-      );
+      const remainingHours = hours % 24;
+      if (remainingHours === 0) {
+        return (
+          hours +
+          (hours > 1 ? " hours, " : " hour, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      } else {
+        return (
+          hours +
+          (hours > 1 ? " hours, " : " hour, ") +
+          minutes +
+          (minutes > 1 ? " minutes" : " minute")
+        );
+      }
     }
   }
   const navigate = useNavigate();
