@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import greendots from "../images/circlegreendesign.png";
 import reddots from "../images/circlereddesign.png";
 // import backgroundimg1 from '../images/rightsidebackground.png'
@@ -35,6 +35,47 @@ const Main = () => {
   const goToChat = () => {
     userToken ? navigate("/user/chat") : navigate("/guest");
     // navigate("/guest");
+  };
+
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    viewUrl();
+  }, []);
+  const viewUrl = async () => {
+    try {
+      const response = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/admin_upload_promo/view_clip",
+        {
+          method: "POST",
+
+          body: JSON.stringify({ doc_type: "user" }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      // getData(await response.json());
+      const data = await response.json();
+      const value = data?.promo.clip_url;
+      let videoId = "";
+
+      if (value.includes("youtube.com")) {
+        videoId = value.substring(
+          value.indexOf("v=") + 2,
+          value.indexOf("&") !== -1 ? value.indexOf("&") : value.length
+        );
+      } else if (value.includes("youtu.be")) {
+        videoId = value.substring(value.lastIndexOf("/") + 1);
+      }
+      setUrl(videoId);
+      // setSelectedSrc(data?.promo.thumbnail_url);
+      console.log(data);
+      console.log(videoId);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -115,7 +156,7 @@ const Main = () => {
                       <div className="pickload-video-container">
                         {/* <img src={pickloadvideo} alt="video on how to use pickload" /> */}
                         <iframe
-                          src="https://www.youtube.com/embed/DHyblOwXiko"
+                          src={`https://www.youtube.com/embed/${url}`}
                           title="Pickload"
                           width="100%"
                           height="310"

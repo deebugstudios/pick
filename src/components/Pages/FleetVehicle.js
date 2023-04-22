@@ -19,6 +19,9 @@ export default function FleetVehicle() {
     cac_reg_no: "",
   });
   const [formErrors, setFormErrors] = useState("");
+  const [fleetE, setFleetE] = useState("");
+  const [cacE, setCacE] = useState("");
+  const [comE, setComE] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const token = location.state.token;
@@ -29,6 +32,9 @@ export default function FleetVehicle() {
     const target = e.target;
     const { name, value } = target;
     setFormData({ ...formData, [name]: value });
+    setCacE("");
+    setFleetE("");
+    setComE("");
   };
 
   const navigate = useNavigate();
@@ -38,60 +44,70 @@ export default function FleetVehicle() {
     setLoading(true);
     // console.log(id);
     // console.log(token);
-    console.log(formData.fleet_name);
+    // console.log(formData.fleet_name);
     // navigate("/account");
 
-    const validate = (data) => {
-      const errors = {};
-      if (!data.fleet_name) {
-        errors.fleet_name = "Enter the name of your Fleet";
-      }
-      if (!data.company_name) {
-        errors.company_name = `Enter Your Company Name`;
-      }
-      if (!data.cac_reg_no) {
-        errors.cac_reg_no = `Enter Your CAC Number`;
-      }
-
-      return errors;
-    };
-    setFormErrors(validate(formData));
-
-    try {
-      const res = await fetch(
-        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_three",
-        {
-          method: "POST",
-
-          body: JSON.stringify({
-            _id: id,
-            token: token,
-            fleet_name: formData.fleet_name,
-            company_name: formData.company_name,
-            cac_reg_no: formData.cac_reg_no,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json, text/plain, */*",
-          },
-        }
-      );
-      const data = await res.json();
-      // console.log(data);
-
-      if (res.status === 200) {
-        // setMessage("User created successfully");
-        navigate("/account", {
-          state: { id: id, token: token },
-        });
-      } else {
-        setMessage("Error occured");
-        setLoading(false);
-      }
-    } catch (error) {
+    if (formData.fleet_name === "") {
+      setFleetE("Enter the name of your Fleet");
       setLoading(false);
-      console.log(error);
-    }
+      return;
+    } else if (formData.company_name !== "" && formData.cac_reg_no == "") {
+      setCacE("Enter Your CAC Number");
+      setLoading(false);
+      return;
+    } else if (
+      formData.company_name !== "" &&
+      formData.company_name.length < 2
+    ) {
+      setComE("Too small");
+      setLoading(false);
+      return;
+    } else if (formData.fleet_name.length < 2) {
+      setFleetE("Too small");
+      setLoading(false);
+      return;
+    } else
+      try {
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_auth/signup_stage_three",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              _id: id,
+              token: token,
+              fleet_name: formData.fleet_name,
+              company_name: formData.company_name,
+              cac_reg_no: formData.cac_reg_no,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+
+        if (
+          data.msg ===
+          `Fleet manager account with fleet name "${formData.fleet_name}" already exists`
+        ) {
+          setFleetE(data.msg);
+        }
+        if (res.status === 200) {
+          // setMessage("User created successfully");
+          navigate("/account", {
+            state: { id: id, token: token },
+          });
+        } else {
+          setMessage("Error occured");
+          setLoading(false);
+        }
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
   };
 
   return (
@@ -119,11 +135,11 @@ export default function FleetVehicle() {
             onChange={handleChange}
           />
 
-          <p className="error-style bottom-marg">{formErrors.fleet_name}</p>
+          <p className="error-style bottom-marg">{fleetE}</p>
           {/* <br /> */}
 
           <label htmlFor="company_name">
-            <span className="requiredText">Company Name{asterik}</span>
+            <span className="requiredText">Company Name</span>
             <br />
             <input
               value={formData.company_name}
@@ -131,26 +147,30 @@ export default function FleetVehicle() {
               className="form-field edit-field phone-input3"
               placeholder="Enter Your Company Name"
               name="company_name"
+              min={2}
               onChange={handleChange}
             />
           </label>
-          <p className="error-style bottom-marg">{formErrors.company_name}</p>
+          <p className="error-style bottom-marg">{comE}</p>
           {/* <br /> */}
 
-          <label htmlFor="cac_reg_no">
-            <span className="requiredText">CAC Number{asterik}</span>
-            <br />
-            <input
-              value={formData.cac_reg_no}
-              type="text"
-              className="form-field edit-field phone-input3"
-              placeholder="Enter Your CAC Number"
-              name="cac_reg_no"
-              onChange={handleChange}
-            />
-          </label>
-          <p className="error-style bottom-marg">{formErrors.cac_reg_no}</p>
-          {/* <br /> */}
+          {formData.company_name.length > 0 ? (
+            <>
+              <label htmlFor="cac_reg_no">
+                <span className="requiredText">CAC Number{asterik}</span>
+                <br />
+                <input
+                  value={formData.cac_reg_no}
+                  type="text"
+                  className="form-field edit-field phone-input3"
+                  placeholder="Enter Your CAC Number"
+                  name="cac_reg_no"
+                  onChange={handleChange}
+                />
+              </label>
+              <p className="error-style bottom-marg">{cacE}</p>
+            </>
+          ) : null}
 
           <div id="center-button">
             <Button name="Submit" loading={loading} />

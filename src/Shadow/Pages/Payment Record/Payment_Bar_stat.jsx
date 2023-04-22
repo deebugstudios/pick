@@ -15,6 +15,7 @@ export default function Payment_Bar_stat() {
   const [earnings, setEarnings] = useState("");
   const value = useContext(RiderContext);
   const { riderdata, token, typeAccount } = value;
+  const [stats, setStats] = useState({});
 
   const navigate = useNavigate();
 
@@ -44,6 +45,7 @@ export default function Payment_Bar_stat() {
       console.log(results);
       setData(results?.vehicles);
       setEarnings(data?.earnings);
+      setStats(data?.fleet_stats);
     } catch (err) {
       console.log(err);
     }
@@ -109,6 +111,57 @@ export default function Payment_Bar_stat() {
                   <h5>{data?.no_of_trucks}</h5>
                 </div>
               </div>
+
+              <p
+                style={{
+                  // paddingLeft: "30px",
+                  paddingTop: "30px",
+                  // marginBottom: "-50px",
+                  fontWeight: "600",
+                }}
+              >
+                Deliveries
+              </p>
+              {/* <div className="fleet-manager-stats"> */}
+              {/* <div className="deliveries"> */}
+              <div className="delivery-stats payment-stat-details">
+                <div className="delivery-name">
+                  <p className="yellow"></p>
+                  <h5>Accepted deliveries</h5>
+                </div>
+                <div className="amount-made">
+                  <h5>{stats?.no_accepted_deliveries}</h5>
+                </div>
+              </div>
+              <div className="delivery-stats payment-stat-details">
+                <div className="delivery-name">
+                  <p className="gray"></p>
+                  <h5>Declined deliveries</h5>
+                </div>
+                <div className="amount-made">
+                  <h5>{stats?.no_declined_deliveries}</h5>
+                </div>
+              </div>
+              <div className="delivery-stats payment-stat-details">
+                <div className="delivery-name">
+                  <p className="green"></p>
+                  <h5>Completed deliveries</h5>
+                </div>
+                <div className="amount-made">
+                  <h5>{stats?.no_completed_deliveries}</h5>
+                </div>
+              </div>
+              <div className="delivery-stats payment-stat-details">
+                <div className="delivery-name">
+                  <p className="red"></p>
+                  <h5>Cancelled Deliveries</h5>
+                </div>
+                <div className="amount-made">
+                  <h5>{stats?.no_cancelled_deliveries}</h5>
+                </div>
+              </div>
+              {/* </div> */}
+              {/* </div> */}
             </div>
             <div className="fleet-payment-stat">
               <div className="payment-stat-details">
@@ -117,12 +170,13 @@ export default function Payment_Bar_stat() {
                 </div>
                 <div className="amount-made">
                   <h5>
-                    Total month's earning: &#8358;
+                    Total earning: &#8358;
                     {earnings == 0 ? (
-                      "0.00"
+                      "0"
                     ) : (
                       <ThousandConverter value={earnings} />
                     )}
+                    .00
                   </h5>
                 </div>
               </div>

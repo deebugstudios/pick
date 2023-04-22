@@ -157,6 +157,19 @@ const DeliveryHistoryDetailsAgent = () => {
                   <strong>Delivery agent name:</strong>{" "}
                   {deliveryDetails?.delivery_agent_name}
                 </p>
+                {deliveryDetails?.delivery_type === "scheduled" && (
+                  <>
+                    <p>
+                      <strong>Pickup address:</strong>{" "}
+                      {deliveryDetails?.pickup_address}
+                    </p>
+                    <p>
+                      <strong>Drop off address:</strong>{" "}
+                      {deliveryDetails?.drop_off_address}
+                    </p>
+                  </>
+                )}
+
                 <p>
                   <strong>Estimated Delivery Fee:</strong>{" "}
                   <span style={{ color: "#1ca905" }}>

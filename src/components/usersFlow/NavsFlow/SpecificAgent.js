@@ -230,15 +230,25 @@ export default function SpecificAgent() {
           reviews.map((item) => (
             <div id="flex-review">
               <div id="review-div">
-                <div className="review-profile">
-                  <img
-                    src={item.user_img.length > 2 ? item.user_img : UserIcon}
-                    alt=""
-                  />
-                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    columnGap: "10px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div className="review-profile">
+                    <img
+                      src={item.user_img.length > 2 ? item.user_img : UserIcon}
+                      alt=""
+                    />
+                  </div>
 
-                <div id="text-review">
-                  <p id="reviewer">{item.user_name}</p>
+                  <div id="text-review">
+                    <p id="reviewer">{item.user_name}</p>
+                  </div>
                 </div>
                 <div id="star-review">
                   <div id="split-star">
@@ -256,7 +266,7 @@ export default function SpecificAgent() {
                         : item.stars}
                     </p>
                   </div>
-                  <br />
+                  {/* <br /> */}
                   <p className="date-review">
                     {" "}
                     <DateConverter value={item.timestamp} />

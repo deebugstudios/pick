@@ -95,17 +95,33 @@ export const MainTop = (props) => {
           </Link>
         )}
 
-        <div className="pages">
-          <h3>MY RATING </h3>
-          <span>
-            &nbsp;{" "}
-            {rating?.rating_count > 0
-              ? Math.round(rating?.total_rating / rating?.rating_count)
-              : 0}
-          </span>
+        <div
+          className="pages"
+          style={{ cursor: "pointer" }}
+          onClick={() =>
+            navigate(typeAccount == "Fleet" ? "/view-fleet" : "/view-reviews")
+          }
+        >
+          {typeAccount !== "Fleet" ? (
+            <>
+              {" "}
+              <h3>MY RATING </h3>
+              <span>
+                &nbsp;{" "}
+                {rating?.rating_count > 0
+                  ? Math.round(rating?.total_rating / rating?.rating_count)
+                  : 0}
+              </span>
+            </>
+          ) : (
+            <h3>FLEET</h3>
+          )}
           <div className="profile-icons">
             <div className="half-circle green-color">
-              <img src={staricon} alt="icon" />
+              <img
+                src={typeAccount !== "Fleet" ? staricon : fleeticons}
+                alt="icon"
+              />
             </div>
           </div>
         </div>

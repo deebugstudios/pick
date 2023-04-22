@@ -21,7 +21,7 @@ const Section2subsec4 = () => {
         {
           method: "POST",
 
-          body: JSON.stringify({}),
+          body: JSON.stringify({ doc_type: "promo" }),
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json, text/plain, */*",
@@ -42,9 +42,29 @@ const Section2subsec4 = () => {
         videoId = value.substring(value.lastIndexOf("/") + 1);
       }
       setUrl(videoId);
-      setSelectedSrc(data?.promo.thumbnail_url);
+      // setSelectedSrc(data?.promo.thumbnail_url);
       console.log(data);
       console.log(videoId);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      const response = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/admin_upload_promo/view_clip",
+        {
+          method: "POST",
+
+          body: JSON.stringify({ doc_type: "rider" }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      // getData(await response.json());
+      const data = await response.json();
+      setSelectedSrc(data?.promo.clip_url);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +82,7 @@ const Section2subsec4 = () => {
             <a
               href="https://play.google.com/store/apps/details?id=com.pickload.pickloaduser&pli=1"
               target="_blank"
+              rel="noreferrer"
             >
               <button className="social-btn">
                 <img src={googleplay} alt="" />
@@ -70,6 +91,7 @@ const Section2subsec4 = () => {
             <a
               href="https://apps.apple.com/ng/app/pickload/id1662091716"
               target="_blank"
+              rel="noreferrer"
             >
               <button className="social-btn">
                 <img src={appstore} alt="" />
@@ -89,6 +111,7 @@ const Section2subsec4 = () => {
               <a
                 href="https://play.google.com/store/apps/details?id=com.pickload.pickloaddeliveryagent"
                 target="_blank"
+                rel="noreferrer"
               >
                 <button className="social-btn second-btn-style ">
                   <img src={googleplay} alt="" />
@@ -97,6 +120,7 @@ const Section2subsec4 = () => {
               <a
                 href="https://apps.apple.com/ng/app/pickload-agent/id1662203435"
                 target="_blank"
+                rel="noreferrer"
               >
                 <button className="social-btn second-btn-style ">
                   <img src={appstore} alt="" />
@@ -111,10 +135,7 @@ const Section2subsec4 = () => {
               </h3>
               <button className="watch-video">
                 {" "}
-                <a
-                  href="https://www.youtube.com/watch?v=DHyblOwXiko"
-                  target="_blank"
-                >
+                <a href={selectedSrc} target="_blank">
                   {" "}
                   Watch Video <FontAwesomeIcon icon={faPlay} />{" "}
                 </a>
@@ -134,7 +155,6 @@ const Section2subsec4 = () => {
               width="100%"
               height="310"
               frameborder="0"
-              poster={selectedSrc}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>

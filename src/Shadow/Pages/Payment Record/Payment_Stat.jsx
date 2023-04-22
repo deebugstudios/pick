@@ -17,7 +17,7 @@ import ThousandConverter from "../../../components/javascript/ThousandConverter"
 
 export default function Payment_Stat() {
   const value = useContext(RiderContext);
-  const { token } = value;
+  const { token, riderdata } = value;
 
   const [dataList, setDataList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +33,7 @@ export default function Payment_Stat() {
   const [Cweek, setCweek] = useState(1);
   const [month, setMonth] = useState(Number.parseInt(dayjs().month()));
   const [year, setYear] = useState(Number.parseInt(dayjs().year()));
+  const [paid, setPaid] = useState(false);
   const [date, setDate] = useState(dayjs(Date.now()).format("YYYY-MM"));
   const handleDate = (e) => {
     const newDate = dayjs(e.target.value).format("YYYY-MM");
@@ -43,6 +44,7 @@ export default function Payment_Stat() {
     setMonth(Number.parseInt(newDate.slice(5, 7)) - 1);
     // console.log(newDate, yearM, monthM);
     fetchData(Cweek, monthM, yearM);
+    checkPayment(Cweek, monthM, yearM);
     weekRangeGetter(monthM, yearM);
   };
 
@@ -75,6 +77,7 @@ export default function Payment_Stat() {
         break;
     }
     fetchData();
+    checkPayment();
   }, []);
   const handleClick5 = (e) => {
     if (e === "auto") {
@@ -82,6 +85,7 @@ export default function Payment_Stat() {
       handleClassName1();
       setCweek(1);
       fetchData(1);
+      checkPayment(1);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -89,6 +93,7 @@ export default function Payment_Stat() {
       handleClassName1();
       setCweek(1);
       fetchData(1);
+      checkPayment(1);
       // setDWeek("");
     }
   };
@@ -99,6 +104,7 @@ export default function Payment_Stat() {
       handleClassName2();
       setCweek(2);
       fetchData(2);
+      checkPayment(2);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -106,6 +112,7 @@ export default function Payment_Stat() {
       handleClassName2();
       setCweek(2);
       fetchData(2);
+      checkPayment(2);
       // setDWeek("");
     }
   };
@@ -116,6 +123,7 @@ export default function Payment_Stat() {
       handleClassName3();
       setCweek(3);
       fetchData(3);
+      checkPayment(3);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -123,6 +131,7 @@ export default function Payment_Stat() {
       handleClassName3();
       setCweek(3);
       fetchData(3);
+      checkPayment(3);
       // setDWeek("");
     }
   };
@@ -133,6 +142,7 @@ export default function Payment_Stat() {
       handleClassName4();
       setCweek(4);
       fetchData(4);
+      checkPayment(4);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -140,6 +150,7 @@ export default function Payment_Stat() {
       handleClassName4();
       setCweek(4);
       fetchData(4);
+      checkPayment(4);
       // setDWeek("");
     }
   };
@@ -150,6 +161,7 @@ export default function Payment_Stat() {
       handleClassName5();
       setCweek(5);
       fetchData(5);
+      checkPayment(5);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -157,6 +169,7 @@ export default function Payment_Stat() {
       handleClassName5();
       setCweek(5);
       fetchData(5);
+      checkPayment(5);
       // setDWeek("");
     }
   };
@@ -167,6 +180,7 @@ export default function Payment_Stat() {
       handleClassName6();
       setCweek(6);
       fetchData(6);
+      checkPayment(6);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -174,6 +188,7 @@ export default function Payment_Stat() {
       handleClassName6();
       setCweek(6);
       fetchData(6);
+      checkPayment(6);
       // setDWeek("");
     }
   };
@@ -242,6 +257,45 @@ export default function Payment_Stat() {
 
   const computedYear = new Date(date).getFullYear();
   const computedMonth = new Date(date).getMonth() + 1;
+
+  const checkPayment = async (week, monthM, yearM) => {
+    setPaid(true);
+    console.log(riderdata._id);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_earnings/view_payment_status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            month: monthM || month,
+            year: yearM || year,
+            week: week || Cweek,
+            transaction_type: "fleet",
+          }),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.payment_check === null) {
+        setPaid(false);
+      } else {
+        for (let agent of data["payment_check"]["not_paids"]) {
+          if (agent["agent_id"] === riderdata._id) {
+            setPaid(false);
+            break;
+          }
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      console.log("error");
+    }
+  };
 
   const fetchData = async (week, monthM, yearM) => {
     // let computedYear = new Date(date).getFullYear()
@@ -468,12 +522,22 @@ export default function Payment_Stat() {
                       </div>
                       <div className="payment-stat-details span2">
                         <div className="vechicle-name">
-                          <h5>TOTAL WEEK {Cweek} FLEET EARNINGS</h5>
+                          <h5>TOTAL WEEK {Cweek} EARNINGS</h5>
                         </div>
                         <div className="amount-made">
                           <h5>
                             ₦{<ThousandConverter value={dataList[0]?.total} />}
                           </h5>
+                        </div>
+                      </div>
+                      <div className="payment-stat-details span2">
+                        <div className="vechicle-name">
+                          <div>PAYMENT STATUS:</div>
+                        </div>
+                        <div className="amount-made">
+                          <p style={{ color: paid ? "blue" : "red" }}>
+                            {paid ? "PAID" : "PENDING"}
+                          </p>
                         </div>
                       </div>
                     </div>

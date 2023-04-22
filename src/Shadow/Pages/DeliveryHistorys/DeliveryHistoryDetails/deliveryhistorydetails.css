@@ -40,6 +40,7 @@
 .delivery-details-pictures {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 10px;
 }
 .estimatedtime h2 {
   font-size: 14px;

@@ -196,7 +196,7 @@ export default function WelcomeUser(props) {
           </form>
 
           <p id="accountAlready">
-            Don't Have an account?{" "}
+            Don't have an account?{" "}
             <Link to="/join">
               <span id="loginSpan">Sign up</span>
             </Link>
@@ -487,7 +487,7 @@ export function WelcomeAgent() {
           </form>
 
           <p id="accountAlready">
-            Don't Have an account?{" "}
+            Don't have an account?{" "}
             <Link to="/join">
               <span id="loginSpan">Sign up</span>
             </Link>

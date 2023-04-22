@@ -12,6 +12,7 @@ import ThousandConverter from "../../../components/javascript/ThousandConverter"
 const DeliveryAgentEarningPage = () => {
   const [dataList, setDataList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [paid, setPaid] = useState(false);
   // const [message, setMessage]= useState("")
   const [cname1, setCname1] = useState("week1");
   const [cname2, setCname2] = useState("week2");
@@ -34,6 +35,7 @@ const DeliveryAgentEarningPage = () => {
     setMonth(Number.parseInt(newDate.slice(5, 7)) - 1);
     // console.log(newDate, yearM, monthM);
     fetchData(Cweek, monthM, yearM);
+    checkPayment(Cweek, month, yearM);
     weekRangeGetter(monthM, yearM);
   };
 
@@ -65,6 +67,8 @@ const DeliveryAgentEarningPage = () => {
 
         break;
     }
+    fetchData();
+    checkPayment();
   }, []);
   const handleClick5 = (e) => {
     if (e === "auto") {
@@ -72,6 +76,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName1();
       setCweek(1);
       fetchData(1);
+      checkPayment(1);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -79,6 +84,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName1();
       setCweek(1);
       fetchData(1);
+      checkPayment(1);
       // setDWeek("");
     }
   };
@@ -89,6 +95,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName2();
       setCweek(2);
       fetchData(2);
+      checkPayment(2);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -96,6 +103,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName2();
       setCweek(2);
       fetchData(2);
+      checkPayment(2);
       // setDWeek("");
     }
   };
@@ -106,6 +114,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName3();
       setCweek(3);
       fetchData(3);
+      checkPayment(3);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -113,6 +122,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName3();
       setCweek(3);
       fetchData(3);
+      checkPayment(3);
       // setDWeek("");
     }
   };
@@ -123,6 +133,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName4();
       setCweek(4);
       fetchData(4);
+      checkPayment(4);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -130,6 +141,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName4();
       setCweek(4);
       fetchData(4);
+      checkPayment(4);
       // setDWeek("");
     }
   };
@@ -140,6 +152,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName5();
       setCweek(5);
       fetchData(5);
+      checkPayment(5);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -147,6 +160,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName5();
       setCweek(5);
       fetchData(5);
+      checkPayment(5);
       // setDWeek("");
     }
   };
@@ -157,6 +171,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName6();
       setCweek(6);
       fetchData(6);
+      checkPayment(6);
       // setDWeek("");
     } else {
       e.preventDefault();
@@ -164,6 +179,7 @@ const DeliveryAgentEarningPage = () => {
       handleClassName6();
       setCweek(6);
       fetchData(6);
+      checkPayment(6);
       // setDWeek("");
     }
   };
@@ -237,6 +253,46 @@ const DeliveryAgentEarningPage = () => {
 
   let computedYear = new Date(date).getFullYear();
   let computedMonth = new Date(date).getMonth() + 1;
+
+  const checkPayment = async (week, monthM, yearM) => {
+    setPaid(true);
+    console.log(riderdata);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/delivery_agent_earnings/view_payment_status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            month: monthM || month,
+            year: yearM || year,
+            week: week || Cweek,
+            transaction_type: "individual",
+            vehicle_type: riderdata?.vehicle_details.type,
+          }),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.payment_check === null) {
+        setPaid(false);
+      } else
+        for (let agent of data["payment_check"]["not_paids"]) {
+          if (agent["agent_id"] === riderdata._id) {
+            setPaid(false);
+            break;
+          }
+        }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      console.log("error");
+    }
+  };
+
   const fetchData = async (week, monthM, yearM) => {
     setLoading(true);
     try {
@@ -268,6 +324,7 @@ const DeliveryAgentEarningPage = () => {
   };
   useEffect(() => {
     fetchData();
+    checkPayment();
   }, []);
 
   // const jeff = dataList.map((obj) =>(
@@ -471,6 +528,12 @@ const DeliveryAgentEarningPage = () => {
                 <div className="total-earnings">
                   <h5>TOTAL WEEKS EARNING</h5>
                   <p>₦{totalAmount}</p>
+                </div>
+                <div className="total-earnings">
+                  <p>PAYMENT STATUS:</p>
+                  <p style={{ color: paid ? "blue" : "red" }}>
+                    {paid ? "PAID" : "PENDING"}
+                  </p>
                 </div>
               </>
             ) : (

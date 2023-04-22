@@ -1,42 +1,51 @@
 .payment-stat {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
 }
 .span2 {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 .vechicle-name {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .red {
-    background: #F20A0A;
+  background: #f20a0a;
 }
 .gray {
-    background: #CCCACA;
+  background: #cccaca;
 }
 .green {
-    background: #1AA803;
+  background: #1aa803;
 }
 .yellow {
-    background: #F5EC16;
+  background: #f5ec16;
+}
+.blue {
+  background: blue;
 }
 .height {
-    height: 90vh;
+  height: 90vh;
 }
 .vechicle-name p {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin-right: 7px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 7px;
 }
 .payment-stat-details {
-    background: #FFFFFF;
-    box-shadow: 0px 6.82105px 6.82105px rgba(0, 0, 0, 0.12);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 15px;
+  background: #ffffff;
+  box-shadow: 0px 6.82105px 6.82105px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+.view-full tr th {
+  font-weight: 400;
+}
+.view-full tr td {
+  font-weight: 300;
 }

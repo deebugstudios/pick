@@ -40,7 +40,7 @@ export default function InstantDeliverySummary() {
   const { token } = userValues;
 
   useEffect(() => {
-    console.log(vehicle);
+    // console.log(vehicle);
     let timer;
     if (timeoutState === false) {
       timer = setTimeout(async () => {

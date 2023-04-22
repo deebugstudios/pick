@@ -92,6 +92,11 @@ import Chat from "./components/usersFlow/ChatPage/Chat";
 import ChatAgent from "./components/usersFlow/ChatPage/ChatAgent";
 import Guest from "./components/usersFlow/ChatPage/Guest";
 import UpgradeAccount from "./components/Pages/UpgradeAccount";
+import FAQ from "./Shadow/javascripts/FAQ";
+import Payment from "./components/Pages/Payment";
+import TotalFleet from "./Shadow/Pages/Payment Record/TotalFleet";
+import SingleAgent from "./Shadow/Pages/Payment Record/SingleAgent";
+import ViewReviews from "./Shadow/Pages/Payment Record/ViewReviews";
 export default function App() {
   return (
     <>
@@ -115,14 +120,15 @@ export default function App() {
 
               <Route exact path="/" element={<LoggedinMainPage1 />}>
                 <Route path="" element={<Main />} />
-                <Route path="aboutUS" element={<AboutUs />} />
-                <Route path="contactUS" element={<ContactUs />} />
+                {/* <Route path="aboutUS" element={<AboutUs />} />
+                <Route path="contactUS" element={<ContactUs />} /> */}
                 <Route path="guest" element=<Guest /> />
               </Route>
 
-              {/* <Route exact path="main" element={<Main1 />} /> */}
+              <Route path="payment" element={<Payment />} />
               <Route path="Termsandconditions" element={<Terms />} />
               <Route path="privacy" element={<Privacy />} />
+              <Route path="faq" element={<FAQ />} />
               <Route exact path="main1" element={<LoggedinMainPage1 />} />
               <Route path="join" element={<Signup />} />
               <Route path="userform" element={<UserForm />} />
@@ -279,6 +285,20 @@ export default function App() {
                   />
                 }
               />
+
+              <Route
+                path="view-reviews"
+                element={
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <ViewReviews />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
+                }
+              />
               <Route
                 path="change-payment-details"
                 element={
@@ -325,6 +345,20 @@ export default function App() {
                     name={
                       <ProtectedRoutes>
                         <Payment_record />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
+                }
+              />
+
+              <Route
+                path="single-agent"
+                element={
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <SingleAgent />
                       </ProtectedRoutes>
                     }
                     logged={true}
@@ -381,6 +415,20 @@ export default function App() {
                     name={
                       <ProtectedRoutes>
                         <Payment_Stat />
+                      </ProtectedRoutes>
+                    }
+                    logged={true}
+                  />
+                }
+              />
+
+              <Route
+                path="view-fleet"
+                element={
+                  <LoggedinMainPage
+                    name={
+                      <ProtectedRoutes>
+                        <TotalFleet />
                       </ProtectedRoutes>
                     }
                     logged={true}

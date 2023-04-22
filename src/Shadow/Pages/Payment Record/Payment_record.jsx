@@ -8,23 +8,20 @@ import { RiderContext } from "../Contexts/RiderContext";
 import { FleetSummarydetails } from "./ReauableComponents/PaymentWeeks/FleetSummarydetails";
 import Payment_Stat from "./Payment_Stat";
 
-
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 
 export default function Payment_record() {
   const value = useContext(RiderContext);
-  const { riderdata} = value;
+  const { riderdata } = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
 
-
-  let listItem
+  let listItem;
   if (toggle === true) {
-    listItem = <FleetSummarydetails/>;
+    listItem = <FleetSummarydetails />;
   } else {
-    listItem = <Payment_Stat/> ;
+    listItem = <Payment_Stat />;
   }
-
 
   const firstClick = () => {
     setToggle(true);
@@ -37,47 +34,42 @@ export default function Payment_record() {
     // navigate("/Pending-del");
   };
 
-
-const goBack = () => {
-    navigate(-1)
-  }
-
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
-      <div className="iii">
-    <div className="profile-page-container">
-    <MainTop riderdata={riderdata} />
-    <div className="profile-page-bottom">
-        {/* <div className="back-arrow">
-            <p onClick={goBack}>go back</p> 
-        </div> */}
-    <div className="payment-record-container">
-      {/* <div className="DA-payment-history"> */}
-        <div className="da-payment-props">
-          <div className="payment-to">
-            <div className="toggle-div">
-              <div
-                className="first-toggle"
-                onClick={firstClick}
-                id={toggle ? "active" : "inactive2"}
-              >
-                Fleet Weekly Summary
+    <div className="iii">
+      <div className="profile-page-container">
+        <MainTop riderdata={riderdata} />
+        <div className="profile-page-bottom">
+          <div className="payment-record-container">
+            {/* <div className="DA-payment-history"> */}
+            <div className="da-payment-props">
+              <div className="payment-to">
+                <div className="toggle-div">
+                  <div
+                    className="first-toggle"
+                    onClick={firstClick}
+                    id={toggle ? "active" : "inactive2"}
+                  >
+                    Fleet Weekly Summary
+                  </div>
+                  <div
+                    className="second-toggle"
+                    onClick={secondClick}
+                    id={toggle ? "inactive" : "active2"}
+                  >
+                    Combined Earnings
+                  </div>
+                </div>
               </div>
-              <div
-                className="second-toggle"
-                onClick={secondClick}
-                id={toggle ? "inactive" : "active2"}
-              >
-                Combined Earnings
-              </div>
+              {listItem}
             </div>
           </div>
-          {listItem}
+          {/* </div> */}
         </div>
-        </div>
-      {/* </div> */}
-    </div>
-    </div>
+      </div>
     </div>
   );
 }

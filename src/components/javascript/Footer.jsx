@@ -1,4 +1,5 @@
 import React from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +35,18 @@ const Footer = () => {
               </NavLink>{" "}
             </li>
             <li>Features</li>
-            <li>FAQs</li>
+            <li>
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/faq"
+                target="_blank"
+                rel="noreferrer"
+              >
+                FAQs
+              </NavLink>
+            </li>
             <li>Reviews Stories</li>
           </ul>
           <ul>
@@ -103,16 +115,16 @@ const Footer = () => {
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
           </span>
-          {/* <span>
+          <span>
             <a
               className="green-icons"
-              href="https://www.facebook.com"
+              href="https://web.facebook.com/profile.php?id=100077184559128"
               target="_blank"
               rel="noreferrer"
             >
               <FontAwesomeIcon icon={faFacebookSquare}> </FontAwesomeIcon>{" "}
             </a>
-          </span> */}
+          </span>
           <span>
             <a
               className="green-icons"

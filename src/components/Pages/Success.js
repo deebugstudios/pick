@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Animal from "../Images/animal.png";
 import Button from "../javascript/Button";
 import "../css/Success.css";
 import { useNavigate } from "react-router-dom";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
 export default function Success() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    increase();
+  }, []);
+
+  const increase = async () => {
+    const notifyRef = doc(db, "admin_notifiers", "agent_applications");
+    await updateDoc(notifyRef, {
+      applications_count: increment(1),
+    });
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -21,9 +34,9 @@ export default function Success() {
             <img src={Animal} alt="Animal" />
           </div>
           <p id="successText">
-            You will receive a confirmatory email and SMS after
+            Congratulations, your account has been created successfully.
             <br />
-            your account has been approved by the Admin
+            Your account will be approved by the Admin shortly.
           </p>
         </div>
         <br />

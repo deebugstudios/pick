@@ -91,6 +91,7 @@ export default function AgentCompleted() {
 
       if (res.status === 200) {
         setMessage("User created successfully");
+
         navigate("/success");
       } else {
         setMessage("Error occured");
@@ -103,6 +104,14 @@ export default function AgentCompleted() {
     // console.log(formData);
   };
 
+  function handleKeyDown(event) {
+    const inputValue = event.target.value;
+    const isBackspaceOrDelete =
+      event.key === "Backspace" || event.key === "Delete";
+    if (inputValue.length >= 10 && !isBackspaceOrDelete) {
+      event.preventDefault();
+    }
+  }
   return (
     <>
       <Head />
@@ -148,11 +157,13 @@ export default function AgentCompleted() {
             <span className="requiredText">Bank account number</span>
             <br />
             <input
-              type="text"
+              type="number"
               className="form-field edit-field phone-input2"
               name="account_no"
+              maxLength={10}
               onChange={handleChange}
               value={formData.account_no}
+              onKeyDown={handleKeyDown}
             />
           </label>
           <p className="error-style bottom-marg">{formErrors.account_no}</p>
@@ -162,11 +173,13 @@ export default function AgentCompleted() {
             <span className="requiredText">Confirm Bank account number</span>
             <br />
             <input
-              type="text"
+              type="number"
               className="form-field edit-field phone-input2"
               name="confirm_account_no"
+              maxLength={10}
               onChange={handleChange}
               value={formData.confirm_account_no}
+              onKeyDown={handleKeyDown}
             />
           </label>
           <p className="error-style bottom-marg">
@@ -182,6 +195,8 @@ export default function AgentCompleted() {
               className="form-field edit-field phone-input2"
               name="bvn"
               onChange={handleChange}
+              maxLength={11}
+              minLength={11}
               value={formData.bvn}
             />
           </label>

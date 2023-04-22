@@ -109,7 +109,7 @@ export default function ChangePhoneNumber() {
                 body: JSON.stringify({
                   token: JSON.parse(token),
                   old_phone_no: phone_no,
-                  new_phone_no: `+234${newNo}`,
+                  phone_no: `+234${newNo}`,
                 }),
                 headers: {
                   "Content-Type": "application/json",

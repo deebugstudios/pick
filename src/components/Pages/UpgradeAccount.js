@@ -47,6 +47,8 @@ export default function UpgradeAccount(props) {
   });
   const agent = "fleet manager";
 
+  const [phoneError, setPhoneError] = useState("");
+  const [mailError, setMailError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [dataError, setDataError] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -234,6 +236,13 @@ export default function UpgradeAccount(props) {
       const data = await res.json();
       console.log(data);
 
+      if (data.msg === "This email is already in use") {
+        setMailError(data.msg);
+      }
+      if (data.msg === "This Phone Number is already in use") {
+        setPhoneError(data.msg);
+      }
+
       if (res.status === 200) {
         sessionStorage.clear();
         try {
@@ -407,7 +416,11 @@ export default function UpgradeAccount(props) {
               // required={true}
             />
           </div>
-          <p className="error-style bottom-marg">{formErrors.fullname}</p>
+          {formErrors.phone_no && (
+            <p className="error-style">{formErrors.phone_no}</p>
+          )}
+          {phoneError && <p className="error-style">{phoneError}</p>}
+          <div className="bottom-marg"></div>
           {/* <br /> */}
 
           <label className="requiredText">Email{asterik}</label>
@@ -422,7 +435,11 @@ export default function UpgradeAccount(props) {
               name="email"
             />
           </div>
-          <p className="error-style bottom-marg">{formErrors.email}</p>
+          {formErrors.email && (
+            <p className="error-style">{formErrors.email}</p>
+          )}
+          {mailError && <p className="error-style">{mailError}</p>}
+          <div className="bottom-marg"></div>
           {/* <br /> */}
 
           <label className="requiredText">Phone Number{asterik}</label>

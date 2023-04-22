@@ -84,7 +84,7 @@ export default function DeliveryAgentStatPage() {
               <div className="delivery-stats payment-stat-details">
                 <div className="delivery-name">
                   <p className="gray"></p>
-                  <h5>Ignored deliveries</h5>
+                  <h5>Declined deliveries</h5>
                 </div>
                 <div className="amount-made">
                   <h5>{no_declined_deliveries}</h5>
@@ -107,7 +107,7 @@ export default function DeliveryAgentStatPage() {
                 </div>
                 <div className="amount-made">
                   <h5>
-                    Total month's earning: &#8358;
+                    Total earning: &#8358;
                     {earnings == 0 ? (
                       "0.00"
                     ) : (

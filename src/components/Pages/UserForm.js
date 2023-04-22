@@ -20,14 +20,8 @@ export default function UserForm() {
   const asterik = <span id="asterik">*</span>;
   const [loadOtp, setLoadOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [otpValues, setOtpValues] = useState({
-    one: "",
-    two: "",
-    three: "",
-    four: "",
-    five: "",
-    six: "",
-  });
+
+  const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const [countDown, setCountDown] = useState(60);
   const [formData, setFormData] = useState({
     fullname: "",
@@ -48,7 +42,7 @@ export default function UserForm() {
 
   const handleFinalSubmit = async () => {
     setLoadButton(true);
-    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+    const computedNum = otpValues.join("");
 
     try {
       let confirmationResult = window.confirmationResult;
@@ -129,10 +123,36 @@ export default function UserForm() {
     }
   };
 
-  const OtpChange = (e) => {
-    const target = e.target;
-    const { name, value } = target;
-    setOtpValues({ ...otpValues, [name]: value });
+  const OtpChange = (element, index, direction) => {
+    if (direction === "backspace") {
+      // Handle backspace key press
+      if (element.value === "") {
+        // If the current input is empty, move focus to the previous input
+        if (element.previousSibling) {
+          element.previousSibling.focus();
+          setOtpValues([
+            ...otpValues.map((d, idx) =>
+              idx === index - 1 ? "" : idx === index ? "" : d
+            ),
+          ]);
+        }
+      } else {
+        // If the current input is not empty, clear its value
+        setOtpValues([...otpValues.map((d, idx) => (idx === index ? "" : d))]);
+      }
+    } else {
+      // Handle regular input
+      if (isNaN(element.value)) return false;
+      setOtpValues([
+        ...otpValues.map((d, idx) => (idx === index ? element.value : d)),
+      ]);
+      // Focus next or previous input
+      if (element.nextSibling && direction !== "prev") {
+        element.nextSibling.focus();
+      } else if (element.previousSibling && direction === "prev") {
+        element.previousSibling.focus();
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -175,6 +195,30 @@ export default function UserForm() {
       })
       .catch((error) => {
         setLoadMessage("An Error Occured");
+        setLoading(false);
+      });
+  };
+
+  const resend = () => {
+    setCountDown(60);
+
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
+    const number = "+234" + [formData.phone_no];
+
+    // const interval = setInterval(() => {
+    //   setCountDown((countDown) => countDown - 1);
+    // }, 1000);
+    // if (countDown === 0) {
+    //   clearInterval(interval);
+    // }
+    signInWithPhoneNumber(auth, number, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
         setLoading(false);
       });
   };
@@ -297,60 +341,42 @@ export default function UserForm() {
                   Enter the OTP sent by SMS to 0{formData.phone_no}
                 </p>
                 <div id="otpField">
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="one"
-                    value={otpValues.one}
-                    onChange={OtpChange}
-                    // autoFocus
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="two"
-                    value={otpValues.two}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="three"
-                    value={otpValues.three}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="four"
-                    value={otpValues.four}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength="1"
-                    name="five"
-                    value={otpValues.five}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="six"
-                    value={otpValues.six}
-                    onChange={OtpChange}
-                  />
+                  {otpValues.map((data, index) => {
+                    return (
+                      <input
+                        type="text"
+                        maxLength={1}
+                        name="otpValues"
+                        key={index}
+                        value={data}
+                        onChange={(e) => OtpChange(e.target, index)}
+                        onKeyDown={(e) => {
+                          if (e.keyCode === 8) {
+                            e.preventDefault();
+                            OtpChange(e.target, index, "backspace");
+                          }
+                        }}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    );
+                  })}
 
                   <br />
                   <br />
-                  <p id="another-code">
-                    We would send you another code in{" "}
-                    <span id="otpTimer">00:{countDown}</span>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </p>
+                  {countDown >= 0 ? (
+                    <p id="another-code">
+                      We would send you another code in{" "}
+                      <span id="otpTimer">00:{countDown}</span>
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                    </p>
+                  ) : (
+                    <button onClick={resend} id="another-code">
+                      Resend OTP
+                    </button>
+                  )}
 
                   <Button
                     name="DONE"

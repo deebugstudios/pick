@@ -20,29 +20,22 @@ export default function JoinAgent(props) {
   const asterik = <span id="asterik">*</span>;
   const location = useLocation();
 
-
   const [loadOtp, setLoadOtp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedSrc, setSelectedSrc] = useState("");
-  const [otpValues, setOtpValues] = useState({
-    one: "",
-    two: "",
-    three: "",
-    four: "",
-    five: "",
-    six: "",
-  });
+  const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const [countDown, setCountDown] = useState(60);
 
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
-    phone_no:  "",
+    phone_no: "",
     nin: "",
     city: "",
     address: "",
   });
-
+  const [phoneError, setPhoneError] = useState("");
+  const [mailError, setMailError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [dataError, setDataError] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -61,19 +54,22 @@ export default function JoinAgent(props) {
     const target = e.target;
     const { name, value } = target;
     setFormData({ ...formData, [name]: value });
+    setFormErrors({});
+    setPhoneError("");
+    setMailError("");
   };
 
   const handleState = (e) => {
     setResidentState(e.target.value);
   };
 
-  const handleCheck = (e) => {
-    setGender(e.target.value);
-  };
+  // const handleCheck = (e) => {
+  //   setGender(e.target.value);
+  // };
 
   const handleFinalSubmit = async () => {
     setLoadButton(true);
-    const computedNum = `${otpValues.one}${otpValues.two}${otpValues.three}${otpValues.four}${otpValues.five}${otpValues.six}`;
+    const computedNum = otpValues.join("");
 
     try {
       let confirmationResult = window.confirmationResult;
@@ -154,27 +150,53 @@ export default function JoinAgent(props) {
   const agent = props.agent;
   console.log(agent);
 
-  const OtpChange = (e) => {
-    const target = e.target;
-    const { name, value } = target;
-    setOtpValues({ ...otpValues, [name]: value });
+  const OtpChange = (element, index, direction) => {
+    if (direction === "backspace") {
+      // Handle backspace key press
+      if (element.value === "") {
+        // If the current input is empty, move focus to the previous input
+        if (element.previousSibling) {
+          element.previousSibling.focus();
+          setOtpValues([
+            ...otpValues.map((d, idx) =>
+              idx === index - 1 ? "" : idx === index ? "" : d
+            ),
+          ]);
+        }
+      } else {
+        // If the current input is not empty, clear its value
+        setOtpValues([...otpValues.map((d, idx) => (idx === index ? "" : d))]);
+      }
+    } else {
+      // Handle regular input
+      if (isNaN(element.value)) return false;
+      setOtpValues([
+        ...otpValues.map((d, idx) => (idx === index ? element.value : d)),
+      ]);
+      // Focus next or previous input
+      if (element.nextSibling && direction !== "prev") {
+        element.nextSibling.focus();
+      } else if (element.previousSibling && direction === "prev") {
+        element.previousSibling.focus();
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    console.log(agent);
-    console.log(residentState);
+    // console.log(agent);
+    // console.log(residentState);
 
-    if (!gender) {
-      setGenderError("Please Select Your Gender");
-      // return genderError;
-    } else setGenderError("");
+    // if (!gender) {
+    //   setGenderError("Please Select Your Gender");
+    //   // return genderError;
+    // } else setGenderError("");
 
-    if (!selectedFile) {
-      setFileError("Please Upload a Picture");
-    } else setFileError("");
-
+    // if (!selectedFile) {
+    //   setFileError("Please Upload a Picture");
+    // } else setFileError("");
+    let clickErrors = {};
     const validate = (data) => {
       const errors = {};
       const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -201,6 +223,18 @@ export default function JoinAgent(props) {
       return errors;
     };
     setFormErrors(validate(formData));
+    clickErrors = validate(formData);
+    if (
+      (clickErrors.fullname == undefined &&
+        clickErrors.city == undefined &&
+        clickErrors.nin == undefined &&
+        clickErrors.email == undefined &&
+        clickErrors.address == undefined &&
+        clickErrors.phone_no == undefined) ||
+      clickErrors == {}
+    ) {
+      setLoadOtp(true);
+    } else return;
 
     // navigate(props.link);
     // const bodyFormData = new FormData();
@@ -239,6 +273,13 @@ export default function JoinAgent(props) {
       );
       const data = await res.json();
       console.log(data);
+
+      if (data.msg === "This email is already in use") {
+        setMailError(data.msg);
+      }
+      if (data.msg === "This Phone Number is already in use") {
+        setPhoneError(data.msg);
+      }
       if (res.status === 200) {
         // console.log(res);
         setLoading(false);
@@ -299,6 +340,7 @@ export default function JoinAgent(props) {
         // });
       } else {
         setMessage("An Error occured");
+        setLoading(false);
 
         // console.log(response);
         // console.log(selectedFile);
@@ -395,7 +437,12 @@ export default function JoinAgent(props) {
               name="email"
             />
           </div>
-          <p className="error-style bottom-marg">{formErrors.email}</p>
+          {formErrors.email && (
+            <p className="error-style">{formErrors.email}</p>
+          )}
+          {mailError && <p className="error-style">{mailError}</p>}
+          <div className="bottom-marg"></div>
+
           {/* <br /> */}
 
           <label className="requiredText">Phone Number{asterik}</label>
@@ -414,7 +461,11 @@ export default function JoinAgent(props) {
               // required={true}
             />
           </div>
-          <p className="error-style bottom-marg">{formErrors.phone_no}</p>
+          {formErrors.phone_no && (
+            <p className="error-style">{formErrors.phone_no}</p>
+          )}
+          {phoneError && <p className="error-style">{phoneError}</p>}
+          <div className="bottom-marg"></div>
           {/* <br /> */}
 
           <label className="requiredText">
@@ -616,48 +667,25 @@ export default function JoinAgent(props) {
                   Enter the OTP sent by SMS to 0{formData.phone_no}
                 </p>
                 <div id="otpField">
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="one"
-                    value={otpValues.one}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="two"
-                    value={otpValues.two}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="three"
-                    value={otpValues.three}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="four"
-                    value={otpValues.four}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="five"
-                    value={otpValues.five}
-                    onChange={OtpChange}
-                  />
-                  <input
-                    type="text"
-                    maxLength={1}
-                    name="six"
-                    value={otpValues.six}
-                    onChange={OtpChange}
-                  />
+                  {otpValues.map((data, index) => {
+                    return (
+                      <input
+                        type="text"
+                        maxLength={1}
+                        name="otpValues"
+                        key={index}
+                        value={data}
+                        onChange={(e) => OtpChange(e.target, index)}
+                        onKeyDown={(e) => {
+                          if (e.keyCode === 8) {
+                            e.preventDefault();
+                            OtpChange(e.target, index, "backspace");
+                          }
+                        }}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    );
+                  })}
                   <br />
                   <br />
                   {countDown >= 0 ? (

@@ -91,8 +91,8 @@ export default function ReportReason(props) {
   return (
     <div className="reason-main-div">
       <form id="reason-form" onSubmit={handleSubmit}>
-        <h2>
-          Please let us know why you are reporting <br /> this delivery request
+        <h2 style={{ maxWidth: "400px" }}>
+          Please let us know why you are reporting this delivery request
         </h2>
         <br />
 
@@ -268,8 +268,8 @@ export function ReportReason2(props) {
   return (
     <div className="reason-main-div">
       <form id="reason-form" onSubmit={handleSubmit}>
-        <h2>
-          Please let us know why you are reporting <br /> this user
+        <h2 style={{ maxWidth: "400px" }}>
+          Please let us know why you are reporting this user
         </h2>
         <br />
 

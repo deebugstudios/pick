@@ -361,7 +361,7 @@ export const FleetSummarydetails = () => {
     .map((eobj, index) => {
       return (
         <tr key={eobj?.delivery_agent_id}>
-          <td>{eobj?.delivery_agent_id}</td>
+          <td>{eobj?.delivery_agent_id.slice(0, 7)}...</td>
           <td>{eobj?.delivery_agent_name}</td>
           <td>{<ThousandConverter value={eobj?.total_earnings} />}</td>
 
@@ -374,6 +374,7 @@ export const FleetSummarydetails = () => {
                     week: Cweek,
                     year: year,
                     month: month,
+                    name: eobj?.delivery_agent_name,
                   },
                 })
               }
@@ -491,9 +492,9 @@ export const FleetSummarydetails = () => {
           <>
             <table className="table-data">
               <thead>
-                <th>Agent ID</th>
-                <th>Agent Name</th>
-                <th>Weeks Earning</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Earnings</th>
               </thead>
               <tbody>{eachDeliveryAgentEarning}</tbody>
             </table>
@@ -501,7 +502,7 @@ export const FleetSummarydetails = () => {
               <h5>
                 TOTAL {Ctype.toUpperCase()} WEEK {Cweek} EARNINGS
               </h5>
-              <p>₦{<ThousandConverter value={data[data?.length - 1]} />}</p>
+              <p>₦{<ThousandConverter value={data[data?.length - 1]} />}.00</p>
             </div>
           </>
         ) : real.msg == "no earnings were made on this date" ? (

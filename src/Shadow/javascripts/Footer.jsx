@@ -33,7 +33,18 @@ const Footer = () => {
               </NavLink>{" "}
             </li>
             <li>Features</li>
-            <li>FAQs</li>
+            <li>
+              <NavLink
+                style={({ isActive }) => ({
+                  color: isActive ? "#1FAA08" : "black",
+                })}
+                to="/faq"
+                target="_blank"
+                rel="noreferrer"
+              >
+                FAQs
+              </NavLink>
+            </li>
             <li>Reviews Stories</li>
           </ul>
           <ul>
@@ -98,15 +109,15 @@ const Footer = () => {
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
           </span>
-          {/* <span>
+          <span>
             <a
               className="green-icons"
-              href="https://www.facebook.com"
+              href="https://web.facebook.com/profile.php?id=100077184559128"
               target="_blank"
             >
               <FontAwesomeIcon icon={faFacebookSquare}> </FontAwesomeIcon>{" "}
             </a>
-          </span> */}
+          </span>
           <span>
             <a
               className="green-icons"

@@ -8,6 +8,7 @@ import { RiderContext } from "../Contexts/RiderContext";
 // import { FaGreaterThan, FaLessThan} from 'react-icons/fa';
 import profileimage from "../../images/profileimage.png";
 import ClipLoader from "react-spinners/ClipLoader";
+import ThousandConverter from "../../../components/javascript/ThousandConverter";
 
 export default function Individual_records() {
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,28 @@ export default function Individual_records() {
   const { token, riderdata } = value;
   const [toggle, setToggle] = useState(true);
   const navigate = useNavigate();
+
+  function timestampToDate(timestamp) {
+    const date = new Date(timestamp);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+  }
+  function timestampToDayOfWeek(timestamp) {
+    const date = new Date(timestamp);
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    return dayOfWeek;
+  }
 
   // const firstClick = () => {
   //   setToggle(true);
@@ -32,6 +55,7 @@ export default function Individual_records() {
 
   const DeliveryAgent_id = location.state.id;
   const computedYear = location.state.year;
+  const name = location.state.name;
   const week = location.state.week;
   const computedMonth = location.state.month;
 
@@ -74,6 +98,7 @@ export default function Individual_records() {
 
   useEffect(() => {
     fetchDeliveryDetails();
+    console.log(riderdata);
   }, []);
 
   const goBack = () => {
@@ -102,61 +127,93 @@ export default function Individual_records() {
             <div className="week-payment">
               <h4 className="week">WEEK {week}</h4>
             </div>
-            <div className="delivery-profile">
+            <div className="delivery-profile1">
               <div className="driver-profile-image">
                 <div className="image">
                   <img src={data?.img_url} alt="profile image" />
                 </div>
               </div>
-              <div className="delivery-profile-details">
+              <div style={{ width: "100%" }}>
                 {/* <h3 className="earnings-h3">{data?.fullname}</h3> */}
-                <table className="earning-first-table">
+                <table style={{ margin: "0" }}>
                   <tr>
-                    <th>Agent ID:</th>
-                    <td>{DeliveryAgent_id}</td>
+                    <th
+                      style={{
+                        fontWeight: "500",
+                        fontSize: "15px",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      {name}
+                    </th>
+                    <td></td>
                   </tr>
                   <tr>
-                    <th>Vehicle type:</th>
-                    <td>{data?.vehicle_details?.type?.toUpperCase()}</td>
-                  </tr>
-                  <tr>
-                    <th>Plate number:</th>
-                    <td>{data?.vehicle_details.plate_no}</td>
-                  </tr>
-                  <tr>
-                    <th>Phone Number:</th>
-                    <td> {data?.phone_no}</td>
-                  </tr>
-                  <tr>
-                    <th>Weeks Earning:</th>
-                    <td> N 23,470</td>
+                    <th
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "15px",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      Agent ID:
+                    </th>
+                    <td
+                      style={{
+                        fontWeight: "500",
+                        fontSize: "15px",
+                        lineHeight: "1.5",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      {DeliveryAgent_id}
+                    </td>
                   </tr>
                 </table>
               </div>
             </div>
-            <div className="payment-table">
-              <table className="table-data">
-                <thead>
-                  <th>Date</th>
-                  <th>Weekday</th>
-                  <th>Daily Earning</th>
-                  <th>Instant Deliveries</th>
-                  <th>Scheduled Deliveries</th>
-                  <th>Cancelled Deliveries</th>
-                </thead>
-                <tbody className="earning-tbody">
-                  {earnings?.slice(0, earnings?.length - 1).map(() => (
-                    <tr>
-                      <td>06/06/2022</td>
-                      <td>Monday</td>
-                      <td>N23,000</td>
-                      <td>12</td>
-                      <td>2</td>
-                      <td>1</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div
+              className="payment-table"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "15px",
+                marginBottom: "30px",
+              }}
+            >
+              {earnings?.slice(0, earnings?.length - 1).map((item, i) => (
+                <div className="payment-stat-details span2" key={i}>
+                  <div className="vechicle-name">
+                    <div style={{ display: "flex", columnGap: "10px" }}>
+                      <span>{timestampToDayOfWeek(item.timestamp)}</span>
+                      <span>{timestampToDate(item.timestamp)}</span>
+                    </div>
+                  </div>
+                  <div className="amount-made">
+                    ₦{<ThousandConverter value={item.amt_for_delivery_agent} />}
+                    .00
+                  </div>
+                </div>
+              ))}
+              <div
+                className="payment-stat-details span2"
+                style={{ marginTop: "50px" }}
+              >
+                <div className="vechicle-name">
+                  <div>Total weeks earning</div>
+                </div>
+                <div className="amount-made" style={{ color: "green" }}>
+                  ₦
+                  {
+                    <ThousandConverter
+                      value={
+                        earnings[earnings.length - 1]?.total_weekly_earnings
+                      }
+                    />
+                  }
+                  .00
+                </div>
+              </div>
             </div>
           </div>
         )}

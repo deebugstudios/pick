@@ -217,7 +217,7 @@
 }
 .table-data thead th {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   padding: 20px 0;
 }
 .table-data tr td {
@@ -244,10 +244,10 @@
     font-size: 15px !important;
   }
 }
-.table-data tr td,
+/* .table-data tr td,
 .table-data thead th {
   text-align: center;
-}
+} */
 .paid,
 .not-paid {
   color: rgba(0, 0, 0, 0.6);
