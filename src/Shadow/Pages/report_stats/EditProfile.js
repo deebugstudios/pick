@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const navigate = useNavigate();
   const value = useContext(RiderContext);
-  const { token, riderdata } = value;
+  const { token, riderdata, typeAccount } = value;
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -211,30 +211,34 @@ const EditProfile = () => {
           <br />
           <input type="text" name="city" id="city" onChange={handleChange} />
           <br />
-          <label htmlFor="driver_license_expiry_date">
-            Driver's license expiry date
-          </label>
-          <br />
-          <input
-            type="date"
-            name="driver_license_expiry_date"
-            id="driver_license_expiry_date"
-            onChange={handleChange}
-            required
-            className="shorter-form"
-          />
-          <br />
-          <br />
-          <label htmlFor="plate_no">Plate no</label>
-          <br />
-          <input
-            type="text"
-            name="plate_no"
-            id="plate_no"
-            onChange={handleChange}
-            required
-            className="shorter-form"
-          />
+          {typeAccount == "Agent" && (
+            <>
+              <label htmlFor="driver_license_expiry_date">
+                Driver's license expiry date
+              </label>
+              <br />
+              <input
+                type="date"
+                name="driver_license_expiry_date"
+                id="driver_license_expiry_date"
+                onChange={handleChange}
+                required
+                className="shorter-form"
+              />
+              <br />
+              <br />
+              <label htmlFor="plate_no">Plate no</label>
+              <br />
+              <input
+                type="text"
+                name="plate_no"
+                id="plate_no"
+                onChange={handleChange}
+                required
+                className="shorter-form"
+              />
+            </>
+          )}
           <label htmlFor="profile_img">
             <div className="driverLicenseSelect-div">
               <div className="driverLicenseSelect">

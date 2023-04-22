@@ -479,6 +479,7 @@ export default function ScheduleForm() {
                   value={formData.reciever_phone_no}
                   onChange={handleChange}
                   maxLength={10}
+                  minLength={10}
                 />
               </div>
             </div>

@@ -15,7 +15,10 @@ import { PaystackButton } from "react-paystack";
 import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
+import Arrow from "../../Images/Arrow.png";
 import Countdown from "../../javascript/Countdown";
+import { Popup2 } from "../../javascript/Popup";
+import { updateDoc, increment } from "firebase/firestore";
 
 export default function InstantDeliverySummary() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -25,6 +28,9 @@ export default function InstantDeliverySummary() {
   const [agentId, setAgentId] = useState("");
   const [toFleet, setToFleet] = useState(null);
   const [fleetId, setFleetId] = useState("");
+  const [loadOtp, setLoadOtp] = useState(false);
+  const [loadDelete, setLoadDelete] = useState(false);
+
   const [loading, setLoading] = useState(true);
 
   const location = useLocation();
@@ -37,7 +43,58 @@ export default function InstantDeliverySummary() {
   const payDuration = location.state.payDuration;
   const navigate = useNavigate();
   const userValues = useContext(userContext);
-  const { token } = userValues;
+  const { token, userName } = userValues;
+
+  const handleDelete = async () => {
+    setLoadDelete(true);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_delivery",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            delivery_id: deliveryID,
+            cancel_reason: "I changed my mind",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        setLoadDelete(false);
+        const notifyRef = doc(db, "delivery_requests", deliveryID);
+        await updateDoc(notifyRef, {
+          cancel_reason: "I changed my mind",
+          delivery_status_is_cancelled_by: JSON.parse(userName),
+          delivery_status_is_cancelled: true,
+          delivery_status_is_cancelled_at: Date.now(),
+        });
+        navigate(-1, { replace: true });
+
+        // setLoadButton(false);
+      } else {
+        setLoadDelete(false);
+        // setMessage("An Error occured");
+        // setLoadButton(false);
+      }
+    } catch (error) {
+      // setLoadButton(false);
+      alert(
+        "Couldn't cancel delivery. Check your network connection and try again"
+      );
+      // setLoadOtp(false);
+      setLoadDelete(false);
+      // console.log(error);
+      // const err = error
+    }
+  };
 
   useEffect(() => {
     // console.log(vehicle);
@@ -126,7 +183,10 @@ export default function InstantDeliverySummary() {
 
       if (res.status === 200) {
         setTimeoutState(true);
-        navigate("/paysuccess", { state: { itemId: parcelCode } });
+        navigate("/paysuccess", {
+          state: { itemId: parcelCode },
+          replace: true,
+        });
       } else {
         // setMessage("An Error occured");
       }
@@ -201,10 +261,29 @@ export default function InstantDeliverySummary() {
     listen();
   }, [loading === false]);
 
+  // useEffect(() => {
+  //   // Replace the current history entry with a new one
+  //   const unblock = navigate("*", { replace: true });
+
+  //   return () => {
+  //     unblock();
+  //   };
+  // }, [navigate]);
+
   return (
     <section className="user-dashboard pending-delivery no-max">
       <div className="history-wrapper-1">
         <div className="specific-details-section">
+          <div
+            id="arrow-div"
+            onClick={() => {
+              setLoadOtp(true);
+            }}
+          >
+            <img src={Arrow} alt="" />
+          </div>
+          <br />
+          <br />
           <div id="btn-proceed">
             <h2>Delivery Summary</h2>
             <div>
@@ -296,6 +375,25 @@ export default function InstantDeliverySummary() {
             <PaystackButton {...componentProps} />
           </div>
         </div>
+        <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "15px",
+              padding: "20px 20px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <p>Cancel Delivery</p>
+            <div style={{ maxWidth: "400px", textAlign: "center" }}>
+              By clicking proceed, you will be canceling this delivery. Are you
+              sure you want to proceed?
+            </div>
+            <Button name="Proceed" click={handleDelete} loading={loadDelete} />
+          </div>
+        </Popup2>
       </div>
     </section>
   );

@@ -15,9 +15,11 @@ import { userContext } from "../../../Shadow/Pages/Contexts/RiderContext";
 import { TimeConverter } from "../../../DateAndTimeConverter";
 import { DateConverter } from "../../../DateAndTimeConverter";
 import { ClipLoader } from "react-spinners";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../utils/firebase";
 import Countdown from "../../javascript/Countdown";
+import { Popup2 } from "../../javascript/Popup";
+import Arrow from "../../Images/Arrow.png";
 // import { async } from "@firebase/util";
 
 export default function ScheduledDeliverySummary() {
@@ -31,6 +33,8 @@ export default function ScheduledDeliverySummary() {
   const [timeoutState, setTimeoutState] = useState(false);
   const [agentId, setAgentId] = useState("");
   const [toFleet, setToFleet] = useState(null);
+  const [loadOtp, setLoadOtp] = useState(false);
+  const [loadDelete, setLoadDelete] = useState(false);
 
   const location = useLocation();
   const deliveryID = location.state.deliveryID;
@@ -41,8 +45,59 @@ export default function ScheduledDeliverySummary() {
   const vehicle = location.state.deliveryMedium;
   const payDuration = location.state.payDuration;
   const userValues = useContext(userContext);
-  const { token } = userValues;
+  const { token, userName } = userValues;
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    setLoadDelete(true);
+    try {
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_delivery/cancel_delivery",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            token: JSON.parse(token),
+            delivery_id: deliveryID,
+            cancel_reason: "I changed my mind",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status === 200) {
+        setLoadDelete(false);
+        const notifyRef = doc(db, "delivery_requests", deliveryID);
+        await updateDoc(notifyRef, {
+          cancel_reason: "I changed my mind",
+          delivery_status_is_cancelled_by: JSON.parse(userName),
+          delivery_status_is_cancelled: true,
+          delivery_status_is_cancelled_at: Date.now(),
+        });
+        navigate(-1, { replace: true });
+
+        // setLoadButton(false);
+      } else {
+        setLoadDelete(false);
+        // setMessage("An Error occured");
+        // setLoadButton(false);
+      }
+    } catch (error) {
+      // setLoadButton(false);
+      alert(
+        "Couldn't cancel delivery. Check your network connection and try again"
+      );
+      // setLoadOtp(false);
+      setLoadDelete(false);
+      // console.log(error);
+      // const err = error
+    }
+  };
 
   useEffect(() => {
     let timer;
@@ -217,6 +272,15 @@ export default function ScheduledDeliverySummary() {
       <section className="user-dashboard pending-delivery no-max">
         <div className="history-wrapper-1">
           <div className="specific-details-section">
+            <div
+              id="arrow-div"
+              onClick={() => {
+                setLoadOtp(true);
+              }}
+            >
+              <img src={Arrow} alt="" />
+            </div>
+
             <div id="btn-proceed">
               <h2>Delivery Summary</h2>
               <div>
@@ -310,6 +374,29 @@ export default function ScheduledDeliverySummary() {
               <PaystackButton {...componentProps} />
             </div>
           </div>
+          <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "15px",
+                padding: "20px 20px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <p>Cancel Delivery</p>
+              <div style={{ maxWidth: "400px", textAlign: "center" }}>
+                By clicking proceed, you will be canceling this delivery. Are
+                you sure you want to proceed?
+              </div>
+              <Button
+                name="Proceed"
+                click={handleDelete}
+                loading={loadDelete}
+              />
+            </div>
+          </Popup2>
         </div>
       </section>
     );

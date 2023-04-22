@@ -362,23 +362,34 @@ const ProfilePage = () => {
                       disabled
                     />
                     <br />
-                    <label htmlFor="">Vehicle Type</label> <br />
+                    <label htmlFor="">
+                      {typeAccount == "Agent" ? "Vehicle type" : "CAC Reg. No."}
+                    </label>{" "}
+                    <br />
                     <input
                       type="text"
                       name="vehicleType"
                       id=""
-                      value={riderdata?.vehicle_details?.type}
+                      value={
+                        typeAccount == "Agent"
+                          ? riderdata?.vehicle_details?.type
+                          : riderdata?.cac_reg_no
+                      }
                       disabled
                     />{" "}
                     <br />
-                    <label htmlFor="">Plate number</label> <br />
-                    <input
-                      type="text"
-                      name="plateNumber"
-                      id=""
-                      value={riderdata?.vehicle_details?.plate_no}
-                      disabled
-                    />
+                    {typeAccount == "Agent" && (
+                      <>
+                        <label htmlFor="">Plate number</label> <br />
+                        <input
+                          type="text"
+                          name="plateNumber"
+                          id=""
+                          value={riderdata?.vehicle_details?.plate_no}
+                          disabled
+                        />
+                      </>
+                    )}
                   </form>
                   <form className="vechile-details-form2">
                     <label htmlFor="">
@@ -397,25 +408,40 @@ const ProfilePage = () => {
                       disabled
                     />{" "}
                     <br />
-                    <label htmlFor="">Vehicle color</label> <br />
+                    <label htmlFor="">
+                      {typeAccount == "Agent"
+                        ? "Vehicle color"
+                        : "Company name"}
+                    </label>{" "}
+                    <br />
                     <input
                       type="text"
                       name="vehicleColor"
                       id=""
-                      value={riderdata?.vehicle_details?.color}
-                      disabled
-                    />
-                    <br />
-                    <label htmlFor="">Drivers license expiry date</label> <br />
-                    <input
-                      type="text"
-                      name="driverLicense"
-                      id=""
                       value={
-                        riderdata?.vehicle_details?.driver_license_expiry_date
+                        typeAccount == "Agent"
+                          ? riderdata?.vehicle_details?.color
+                          : riderdata?.company_name
                       }
                       disabled
                     />
+                    <br />
+                    {typeAccount == "Agent" && (
+                      <>
+                        <label htmlFor="">Drivers license expiry date</label>{" "}
+                        <br />
+                        <input
+                          type="text"
+                          name="driverLicense"
+                          id=""
+                          value={
+                            riderdata?.vehicle_details
+                              ?.driver_license_expiry_date
+                          }
+                          disabled
+                        />
+                      </>
+                    )}
                   </form>
                 </div>
                 {typeAccount === "Agent" ? (

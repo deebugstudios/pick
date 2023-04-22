@@ -24,8 +24,8 @@ const Section2subsec3 = () => {
         </div>
         <div className="subsec3-right">
           <h3>
-            You can reach us via any of the following medium or pay us a vist at
-            our office.Our support center is available 24/7
+            You can reach us via any of the following medium or pay us a visit
+            at our office. Our support center is available 24/7.
           </h3>
           <div className="info-wrapper">
             <div className="home-office">
