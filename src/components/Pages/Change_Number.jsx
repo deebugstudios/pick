@@ -19,7 +19,7 @@ export default function Change_Number() {
   const [loadOtp, setLoadOtp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [countDown, setCountDown] = useState(60);
+  const [countDown, setCountDown] = useState(180);
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const [newNo, setNewNo] = useState("");
   const [newNoError, setNewNoError] = useState("");
@@ -28,6 +28,7 @@ export default function Change_Number() {
   const [dataError, setDataError] = useState("");
   const userValues = useContext(userContext);
   const phone_no = location.state.phone;
+  const email = sessionStorage.getItem("pickload_userEmail");
   const { token, userId } = userValues;
 
   const handleSubmit = async (e) => {
@@ -42,43 +43,76 @@ export default function Change_Number() {
       return;
     } else
       try {
-        window.recaptchaVerifier = new RecaptchaVerifier(
-          "recaptcha-container",
+        // window.recaptchaVerifier = new RecaptchaVerifier(
+        //   "recaptcha-container",
+        //   {
+        //     size: "invisible",
+        //     callback: (response) => {
+        //       // console.log(response);
+        //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+        //       handleSubmit();
+        //     },
+        //   },
+        //   auth
+        // );
+        console.log(email, phone_no)
+        const res1 = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/user_auth/send_otp",
           {
-            size: "invisible",
-            callback: (response) => {
-              // console.log(response);
-              // reCAPTCHA solved, allow signInWithPhoneNumber.
-              handleSubmit();
+            method: "POST",
+  
+            body: JSON.stringify({
+              phone_no: "+234" + phone_no,
+              email: email
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
             },
-          },
-          auth
+          }
         );
+        const data2 = await res1.json();
+        console.log(data2);
+        if(res1.status === 200) {
+          setLoadOtp(true);
+          const number = "+234" + [phone_no];
+  
+          const interval = setInterval(() => {
+            setCountDown((countDown) => countDown - 1);
+            if (countDown === 0) {
+              clearInterval(interval);
+            }
+          }, 1000);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          setLoadMessage("An Error occured");
+        }
       } catch (err) {
-        setMessage("An error occured, please try again");
+        setLoadMessage("An error occured, please try again");
         // console.log(err);
       }
 
-    const appVerifier = window.recaptchaVerifier;
-    // console.log(appVerifier);
+    // const appVerifier = window.recaptchaVerifier;
+    // // console.log(appVerifier);
 
-    setLoadOtp(true);
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-    }, 1000);
-    if (countDown === 0) {
-      clearInterval(interval);
-    }
-    signInWithPhoneNumber(auth, number, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoadMessage("An Error Occured");
-        console.log(error);
-        setLoading(false);
-      });
+    // setLoadOtp(true);
+    // const interval = setInterval(() => {
+    //   setCountDown((countDown) => countDown - 1);
+    // }, 1000);
+    // if (countDown === 0) {
+    //   clearInterval(interval);
+    // }
+    // signInWithPhoneNumber(auth, number, appVerifier)
+    //   .then((confirmationResult) => {
+    //     window.confirmationResult = confirmationResult;
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     setLoadMessage("An Error Occured");
+    //     console.log(error);
+    //     setLoading(false);
+    //   });
   };
 
   const handleFinalSubmit = async () => {
@@ -86,15 +120,33 @@ export default function Change_Number() {
     const computedNum = otpValues.join("");
 
     try {
-      let confirmationResult = window.confirmationResult;
-      confirmationResult
-        .confirm(computedNum)
-        .then(async (result) => {
-          const user = result.user;
-          // ...
-          console.log("worked");
+      // let confirmationResult = window.confirmationResult;
+      // confirmationResult
+      //   .confirm(computedNum)
+      //   .then(async (result) => {
+      //     const user = result.user;
+      //     // ...
+      //     console.log("worked");
 
-          // e.preventDefault();
+      //     // e.preventDefault();
+        const res = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/user_auth/verify_otp",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              otp: computedNum,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+        if(res.status === 200) {
+          console.log("worked");
 
           try {
             const res = await fetch(
@@ -123,6 +175,10 @@ export default function Change_Number() {
             }
 
             if (res.status === 200) {
+              sessionStorage.setItem(
+                "pickload_userNumber",
+                JSON.stringify(data?.phone_no)
+              );
               setMessage("Number changed successfully");
               navigate("/user/user-profile");
               setLoadOtp(false);
@@ -137,12 +193,10 @@ export default function Change_Number() {
             // const err = error
           }
           // console.log(user);
-        })
-        .catch((error) => {
-          setLoadButton(false);
-          setLoadMessage("Incorrect OTP");
-          // console.log("error");
-        });
+        } else {
+        setLoadButton(false);
+        setLoadMessage("Incorrect OTP");
+      }
     } catch (err) {
       // console.log(err);
       setLoadMessage("An Error Occured");
@@ -277,7 +331,7 @@ export default function Change_Number() {
           </form>
           <div id="recaptcha-container"></div>
         </div>
-        <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+        <Popup2 trigger={loadOtp} setTrigger={setLoadOtp} setOtpValues={setOtpValues} setCountDown={setCountDown}>
           <div>
             <div className="mainBox-1">
               <div className="delivery-img-otp" id="DeliveryImage">

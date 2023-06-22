@@ -48,6 +48,7 @@ export default function WelcomeUser(props) {
     formErrors,
     countDown,
     setCountDown,
+    Login
   } = userValues;
 
   const onChange = (e) => {
@@ -59,7 +60,7 @@ export default function WelcomeUser(props) {
   };
 
   const resend = () => {
-    setCountDown(60);
+    setCountDown(180);
     // try {
     //   window.recaptchaVerifier = new RecaptchaVerifier(
     //     "recaptcha-container",
@@ -78,49 +79,73 @@ export default function WelcomeUser(props) {
     //   console.log(err);
     // }
 
-    const appVerifier = window.recaptchaVerifier;
-    console.log(appVerifier);
+    // const appVerifier = window.recaptchaVerifier;
+    // console.log(appVerifier);
     const number = "+234" + [phone_no];
 
-    // const interval = setInterval(() => {
-    //   setCountDown((countDown) => countDown - 1);
-    //   if (countDown === 0) {
-    //     clearInterval(interval);
-    //   }
-    // }, 1000);
+    const interval = setInterval(() => {
+      setCountDown((countDown) => countDown - 1);
+      if (countDown === 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
 
-    signInWithPhoneNumber(auth, number, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        setLoading(false);
-      })
-      .catch((error) => {
-        // console.log(error);
-        setLoading(false);
-      });
+    // signInWithPhoneNumber(auth, number, appVerifier)
+    // .then((confirmationResult) => {
+    //   window.confirmationResult = confirmationResult;
+    //   setLoading(false);
+    // })
+    // .catch((error) => {
+    //   // console.log(error);
+    //   setLoading(false);
+    // });
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     setLoadButton(true);
     const computedNum = otpValues.join("");
 
     try {
-      let confirmationResult = window.confirmationResult;
-      confirmationResult
-        .confirm(computedNum)
-        .then((result) => {
-          const user = result.user;
-          // ...
-          console.log("worked");
-          navigate("/user/type", { replace: true });
-          // console.log(user);
-          setLoadOtp(false);
-        })
-        .catch((error) => {
-          // console.log("error");
-          setLoadButton(false);
-          setLoadMessage("Incorrect OTP");
-        });
+      // let confirmationResult = window.confirmationResult;
+      // confirmationResult
+      //   .confirm(computedNum)
+      //   .then((result) => {
+      //     const user = result.user;
+      //     // ...
+      //     console.log("worked");
+      //     navigate("/user/type", { replace: true });
+      //     // console.log(user);
+      //     setLoadOtp(false);
+      //   })
+      //   .catch((error) => {
+      //     // console.log("error");
+      //     setLoadButton(false);
+      //     setLoadMessage("Incorrect OTP");
+      //   });
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_auth/verify_otp",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            otp: computedNum,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if(res.status === 200) {
+        console.log("worked");
+        Login()
+        navigate("/user/type", { replace: true });
+      } else {
+        setLoadButton(false);
+        setLoadMessage("Incorrect OTP");
+      }
     } catch (err) {
       // console.log(err);
       setLoadButton(false);
@@ -216,7 +241,7 @@ export default function WelcomeUser(props) {
       </p>
       <div id="recaptcha-container"></div>
       <Footer />
-      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp} setOtpValues={setOtpValues} setCountDown={setCountDown}>
         <div>
           <div className="mainBox-1">
             <div className="delivery-img-otp" id="DeliveryImage">
@@ -412,7 +437,7 @@ export function WelcomeAgent() {
   };
 
   const resend = () => {
-    setCountDown(60);
+    setCountDown(180);
 
     const appVerifier = window.recaptchaVerifier;
     console.log(appVerifier);

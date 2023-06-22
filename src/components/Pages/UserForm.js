@@ -12,7 +12,7 @@ import Mail from "../Images/mail.png";
 import Flag from "../Images/Nigerian_flag.png";
 import Footer from "../../Shadow/javascripts/Footer";
 import { auth } from "../../utils/firebase";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPhoneNumber } from "firebase/auth";
 import { Popup2 } from "../javascript/Popup";
 
 export default function UserForm() {
@@ -20,15 +20,15 @@ export default function UserForm() {
   const asterik = <span id="asterik">*</span>;
   const [loadOtp, setLoadOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
-  const [countDown, setCountDown] = useState(60);
+  const [countDown, setCountDown] = useState(180);
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
     phone_no: "",
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({error: false});
+  const [result, setResult] = useState({msg: "failure"});
   const [dataError, setDataError] = useState("");
   const [message, setMessage] = useState("");
   const [loadButton, setLoadButton] = useState(false);
@@ -40,83 +40,110 @@ export default function UserForm() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const validate = (data) => {
+    const errors = {error: false};
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    //the former regex: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!data.fullname) {
+      errors.fullname = "Full Name must be filled!";
+      errors.error = true;
+    }
+    if (!data.email) {
+      errors.email = "Email must be filled!";
+      errors.error = true;
+    } else if (!regex.test(data.email)) {
+      errors.email = "Please enter a valid email";
+      errors.error = true;
+    }
+    if (!data.phone_no) {
+      errors.phone_no = "Phone Number must be filled!";
+      errors.error = true;
+    }
+    return errors;
+  };
+
   const handleFinalSubmit = async () => {
     setLoadButton(true);
     const computedNum = otpValues.join("");
 
     try {
-      let confirmationResult = window.confirmationResult;
-      confirmationResult
-        .confirm(computedNum)
-        .then(async (result) => {
-          const user = result.user;
-          // ...
-          console.log("worked");
-          const validate = (data) => {
-            const errors = {};
-            const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if (!data.fullname) {
-              errors.fullname = "Full Name must be filled!";
-            }
-            if (!data.email) {
-              errors.email = "Email must be filled!";
-            } else if (!regex.test(data.email)) {
-              errors.email = "Please enter a valid email";
-            }
-            if (!data.phone_no) {
-              errors.phone_no = "Phone Number must be filled!";
-            }
-            return errors;
-          };
-          setFormErrors(validate(formData));
+      const res = await fetch(
+        "https://ancient-wildwood-73926.herokuapp.com/user_auth/verify_otp",
+        {
+          method: "POST",
 
-          try {
-            const res = await fetch(
-              "https://ancient-wildwood-73926.herokuapp.com/user_auth/signup",
-              {
-                method: "POST",
+          body: JSON.stringify({
+            otp: computedNum,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain, */*",
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if(res.status === 200) {
+        try {
+          const res = await fetch(
+            "https://ancient-wildwood-73926.herokuapp.com/user_auth/signup",
+            {
+              method: "POST",
 
-                body: JSON.stringify({
-                  fullname: formData.fullname,
-                  phone_no: formData.phone_no,
-                  email: formData.email,
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json, text/plain, */*",
-                },
-              }
-            );
-            const data = await res.json();
-            console.log(data);
-            if (
-              data.msg === "An account with this phone number already exists"
-            ) {
-              setDataError(data.msg);
-              setLoadOtp(false);
+              body: JSON.stringify({
+                fullname: formData.fullname,
+                phone_no: formData.phone_no,
+                email: formData.email,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json, text/plain, */*",
+              },
             }
-
-            if (res.status === 200) {
-              setMessage("User created successfully");
-              navigate("/welcome");
-              setLoadOtp(false);
-            } else {
-              // setMessage("An Error occured");
-              setLoadOtp(false);
-            }
-          } catch (error) {
-            setLoadButton(false);
+          );
+          const data = await res.json();
+          console.log(data);
+          if (
+            data.msg === "An account with this phone number already exists"
+          ) {
+            setDataError(data.msg);
             setLoadOtp(false);
-            // console.log(error);
-            // const err = error
           }
-          // console.log(user);
-        })
-        .catch((error) => {
+
+          if (res.status === 200) {
+            setMessage("User created successfully");
+            navigate("/welcome");
+            setLoadOtp(false);
+            // create user firebase account
+            const password = "pickload_user";
+            const email = formData.email;
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // User creation successful
+              const user = userCredential.user;
+              console.log('New user created:', user);
+            })
+            .catch((error) => {
+              // User creation failed
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.error('User creation error:', errorCode, errorMessage);
+            });
+          } else {
+            // setMessage("An Error occured");
+            setLoadOtp(false);
+          }
+        } catch (error) {
           setLoadButton(false);
-          setLoadMessage("Incorrect OTP");
-          // console.log("error");
-        });
+          setLoadOtp(false);
+          // console.log(error);
+          // const err = error
+        }
+        // console.log(user);
+      } else if(data.msg === "Incorrect OTP") {
+        setLoadMessage("Incorrect OTP");
+        setLoadButton(false);
+      }
     } catch (err) {
       // console.log(err);
       setLoadMessage("An Error Occured");
@@ -158,45 +185,85 @@ export default function UserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const number = "+234" + [formData.phone_no];
+    setFormErrors(validate(formData));
+    if(formErrors.error === false) {
+      console.log(formErrors);
+      try {
+        const number = "+234" + [formData.phone_no];
+        console.log(number);
+        // window.recaptchaVerifier = new RecaptchaVerifier(
+        //   "recaptcha-container",
+        //   {
+        //     size: "invisible",
+        //     callback: (response) => {
+        //       // console.log(response);
+        //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+        //       handleSubmit();
+        //     },
+        //   },
+        //   auth
+        // );
 
-    try {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // console.log(response);
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            handleSubmit();
-          },
-        },
-        auth
-      );
-    } catch (err) {
-      setMessage("An error occured, please try again");
-      // console.log(err);
+        // const appVerifier = window.recaptchaVerifier;
+        // console.log(appVerifier);
+
+        // setLoadOtp(true);
+        // const interval = setInterval(() => {
+        //   setCountDown((countDown) => countDown - 1);
+        // }, 1000);
+        // if (countDown === 0) {
+        //   clearInterval(interval);
+        // }
+        // signInWithPhoneNumber(auth, number, appVerifier)
+        // .then((confirmationResult) => {
+        //   window.confirmationResult = confirmationResult;
+        //   setLoading(false);
+        // })
+        // .catch((error) => {
+        //   setLoadMessage("An Error Occured");
+        //   setLoading(false);
+        // });
+      
+        const res1 = await fetch(
+          "https://ancient-wildwood-73926.herokuapp.com/user_auth/send_otp",
+          {
+            method: "POST",
+  
+            body: JSON.stringify({
+              phone_no: number,
+              email: formData.email
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text/plain, */*",
+            },
+          }
+        );
+        const data2 = await res1.json();
+        console.log(data2);
+        if(res1.status === 200) {
+          setLoadOtp(true);  
+          const interval = setInterval(() => {
+            setCountDown((countDown) => countDown - 1);
+            if (countDown === 0) {
+              clearInterval(interval);
+            }
+          }, 1000);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          setLoadMessage("An Error occured");
+        }
+
+      } catch (err) {
+        setLoadMessage("An error occured, please try again");
+          // console.log(err);
+        }      
+    } else {
+      setLoading(false);
+      console.log(formErrors);
+      return;
     }
-
-    const appVerifier = window.recaptchaVerifier;
-    // console.log(appVerifier);
-
-    setLoadOtp(true);
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-    }, 1000);
-    if (countDown === 0) {
-      clearInterval(interval);
-    }
-    signInWithPhoneNumber(auth, number, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoadMessage("An Error Occured");
-        setLoading(false);
-      });
   };
 
   const resend = () => {
@@ -318,7 +385,7 @@ export default function UserForm() {
       </div>
       <div id="recaptcha-container"></div>
       <Footer />
-      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp}>
+      <Popup2 trigger={loadOtp} setTrigger={setLoadOtp} setOtpValues={setOtpValues} setCountDown={setCountDown}>
         <div>
           <div className="mainBox-1">
             <div className="delivery-img-otp" id="DeliveryImage">
